@@ -47,9 +47,9 @@
                                     </select>
                                 </div>
                                 <div class="form-group mb-4">
-                                    <label for="exampleFormControlSelect1">Branch</label>
+                                    <label for="exampleFormControlSelect1">Location</label>
                                     <select class="form-control" name="branch_id">
-                                        <option value="">Select Branch</option>
+                                        <option value="">Select Location</option>
                                         <?php 
                                         if(count($branches)>0) {
                                             foreach ($branches as $k => $branch) {

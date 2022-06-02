@@ -51,6 +51,7 @@ class LocationController extends Controller
      */
     public function store(Request $request)
     {
+        $this->prefix = request()->route()->getPrefix();
         $rules = array(
             'name'     => 'required|unique:locations',
         );

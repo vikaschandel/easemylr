@@ -21,7 +21,7 @@
                                         <input type="text" class="form-control" name="name" value="{{old('name',isset($getbroker->name)?$getbroker->name:'')}}" placeholder="Name">
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="exampleFormControlInput2">Select Branch</label>
+                                        <label for="exampleFormControlInput2">Select Location</label>
                                         <select class="form-control" name="branch_id">
                                             <option value="">Select</option>
                                             <?php 

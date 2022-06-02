@@ -26,7 +26,7 @@
                                         <td>{{isset($getconsignee->legal_name)?ucfirst($getconsignee->legal_name):'-'}} </td>
                                     </tr>
                                     <tr>
-                                        <th scope="row">Branch</th>
+                                        <th scope="row">Location</th>
                                         <td>
                                             {{isset($getconsignee->GetBranch->name) ? ucfirst($getconsignee->GetBranch->name) : "-" }}
                                         </td>                                       

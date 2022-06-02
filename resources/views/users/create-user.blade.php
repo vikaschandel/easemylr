@@ -44,7 +44,7 @@
                                     </select>
                                 </div>
                                 <div class="form-group mb-4">
-                                    <label for="exampleFormControlSelect1">Select Branch</label>
+                                    <label for="exampleFormControlSelect1">Select Location</label>
                                     <select class="form-control" name="branch_id">
                                         <option value="">Select</option>
                                         <?php 

@@ -24,7 +24,7 @@
                                 </div>
                                 <div class="form-row mb-0">                          
                                     <div class="form-group col-md-6">
-                                        <label for="exampleFormControlSelect1">Branch</label>
+                                        <label for="exampleFormControlSelect1">Location</label>
                                         <select class="form-control" name="branch_id">
                                             <option value="">Select</option>
                                             <?php 
