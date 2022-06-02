@@ -17,17 +17,12 @@ class PermissionTableSeeder extends Seeder
         //sidebar option name
         $input = [
             [
-                'name' => 'dashboard',
-                'status' => 1,
-                'created_at' => time()
-            ],
-            [
                 'name' => 'users',
                 'status' => 1,
                 'created_at' => time()
             ],
             [
-                'name' => 'branches',
+                'name' => 'locations',
                 'status' => 1,
                 'created_at' => time()
             ],
@@ -42,7 +37,17 @@ class PermissionTableSeeder extends Seeder
                 'created_at' => time()
             ],
             [
-                'name' => 'brokers',
+                'name' => 'drivers',
+                'status' => 1,
+                'created_at' => time()
+            ],
+            [
+                'name' => 'vehicles',
+                'status' => 1,
+                'created_at' => time()
+            ],
+            [
+                'name' => 'consignments',
                 'status' => 1,
                 'created_at' => time()
             ],    
