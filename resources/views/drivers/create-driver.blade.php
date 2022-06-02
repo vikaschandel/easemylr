@@ -1,0 +1,77 @@
+@extends('layouts.main')
+@section('content')
+
+<div class="layout-px-spacing">
+    <div class="row layout-top-spacing">
+        <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+            <div class="widget-content widget-content-area br-6">
+                <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+                    <div class="breadcrumb-title pe-3"><h5>Create Driver</h5></div>
+                </div>
+                <div class="col-lg-12 col-12 layout-spacing">
+                    <div class="statbox widget box box-shadow">
+                        <div class="widget-content widget-content-area">
+                            <form class="general_form" method="POST" action="{{url($prefix.'/drivers')}}" id="createdriver">    
+                                <div class="form-row mb-0">
+                                    <div class="form-group col-md-6">
+                                        <label for="exampleFormControlInput2">Driver Name</label>
+                                        <input type="text" class="form-control" name="name" placeholder="Name">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="exampleFormControlInput2">Driver Phone</label>
+                                        <input type="text" class="form-control mbCheckNm" name="phone" placeholder="Phone" maxlength="10">
+                                    </div>
+                                </div>
+                                <div class="form-row mb-0">
+                                    <div class="form-group col-md-6">
+                                        <label for="exampleFormControlInput2">Driver License Number</label>
+                                        <input type="text" class="form-control" name="license_number" placeholder="">
+                                    </div>
+                                    
+                                </div>
+                                
+                                <div class="form-row mb-0">
+                                    <div class="form-group col-md-6">
+                                        <label for="exampleFormControlInput2">Driver License File(Optional)</label>
+                                        <input type="file" class="form-control license_image" name="license_image" accept="image/*">
+                                    </div>     
+                                </div>
+                                <h5 class="form-row mb-2">Bank Details</h5>
+                                <div class="form-row mb-0">
+                                    <div class="form-group col-md-6">
+                                        <label for="exampleFormControlInput2">Bank Name</label>
+                                        <input type="text" class="form-control" name="bank_name" placeholder="">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="exampleFormControlInput2">Branch Name</label>
+                                        <input type="text" class="form-control" name="branch_name" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="form-row mb-0">
+                                    <div class="form-group col-md-6">
+                                        <label for="exampleFormControlInput2">IFSC</label>
+                                        <input type="text" class="form-control" name="ifsc" placeholder="">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="exampleFormControlInput2">Account No</label>
+                                        <input type="text" class="form-control" name="account_number" placeholder="">
+                                    </div>                                
+                                </div>
+                                <div class="form-row mb-0">
+                                    <div class="form-group col-md-6">
+                                        <label for="exampleFormControlInput2">Account Holder Name</label>
+                                        <input type="text" class="form-control" name="account_holdername" placeholder="">
+                                    </div>
+                                </div>
+                                <button type="submit" class="mt-4 mb-4 btn btn-primary">Submit</button>
+                                <a class="btn btn-primary" href="{{url($prefix.'/drivers') }}"> Back</a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@endsection
