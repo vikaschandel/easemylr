@@ -9,6 +9,7 @@ use App\Models\Consigner;
 use App\Models\Consignee;
 use App\Models\Branch;
 use App\Models\Vehicle;
+use App\Models\VehicleType;
 use Auth;
 use DB;
 use Crypt;
@@ -53,7 +54,8 @@ class ConsignmentController extends Controller
         $consignees = Consignee::select('id','nick_name')->get();
         $branchs = Branch::where('status','1')->select('id','consignment_note')->get();
         $vehicles = Vehicle::where('status','1')->select('id','regn_no')->get();
-        return view('consignments.create-consignment',['prefix'=>$this->prefix,'consigners'=>$consigners,'consignees'=>$consignees,'branchs'=>$branchs,'vehicles'=>$vehicles]);
+        $vehicletypes = VehicleType::where('status','1')->select('id','name')->get();
+        return view('consignments.create-consignment',['prefix'=>$this->prefix,'consigners'=>$consigners,'consignees'=>$consignees,'branchs'=>$branchs,'vehicles'=>$vehicles,'vehicletypes'=>$vehicletypes]);
     }
 
     /**
@@ -91,7 +93,7 @@ class ConsignmentController extends Controller
             $consignmentsave['consigner_id']     = $request->consigner_id;
             $consignmentsave['consignee_id']     = $request->consignee_id;
             $consignmentsave['ship_to_id']       = $request->ship_to_id;
-            $consignmentsave['consignment_no']   = $request->consignment_no;
+            //$consignmentsave['consignment_no']   = $request->consignment_no;
             $consignmentsave['consignment_date'] = $request->consignment_date;
             $consignmentsave['dispatch']         = $request->dispatch;
             $consignmentsave['invoice_no']       = $request->invoice_no;
@@ -110,6 +112,9 @@ class ConsignmentController extends Controller
             $saveconsignment = ConsignmentNote::create($consignmentsave); 
             if($saveconsignment)
             {
+                $consignment_no = str_pad($saveconsignment->id,8,"0", STR_PAD_LEFT);
+                ConsignmentNote::where('id',$saveconsignment->id)->update(['consignment_no'=>$consignment_no]);
+
                 // insert consignment items
                 if(!empty($request->data)){ 
                     $get_data=$request->data;

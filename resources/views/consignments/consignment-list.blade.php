@@ -36,9 +36,9 @@
                                     foreach ($consignments as $key => $consignment) {  
                                 ?> 
                                 <tr>
-                                    <td>{{ $consignment->consignment_no ?? "" }}</td>
+                                    <td>{{ $consignment->consignment_no ?? "-" }}</td>
                                     <td>{{ Helper::ShowFormatDate($consignment->consignment_date ?? "")}}</td>
-                                    <td>{{ $consignment->invoice_no ?? "" }}</td>
+                                    <td>{{ $consignment->invoice_no ?? "-" }}</td>
                                     <td>{{ $consignment->transporter_name ?? "" }}</td>
                                     <!-- <td>{{ $consignment->driver_id ?? "" }}</td> -->
                                     <td>

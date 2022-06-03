@@ -95,12 +95,12 @@
                                             <div class="form-row mb-0">
                                                 <div class="form-group col-md-6">
                                                     <label for="exampleFormControlInput2">Select Series</label>
-                                                    <select id="selwarehouse" class="form-control" id="warehouse" name="warehouse" value="">
+                                                    <select id="selwarehouse" class="form-control" id="warehouse" name="warehouse" value="" disabled>
                                                         <option value="">Select Series</option>
                                                         @foreach($branchs as $branch)
                                                         <option value="{{$branch->consignment_note}}">{{$branch->consignment_note}}
                                                         </option>
-                                                        @endforeach      
+                                                        @endforeach
                                                     </select>
                                                 </div>
                                                 <div class="form-group col-md-6">
@@ -245,9 +245,19 @@
                                         <label for="exampleFormControlInput2">Transporter Name</label>
                                         <input type="text" class="form-control" id="Transporter" name="transporter_name"  value="">
                                     </div>
-                                    <div class="form-group col-md-4">
+                                    <!-- <div class="form-group col-md-4">
                                         <label for="exampleFormControlInput2">Vehicle Type</label>
                                         <input type="text" class="form-control" id="vehicle_type" name="vehicle_type"  value="">
+                                    </div> -->
+                                    <div class="form-group col-md-4">
+                                        <label for="exampleFormControlInput2">Vehicle Type</label>
+                                        <select class="js-states form-control" id="vehicle_type" value="" name="vehicle_type" tabindex="-1" style="width: 100%">
+                                            <option value="">Select vehicle type</option>
+                                            @foreach($vehicletypes as $vehicle)
+                                            <option value="{{$vehicle->id}}">{{$vehicle->name}}
+                                            </option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                     <div class="form-group col-md-4">
                                         <label for="exampleFormControlInput2">Purchase Price</label>

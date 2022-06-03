@@ -22,7 +22,7 @@ use DateTimeZone;
 
 class GlobalFunctions {
 
-  // function for get branches ///
+  // function for get branches //
 
     public static function getBranches(){
         $branches = Branch::where('status',1)->orderby('name','ASC')->pluck('name','id');
@@ -61,7 +61,7 @@ class GlobalFunctions {
         return $name;
     }
 
-    // function for show date in frontend ///
+    // function for show date in frontend //
     public static function ShowFormatDate($date){
 
         if(!empty($date)){
@@ -72,7 +72,18 @@ class GlobalFunctions {
         return $changeformat;
     }
 
-    // function for generate unique number /// 
+    // function for get random unique number //
+    public static function random_number($length_of_number)
+    {
+      // Number of all number
+      $str_result = '0123456789';
+      // Shufle the $str_result and returns substring
+      // of specified length
+      return substr(str_shuffle($str_result),
+                         0, $length_of_number);
+    }
+
+    // function for generate unique number //
     public static function generateSku(){
         $str_result = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $skuId = substr(str_shuffle($str_result), 0, 6);
