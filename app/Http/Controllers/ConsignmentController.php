@@ -10,6 +10,7 @@ use App\Models\Consignee;
 use App\Models\Branch;
 use App\Models\Vehicle;
 use App\Models\VehicleType;
+use App\Models\BranchAddress;
 use Auth;
 use DB;
 use Crypt;
@@ -66,7 +67,6 @@ class ConsignmentController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
         try{
             DB::beginTransaction();
 
@@ -270,6 +270,7 @@ class ConsignmentController extends Controller
     }
 
     public function consignPrintview(Request $request){
+        $branch_add = BranchAddress::get();
         $cn_id = $request->id;
         $getdata = ConsignmentNote::where('id',$cn_id)->with('ConsignmentItems','ConsignerDetail','ConsigneeDetail','ShiptoDetail')->first();
        
@@ -341,7 +342,7 @@ class ConsignmentController extends Controller
                     $html = '<div class="row">
                         <div class="row">
                             <div style="float: left; width: 50%; font-family:"Open Sans",sans-serif;">
-                                <h1 class="m-b-md" style="color:#4e5e6a; font-family:eurostile;font-size:23px; "><b>Eternity Forwarders Private Limited</h1><div id="warehouse_address" style="font-family:Open Sans,sans-serif">'.'Plot No. B014/03712, Frontier Complex<br> Pabhat, Zirakpur <br> SAS Nagar - 140 603, Punjab <br> GST No. : 03AAGCE4639L1ZI <br> Email : csr.ludhiana@eternitysolutions.net <br> Phone No. : 7743006796'.'</div>
+                                <h1 class="m-b-md" style="color:#4e5e6a; font-family:eurostile;font-size:23px; "><b>'.$branch_add[0]['name'].'</h1><div id="warehouse_address" style="font-family:Open Sans,sans-serif">'.'Plot No. '.$branch_add[0]['address'].'<br> '.$branch_add[0]['district'].' - '.$branch_add[0]['postal_code'].', Punjab <br> GST No. : 03AAGCE4639L1ZI <br> Email : '.$branch_add[0]['email'].' <br> Phone No. : '.$branch_add[0]['phone'].''.'</div>
                                 <hr>
                                 <table class="custom_table" style="font-family:"Open Sans",sans-serif; padding:3px;">
                                     <tr>
