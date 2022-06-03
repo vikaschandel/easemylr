@@ -57,6 +57,10 @@ Route::get('/', function () {
     }
 });
 
+Route::get('qrcode', function () {
+    return QrCode::size(300)->generate('A basic example of QR code!');
+});
+
 // Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('logout', [LoginController::class, 'logout']);
 
