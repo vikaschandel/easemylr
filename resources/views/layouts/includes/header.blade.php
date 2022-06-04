@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="{{asset('assets/css/jquery.toast.css')}}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css" />
     <link href="{{asset('assets/css/style.css')}}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="{{asset('plugins/select2/select2.min.css')}}">
     <!-- gmap script -->
     <script defer src="https://maps.googleapis.com/maps/api/js?libraries=places&language=en&key=AIzaSyBQ6x_bU2BIZPPsjS8Y8Zs-yM2g2Bs2mnM"
             type="text/javascript"></script>
@@ -27,7 +28,7 @@
 
            
     <!-- BEGIN PAGE LEVEL CUSTOM STYLES -->
-    <link rel="stylesheet" type="text/css" href="plugins/table/datatable/datatables.css">
-    <link rel="stylesheet" type="text/css" href="plugins/table/datatable/custom_dt_html5.css">
-    <link rel="stylesheet" type="text/css" href="plugins/table/datatable/dt-global_style.css">
+    <link rel="stylesheet" type="text/css" href="{{asset('plugins/table/datatable/datatables.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('plugins/table/datatable/custom_dt_html5.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('plugins/table/datatable/dt-global_style.css')}}">
     <!-- END PAGE LEVEL CUSTOM STYLES -->

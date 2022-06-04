@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class BranchAddress extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'name','gst_number','phone','address','state','district','city','postal_code','email','status','created_at', 'updated_at'
+    ];
 }

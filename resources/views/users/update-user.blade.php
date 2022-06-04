@@ -48,13 +48,15 @@
                                 </div>
                                 <div class="form-group mb-4">
                                     <label for="exampleFormControlSelect1">Location</label>
-                                    <select class="form-control" name="branch_id">
+                                    <select class="form-control tagging" name="branch_id[]" multiple="multiple">
                                         <option value="">Select Location</option>
                                         <?php 
                                         if(count($branches)>0) {
+                                            $cc = explode(',',$getuser->branch_id);
                                             foreach ($branches as $k => $branch) {
+                                                $selected = in_array($k,$cc) ? 'selected' : '';
                                         ?>
-                                            <option value="{{ $k }}" {{ $k == $getuser->branch_id ? 'selected' : ''}}>{{ucwords($branch)}}</option>
+                                            <option value="{{ $k }}" {{ $selected}}>{{ucwords($branch)}}</option>
                                             <?php 
                                             }
                                         }

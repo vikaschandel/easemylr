@@ -32,8 +32,9 @@ class ConsigneeController extends Controller
         $peritem = 20;
         $query = Consignee::query();
         $authuser = Auth::user();
+        $cc = explode(',',$authuser->branch_id);
         if($authuser->role_id == 2){
-            $consignees = $query->where('branch_id',$authuser->branch_id)->orderBy('id','DESC')->with(['Consigner'])->paginate($peritem);
+            $consignees = $query->whereIn('branch_id',$cc)->orderBy('id','DESC')->with(['Consigner'])->paginate($peritem);
         }else{
             $consignees = $query->orderBy('id','DESC')->with(['Consigner'])->paginate($peritem);
         }

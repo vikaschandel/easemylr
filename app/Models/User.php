@@ -53,4 +53,5 @@ class User extends Authenticatable
     public function UserRole(){
         return $this->hasOne('App\Models\Role','id','role_id');
     }
+
 }

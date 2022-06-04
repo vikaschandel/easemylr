@@ -270,7 +270,9 @@ class ConsignmentController extends Controller
     }
 
     public function consignPrintview(Request $request){
-        $branch_add = BranchAddress::get();
+        $b_add = BranchAddress::get();
+        $branch_add = json_decode(json_encode($b_add), true);
+        echo '<pre>'; print_r($branch_add); echo '</pre>';
         $cn_id = $request->id;
         $getdata = ConsignmentNote::where('id',$cn_id)->with('ConsignmentItems','ConsignerDetail','ConsigneeDetail','ShiptoDetail')->first();
        
@@ -342,7 +344,7 @@ class ConsignmentController extends Controller
                     $html = '<div class="row">
                         <div class="row">
                             <div style="float: left; width: 50%; font-family:"Open Sans",sans-serif;">
-                                <h1 class="m-b-md" style="color:#4e5e6a; font-family:eurostile;font-size:23px; "><b>'.$branch_add[0]['name'].'</h1><div id="warehouse_address" style="font-family:Open Sans,sans-serif">'.'Plot No. '.$branch_add[0]['address'].'<br> '.$branch_add[0]['district'].' - '.$branch_add[0]['postal_code'].', Punjab <br> GST No. : 03AAGCE4639L1ZI <br> Email : '.$branch_add[0]['email'].' <br> Phone No. : '.$branch_add[0]['phone'].''.'</div>
+                                <h1 class="m-b-md" style="color:#4e5e6a; font-family:eurostile;font-size:23px; "><b>'.$branch_add[0]['name'].'</h1><div id="warehouse_address" style="font-family:Open Sans,sans-serif">'.'Plot No. '.$branch_add[0]['address'].'<br> '.$branch_add[0]['district'].' - '.$branch_add[0]['postal_code'].', Punjab <br> GST No. : '.$branch_add[0]['gst_number'].' <br> Email : '.$branch_add[0]['email'].' <br> Phone No. : '.$branch_add[0]['phone'].''.'</div>
                                 <hr>
                                 <table class="custom_table" style="font-family:"Open Sans",sans-serif; padding:3px;">
                                     <tr>

@@ -10,6 +10,7 @@ use Helper;
 use Validator;
 use Image;
 use Storage;
+use Auth;
 
 class LocationController extends Controller
 {
@@ -28,7 +29,14 @@ class LocationController extends Controller
         $this->prefix = request()->route()->getPrefix();
         $peritem = 20;
         $query = Location::query();
-        $locations = $query->orderBy('id','DESC')->paginate($peritem);
+        $authuser = Auth::user();
+        $cc = explode(',',$authuser->branch_id);
+        if($authuser->role_id == 2){
+            $locations = $query->whereIn('id',$cc)->orderBy('id','DESC')->paginate($peritem);
+        }
+        else{
+            $locations = $query->orderBy('id','DESC')->paginate($peritem);
+        }
         return view('locations.location-list',['locations'=>$locations,'prefix'=>$this->prefix])
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }

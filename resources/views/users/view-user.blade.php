@@ -35,6 +35,30 @@
                                     <tr>
                                         <th scope="row">Role</th>
                                         <td>{{ucwords(@$getuser->UserRole->name) ?? "-"}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Locations</th>
+                                        <td>
+                                            @if(isset($branches))
+                                                @foreach($branches as $branch)
+                                                    {{$branch}}<br>
+                                                @endforeach
+                                            @else
+                                                -   
+                                            @endif
+                                        <!-- <?php 
+                                       // if(count($branches)>0) {
+                                            // $cc = explode(',',$getuser->branch_id);
+                                            // foreach ($branches as $k => $branch) {
+                                            //     $selected = in_array($k,$cc) ? 'selected' : '';
+                                        ?>
+                                            {{ucwords($branch)}}
+                                            <?php 
+                                        //     }
+                                        // }
+                                        ?>
+                                    </select> -->
+                                        </td>
                                     </tr>                             
                                 </tbody>
                             </table>  

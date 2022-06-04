@@ -19,11 +19,15 @@
     <script src="{{asset('bootstrap/js/bootstrap.min.js')}}"></script>
 
     <script src="{{asset('assets/js/customjquery.validate.min.js')}}"></script>
-    <script src="http://jqueryvalidation.org/files/dist/additional-methods.min.js"></script>    
+    <script src="http://jqueryvalidation.org/files/dist/additional-methods.min.js"></script>
+    
     
     <script src="{{asset('plugins/perfect-scrollbar/perfect-scrollbar.min.js')}}"></script>
     <script src="{{asset('assets/js/app.js')}}"></script>
     <script src="{{asset('assets/js/custom-validation.js')}}"></script>
+    <!-- multi select -->
+    <script src="{{asset('plugins/select2/select2.min.js')}}"></script>
+    <script src="{{asset('plugins/select2/custom-select2.js')}}"></script>
 
     <!-- sweet alert -->
     <script src="{{asset('plugins/sweetalerts/sweetalert2.min.js')}}"></script>

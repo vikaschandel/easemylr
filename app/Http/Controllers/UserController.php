@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Role;
 use App\Models\UserPermission;
 use App\Models\Permission;
+use App\Models\Location;
 use DB;
 use URL;
 use Helper;
@@ -99,8 +100,11 @@ class UserController extends Controller
             $usersave['role_id']   = $request->role_id;
         }
         $usersave['user_password'] = $request->password;
-        $usersave['branch_id']     = $request->branch_id;
+        // $usersave['branch_id']     = $request->branch_id;
         $usersave['phone']         = $request->phone;
+
+        $branch = $request->branch_id;
+        $usersave['branch_id']  = implode(',',$branch);  
 
         $news = $request->permisssion_id;
         $news = implode(',', $news);
@@ -145,7 +149,12 @@ class UserController extends Controller
         $this->prefix = request()->route()->getPrefix();
         $id = decrypt($user);
         $getuser = User::where('id',$id)->with('UserRole')->first();
-        return view('users.view-user',['prefix'=>$this->prefix,'title'=>$this->title,'getuser'=>$getuser]);
+
+        $branch = $getuser->branch_id;
+        $branch_ids  = explode(',',$branch);
+        $branches = Location::whereIn('id', $branch_ids)->pluck('name');
+
+        return view('users.view-user',['prefix'=>$this->prefix,'title'=>$this->title,'getuser'=>$getuser,'branches'=>$branches]);
     }
     
     /**
@@ -164,6 +173,7 @@ class UserController extends Controller
         $allpermissioncount = Permission::all()->count();
         $getuserpermissions = UserPermission::where('user_id',$id)->get();
         $branches = Helper::getLocations();
+        
         $u = array();
         if(count($getuserpermissions) > 0)
         {
@@ -210,7 +220,10 @@ class UserController extends Controller
         $usersave['email']      = $request->email;
         $usersave['role_id']    = $request->role_id;
         $usersave['phone']      = $request->phone;
-        $usersave['branch_id']  = $request->branch_id;
+        // $usersave['branch_id']  = $request->branch_id;
+        $branch = $request->branch_id;
+        $usersave['branch_id']  = implode(',',$branch); 
+
         if(!empty($request->password)){
             $usersave['password'] = Hash::make($request->password);
             $usersave['user_password'] = $request->password;

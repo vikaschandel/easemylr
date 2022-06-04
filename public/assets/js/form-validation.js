@@ -1,10 +1,12 @@
 jQuery(document).ready(function(){
-
+    /*========== multi select drop down ========*/
+    $(".tagging").select2({
+        tags: true
+    });
     /*========== valid email check ========*/
     jQuery.validator.addMethod("regex", function(value, element, param) {
         return this.optional(element) || /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i.test(value);
     }, "Please enter a valid email address.");
-
     /*========== Enter only number ========*/
     jQuery(document).on('keyup blur', '.mbCheckNm', function(e){
         e.preventDefault();
@@ -14,12 +16,10 @@ jQuery(document).ready(function(){
           return false;
         }
     });
-
     /*========== Number ========*/
     $.validator.addMethod("Numbers", function(value, element) {
         return this.optional(element) || /^[0-9]*$/.test(value);
     }, "Please enter numeric values only.");
-
     /*========== Alphabets and Numbers only ========*/
     $.validator.addMethod("AlphabetandNumbers", function(value, element) {
         return this.optional(element) || /^[A-Za-z0-9]+$/i.test(value);
