@@ -277,190 +277,197 @@ class ConsignmentController extends Controller
         $getdata = ConsignmentNote::where('id',$cn_id)->with('ConsignmentItems','ConsignerDetail','ConsigneeDetail','ShiptoDetail')->first();
        
         $data = json_decode(json_encode($getdata), true);
-        $conr_add = '<strong>'.$data['consigner_detail']['nick_name'].'</strong><br>'.$data['consigner_detail']['address'].',<br>'.$data['consigner_detail']['district'].',<br>'.$data['consigner_detail']['city'].'- '.$data['consigner_detail']['postal_code'].',<strong><br>GST No. : </strong>'.$data['consigner_detail']['gst_number'].'' ;
-        
-        $consnee_add = '<strong>'.$data['consignee_detail']['nick_name'].'</strong><br>'.$data['consignee_detail']['address_line1'].' '.$data['consignee_detail']['address_line2'].' '.$data['consignee_detail']['address_line3'].',<br>'.$data['consignee_detail']['district'].',<br>'.$data['consignee_detail']['city'].' - '.$data['consignee_detail']['postal_code'].',<strong><br>GST No. : </strong>'.$data['consignee_detail']['gst_number'].'';
+        $conr_add = '<p><b>'.$data['consigner_detail']['nick_name'].'</b></p><p>'.$data['consigner_detail']['address'].',</p>
+            <p>'.$data['consigner_detail']['city'].' - '.$data['consigner_detail']['postal_code'].'</p>
+            <p>'.$data['consigner_detail']['district'].'</p>
+            <p>GST No. : '.$data['consigner_detail']['gst_number'].'</p>
+            <p>Phone No. : '.$data['consigner_detail']['phone'].'</p>';
+        $consnee_add = '<p><b>'.$data['consignee_detail']['nick_name'].'</b></p>
+            <p>'.$data['consignee_detail']['address_line1'].' '.$data['consignee_detail']['address_line2'].' '.$data['consignee_detail']['address_line3'].',</p>
+            <p>'.$data['consignee_detail']['city'].' - '.$data['consignee_detail']['postal_code'].'</p>
+            <p>'.$data['consignee_detail']['district'].'</p>
+            <p>GST No. : '.$data['consignee_detail']['gst_number'].'</p>
+            <p>Phone No. : '.$data['consignee_detail']['phone'].'</p>';
 
-        $shiptoadd = '<strong>'.$data['consignee_detail']['nick_name'].'</strong><br>'.$data['consignee_detail']['address_line1'].' '.$data['consignee_detail']['address_line2'].' '.$data['consignee_detail']['address_line3'].',<br>'.$data['consignee_detail']['district'].',<br>'.$data['consignee_detail']['city'].' - '.$data['consignee_detail']['postal_code'].',<strong><br>GST No. : </strong>'.$data['consignee_detail']['gst_number'].'';
+        $shiptoadd = '<p><b>'.$data['consignee_detail']['nick_name'].'</b></p>
+            <p>'.$data['consignee_detail']['address_line1'].' '.$data['consignee_detail']['address_line2'].' '.$data['consignee_detail']['address_line3'].',</p>
+            <p>'.$data['consignee_detail']['city'].' - '.$data['consignee_detail']['postal_code'].'</p>
+            <p>'.$data['consignee_detail']['district'].'</p>
+            <p>GST No. : '.$data['consignee_detail']['gst_number'].'</p>
+            <p>Phone No. : '.$data['consignee_detail']['phone'].'</p>';
 
        
         if ($request->typeid == 1){
-        $adresses = '<div style="width:50%; float:left; font-family:"Open Sans",sans-serif;" >
-                        <table class="custom_table" width="100%">
-                            <tr>
-                                <td style="font-family:Open Sans,sans-serif">CONSIGNOR NAME & ADDRESS</td>
-                            </tr>
-                            <tr>
-                                <td style="font-family:Open Sans,sans-serif"><span id="consignerAddress">'.$conr_add.'</span></td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div style="width:50%; float:left; font-family:"Open Sans",sans-serif;">
-                        <table class="custom_table" width="100%">
-                            <tr>
-                                <td style="font-family:Open Sans,sans-serif">CONSIGNEE NAME & ADDRESS</td>
-                            </tr>
-                            <tr>
-                                <td style="font-family:Open Sans,sans-serif"><span id="consigneeAddress">'.$consnee_add.'</span></td>
-                            </tr>
-                        </table>
-                    </div>';
-                } else if ($request->typeid == 2){
-                    $adresses = '<div style="width:33%; float:left; font-family:"Open Sans",sans-serif;" >
-                                                    <table class="custom_table" width="100%">
-                                                        <tr>
-                                                            <td style="font-family:Open Sans,sans-serif">CONSIGNOR NAME & ADDRESS</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td style="font-family:Open Sans,sans-serif"><span id="consignerAddress">'.$conr_add.'</span></td>
-                                                        </tr>
-                                                    </table>
-                                                </div>
-                                                <div style="width:33%; float:left; font-family:"Open Sans",sans-serif;">
-                                                    <table class="custom_table" width="100%">
-                                                        <tr>
-                                                            <td style="font-family:Open Sans,sans-serif">CONSIGNEE NAME & ADDRESS</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td style="font-family:Open Sans,sans-serif"><span id="consigneeAddress">'.$consnee_add.'</span></td>
-                                                        </tr>
-                                                    </table>
-                                                </div>
-                                                <div style="width:33%; float:left; font-family:"Open Sans",sans-serif;">
-                                                    <table class="custom_table" width="100%">
-                                                        <tr>
-                                                            <td style="font-family:Open Sans,sans-serif">SHIP TO NAME & ADDRESS</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td style="font-family:Open Sans,sans-serif"><span id="ship_to_Address">'.$shiptoadd.'</span></td>
-                                                        </tr>
-                                                    </table>
-                                                </div>';
-                 }
+            $adresses = '<table width="100%">
+                    <tr>
+                        <td>'.$conr_add.'</td>
+                        <td>'.$consnee_add.'</td>
+                    </tr>
+                </table>';
+            } else if ($request->typeid == 2){
+                $adresses = '<table width="100%">
+                        <tr>
+                            <td>'.$conr_add.'</td>
+                            <td>'.$consnee_add.'</td>
+                            <td>'.$shiptoadd.'</td>
+                        </tr>
+                    </table>';
+            }
                 
             for ($i=1; $i<5; $i++){
                 if ($i == 1) {$type='ORIGINAL';} else if ($i == 2){$type='DUPLICATE';} else if ($i == 3){$type='TRIPLICATE';} else if ($i == 4){$type='QUADRUPLE';}
 
-                    $html = '<div class="row">
-                        <div class="row">
-                            <div style="float: left; width: 50%; font-family:"Open Sans",sans-serif;">';
+                    $html = '<!DOCTYPE html>
+                    <html lang="en">
+                        <head>
+                            <title>PDF</title>
+                            <meta charset="utf-8">
+                            <meta name="viewport" content="width=device-width, initial-scale=1">
+                            <style>
+                                .aa{
+                                    border: 1px solid black;
+                                    border-collapse: collapse;
+                                }
+                                .bb{
+                                    border: 1px solid black;
+                                    border-collapse: collapse;
+                                }
+                                .cc{
+                                    border: 1px solid black;
+                                    border-collapse: collapse;
+                                }
+                                h2.l {
+                                    margin-left: 90px;
+                                    margin-top: 132px;
+                                    margin-bottom: 2px;
+                                }
+                                p.l {
+                                    margin-left: 90px;
+                                }
+                                img#set_img {
+                                    margin-left: 25px;
+                                    margin-bottom: 100px;
+                                }
+                               
+                                p {
+                                    margin-top: 2px;
+                                    margin-bottom: 2px;
+                                }
+                                h4 {
+                                    margin-top: 2px;
+                                    margin-bottom: 2px;
+                                }
+                                body {
+                                    font-family: Arial, Helvetica, sans-serif;
+                                    font-size: 15px;
+                                }
+                            </style>
+                        </head>
+                         
+                        <body>
+                        <div class="container">
+                            <div class="row">';
                             
                             foreach($branch_add as $k => $value){
-                            $html .= '<h1 class="m-b-md" style="color:#4e5e6a; font-family:eurostile;font-size:23px; "><b>'.$value['name'].'</h1>
-                            <div id="warehouse_address" style="font-family:Open Sans,sans-serif">'.'Plot No. '.$value['address'].'<br> '.$value['district'].' - '.$value['postal_code'].', Punjab <br> GST No. : '.$value['gst_number'].' <br> Email : '.$value['email'].' <br> Phone No. : '.$value['phone'].''.'</div>
-                                <hr>';
+                            $html .= '<h2>'.$value['name'].'</h2>
+                                <table width="100%">
+                                    <tr>
+                                        <td width="50%">
+                                            <p>Plot No. '.$value['address'].'</p>
+                                            <p>Pabhat, Zirakpur</p>
+                                            <p>'.$value['district'].' - '.$value['postal_code'].', Punjab</p>
+                                            <p>GST No. : '.$value['gst_number'].'</p>
+                                            <p>Email : '.$value['email'].'</p>
+                                            <p>Phone No. : '.$value['phone'].''.'</p>
+                                            <br>
+                                            <span>
+                                                <hr id="s" style="width:100%;">
+                                                </hr>
+                                            </span>
+                                        </td>
+                                        <td width="50%">
+                                            <h2 class="l">CONSIGNMENT NOTE</h2>
+                                            <p class="l">'.$type.'</p>
+                                        </td>
+                                    </tr>
+                                </table></div></div>';
                             }
-                            $html .= '<table class="custom_table" style="font-family:"Open Sans",sans-serif; padding:3px;">
-                                    <tr>
-                                        <td style="font-family:Open Sans,sans-serif"><strong>Consignment No.</strong></td>
-                                        <td style="font-family:Open Sans,sans-serif"><span id="cons_no">'.$data['consignment_no'].'</td>
-                                    </tr>
-                                    <tr>
-                                        <td style="font-family:Open Sans,sans-serif"><strong>Consignment Date</strong></td>
-                                        <td style="font-family:Open Sans,sans-serif"><span id="cons_date">'.$data['consignment_date'].'</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td style="font-family:Open Sans,sans-serif"><strong>Dispatch From</strong></td>
-                                        <td style="font-family:Open Sans,sans-serif"><span id="dispatch">'.'Ludhiana'.'</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td style="font-family:Open Sans,sans-serif"><strong>Invoice No.</strong></td>
-                                        <td style="font-family:Open Sans,sans-serif"><span id="cons_invoice_no">'.$data['invoice_no'].'</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td style="font-family:Open Sans,sans-serif"><strong>Invoice Date</strong></td>
-                                        <td style="font-family:Open Sans,sans-serif"><span id="invoice_date">'.$data['invoice_date'].'</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td style="font-family:Open Sans,sans-serif"><strong>Value</strong></td>
-                                        <td style="font-family:Open Sans,sans-serif">INR <span id="invoice_amount">'.$data['invoice_amount'].'</span></td>
-                                    </tr>
-                                    
-                                </table>
-                            </div>
-                            <div style="float: right; width: 40%; font-family:"Open Sans",sans-serif;">
-                                <div style="align-text:center; margin:0 auto">
-                                    <div height="150px"> </div>
-                                    <h2 style="font-family:Open Sans,sans-serif; margin:0px">CONSIGNMENT NOTE</h2>
-                                    <p style="margin:0px">'.$type.'</p>
-                                    <br>
-                                    <img id="bar_code" height="100px" src="'.'BARA CODE'.'"/>
-                                </div>
-                            </div>
-                        </div><!--row-->
-                        <div class="row">
-                            <div class="col-md-12">
-                            <hr>
-                            '.$adresses.'
-                            
-                            </div>
-                            <div style="min-height:100px"><br></div>
-                            <div style="width:100%; font-family:"Open Sans",sans-serif;">
-                                <table id="items_table" width="100%" align="left" class="table items-table" BORDER CELLSPACING=0><thead>
-                                <tr><th>Sr. No.</th><th>Description</th><th>Quantity</th><th>Net Weight</th><th>Gross Weight</th><th>Freight</th><th>Payment Terms</th>
-                                </tr></thead><tbody>';
-                                
-                        foreach($data['consignment_items'] as $k => $dataitem){ 
+                            $html .= '<div class="row"><div class="col-sm-6">
+                                <table width="100%">
+                                <tr>
+                            <td width="30%">
+                                <p><b>Consignment No.</b></p>
+                                <p><b>Consignment Date</b></p>
+                                <p><b>Dispatch From</b></p>
+                                <p><b>Invoice No.</b></p>
+                                <p><b>Invoice Date</b></p>
+                                <p><b>Value INR</b></p>
+                            </td>
+                            <td width="30%">
+                                <p>'.$data['consignment_no'].'</p>
+                                <p> '.$data['consignment_date'].'</p>
+                                <p> '.'Ludhiana'.'</p>
+                                <p> '.$data['invoice_no'].'</p>
+                                <p> '.$data['invoice_date'].'</p>
+                                <p> '.$data['invoice_amount'].'</p>
+                            </td>
+                            <td width="50%" colspan="3">
+                                <img src="img/eternity_solutions.png" id="set_img">
+                            </td>
+                        </tr>
+                    </table>  
+                </div>
+                <span><hr id="e"></hr></span>
+            </div>
+            <div class="main">'.$adresses.'</div>
+            <span><hr id="e"></hr></span><br>';
+            $html .= '<div class="bb">    
+                <table class="aa" width="100%">
+                    <tr>
+                        <th class="cc">Sr.No.</th>
+                        <th class="cc">Description</th>
+                        <th class="cc">Quantity</th>
+                        <th class="cc">Net Weight</th>
+                        <th class="cc">Gross Weight</th>
+                        <th class="cc">Freight</th>
+                        <th class="cc">Payment Terms</th>
+                    </tr>';
+                    ///
+                    foreach($data['consignment_items'] as $k => $dataitem){ 
                         $html .=  '<tr>'.
-                                    '<td>'.$i.'</td>'.
-                                    '<td>'.$dataitem['description'].'</td>'.
-                                    '<td>'.$dataitem['packing_type'].$dataitem['quantity'].'</td>'.
-                                    '<td>'.$dataitem['weight'] .' Kgs.</td>'.
-                                    '<td>'.$dataitem['gross_weight'].' Kgs.</td>'.
-                                    '<td>INR '.$dataitem['freight'].'</td>'.
-                                    '<td>'.$dataitem['payment_type'].'</td>'.
+                                    '<td class="cc">'.$i.'</td>'.
+                                    '<td class="cc">'.$dataitem['description'].'</td>'.
+                                    '<td class="cc">'.$dataitem['packing_type'].' '.$dataitem['quantity'].'</td>'.
+                                    '<td class="cc">'.$dataitem['weight'] .' Kgs.</td>'.
+                                    '<td class="cc">'.$dataitem['gross_weight'].' Kgs.</td>'.
+                                    '<td class="cc">INR '.$dataitem['freight'].'</td>'.
+                                    '<td class="cc">'.$dataitem['payment_type'].'</td>'.
                                     '</tr>';
                         }
-                        $html .= '</tbody><tfoot>
-                            <tr class="total_items">
-                                <td colspan="2" style="border:solid 1px #A9A9A9;border-style:solid; font-family:Open Sans,sans-serif; padding:5px;"><strong>TOTAL</strong></td>
-                                <td style="border:solid 1px #A9A9A9;border-style:solid; padding:3px; font-family:Open Sans,sans-serif; padding:5px;"><strong><span id="qty" class="no-m">'.$data['total_quantity'].'</span></strong></td>
-                                <td style="border:solid 1px #A9A9A9;border-style:solid; padding:3px; font-family:Open Sans,sans-serif; padding:5px;"><strong><span id="net_weight" class="no-m">'.$data['total_weight'].'</span> Kgs.</strong></td>
-                                <td style="border:solid 1px #A9A9A9;border-style:solid; padding:3px; font-family:Open Sans,sans-serif; padding:5px;"><strong><span id="gross_weight" class="no-m">'.$data['total_gross_weight'].'</span> Kgs.</strong></td>
-                                <td style="border:solid 1px #A9A9A9;border-style:solid; padding:3px; font-family:Open Sans,sans-serif; padding:5px;"><strong><span id="currency">INR </span><span id="tot_amt">'.$data['total_freight'].'</span></strong></td>
-                                <td style="border:solid 1px #A9A9A9;border-style:solid; padding:3px; font-family:Open Sans,sans-serif; padding:5px;"></td>
-                            </tr>
-                        </tfoot></table>
-                                
-                                
+                        $html .=  '<tr><td colspan="2" class="cc"><b>TOTAL</b></td>
+                            <td class="cc">'.$data['total_quantity'].'</td>
+                            <td class="cc">'.$data['total_weight'].' Kgs.</td>
+                            <td class="cc">'.$data['total_gross_weight'].' Kgs.</td>
+                            <td class="cc"></td>
+                            <td class="cc"></td>
+                        </tr></table></div><br><br>
+                        <span><hr id="e"></hr></span>';
+
+                        $html .= '<div class="nn">
+                                <table  width="100%">
+                                    <tr>
+                                        <td>
+                                            <h4><b>Receivers Signature</b></h4>
+                                            <p>Received the goods mentioned above in goodcondition.</p>
+                                        </td>
+                                        <td>
+                                        <h4><b>For Eternity Forwarders Pvt. Ltd.</b></h4>
+                                        </td>
+                                    </tr>
+                                </table>
                             </div>
-                            <div style="width:100%; text-align:right; font-family:Open Sans,sans-serif;">'.'122121'.'</div>
-                        </div>
-                        <div class="row" style="margin-top:10px;">
-                            <table width="100%">
-                            <tr>
-                                <td width="70%" ><strong> </strong></td>
-                                <td width="30%" style="font-family:Open Sans,sans-serif"><strong></strong></td>
-                                
-                            </tr>
-                            <tr>
-                                <td rowspan="4" width="70%"> </td>
-                                <td width="20%" style="font-family:Open Sans,sans-serif;"></td>
-                                
-                            </tr>
-                            <tr>
-                                <td width="30%" style="font-family:Open Sans,sans-serif"><strong></strong></td>
-                            </tr>
-                            <tr>
-                                <td width="30%" style="font-family:Open Sans,sans-serif"></td>
-                            </tr>
-                            <tr>
-                            <td width="30%" style="font-family:Open Sans,sans-serif"></td>
-                            </tr>
-                            </table>
-                        </div><!--row-->
-                        <div class="row" style="margin-top:50px; font-family:"Open Sans",sans-serif;">
-                            <div style="width:55%; float:left; border-top:solid 1px #000000">
-                                <h3 style="font-family:Open Sans,sans-serif; margin:0px;">Receiver&#39;s Signature</h3>
-                                <p style="font-family:Open Sans,sans-serif; margin:0px;">Received the goods mentioned above in good condition.</p>
-                            </div>
-                            <div style="width:10%; float:left;">
-                            </div>
-                            <div style="width:45%; float:right; font-family:Open Sans,sans-serif; border-top:solid 1px #000000">
-                                <h3 style="font-family:Open Sans,sans-serif; margin:0px;">For Eternity Forwarders Pvt. Ltd.</h3>
-                            </div>
-                        </div>
-                    </div>';
+                        </body>
+                    </html>';
 
                 $pdf = \App::make('dompdf.wrapper');
                 $pdf->loadHTML($html);
