@@ -310,11 +310,11 @@ $('#updateuser').validate({
             nick_name: {
                 required: true
             },
-            email: {
-                required: true,
-                email: true,
-                regex: "",
-            },
+            // email: {
+            //     required: true,
+            //     email: true,
+            //     regex: "",
+            // },
             address_line1 : {
                 // required: true,
             },
@@ -359,11 +359,11 @@ $('#updateuser').validate({
             nick_name: {
                 required: true
             },
-            email: {
-                required: true,
-                email: true,
-                regex: "",
-            },
+            // email: {
+            //     required: true,
+            //     email: true,
+            //     regex: "",
+            // },
             address_line1 : {
                 // required: true,
             },
