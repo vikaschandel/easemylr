@@ -134,7 +134,10 @@ jQuery(document).ready(function(){
             phone : {
                 Numbers: true,
                 minlength:10,
-            },          
+            },
+            "branch_id[]" : {
+                required: true,
+            },      
         },
         messages: {
             name: {
@@ -148,6 +151,9 @@ jQuery(document).ready(function(){
                 Numbers: "Enter only numbers",
                 minlength: "Enter at least 10 digits",
                 // maxlength: "Maximum length sholud not more than 10 digits"
+            },
+            "branch_id[]" : {
+                required: "Please select location",
             },
         },
         submitHandler : function(form)
@@ -174,6 +180,9 @@ $('#updateuser').validate({
             phone : {
                 Numbers: true,
                 minlength:10,
+            },
+            "branch_id[]" : {
+                required: true,
             },          
         },
         messages: {
@@ -188,6 +197,9 @@ $('#updateuser').validate({
                 Numbers: "Enter only numbers",
                 minlength: "Enter at least 10 digits",
                 // maxlength: "Maximum length sholud not more than 10 digits"
+            },
+            "branch_id[]" : {
+                required: "Please select location",
             },
         },
         submitHandler : function(form)

@@ -13,7 +13,7 @@
                 </div>
                 <div class="col-lg-12 col-12 layout-spacing">
                     <div class="statbox widget box box-shadow">
-                        <div class="widget-content widget-content-area">
+                        <!-- <div class="widget-content widget-content-area"> -->
                             <table class="table table-striped">
                                 <tbody>
                                     <tr>
@@ -46,24 +46,12 @@
                                             @else
                                                 -   
                                             @endif
-                                        <!-- <?php 
-                                       // if(count($branches)>0) {
-                                            // $cc = explode(',',$getuser->branch_id);
-                                            // foreach ($branches as $k => $branch) {
-                                            //     $selected = in_array($k,$cc) ? 'selected' : '';
-                                        ?>
-                                            {{ucwords($branch)}}
-                                            <?php 
-                                        //     }
-                                        // }
-                                        ?>
-                                    </select> -->
                                         </td>
                                     </tr>                             
                                 </tbody>
                             </table>  
                             <a class="btn btn-primary" href="{{url($prefix.'/users') }}"> Back</a>
-                        </div>
+                        <!-- </div> -->
                     </div>
                 </div>
             </div>
