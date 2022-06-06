@@ -111,6 +111,8 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth','PermissionCheck']], func
     Route::any('locations/get-location', [LocationController::class, 'getLocation']);
     // Route::any('locations/delete-location', [LocationController::class, 'deleteLocation']);
 
+    Route::get('/uploadcsv', [DashboardController::class, 'uploadCsv']);
+
     
 });
 
