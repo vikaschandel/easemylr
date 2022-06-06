@@ -67,7 +67,7 @@ class ConsigneeController extends Controller
         $this->prefix = request()->route()->getPrefix();
         $rules = array(
             'nick_name' => 'required',
-            'email' => 'required|unique:consignees',
+            // 'email' => 'required|unique:consignees',
         );
         $validator = Validator::make($request->all(),$rules);
     
@@ -161,7 +161,7 @@ class ConsigneeController extends Controller
             $this->prefix = request()->route()->getPrefix();
              $rules = array(
               'nick_name' => 'required',
-              'email'  => 'required',
+            //   'email'  => 'required',
             );
 
             $validator = Validator::make($request->all(),$rules);
