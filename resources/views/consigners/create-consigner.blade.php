@@ -11,7 +11,7 @@
                 <div class="col-lg-12 col-12 layout-spacing">
                     <div class="statbox widget box box-shadow">
                         <div class="widget-content widget-content-area">
-                            <form class="general_form" method="POST" action="{{url($prefix.'consigners')}}" id="createconsigner">
+                            <form class="general_form" method="POST" action="{{url($prefix.'/consigners')}}" id="createconsigner">
                                 <div class="form-row mb-0">
                                     <div class="form-group col-md-6">
                                         <label for="exampleFormControlInput2">Consigner Nick Name</label>
