@@ -408,11 +408,11 @@ $('#updateuser').validate({
             nick_name: {
                 required: true
             },
-            email: {
-                required: true,
-                email: true,
-                regex: "",
-            },
+            // email: {
+            //     required: true,
+            //     email: true,
+            //     regex: "",
+            // },
             phone : {
                 Numbers: true,
                 minlength: 10,
@@ -451,11 +451,11 @@ $('#updateuser').validate({
             nick_name: {
                 required: true
             },
-            email: {
-                required: true,
-                email: true,
-                regex: "",
-            },
+            // email: {
+            //     required: true,
+            //     email: true,
+            //     regex: "",
+            // },
             phone : {
                 Numbers: true,
                 minlength: 10,

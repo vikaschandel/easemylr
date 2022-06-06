@@ -105,31 +105,31 @@
                             <div class="form-row mb-0">                          
                                 <div class="form-group col-md-6">
                                     <label for="exampleFormControlInput2">Sales Officer Name</label>
-                                    <input type="text" class="form-control" name="sales_officer_name" value="{{old('sales_officer_name',isset($getconsignee->sales_officer_name)?$getconsignee->sales_officer_name:'')}}" placeholder="Address Line 1">
+                                    <input type="text" class="form-control" name="sales_officer_name" value="{{old('sales_officer_name',isset($getconsignee->sales_officer_name)?$getconsignee->sales_officer_name:'')}}" placeholder="">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="exampleFormControlInput2">Sales Officer Email</label>
-                                    <input type="text" class="form-control" name="sales_officer_email" value="{{old('sales_officer_email',isset($getconsignee->sales_officer_email)?$getconsignee->sales_officer_email:'')}}" placeholder="Address Line 1">
+                                    <input type="text" class="form-control" name="sales_officer_email" value="{{old('sales_officer_email',isset($getconsignee->sales_officer_email)?$getconsignee->sales_officer_email:'')}}" placeholder="">
                                 </div>
                             </div>
                             <div class="form-row mb-0">                          
                                 <div class="form-group col-md-6">
                                     <label for="exampleFormControlInput2">Sales Officer Mobile</label>
-                                    <input type="text" class="form-control" name="sales_officer_phone" value="{{old('sales_officer_phone',isset($getconsignee->sales_officer_phone)?$getconsignee->sales_officer_phone:'')}}" placeholder="Address Line 1">
+                                    <input type="text" class="form-control" name="sales_officer_phone" value="{{old('sales_officer_phone',isset($getconsignee->sales_officer_phone)?$getconsignee->sales_officer_phone:'')}}" placeholder="">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="exampleFormControlInput2">Address Line 1</label>
-                                    <input type="text" class="form-control" name="address_line1" value="{{old('address_line1',isset($getconsignee->address_line1)?$getconsignee->address_line1:'')}}" placeholder="Address Line 1">
+                                    <input type="text" class="form-control" name="address_line1" value="{{old('address_line1',isset($getconsignee->address_line1)?$getconsignee->address_line1:'')}}" placeholder="">
                                 </div>
                             </div>
                             <div class="form-row mb-0">                          
                                 <div class="form-group col-md-6">
                                     <label for="exampleFormControlInput2">Address Line 2</label>
-                                    <input type="text" class="form-control" name="address_line2" value="{{old('address_line2',isset($getconsignee->address_line2)?$getconsignee->address_line2:'')}}" placeholder="Address Line 2">
+                                    <input type="text" class="form-control" name="address_line2" value="{{old('address_line2',isset($getconsignee->address_line2)?$getconsignee->address_line2:'')}}" placeholder="">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="exampleFormControlInput2">Address Line 3</label>
-                                    <input type="text" class="form-control" name="address_line3" value="{{old('address_line3',isset($getconsignee->address_line3)?$getconsignee->address_line3:'')}}" placeholder="Address Line 3">
+                                    <input type="text" class="form-control" name="address_line3" value="{{old('address_line3',isset($getconsignee->address_line3)?$getconsignee->address_line3:'')}}" placeholder="">
                                 </div>
                             </div>
                             <div class="form-row mb-0">                          
