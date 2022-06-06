@@ -11,85 +11,83 @@
                 </div>
                 <div class="col-lg-12 col-12 layout-spacing">
                     <div class="statbox widget box box-shadow">
-                        <div class="widget-content widget-content-area">
-                            <form class="general_form" method="POST" action="{{url($prefix.'/drivers/update-driver')}}" id="updatedriver">
-                                @csrf
-                                <input type="hidden" name="driver_id" value="{{$getdriver->id}}">
+                        <form class="general_form" method="POST" action="{{url($prefix.'/drivers/update-driver')}}" id="updatedriver">
+                            @csrf
+                            <input type="hidden" name="driver_id" value="{{$getdriver->id}}">
 
-                                <div class="form-row mb-0">
-                                    <div class="form-group col-md-6">
-                                        <label for="exampleFormControlInput2">Driver Name</label>
-                                        <input type="text" class="form-control" name="name" value="{{old('name',isset($getdriver->name)?$getdriver->name:'')}}" placeholder="Name">
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="exampleFormControlInput2">Driver Phone</label>
-                                        <input type="text" class="form-control mbCheckNm" name="phone" value="{{old('phone',isset($getdriver->phone)?$getdriver->phone:'')}}" placeholder="Phone" maxlength="10">
-                                    </div>
+                            <div class="form-row mb-0">
+                                <div class="form-group col-md-6">
+                                    <label for="exampleFormControlInput2">Driver Name</label>
+                                    <input type="text" class="form-control" name="name" value="{{old('name',isset($getdriver->name)?$getdriver->name:'')}}" placeholder="Name">
                                 </div>
-                                <div class="form-row mb-0">
-                                    <div class="form-group col-md-6">
-                                        <label for="exampleFormControlInput2">Driver License Number</label>
-                                        <input type="text" class="form-control" name="license_number" value="{{old('license_number',isset($getdriver->license_number)?$getdriver->license_number:'')}}" placeholder="">
-                                    </div>
+                                <div class="form-group col-md-6">
+                                    <label for="exampleFormControlInput2">Driver Phone</label>
+                                    <input type="text" class="form-control mbCheckNm" name="phone" value="{{old('phone',isset($getdriver->phone)?$getdriver->phone:'')}}" placeholder="Phone" maxlength="10">
                                 </div>
-                                <div class="form-row mb-0">
-                                    <div class="form-group col-md-6 license-load">
-                                        <label for="exampleFormControlInput2">Driver License File(Optional)</label>
-                                        
-                                        <?php if(!empty($getdriver->license_image))
-                                        { 
-                                            ?> 
-                                            <input type="file" class="form-control licensefile" name="license_image" value="" placeholder="">
+                            </div>
+                            <div class="form-row mb-0">
+                                <div class="form-group col-md-6">
+                                    <label for="exampleFormControlInput2">Driver License Number</label>
+                                    <input type="text" class="form-control" name="license_number" value="{{old('license_number',isset($getdriver->license_number)?$getdriver->license_number:'')}}" placeholder="">
+                                </div>
+                            </div>
+                            <div class="form-row mb-0">
+                                <div class="form-group col-md-6 license-load">
+                                    <label for="exampleFormControlInput2">Driver License File(Optional)</label>
+                                    
+                                    <?php if(!empty($getdriver->license_image))
+                                    { 
+                                        ?> 
+                                        <input type="file" class="form-control licensefile" name="license_image" value="" placeholder="">
 
-                                            <div class="image_upload"><img src="{{url("storage/images/driverlicense_images/$getdriver->license_image")}}" class="licenseshow image-fluid" id="img-tag" width="320" height="240"></div>  
-                                        <?php }
-                                        else{
-                                            ?>  
-                                            <input type="file" class="form-control licensefile" name="license_image" value="" placeholder="">
+                                        <div class="image_upload"><img src="{{url("storage/images/driverlicense_images/$getdriver->license_image")}}" class="licenseshow image-fluid" id="img-tag" width="320" height="240"></div>  
+                                    <?php }
+                                    else{
+                                        ?>  
+                                        <input type="file" class="form-control licensefile" name="license_image" value="" placeholder="">
 
-                                            <div class="image_upload"><img src="{{url("/assets/img/upload-img.png")}}" class="licenseshow image-fluid" id="img-tag" width="320" height="240"></div>
-                                        <?php
-                                        }
-                                            ?>
-                                        <?php if($getdriver->license_image!=null){ ?>
-                                           <a class="deletelicenseimg d-block text-center" href="javascript:void(0)" data-action = "<?php echo URL::to($prefix.'/drivers/update-license'); ?>" data-licenseimg = "del-licenseimg" data-id="{{ $getdriver->id }}" data-name="{{$getdriver->license_image}}"><i class="red-text fa fa-trash"></i> </a>
-                                        <?php } else { ?>
-                                        <a href="javascript:void(0)" class="remove_licensefield" style="display: none;"><i class="red-text fa fa-trash"></i> </a>
-                                        <?php } ?>
-                                    </div>
+                                        <div class="image_upload"><img src="{{url("/assets/img/upload-img.png")}}" class="licenseshow image-fluid" id="img-tag" width="320" height="240"></div>
+                                    <?php
+                                    }
+                                        ?>
+                                    <?php if($getdriver->license_image!=null){ ?>
+                                        <a class="deletelicenseimg d-block text-center" href="javascript:void(0)" data-action = "<?php echo URL::to($prefix.'/drivers/update-license'); ?>" data-licenseimg = "del-licenseimg" data-id="{{ $getdriver->id }}" data-name="{{$getdriver->license_image}}"><i class="red-text fa fa-trash"></i> </a>
+                                    <?php } else { ?>
+                                    <a href="javascript:void(0)" class="remove_licensefield" style="display: none;"><i class="red-text fa fa-trash"></i> </a>
+                                    <?php } ?>
                                 </div>
-                                <h4>Bank Details</h4>
-                                <div class="form-row mb-0">
-                                    <div class="form-group col-md-6">
-                                        <label for="exampleFormControlInput2">Bank Name</label>
-                                        <input type="text" class="form-control" name="bank_name" value="{{old('bank_name',isset($getdriver->BankDetail->bank_name)?$getdriver->BankDetail->bank_name:'')}}" placeholder="">
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="exampleFormControlInput2">Branch Name</label>
-                                        <input type="text" class="form-control" name="branch_name" value="{{old('branch_name',isset($getdriver->BankDetail->branch_name)?$getdriver->BankDetail->branch_name:'')}}" placeholder="">
-                                    </div>
+                            </div>
+                            <h4>Bank Details</h4>
+                            <div class="form-row mb-0">
+                                <div class="form-group col-md-6">
+                                    <label for="exampleFormControlInput2">Bank Name</label>
+                                    <input type="text" class="form-control" name="bank_name" value="{{old('bank_name',isset($getdriver->BankDetail->bank_name)?$getdriver->BankDetail->bank_name:'')}}" placeholder="">
                                 </div>
-                                <div class="form-row mb-0">
-                                    <div class="form-group col-md-6">
-                                        <label for="exampleFormControlInput2">IFSC</label>
-                                        <input type="text" class="form-control" name="ifsc" value="{{old('ifsc',isset($getdriver->BankDetail->ifsc)?$getdriver->BankDetail->ifsc:'')}}" placeholder="">
-                                    </div> 
-                                    <div class="form-group col-md-6">
-                                        <label for="exampleFormControlInput2">Account No</label>
-                                        <input type="text" class="form-control" name="account_number" value="{{old('account_number',isset($getdriver->BankDetail->account_number)?$getdriver->BankDetail->account_number:'')}}" placeholder="">
-                                    </div>
+                                <div class="form-group col-md-6">
+                                    <label for="exampleFormControlInput2">Branch Name</label>
+                                    <input type="text" class="form-control" name="branch_name" value="{{old('branch_name',isset($getdriver->BankDetail->branch_name)?$getdriver->BankDetail->branch_name:'')}}" placeholder="">
                                 </div>
-                                <div class="form-row mb-0">
-                                    <div class="form-group col-md-6">
-                                        <label for="exampleFormControlInput2">Account Holder Name</label>
-                                        <input type="text" class="form-control" name="account_holdername" value="{{old('account_holdername',isset($getdriver->BankDetail->account_holdername)?$getdriver->BankDetail->account_holdername:'')}}" placeholder="">
-                                    </div>
+                            </div>
+                            <div class="form-row mb-0">
+                                <div class="form-group col-md-6">
+                                    <label for="exampleFormControlInput2">IFSC</label>
+                                    <input type="text" class="form-control" name="ifsc" value="{{old('ifsc',isset($getdriver->BankDetail->ifsc)?$getdriver->BankDetail->ifsc:'')}}" placeholder="">
+                                </div> 
+                                <div class="form-group col-md-6">
+                                    <label for="exampleFormControlInput2">Account No</label>
+                                    <input type="text" class="form-control" name="account_number" value="{{old('account_number',isset($getdriver->BankDetail->account_number)?$getdriver->BankDetail->account_number:'')}}" placeholder="">
                                 </div>
+                            </div>
+                            <div class="form-row mb-0">
+                                <div class="form-group col-md-6">
+                                    <label for="exampleFormControlInput2">Account Holder Name</label>
+                                    <input type="text" class="form-control" name="account_holdername" value="{{old('account_holdername',isset($getdriver->BankDetail->account_holdername)?$getdriver->BankDetail->account_holdername:'')}}" placeholder="">
+                                </div>
+                            </div>
 
-                                <input type="submit" class="mt-4 mb-4 btn btn-primary">
-                                <a class="btn btn-primary" href="{{url($prefix.'/drivers') }}"> Back</a>
-                            </form>
-                        </div>
+                            <input type="submit" class="mt-4 mb-4 btn btn-primary">
+                            <a class="btn btn-primary" href="{{url($prefix.'/drivers') }}"> Back</a>
+                        </form>
                     </div>
                 </div>
             </div>
