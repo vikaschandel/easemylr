@@ -12,6 +12,7 @@
                     <div style="margin-left:9px;" class="breadcrumb-title pe-3"><h5>Consignees</h5></div>
                     <div class="ms-auto" style="margin: 10px 0 0px 726px">
                         <div class="btn-group">
+                            <a class="btn-primary btn-cstm btn w-100" id="" href="{{url($prefix.'/bulk-import')}}"><span><i class="fa fa-plus"></i> Import Data</span></a>
                             <a class="btn-primary btn-cstm btn w-100" id="add_role" href="{{'consignees/create'}}"><span><i class="fa fa-plus"></i> Add New</span></a>
                         </div>
                     </div>
