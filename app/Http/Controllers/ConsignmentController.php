@@ -51,11 +51,12 @@ class ConsignmentController extends Controller
     public function create()
     {
         $this->prefix = request()->route()->getPrefix();
-        $consigners = Consigner::select('id','nick_name')->get();
-        $consignees = Consignee::select('id','nick_name')->get();
         $authuser = Auth::user();
         $cc = explode(',',$authuser->branch_id);
-        $branchs = Branch::whereIn('branch_id',$cc)->orWhere('status','1')->select('id','consignment_note')->get();
+
+        $consigners = Consigner::select('id','nick_name')->whereIn('branch_id',$cc)->get();
+        $consignees = Consignee::select('id','nick_name')->whereIn('branch_id',$cc)->get();
+        $branchs = Branch::where('status','1')->select('id','consignment_note')->get();
         $vehicles = Vehicle::where('status','1')->select('id','regn_no')->get();
         $vehicletypes = VehicleType::where('status','1')->select('id','name')->get();
         return view('consignments.create-consignment',['prefix'=>$this->prefix,'consigners'=>$consigners,'consignees'=>$consignees,'branchs'=>$branchs,'vehicles'=>$vehicles,'vehicletypes'=>$vehicletypes]);
