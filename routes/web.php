@@ -14,6 +14,7 @@ use App\Http\Controllers\BrokerController;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\ConsignmentController;
 use App\Http\Controllers\LocationController;
+use App\Http\Controllers\ImportCsvController;
 
 /*
 |--------------------------------------------------------------------------
@@ -111,8 +112,8 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth','PermissionCheck']], func
     Route::any('locations/get-location', [LocationController::class, 'getLocation']);
     // Route::any('locations/delete-location', [LocationController::class, 'deleteLocation']);
 
-    Route::get('/uploadcsv', [DashboardController::class, 'uploadCsv']);
-
+    Route::get('bulk-import', [ImportCsvController::class, 'getBulkImport']);
+    Route::post('consignees/upload_csv', [ImportCsvController::class, 'uploadCsv']);
     
 });
 

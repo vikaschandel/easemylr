@@ -25,9 +25,5 @@ class DashboardController extends Controller
     {
         return view('forbidden');
     }
-
-    public function uploadCsv(Request $request)
-    {
-        return view('uploadcsv');
-    }
+    
 }
