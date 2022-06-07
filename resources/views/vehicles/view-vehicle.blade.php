@@ -13,89 +13,86 @@
                 </div>
                 <div class="col-lg-12 col-12 layout-spacing">
                     <div class="statbox widget box box-shadow">
-                        <div class="widget-content widget-content-area">
-                            
-                            <table class="table table-striped">
-                                <tbody>
-                                    <tr>
-                                        <th scope="row">Registration No.</th>
-                                        <td>{{isset($getvehicle->regn_no)?ucfirst($getvehicle->regn_no):'-'}} </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">Manufacturer</th>
-                                        <td>{{isset($getvehicle->mfg)?ucfirst($getvehicle->mfg):'-'}} </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">Make</th>
-                                        <td>
-                                            {{isset($getvehicle->make) ? ucfirst($getvehicle->make) : "-" }}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">Engine No.</th>
-                                        <td> 
-                                            {{isset($getvehicle->engine_no) ? ucfirst($getvehicle->engine_no) : "-" }}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">Chassis No.</th>
-                                        <td>
-                                            {{isset($getvehicle->chassis_no) ? ucfirst($getvehicle->chassis_no) : "-" }}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">Gross Vehicle Weight</th>
-                                        <td>{{isset($getvehicle->gross_vehicle_weight)?ucfirst($getvehicle->gross_vehicle_weight):'-'}}</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">Unladen Weight</th>
-                                        <td>{{isset($getvehicle->unladen_weight)?ucfirst($getvehicle->unladen_weight):'-'}}</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">Body Type</th>
-                                        <td>
-                                        <?php if($getvehicle->body_type == "Container"){
-                                                echo "Container";
-                                            }else if($getvehicle->body_type == "Open Body"){
-                                                echo "Open Body";
-                                            } else{ ?>
-                                                 {{$getvehicle->body_type ?? "-"}}
-                                            <?php } ?>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">State(Regd)</th>
-                                        <td>
-                                            {{isset($getvehicle->GetState->name) ? ucfirst($getvehicle->GetState->name) : "-" }}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                    <th scope="row">Regn. Date</th>
-                                        <td>{{isset($getvehicle->regndate)?ucfirst($getvehicle->regndate):'-'}}</td>
-                                    </tr>
-                                    <tr>
-                                    <th scope="row">Hypothecation</th>
-                                        <td>{{isset($getvehicle->hypothecation)?ucfirst($getvehicle->hypothecation):'-'}}</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">Ownership</th>
-                                        <td>
-                                        <?php if($getvehicle->ownership == "Self Owned"){
-                                                echo "Self Owned";
-                                            }else if($getvehicle->ownership == "Company Owned"){
-                                                echo "Company Owned";
-                                            }else if($getvehicle->ownership == "Transporter Owned"){
-                                                echo "Transporter Owned";
-                                            } else{ ?>
-                                                 {{$getvehicle->ownership ?? "-"}}
-                                            <?php } ?>
-                                        </td>
-                                    </tr>
-                                        
-                                </tbody>
-                            </table>  
-                            <a class="btn btn-primary" href="{{url($prefix.'/vehicles') }}"> Back</a>
-                        </div>
+                        <table class="table table-striped">
+                            <tbody>
+                                <tr>
+                                    <th scope="row">Registration No.</th>
+                                    <td>{{isset($getvehicle->regn_no)?ucfirst($getvehicle->regn_no):'-'}} </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Manufacturer</th>
+                                    <td>{{isset($getvehicle->mfg)?ucfirst($getvehicle->mfg):'-'}} </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Make</th>
+                                    <td>
+                                        {{isset($getvehicle->make) ? ucfirst($getvehicle->make) : "-" }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Engine No.</th>
+                                    <td> 
+                                        {{isset($getvehicle->engine_no) ? ucfirst($getvehicle->engine_no) : "-" }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Chassis No.</th>
+                                    <td>
+                                        {{isset($getvehicle->chassis_no) ? ucfirst($getvehicle->chassis_no) : "-" }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Gross Vehicle Weight</th>
+                                    <td>{{isset($getvehicle->gross_vehicle_weight)?ucfirst($getvehicle->gross_vehicle_weight):'-'}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Unladen Weight</th>
+                                    <td>{{isset($getvehicle->unladen_weight)?ucfirst($getvehicle->unladen_weight):'-'}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Body Type</th>
+                                    <td>
+                                    <?php if($getvehicle->body_type == "Container"){
+                                            echo "Container";
+                                        }else if($getvehicle->body_type == "Open Body"){
+                                            echo "Open Body";
+                                        } else{ ?>
+                                                {{$getvehicle->body_type ?? "-"}}
+                                        <?php } ?>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">State(Regd)</th>
+                                    <td>
+                                        {{isset($getvehicle->GetState->name) ? ucfirst($getvehicle->GetState->name) : "-" }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                <th scope="row">Regn. Date</th>
+                                    <td>{{isset($getvehicle->regndate)?ucfirst($getvehicle->regndate):'-'}}</td>
+                                </tr>
+                                <tr>
+                                <th scope="row">Hypothecation</th>
+                                    <td>{{isset($getvehicle->hypothecation)?ucfirst($getvehicle->hypothecation):'-'}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Ownership</th>
+                                    <td>
+                                    <?php if($getvehicle->ownership == "Self Owned"){
+                                            echo "Self Owned";
+                                        }else if($getvehicle->ownership == "Company Owned"){
+                                            echo "Company Owned";
+                                        }else if($getvehicle->ownership == "Transporter Owned"){
+                                            echo "Transporter Owned";
+                                        } else{ ?>
+                                                {{$getvehicle->ownership ?? "-"}}
+                                        <?php } ?>
+                                    </td>
+                                </tr>
+                                    
+                            </tbody>
+                        </table>  
+                        <a class="btn btn-primary" href="{{url($prefix.'/vehicles') }}"> Back</a>
                     </div>
                 </div>
             </div>
