@@ -137,7 +137,7 @@
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label for="exampleFormControlInput2">Vehicle No.</label>
-                                                    <select class="js-states form-control vehicle" id="vehicle_no" value="" name="vehicle_no" tabindex="-1" style="width: 100%">
+                                                    <select class="js-states form-control vehicle" id="vehicle_no" value="" name="vehicle_id" tabindex="-1" style="width: 100%">
                                                         <option value="">Select vehicle no</option>
                                                         @foreach($vehicles as $vehicle)
                                                         <option value="{{$vehicle->id}}">{{$vehicle->regn_no}}

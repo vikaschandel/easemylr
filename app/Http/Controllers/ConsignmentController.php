@@ -107,6 +107,7 @@ class ConsignmentController extends Controller
             $consignmentsave['vehicle_type']      = $request->vehicle_type;          
             $consignmentsave['purchase_price']    = $request->purchase_price; 
             $consignmentsave['user_id']           = $authuser->id; 
+            $consignmentsave['vehicle_id']        = $request->vehicle_id;
             $consignmentsave['status']            = 1;
 
             $saveconsignment = ConsignmentNote::create($consignmentsave); 
@@ -274,23 +275,27 @@ class ConsignmentController extends Controller
         $branch_add = json_decode(json_encode($b_add), true);
         
         $cn_id = $request->id;
-        $getdata = ConsignmentNote::where('id',$cn_id)->with('ConsignmentItems','ConsignerDetail','ConsigneeDetail','ShiptoDetail')->first();
+        $getdata = ConsignmentNote::where('id',$cn_id)->with('ConsignmentItems','ConsignerDetail','ConsigneeDetail','ShiptoDetail','VehicleDetail')->first();
        
         $data = json_decode(json_encode($getdata), true);
-        $conr_add = '<p><b>'.$data['consigner_detail']['nick_name'].'</b></p><p>'.$data['consigner_detail']['address'].',</p>
+        // dd($data['consigner_detail']['branch_id']);
+        $conr_add = '<p>'.'CONSIGNOR NAME & ADDRESS'.'</p>
+            <p><b>'.$data['consigner_detail']['nick_name'].'</b></p><p>'.$data['consigner_detail']['address'].',</p><br>
             <p>'.$data['consigner_detail']['city'].' - '.$data['consigner_detail']['postal_code'].'</p>
             <p>'.$data['consigner_detail']['district'].'</p>
             <p>GST No. : '.$data['consigner_detail']['gst_number'].'</p>
             <p>Phone No. : '.$data['consigner_detail']['phone'].'</p>';
-        $consnee_add = '<p><b>'.$data['consignee_detail']['nick_name'].'</b></p>
-            <p>'.$data['consignee_detail']['address_line1'].' '.$data['consignee_detail']['address_line2'].' '.$data['consignee_detail']['address_line3'].',</p>
+        $consnee_add = '<p>'.'CONSIGNEE NAME & ADDRESS'.'</p>
+            <p><b>'.$data['consignee_detail']['nick_name'].'</b></p>
+            <p>'.$data['consignee_detail']['address_line1'].' '.$data['consignee_detail']['address_line2'].'<br> '.$data['consignee_detail']['address_line3'].',</p>
             <p>'.$data['consignee_detail']['city'].' - '.$data['consignee_detail']['postal_code'].'</p>
             <p>'.$data['consignee_detail']['district'].'</p>
             <p>GST No. : '.$data['consignee_detail']['gst_number'].'</p>
             <p>Phone No. : '.$data['consignee_detail']['phone'].'</p>';
 
-        $shiptoadd = '<p><b>'.$data['consignee_detail']['nick_name'].'</b></p>
-            <p>'.$data['consignee_detail']['address_line1'].' '.$data['consignee_detail']['address_line2'].' '.$data['consignee_detail']['address_line3'].',</p>
+        $shiptoadd = '<p>'.'SHIP TO NAME & ADDRESS'.'</p>
+            <p><b>'.$data['consignee_detail']['nick_name'].'</b></p>
+            <p>'.$data['consignee_detail']['address_line1'].' '.$data['consignee_detail']['address_line2'].'<br> '.$data['consignee_detail']['address_line3'].',</p>
             <p>'.$data['consignee_detail']['city'].' - '.$data['consignee_detail']['postal_code'].'</p>
             <p>'.$data['consignee_detail']['district'].'</p>
             <p>GST No. : '.$data['consignee_detail']['gst_number'].'</p>
@@ -300,16 +305,16 @@ class ConsignmentController extends Controller
         if ($request->typeid == 1){
             $adresses = '<table width="100%">
                     <tr>
-                        <td>'.$conr_add.'</td>
-                        <td>'.$consnee_add.'</td>
+                        <td style="width:50%">'.$conr_add.'</td>
+                        <td style="width:50%">'.$consnee_add.'</td>
                     </tr>
                 </table>';
             } else if ($request->typeid == 2){
                 $adresses = '<table width="100%">
                         <tr>
-                            <td>'.$conr_add.'</td>
-                            <td>'.$consnee_add.'</td>
-                            <td>'.$shiptoadd.'</td>
+                            <td style="width:33%">'.$conr_add.'</td>
+                            <td style="width:33%">'.$consnee_add.'</td>
+                            <td style="width:33%">'.$shiptoadd.'</td>
                         </tr>
                     </table>';
             }
@@ -402,14 +407,16 @@ class ConsignmentController extends Controller
                                 <p><b>Invoice No.</b></p>
                                 <p><b>Invoice Date</b></p>
                                 <p><b>Value INR</b></p>
+                                <p><b>Vehicle No.</b></p>
                             </td>
                             <td width="30%">
                                 <p>'.$data['consignment_no'].'</p>
                                 <p> '.$data['consignment_date'].'</p>
-                                <p> '.'Ludhiana'.'</p>
+                                <p> '.'Karnal'.'</p>
                                 <p> '.$data['invoice_no'].'</p>
                                 <p> '.$data['invoice_date'].'</p>
                                 <p> '.$data['invoice_amount'].'</p>
+                                <p> '.$data['vehicle_detail']['regn_no'].'</p>
                             </td>
                             <td width="50%" colspan="3">
                                 <img src="img/eternity_solutions.png" id="set_img">

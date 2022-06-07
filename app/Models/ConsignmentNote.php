@@ -55,4 +55,9 @@ class ConsignmentNote extends Model
         return $this->hasOne('App\Models\Consignee','id','ship_to_id');
     }
 
+    public function VehicleDetail()
+    {
+        return $this->hasOne('App\Models\Vehicle','id','vehicle_id');
+    }
+
 }

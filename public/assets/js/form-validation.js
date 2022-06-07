@@ -667,7 +667,7 @@ $('#updateuser').validate({
         rules: {
             regn_no: {
                 required: true,
-                AlphabetandNumbers: true,
+                // AlphabetandNumbers: true,
                 minlength: 8,
             },
             mfg: {
@@ -678,7 +678,7 @@ $('#updateuser').validate({
             },
             engine_no: {
                 required: true,
-                AlphabetandNumbers: true,
+                // AlphabetandNumbers: true,
             },
             driver_id : {
                 required: true,
@@ -712,7 +712,7 @@ $('#updateuser').validate({
         rules: {
             regn_no: {
                 required: true,
-                AlphabetandNumbers: true,
+                // AlphabetandNumbers: true,
                 minlength: 8,
             },
             mfg: {
@@ -723,7 +723,7 @@ $('#updateuser').validate({
             },
             engine_no: {
                 required: true,
-                AlphabetandNumbers: true,
+                // AlphabetandNumbers: true,
             },
         },
         messages: {
@@ -766,7 +766,7 @@ $('#updateuser').validate({
             },
             invoice_no: {
                 required: true,
-                AlphabetandNumbers: true,
+                // AlphabetandNumbers: true,
             },
             driver_id : {
                 required: true,
