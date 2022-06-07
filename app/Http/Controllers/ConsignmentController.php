@@ -53,9 +53,13 @@ class ConsignmentController extends Controller
         $this->prefix = request()->route()->getPrefix();
         $authuser = Auth::user();
         $cc = explode(',',$authuser->branch_id);
-
-        $consigners = Consigner::select('id','nick_name')->whereIn('branch_id',$cc)->get();
-        $consignees = Consignee::select('id','nick_name')->whereIn('branch_id',$cc)->get();
+        if($authuser->role_id == 2){
+            $consigners = Consigner::select('id','nick_name')->whereIn('branch_id',$cc)->get();
+            $consignees = Consignee::select('id','nick_name')->whereIn('branch_id',$cc)->get();
+        }else{
+            $consigners = Consigner::select('id','nick_name')->get();
+            $consignees = Consignee::select('id','nick_name')->get();
+        }
         $branchs = Branch::where('status','1')->select('id','consignment_note')->get();
         $vehicles = Vehicle::where('status','1')->select('id','regn_no')->get();
         $vehicletypes = VehicleType::where('status','1')->select('id','name')->get();
