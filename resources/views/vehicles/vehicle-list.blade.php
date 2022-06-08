@@ -36,7 +36,7 @@
                                     foreach ($data as $key => $vehicle) {  
                                 ?> 
                                 <tr>
-                                    <td>{{ ucwords($vehicle->regn_no ?? "")}}</td>
+                                    <td>{{ $vehicle->regn_no ?? ""}}</td>
                                     <td>{{ $vehicle->mfg ?? "" }}</td>
                                     <td>{{ $vehicle->make ?? "" }}</td>
                                     <td>{{ $vehicle->body_type ?? "" }}</td>
