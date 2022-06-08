@@ -40,11 +40,11 @@ class ConsignmentController extends Controller
         $query = ConsignmentNote::query();
         $authuser = Auth::user();
         $cc = explode(',',$authuser->branch_id);
-        if($authuser->role_id == 2){
-            $consignments = $query->whereIn('branch_id',$cc)->orderby('id','DESC')->get();
-        }else{
+        // if($authuser->role_id == 2){
+        //     $consignments = $query->whereIn('branch_id',$cc)->orderby('id','DESC')->get();
+        // }else{
             $consignments = $query->orderby('id','DESC')->get();
-        }
+        // }
         return view('consignments.consignment-list',['consignments'=>$consignments,'prefix'=>$this->prefix])
         ->with('i', ($request->input('page', 1) - 1) * 5);
     }

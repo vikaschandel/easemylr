@@ -26,7 +26,7 @@
                                     <th>Manufacture</th>
                                     <th>Model</th>
                                     <th>Body Type</th>
-                                    <th>Creation Date</th>
+                                    <th>Regn Date</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -40,7 +40,7 @@
                                     <td>{{ $vehicle->mfg ?? "" }}</td>
                                     <td>{{ $vehicle->make ?? "" }}</td>
                                     <td>{{ $vehicle->body_type ?? "" }}</td>
-                                    <td>{{Helper::ShowFormatDate($vehicle->created_at ?? "")}}</td>
+                                    <td>{{Helper::ShowFormatDate($vehicle->regndate ?? "")}}</td>
                                     <td>
                                         <a class="btn btn-primary" href="{{url($prefix.'/vehicles/'.Crypt::encrypt($vehicle->id).'/edit')}}" ><span><i class="fa fa-edit"></i></span></a>
                                         <a class="btn btn-primary" href="{{url($prefix.'/vehicles/'.Crypt::encrypt($vehicle->id))}}" ><span><i class="fa fa-eye"></i></span></a>
