@@ -119,14 +119,14 @@ hr {
                                                         <td><strong>Vehicle No.</strong></td>
                                                         <td><span id="vehicle_no">RJ148G TEMP 83737</span></td>
                                                     </tr>
-                                                    <tr>
+                                                    <!-- <tr>
                                                         <td><strong>Driver</strong></td>
                                                         <td><span id="driver_name">Rajesh Kumar</span></td>
                                                     </tr>
                                                     <tr>
                                                         <td><strong>Driver No.</strong></td>
                                                         <td><span id="driver_no">9876543210</span></td>
-                                                    </tr>
+                                                    </tr> -->
                                                 </table>
                                             </div>
                                             <div class="col-md-6 text-center">
@@ -266,8 +266,8 @@ hr {
                                 <input type="hidden" id="form_supply" name="supply" value="">
                                 <input type="hidden" id="form_cons_invoice_no" name="cons_invoice_no" value="">
                                 <input type="hidden" id="form_vehicle_no" name="vehicle_no" value="">
-                                <input type="hidden" id="form_driver_name" name="driver_name" value="">
-                                <input type="hidden" id="form_driver_no" name="driver_no" value="">
+                                <!-- <input type="hidden" id="form_driver_name" name="driver_name" value=""> -->
+                                <!-- <input type="hidden" id="form_driver_no" name="driver_no" value=""> -->
                                 <input type="hidden" id="form_invoice_amount" name="invoice_amount" value="">
                                 <input type="hidden" id="form_invoice_date" name="invoice_date" value="">
                                 <input type="hidden" id="form_bar_code" name="bar_code" value="">
@@ -341,9 +341,9 @@ hr {
                     $('#cons_date').html(data.consignment_date);
                     $('#dispatch').html(data.consigner_detail.city);
                     $('#cons_invoice_no').html(data.invoice_no);
-                    $('#vehicle_no').html(data.vehicle_no);
-                    $('#driver_name').html(data.driver_name);
-                    $('#driver_no').html(data.driver_mobile_no);
+                    $('#vehicle_no').html(data.vehicle_detail.regn_no);
+                    // $('#driver_name').html(data.driver_name);
+                    // $('#driver_no').html(data.driver_mobile_no);
                     $('#invoice_amount').html(data.invoice_amount);
                     $('#invoice_date').html(data.invoice_date);
                     $("#bar_code").attr("src",data.bar_code);
@@ -442,9 +442,9 @@ hr {
                 $('#cons_date').html(data.consignment_date);
                 $('#dispatch').html(data.consigner_detail.city);
                 $('#cons_invoice_no').html(data.invoice_no);
-                $('#vehicle_no').html(data.vehicle_no);
-                $('#driver_name').html(data.driver_name);
-                $('#driver_no').html(data.driver_mobile_no);
+                $('#vehicle_no').html(data.vehicle_detail.regn_no);
+                // $('#driver_name').html(data.driver_name);
+                // $('#driver_no').html(data.driver_mobile_no);
                 $('#invoice_amount').html(data.invoice_amount);
                 $('#invoice_date').html(data.invoice_date);
                 $("#bar_code").attr("src",data.bar_code);
@@ -509,8 +509,8 @@ hr {
         $('#form_supply').val($('#supply').html());
         $('#form_cons_invoice_no').val($('#cons_invoice_no').html());
         $('#form_vehicle_no').val($('#vehicle_no').html());
-        $('#form_driver_name').val($('#driver_name').html());
-        $('#form_driver_no').val($('#driver_no').html());
+        // $('#form_driver_name').val($('#driver_name').html());
+        // $('#form_driver_no').val($('#driver_no').html());
         $('#form_invoice_amount').val($('#invoice_amount').html());
         $('#form_invoice_date').val($('#invoice_date').html());
         $('#form_bar_code').val($("#bar_code").attr("src"));
@@ -535,8 +535,8 @@ hr {
         $('#form_supply').val($('#supply').html());
         $('#form_cons_invoice_no').val($('#cons_invoice_no').html());
         $('#form_vehicle_no').val($('#vehicle_no').html());
-        $('#form_driver_name').val($('#driver_name').html());
-        $('#form_driver_no').val($('#driver_no').html());
+        // $('#form_driver_name').val($('#driver_name').html());
+        // $('#form_driver_no').val($('#driver_no').html());
         $('#form_invoice_amount').val($('#invoice_amount').html());
         $('#form_invoice_date').val($('#invoice_date').html());
         $('#form_bar_code').val($("#bar_code").attr("src"));

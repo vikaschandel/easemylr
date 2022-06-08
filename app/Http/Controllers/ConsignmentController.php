@@ -268,7 +268,7 @@ class ConsignmentController extends Controller
     // getConsigndetails
     public function getConsigndetails(Request $request){
         $cn_id = $request->id;
-        $cn_details = ConsignmentNote::where('id',$cn_id)->with('ConsignmentItems','ConsignerDetail','ConsigneeDetail','ShiptoDetail')->first();
+        $cn_details = ConsignmentNote::where('id',$cn_id)->with('ConsignmentItems','ConsignerDetail','ConsigneeDetail','ShiptoDetail','VehicleDetail')->first();
         if($cn_details)
         {
             $response['success']         = true;

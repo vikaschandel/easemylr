@@ -22,6 +22,10 @@ class VehiclesImport implements ToModel, WithHeadingRow  //ToCollection
 
     public function model(array $row)
     {
+
+        
+        // dd($row);
+
         $getState = State::where('name',$row['state'])->first();
         
         if(empty($getState)){
@@ -40,8 +44,7 @@ class VehiclesImport implements ToModel, WithHeadingRow  //ToCollection
 
         $regn_date= \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['regn_date']);
         
-        // dd($row);
-
+        // dd(explode(" ",$regn_date));
         return new Vehicle([
             'regn_no'        => $row['regn_no'],
             'mfg'            => $row['manufacture'],
