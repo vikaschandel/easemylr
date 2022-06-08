@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Imports\ConsigneeImport;
+use App\Imports\VehiclesImport;
 use Maatwebsite\Excel\Facades\Excel;
 use URL;
 
@@ -19,11 +20,18 @@ class ImportCsvController extends Controller
     public function uploadCsv(Request $request)
     {
         $this->prefix = request()->route()->getPrefix();
-        $data = Excel::import(new ConsigneeImport,request()->file('consigneesfile'));
-        if($data){
+        if($request->hasFile('consigneesfile')){
+            $data = Excel::import(new ConsigneeImport,request()->file('consigneesfile'));
             $url    =   URL::to($this->prefix.'/consignees');
+        }
+        if($request->hasFile('vehiclesfile')){
+            $data = Excel::import(new VehiclesImport,request()->file('vehiclesfile'));
+            $url    =   URL::to($this->prefix.'/vehicles');
+        }
+        if($data){
+            
             $response['success']    = true;
-            $response['page']       = 'import-consignees';
+            $response['page']       = 'bulk-imports';
             $response['error']      = false;
             $response['success_message'] = "Consignees import successfully";
             $response['redirect_url'] = $url;
