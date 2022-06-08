@@ -104,11 +104,6 @@ hr {
                                                         <td><strong>Dispatch From</strong></td>
                                                         <td><span id="dispatch">Jaipur</span></td>
                                                     </tr>
-                                                    <!--<tr>
-                                                        <td><strong>Place of Supply</strong></td>
-                                                        <td><span id="supply">Rajasthan</span></td>
-                                                    </tr>
-                                                    <tr>-->
                                                         <td><strong>Invoice No.</strong></td>
                                                         <td><span id="cons_invoice_no">123456789</span></td>
                                                     </tr>
@@ -344,7 +339,7 @@ hr {
 
                     $('#cons_no').html(data.consignment_no);
                     $('#cons_date').html(data.consignment_date);
-                    $('#dispatch').html(data.dispatch);
+                    $('#dispatch').html(data.consigner_detail.city);
                     $('#cons_invoice_no').html(data.invoice_no);
                     $('#vehicle_no').html(data.vehicle_no);
                     $('#driver_name').html(data.driver_name);
@@ -445,7 +440,7 @@ hr {
                 console.log(data);
                 $('#cons_no').html(data.consignment_no);
                 $('#cons_date').html(data.consignment_date);
-                $('#dispatch').html(data.dispatch);
+                $('#dispatch').html(data.consigner_detail.city);
                 $('#cons_invoice_no').html(data.invoice_no);
                 $('#vehicle_no').html(data.vehicle_no);
                 $('#driver_name').html(data.driver_name);

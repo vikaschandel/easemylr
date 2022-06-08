@@ -14,3 +14,5 @@ yarn-error.log
 composer.lock
 /.idea
 /.vscode
+public/all.pdf
+public/consignment-pdf/congn.pdf

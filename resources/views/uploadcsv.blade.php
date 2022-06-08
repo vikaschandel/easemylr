@@ -27,10 +27,11 @@
                     </div>
                     <div class="col-lg-6 col-md-9 col-sm-12">
                         <input type="file" name="vehiclesfile" id="vehiclefile" class="vehiclefile"> 
-                    </div> 
+                    </div>
                 </div>
                 
                 <button type="submit" name="" class="mt-4 mb-4 btn btn-primary">Submit</button>
+                <div class="spinner-border loader" style= "display:none;"></div>
                 <a class="btn btn-primary" href="{{url($prefix.'/dashboard') }}"> Back</a>
             </form>
         </div>

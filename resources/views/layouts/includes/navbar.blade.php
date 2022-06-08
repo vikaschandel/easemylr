@@ -2,7 +2,7 @@
     $url = URL::to('/');
     $string = request()->route()->getPrefix();
     $getprefix = str_replace('/', '', $string);
-    $prefixurl = $url.$getprefix.'/';
+    $prefixurl = $url.'/'.$getprefix.'/';
     $authuser = Auth::user();
 ?>
 <ul class="navbar-item theme-brand flex-row  text-center">

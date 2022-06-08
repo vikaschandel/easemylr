@@ -11,10 +11,7 @@
 
     </div>
     <!-- END MAIN CONTAINER -->
-    <div class="load-main"  style= "display:none;">
-        <div class="loader"></div>  
-    </div>
-
+    
     <!-- BEGIN GLOBAL MANDATORY SCRIPTS --> 
     <script src="{{asset('assets/js/libs/jquery-3.1.1.min.js')}}"></script>
 
