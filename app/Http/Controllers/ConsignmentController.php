@@ -285,7 +285,7 @@ class ConsignmentController extends Controller
         $getdata = ConsignmentNote::where('id',$cn_id)->with('ConsignmentItems','ConsignerDetail','ConsigneeDetail','ShiptoDetail','VehicleDetail')->first();
        
         $data = json_decode(json_encode($getdata), true);
-        // dd($data['consigner_detail']['branch_id']);
+        // dd($data['consigner_detail']['city']);
         $conr_add = '<p>'.'CONSIGNOR NAME & ADDRESS'.'</p>
             <p><b>'.$data['consigner_detail']['nick_name'].'</b></p><p>'.$data['consigner_detail']['address'].',</p><br>
             <p>'.$data['consigner_detail']['district'].'</p>
@@ -416,7 +416,7 @@ class ConsignmentController extends Controller
                             <td width="30%">
                                 <p>'.$data['consignment_no'].'</p>
                                 <p> '.$data['consignment_date'].'</p>
-                                <p> '.'Karnal'.'</p>
+                                <p> '.$data['consigner_detail']['city'].'</p>
                                 <p> '.$data['invoice_no'].'</p>
                                 <p> '.$data['invoice_date'].'</p>
                                 <p> '.$data['invoice_amount'].'</p>
@@ -469,7 +469,7 @@ class ConsignmentController extends Controller
                                     <tr>
                                         <td>
                                             <h4><b>Receivers Signature</b></h4>
-                                            <p>Received the goods mentioned above in goodcondition.</p>
+                                            <p>Received the goods mentioned above in good condition.</p>
                                         </td>
                                         <td>
                                         <h4><b>For Eternity Forwarders Pvt. Ltd.</b></h4>

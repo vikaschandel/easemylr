@@ -943,10 +943,10 @@ function formSubmit(form)
         processData : false,
         dataType    : "json",
         beforeSend  : function () {
-            $(".load-main").show();
+            $(".loader").show();
         },
         complete: function () {
-            $(".load-main").hide();
+            $(".loader").hide();
         },
         success: function (response) {
             if(response.success){
@@ -1014,15 +1014,15 @@ function formSubmitRedirect(form)
         processData : false,
         dataType    : "json",
         beforeSend  : function () {
-            // $(".load-main").show();
+            $(".loader").show();
         },
         complete: function (response) {
             $("input[type=submit]").attr("enabled", "enabled");
         	$("button[type=submit]").attr("enabled", "enabled");
+            $(".loader").hide();
         },
         success: function (response)
         {
-            // alert(response.success);
           	$.toast().reset('all');
       		var delayTime = 3000;
 	        if(response.success){
