@@ -522,6 +522,12 @@ jQuery(document).ready(function(){
     });  
    
 
+    // get file name onchange
+    // jQuery('#consigneefile').change(function(e){
+    //     var fileName = e.target.files[0].name;
+    //     // jQuery('.filetext').text(fileName);
+    // });
+
 
 
 

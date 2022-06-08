@@ -25,4 +25,5 @@ class DashboardController extends Controller
     {
         return view('forbidden');
     }
+    
 }

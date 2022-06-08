@@ -889,6 +889,38 @@ $('#updateuser').validate({
         jQuery('#location_savebtn').text('Add');
     });
 
+    // Import consignee csv files
+    jQuery('#importfiles').validate({
+        rules:
+        {
+            consigneesfile: {
+                // required: true,
+                // extension: "csv",
+            },
+            vehiclesfile: {
+                // required: true,
+                //  extension: "csv",
+            },
+        },
+        messages:
+        {
+            consigneesfile: {
+                required: "Please select file",
+                extension: "Please upload .csv file format only"
+            },
+            vehiclesfile: {
+                required: "Please select file",
+                extension: "Please upload .csv file format only"
+            }
+        },
+        submitHandler : function(form)
+        {
+            formSubmitRedirect(form);
+        }
+    });
+
+    
+
 
 
 
@@ -1028,8 +1060,11 @@ function formSubmitRedirect(form)
                 setTimeout(() => {window.location.href = response.redirect_url},2000);
             }else if(response.page == 'save-locations'|| response.page == 'update-locations')
             {
-                setTimeout(function(){ location.reload(); }, 50);
-            } 
+                setTimeout(function(){location.reload();}, 50);
+            }else if(response.page == 'bulk-imports')
+            {
+                setTimeout(() => {window.location.href = response.redirect_url},3000);
+            }
             
             if(response.formErrors)
             {
