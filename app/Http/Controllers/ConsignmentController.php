@@ -36,11 +36,17 @@ class ConsignmentController extends Controller
     public function index(Request $request)
     {
         $this->prefix = request()->route()->getPrefix();
-        $peritem = 20;
+        // $peritem = 20;
         $query = ConsignmentNote::query();
-        $consignments = $query->orderby('id','DESC')->paginate($peritem);
+        $authuser = Auth::user();
+        $cc = explode(',',$authuser->branch_id);
+        if($authuser->role_id == 2){
+            $consignments = $query->whereIn('branch_id',$cc)->orderby('id','DESC')->get();
+        }else{
+            $consignments = $query->orderby('id','DESC')->get();
+        }
         return view('consignments.consignment-list',['consignments'=>$consignments,'prefix'=>$this->prefix])
-            ->with('i', ($request->input('page', 1) - 1) * 5);
+        ->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
     /**

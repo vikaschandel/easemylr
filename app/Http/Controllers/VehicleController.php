@@ -23,11 +23,10 @@ class VehicleController extends Controller
     public function index(Request $request)
     {
         $this->prefix = request()->route()->getPrefix();
-        $peritem = 20;
+        // $peritem = 20;
         $query = Vehicle::query();
-        $data = $query->orderby('id','DESC')->paginate($peritem);
-        return view('vehicles.vehicle-list',['data'=>$data,'prefix'=>$this->prefix])
-            ->with('i', ($request->input('page', 1) - 1) * 5);
+        $data = $query->orderby('id','DESC')->get();
+        return view('vehicles.vehicle-list',['data'=>$data,'prefix'=>$this->prefix]);
     }
 
     /**
