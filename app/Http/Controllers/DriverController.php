@@ -155,13 +155,11 @@ class DriverController extends Controller
     {
         try { 
             $this->prefix = request()->route()->getPrefix();
-            $getsamelincno = Driver::where('id',$request->driver_id)->first();
-            $samelicense_number = $getsamelincno->email;
              $rules = array(
                 'name' => 'required',
-                // 'license_number' => 'required|unique:drivers,id',
+                'license_number' => 'required|unique:drivers,license_number,' . $request->driver_id,
                 'license_image'  => 'mimes:jpg,jpeg,png|max:4096',
-                // 'license_number' =>  'required|license_number|unique:drivers,license_number,'.$this->$request->driver_id,
+                
             );
 
             $validator = Validator::make($request->all(),$rules);
