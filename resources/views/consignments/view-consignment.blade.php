@@ -342,8 +342,12 @@ hr {
 
                     $('#cons_no').html(data.consignment_no);
                     
-                    var dateAr = data.consignment_date.split('-');
-                    var consDate = dateAr[2] + '.' + dateAr[1] + '.' + dateAr[0];
+                    if(data.consignment_date != null){
+                        var dateAr = data.consignment_date.split('-');
+                        var consDate = dateAr[2] + '.' + dateAr[1] + '.' + dateAr[0];
+                    }else{
+                        var consDate = '';
+                    }
                     $('#cons_date').html(consDate);
                     $('#dispatch').html(data.consigner_detail.city);
                     $('#cons_invoice_no').html(data.invoice_no);
@@ -352,8 +356,12 @@ hr {
                     // $('#driver_no').html(data.driver_mobile_no);
                     $('#invoice_amount').html(data.invoice_amount);
 
-                    var dateInvc = data.invoice_date.split('-');
-                    var invoiceDate = dateInvc[2] + '.' + dateInvc[1] + '.' + dateInvc[0];
+                    if(data.invoice_date != null){
+                        var dateInvc = data.invoice_date.split('-');
+                        var invoiceDate = dateInvc[2] + '.' + dateInvc[1] + '.' + dateInvc[0];
+                    }else{
+                        var invoiceDate = '';
+                    }
                     $('#invoice_date').html(invoiceDate);
                     $("#bar_code").attr("src",data.bar_code);
                     $('#consignerAddress').html(consigneradd);
@@ -456,8 +464,12 @@ hr {
 
                 $('#cons_no').html(data.consignment_no);
 
-                var dateAr = data.consignment_date.split('-');
-                var consDate = dateAr[2] + '.' + dateAr[1] + '.' + dateAr[0];
+                if(data.consignment_date != null){
+                    var dateAr = data.consignment_date.split('-');
+                    var consDate = dateAr[2] + '.' + dateAr[1] + '.' + dateAr[0];
+                }else{
+                    var consDate = '';
+                }
                 $('#cons_date').html(consDate);
                 $('#dispatch').html(data.consigner_detail.city);
                 $('#cons_invoice_no').html(data.invoice_no);
@@ -466,9 +478,13 @@ hr {
                 // $('#driver_no').html(data.driver_mobile_no);
                 $('#invoice_amount').html(data.invoice_amount);
 
-                var dateInvc = data.invoice_date.split('-');
-                var invcDate = dateInvc[2] + '.' + dateInvc[1] + '.' + dateInvc[0];
-                $('#invoice_date').html(invcDate);
+                if(data.invoice_date != null){
+                    var dateInvc = data.invoice_date.split('-');
+                    var invoiceDate = dateInvc[2] + '.' + dateInvc[1] + '.' + dateInvc[0];
+                }else{
+                    var invoiceDate = '';
+                }
+                $('#invoice_date').html(invoiceDate);
                 $("#bar_code").attr("src",data.bar_code);
                 // $('#consignerAddress').html(data.consigner);
                 // $('#consigneeAddress').html(data.consignee);

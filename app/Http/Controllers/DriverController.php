@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use App\Models\Driver;
 use App\Models\Bank;
 use DB;
@@ -154,10 +155,13 @@ class DriverController extends Controller
     {
         try { 
             $this->prefix = request()->route()->getPrefix();
+            $getsamelincno = Driver::where('id',$request->driver_id)->first();
+            $samelicense_number = $getsamelincno->email;
              $rules = array(
                 'name' => 'required',
-                'license_number' => 'required',
-                'license_image' => 'mimes:jpg,jpeg,png|max:4096',
+                // 'license_number' => 'required|unique:drivers,id',
+                'license_image'  => 'mimes:jpg,jpeg,png|max:4096',
+                // 'license_number' =>  'required|license_number|unique:drivers,license_number,'.$this->$request->driver_id,
             );
 
             $validator = Validator::make($request->all(),$rules);

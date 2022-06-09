@@ -292,6 +292,7 @@ class ConsignmentController extends Controller
         $getdata = ConsignmentNote::where('id',$cn_id)->with('ConsignmentItems','ConsignerDetail','ConsigneeDetail','ShiptoDetail','VehicleDetail')->first();
        
         $data = json_decode(json_encode($getdata), true);
+        // dd($data['consignment_date']);
         // dd($data['consigner_detail']['city']);
         $conr_add = '<p>'.'CONSIGNOR NAME & ADDRESS'.'</p>
             <p><b>'.$data['consigner_detail']['nick_name'].'</b></p><p>'.$data['consigner_detail']['address'].',</p>
@@ -420,15 +421,44 @@ class ConsignmentController extends Controller
                                 <p><b>Value INR</b></p>
                                 <p><b>Vehicle No.</b></p>
                             </td>
-                            <td width="30%">
-                                <p>'.$data['consignment_no'].'</p>
-                                <p> '.$data['consignment_date'].'</p>
-                                <p> '.$data['consigner_detail']['city'].'</p>
-                                <p> '.$data['invoice_no'].'</p>
-                                <p> '.$data['invoice_date'].'</p>
-                                <p> '.$data['invoice_amount'].'</p>
-                                <p> '.$data['vehicle_detail']['regn_no'].'</p>
-                            </td>
+                            <td width="30%">';
+                            if($data['consignment_no'] != ''){
+                                $html .= '<p>'.$data['consignment_no'].'</p>';
+                            } else {
+                                $html .= '<p>N/A</p>';
+                            }
+                            if($data['consignment_date'] != ''){
+                                $html .= '<p>'.date('d-m-Y', strtotime($data['consignment_date'])).'</p>';
+                            }else{
+                                $html .=  '<p> N/A </p>';
+                            }
+                            if($data['consigner_detail']['city'] != ''){
+                                $html .='<p> '.$data['consigner_detail']['city'].'</p>';
+                            }else{
+                                $html .= '<p> N/A </p>';
+                            }
+                            if($data['invoice_no'] != ''){
+                                $html .= '<p>'.$data['invoice_no'].'</p>';
+                            }else{
+                                $html .= '<p> N/A </p>';
+                            }
+                            if($data['invoice_date'] != ''){
+                                $html .= '<p>'.date('d-m-Y', strtotime($data['invoice_date'])).'</p>';
+                            }else{
+                                $html .= '<p> N/A </p>';
+                            }
+                            if($data['invoice_amount'] != ''){
+                                $html .= '<p>'.$data['invoice_amount'].'</p>';
+                            }else{
+                                $html .= '<p> N/A </p>';
+                            }
+                            if($data['vehicle_detail']['regn_no'] != ''){
+                                $html .= '<p>'.$data['vehicle_detail']['regn_no'].'</p>';
+                            }else{
+                                $html .= '<p> N/A </p>';
+                            }
+
+                            $html .='</td>
                             <td width="50%" colspan="3">
                                 <img src="img/eternity_solutions.png" id="set_img">
                             </td>

@@ -52,7 +52,7 @@ class VehicleController extends Controller
     {
         $this->prefix = request()->route()->getPrefix();
         $rules = array(
-            'regn_no' => 'required',
+            'regn_no' => 'required|unique:vehicles',
             'mfg' => 'required',
         );
         $validator = Validator::make($request->all(),$rules);
