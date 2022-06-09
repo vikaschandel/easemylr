@@ -447,6 +447,13 @@ hr {
             success: function(response){
                 var data = response.data;
                 console.log(data);
+
+                var consigneradd = '<strong>'+data.consigner_detail.nick_name+'</strong><br>'+data.consigner_detail.address+',<br>'+data.consigner_detail.district+',<br>'+data.consigner_detail.city+' - '+data.consigner_detail.postal_code+',<strong><br>GST No. : </strong>'+data.consigner_detail.gst_number+'';
+
+                var consigneeadd = '<strong>'+data.consignee_detail.nick_name+'</strong><br>'+data.consignee_detail.address_line1+' '+data.consignee_detail.address_line2+' '+data.consignee_detail.address_line3+',<br>'+data.consignee_detail.district+',<br>'+data.consignee_detail.city+' - '+data.consignee_detail.postal_code+',<strong><br>GST No. : </strong>'+data.consignee_detail.gst_number+'';
+
+                var shiptoadd = '<strong>'+data.consignee_detail.nick_name+'</strong><br>'+data.consignee_detail.address_line1+' '+data.consignee_detail.address_line2+' '+data.consignee_detail.address_line3+',<br>'+data.consignee_detail.district+',<br>'+data.consignee_detail.city+' - '+data.consignee_detail.postal_code+',<strong><br>GST No. : </strong>'+data.consignee_detail.gst_number+'';
+
                 $('#cons_no').html(data.consignment_no);
 
                 var dateAr = data.consignment_date.split('-');
@@ -463,9 +470,13 @@ hr {
                 var invcDate = dateInvc[2] + '.' + dateInvc[1] + '.' + dateInvc[0];
                 $('#invoice_date').html(invcDate);
                 $("#bar_code").attr("src",data.bar_code);
-                $('#consignerAddress').html(data.consigner);
-                $('#consigneeAddress').html(data.consignee);
-                $('#ship_to_Address').html(data.ship_to);
+                // $('#consignerAddress').html(data.consigner);
+                // $('#consigneeAddress').html(data.consignee);
+                // $('#ship_to_Address').html(data.ship_to);
+                $('#consignerAddress').html(consigneradd);
+                $('#consigneeAddress').html(consigneeadd);
+                $('#ship_to_Address').html(shiptoadd);
+
                 // $('#warehouse_address').html(data.w_address);
                 var cn_status = data.status;
                 if (cn_status == '0' || cn_status == null){
