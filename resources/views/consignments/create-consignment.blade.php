@@ -19,7 +19,7 @@
                                         <div class="form-group">
                                             <label class="col-sm-12 control-label">Select Consignor</label>
                                             <div class="col-sm-12">
-                                                <select id="select_consigner" class="form-control" type="text" name="consigner_id">
+                                                <select id="select_consigner" class="form-control basic" type="text" name="consigner_id">
                                                     <option value="">Select Consignor</option>
                                                     @foreach($consigners as $consigner)
                                                     <option value="{{$consigner->id}}">{{$consigner->nick_name}}
@@ -42,7 +42,7 @@
                                         <div class="form-group">
                                             <label class="col-sm-12 control-label">Select Consignee</label>
                                             <div class="col-sm-12">
-                                                <select class="form-control" type="text" name="consignee_id" id="select_consignee">
+                                                <select class="form-control basic" type="text" name="consignee_id" id="select_consignee">
                                                     <option value="">Select Consignee</option>
                                                     @foreach($consignees as $consignee)
                                                     <option value="{{$consignee->id}}">{{$consignee->nick_name}}
@@ -66,7 +66,7 @@
                                         <div class="form-group">
                                             <label class="col-sm-12 control-label">Ship To</label>
                                             <div class="col-sm-12">
-                                                <select class="form-control" type="text" name="ship_to_id" id="select_ship_to">
+                                                <select class="form-control basic" type="text" name="ship_to_id" id="select_ship_to">
                                                     <option value="">Select Ship To</option>
                                                     @foreach($consignees as $consignee)
                                                     <option value="{{$consignee->id}}">{{$consignee->nick_name}}
@@ -137,7 +137,7 @@
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label for="exampleFormControlInput2">Vehicle No.</label>
-                                                    <select class="js-states form-control vehicle" id="vehicle_no" value="" name="vehicle_id" tabindex="-1" style="width: 100%">
+                                                    <select class="js-states form-control basic vehicle" id="vehicle_no" name="vehicle_id" tabindex="-1" style="width: 100%">
                                                         <option value="">Select vehicle no</option>
                                                         @foreach($vehicles as $vehicle)
                                                         <option value="{{$vehicle->id}}">{{$vehicle->regn_no}}
@@ -245,13 +245,9 @@
                                         <label for="exampleFormControlInput2">Transporter Name</label>
                                         <input type="text" class="form-control" id="Transporter" name="transporter_name"  value="">
                                     </div>
-                                    <!-- <div class="form-group col-md-4">
-                                        <label for="exampleFormControlInput2">Vehicle Type</label>
-                                        <input type="text" class="form-control" id="vehicle_type" name="vehicle_type"  value="">
-                                    </div> -->
                                     <div class="form-group col-md-4">
                                         <label for="exampleFormControlInput2">Vehicle Type</label>
-                                        <select class="js-states form-control" id="vehicle_type" value="" name="vehicle_type" tabindex="-1" style="width: 100%">
+                                        <select class="js-states form-control basic" id="vehicle_type" name="vehicle_type" tabindex="-1" style="width: 100%">
                                             <option value="">Select vehicle type</option>
                                             @foreach($vehicletypes as $vehicle)
                                             <option value="{{$vehicle->id}}">{{$vehicle->name}}
@@ -276,4 +272,12 @@
     </div>
 </div>
 
+@endsection
+@section('js')
+    <script>
+        var ss = $(".basic").select2({
+            tags: true,
+        });
+        
+    </script>
 @endsection
