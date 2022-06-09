@@ -1076,6 +1076,9 @@ function formSubmitRedirect(form)
             }else if(response.page == 'bulk-imports')
             {
                 setTimeout(() => {window.location.href = response.redirect_url},2000);
+            }else if(response.page == 'create-consignment')
+            {
+                setTimeout(() => {window.location.href = response.redirect_url},2000);
             }
             
             if(response.formErrors)

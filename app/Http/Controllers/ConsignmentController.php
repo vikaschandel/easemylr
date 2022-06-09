@@ -138,12 +138,13 @@ class ConsignmentController extends Controller
                       $saveconsignmentitems = ConsignmentItem::create($save_data);
                     }              
                 }
-
+                $url = $this->prefix.'/consignments';
                 $response['success'] = true;
                 $response['success_message'] = "Consignment Added successfully";
                 $response['error'] = false;
-                $response['resetform'] = true;
-                $response['page'] = 'create-branch'; 
+                // $response['resetform'] = true;
+                $response['page'] = 'create-consignment';
+                $response['redirect_url'] = $url;
             }
             else{
                 $response['success'] = false;
