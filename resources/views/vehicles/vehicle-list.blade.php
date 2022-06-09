@@ -44,7 +44,10 @@
                                     <td>
                                         <a class="btn btn-primary" href="{{url($prefix.'/vehicles/'.Crypt::encrypt($vehicle->id).'/edit')}}" ><span><i class="fa fa-edit"></i></span></a>
                                         <a class="btn btn-primary" href="{{url($prefix.'/vehicles/'.Crypt::encrypt($vehicle->id))}}" ><span><i class="fa fa-eye"></i></span></a>
-                                        <a href="Javascript:void();" class="btn btn-danger delete_vehicle" data-id="{{ $vehicle->id }}" data-action="<?php echo URL::to($prefix.'/vehicles/delete-vehicle'); ?>"><span><i class="fa fa-trash"></i></span></a>
+                                        <?php $authuser = Auth::user();
+                                        if($authuser->role_id ==1) { ?>
+                                            <a href="Javascript:void();" class="btn btn-danger delete_vehicle" data-id="{{ $vehicle->id }}" data-action="<?php echo URL::to($prefix.'/vehicles/delete-vehicle'); ?>"><span><i class="fa fa-trash"></i></span></a>
+                                        <?php } ?>
                                     </td>
                                 </tr>
                                 <?php 
