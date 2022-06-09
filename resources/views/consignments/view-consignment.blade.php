@@ -58,7 +58,7 @@ hr {
                                                     {{ $consignment->consignment_no ?? "" }}
                                                 </div>
                                                 <div class="col-ms-6"> 
-                                                    {{ $consignment->consignment_date ?? "" }}
+                                                    {{ Helper::ShowFormatDate($consignment->consignment_date) ?? "" }}
                                                 </div>
                                                 <!--<div class="col-ms-3">  
                                                     {{ $consignment->supply ?? "" }}
@@ -341,14 +341,20 @@ hr {
                     var shiptoadd = '<strong>'+data.consignee_detail.nick_name+'</strong><br>'+data.consignee_detail.address_line1+' '+data.consignee_detail.address_line2+' '+data.consignee_detail.address_line3+',<br>'+data.consignee_detail.district+',<br>'+data.consignee_detail.city+' - '+data.consignee_detail.postal_code+',<strong><br>GST No. : </strong>'+data.consignee_detail.gst_number+'';
 
                     $('#cons_no').html(data.consignment_no);
-                    $('#cons_date').html(data.consignment_date);
+                    
+                    var dateAr = data.consignment_date.split('-');
+                    var consDate = dateAr[2] + '.' + dateAr[1] + '.' + dateAr[0];
+                    $('#cons_date').html(consDate);
                     $('#dispatch').html(data.consigner_detail.city);
                     $('#cons_invoice_no').html(data.invoice_no);
                     $('#vehicle_no').html(data.vehicle_detail.regn_no);
                     // $('#driver_name').html(data.driver_name);
                     // $('#driver_no').html(data.driver_mobile_no);
                     $('#invoice_amount').html(data.invoice_amount);
-                    $('#invoice_date').html(data.invoice_date);
+
+                    var dateInvc = data.invoice_date.split('-');
+                    var invoiceDate = dateInvc[2] + '.' + dateInvc[1] + '.' + dateInvc[0];
+                    $('#invoice_date').html(invoiceDate);
                     $("#bar_code").attr("src",data.bar_code);
                     $('#consignerAddress').html(consigneradd);
                     $('#consigneeAddress').html(consigneeadd);
@@ -442,14 +448,20 @@ hr {
                 var data = response.data;
                 console.log(data);
                 $('#cons_no').html(data.consignment_no);
-                $('#cons_date').html(data.consignment_date);
+
+                var dateAr = data.consignment_date.split('-');
+                var consDate = dateAr[2] + '.' + dateAr[1] + '.' + dateAr[0];
+                $('#cons_date').html(consDate);
                 $('#dispatch').html(data.consigner_detail.city);
                 $('#cons_invoice_no').html(data.invoice_no);
                 $('#vehicle_no').html(data.vehicle_detail.regn_no);
                 // $('#driver_name').html(data.driver_name);
                 // $('#driver_no').html(data.driver_mobile_no);
                 $('#invoice_amount').html(data.invoice_amount);
-                $('#invoice_date').html(data.invoice_date);
+
+                var dateInvc = data.invoice_date.split('-');
+                var invcDate = dateInvc[2] + '.' + dateInvc[1] + '.' + dateInvc[0];
+                $('#invoice_date').html(invcDate);
                 $("#bar_code").attr("src",data.bar_code);
                 $('#consignerAddress').html(data.consigner);
                 $('#consigneeAddress').html(data.consignee);
