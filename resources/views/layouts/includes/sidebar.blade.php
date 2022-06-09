@@ -170,7 +170,7 @@
                             </li>
                         </ul>
                     </li> -->
-
+                    <?php if($authuser->role_id==1){ ?>
                     <li class="menu">
                         <a href="#forms" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                             <div class="">
@@ -197,6 +197,7 @@
                             
                         </ul>
                     </li>
+                    <?php } ?>
                     
                 </ul>
                 

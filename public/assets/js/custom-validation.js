@@ -354,6 +354,7 @@ jQuery(document).ready(function(){
             },
             dataType  : 'json',
             success:function(res){
+                $('#consigner_address').empty();
                 if(res.data){
                     $('#consigner_address').append('<strong>'+res.data.address+' </strong><br/><strong>GST No. : </strong>'+res.data.gst_number+'<br/><strong>Phone No. : </strong>'+res.data.phone+'');
                     $("#dispatch").val(res.data.city);
@@ -378,6 +379,7 @@ jQuery(document).ready(function(){
             },
             dataType  : 'json',
             success:function(res){
+                $('#consignee_address').empty();
                 if(res.data){
                     $('#consignee_address').append('<strong>'+res.data.address_line1 +', </strong><br/>'+res.data.address_line2+', '+res.data.address_line3+'<br/><strong>GST No. : </strong>'+res.data.gst_number+'<br/><strong>Phone No. : </strong>'+res.data.phone+'');
                 }
@@ -400,6 +402,7 @@ jQuery(document).ready(function(){
             },
             dataType  : 'json',
             success:function(res){
+                $('#ship_to_address').empty();
                 if(res.data){
                     $('#ship_to_address').append('<strong>'+res.data.address_line1 +' </strong><br/>'+res.data.address_line2+', '+res.data.address_line3+'<br/><strong>GST No. : </strong>'+res.data.gst_number+'<br/><strong>Phone No. : </strong>'+res.data.phone+'');
                 }

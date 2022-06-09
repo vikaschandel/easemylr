@@ -84,12 +84,15 @@ hr {
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <h1 style="font-size:22px;" class="m-b-md"><b>Eternity Forwarders Private Limited.</b></h1>
+                                                @foreach($branch_add as $value)
                                                 <address id="warehouse_address">
-                                                    Plot No. 10, Khasra No. 40, Jaisalya, Road No. 17<br>
-                                                    Vishwakarma Industrial Area, Jaipur, Rajasthan, 302013<br>
-                                                    Tel: 9872091381, Email: csr.jaipur@eternitysolutions.ne<br>
-                                                    GSTIN: 12345678900687686
+                                                    {{$value->address}}
+                                                    {{$value->district}} - {{$value->postal_code}}
+                                                    GST No. : {{$value->gst_number}}<br>
+                                                    Email : {{$value->email}}<br>
+                                                    Phone No. : {{$value->phone}}
                                                 </address>
+                                                @endforeach
                                                 <hr>
                                                 <table class="custom_table">
                                                     <tr>
@@ -350,7 +353,7 @@ hr {
                     $('#consignerAddress').html(consigneradd);
                     $('#consigneeAddress').html(consigneeadd);
                     $('#ship_to_Address').html(shiptoadd);
-                    $('#warehouse_address').html(data.w_address);
+                    // $('#warehouse_address').html(data.w_address);
                     
                     // /'.$consignment->id.'/print-view
 
@@ -451,7 +454,7 @@ hr {
                 $('#consignerAddress').html(data.consigner);
                 $('#consigneeAddress').html(data.consignee);
                 $('#ship_to_Address').html(data.ship_to);
-                $('#warehouse_address').html(data.w_address);
+                // $('#warehouse_address').html(data.w_address);
                 var cn_status = data.status;
                 if (cn_status == '0' || cn_status == null){
                     $('.ribbon').css("display", "block");
@@ -522,7 +525,7 @@ hr {
         $('#form_gross_weight').val($('#gross_weight').html());
         $('#form_tot_amt').val($('#tot_amt').html());
         $('#form_tot_amt_words').val($('#tot_amt_words').html());
-        $('#form_address').val($('#warehouse_address').html());
+        // $('#form_address').val($('#warehouse_address').html());
         $('#submit_for_pdf').submit();
     });
     
@@ -548,7 +551,7 @@ hr {
         $('#form_gross_weight').val($('#gross_weight').html());
         $('#form_tot_amt').val($('#tot_amt').html());
         $('#form_tot_amt_words').val($('#tot_amt_words').html());
-        $('#form_address').val($('#warehouse_address').html());
+        // $('#form_address').val($('#warehouse_address').html());
         $('#form_print_ship_to').val(2);
         $('#submit_for_pdf').submit();
 

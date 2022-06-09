@@ -319,10 +319,12 @@ $('#updateuser').validate({
                 // required: true,
             },
             phone : {
+                required: true,
                 Numbers: true,
                 minlength: 10,
             },
             gst_number : {
+                required: true,
                 AlphabetandNumbers: true,
                 minlength: 15,
             }, 
@@ -339,10 +341,12 @@ $('#updateuser').validate({
                 required: "Enter address1",
             },
             phone: {
+                required: "Enter phone number",
                 Numbers: "Enter only numbers",
                 minlength: "Enter at least 10 digits",
             },
             gst_number: {
+                required: "Enter gst number",
                 AlphabetandNumbers: "Enter only alphabets and numbers",
                 minlength: "Enter at least 15 digits",
             },
@@ -368,10 +372,12 @@ $('#updateuser').validate({
                 // required: true,
             },
             phone : {
+                required: true,
                 Numbers: true,
                 minlength: 10,
             },
             gst_number : {
+                required: true,
                 AlphabetandNumbers: true,
                 minlength: 15,
             },      
@@ -388,10 +394,12 @@ $('#updateuser').validate({
                 required: "Enter address1",
             },
             phone: {
+                required: "Enter phone number",
                 Numbers: "Enter only numbers",
                 minlength: "Enter at least 10 digits",
             },
             gst_number: {
+                required: "Enter gst number",
                 AlphabetandNumbers: "Enter only alphabets and numbers",
                 minlength: "Enter at least 15 digits",
             },
@@ -414,10 +422,12 @@ $('#updateuser').validate({
             //     regex: "",
             // },
             phone : {
+                required: true,
                 Numbers: true,
                 minlength: 10,
             },
             gst_number : {
+                required: true,
                 AlphabetandNumbers: true,
                 minlength: 15,
             },
@@ -431,10 +441,12 @@ $('#updateuser').validate({
                 email: "Enter correct email address",
             },
             phone: {
+                required: "Enter phone number",
                 Numbers: "Enter only numbers",
                 minlength: "Enter at least 10 digits",
             },
             gst_number: {
+                required: "Enter gst number",
                 AlphabetandNumbers: "Enter only alphabets and numbers",
                 minlength: "Enter at least 15 digits",
             },

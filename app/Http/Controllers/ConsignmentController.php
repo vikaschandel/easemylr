@@ -177,7 +177,8 @@ class ConsignmentController extends Controller
         } else {
             $getconsignment = $query->where('branch_id',$auth->branch_id)->orderBy('id','DESC')->get();
         }
-        return view('consignments.view-consignment',['prefix'=>$this->prefix,'title'=>$this->title,'getconsignment'=>$getconsignment]);
+        $branch_add = BranchAddress::get();
+        return view('consignments.view-consignment',['prefix'=>$this->prefix,'title'=>$this->title,'getconsignment'=>$getconsignment,'branch_add'=>$branch_add]);
     }
 
     /**

@@ -56,6 +56,7 @@ class DriverController extends Controller
         $this->prefix = request()->route()->getPrefix();
         $rules = array(
             'name' => 'required',
+            'license_number' => 'required|unique:drivers',
             'license_image' => 'mimes:jpg,jpeg,png|max:4096',
         );
         $validator = Validator::make($request->all(),$rules);
@@ -154,8 +155,9 @@ class DriverController extends Controller
         try { 
             $this->prefix = request()->route()->getPrefix();
              $rules = array(
-              'name' => 'required',
-              'license_image' => 'mimes:jpg,jpeg,png|max:4096',
+                'name' => 'required',
+                'license_number' => 'required',
+                'license_image' => 'mimes:jpg,jpeg,png|max:4096',
             );
 
             $validator = Validator::make($request->all(),$rules);
