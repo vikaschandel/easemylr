@@ -315,7 +315,8 @@ class ConsignmentController extends Controller
             <p>GST No. : '.$data['consignee_detail']['gst_number'].'</p>
             <p>Phone No. : '.$data['consignee_detail']['phone'].'</p>';
 
-       
+        $generate_qrcode = QrCode::size(150)->generate('Eternity Forwarders Pvt. Ltd.');
+            //  dd($generate_qrcode);
         if ($request->typeid == 1){
             $adresses = '<table width="100%">
                     <tr>
@@ -334,7 +335,7 @@ class ConsignmentController extends Controller
             }
                 
             for ($i=1; $i<5; $i++){
-                if ($i == 1) {$type='ORIGINAL';} else if ($i == 2){$type='DUPLICATE';} else if ($i == 3){$type='TRIPLICATE';} else if ($i == 4){$type='QUADRUPLE';}
+                if ($i == 1) {$type='ORIGINAL';} elseif ($i == 2){$type='DUPLICATE';} elseif ($i == 3){$type='TRIPLICATE';} elseif ($i == 4){$type='QUADRUPLE';}
 
                     $html = '<!DOCTYPE html>
                     <html lang="en">
@@ -462,10 +463,8 @@ class ConsignmentController extends Controller
 
                             $html .='</td>
                             <td width="50%" colspan="3">
-                            <img src="img/eternity_solutions.png" id="set_img">';
-                                
-                            // $html .= QrCode::size(150)->generate('dsasdads');
-                            $html .='</td>
+                            '.$generate_qrcode.'
+                            </td>
                         </tr>
                     </table>  
                 </div>
