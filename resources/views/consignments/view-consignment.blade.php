@@ -9,32 +9,37 @@ hr {
   background-color:#f1f2f3;
   height: 1px;
 }
+
+#kgf {
+    margin-top: 158px;
+}
+.widget-content.widget-content-area.br-6 {
+    padding: 12px;
+}
+div#pp {
+    margin-top: 120px;
+}
+div#hh {
+    margin-top: 120px;
+} 
 </style>
 <div class="layout-px-spacing">
     <div class="row layout-top-spacing">
         <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
             <div class="widget-content widget-content-area br-6">
-                <!-- <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-                    <div class="breadcrumb-title pe-3">
-                        <h5>Consignment Details</h5>
-                    </div>
-                </div> -->
-                <div class="col-lg-12 col-12 layout-spacing">
                     <!-- row1 start -->
                     <div class="row">
-                        <div class="col-ms-4">
+                        <div class="col-sm-4">
                             <div class="panel panel-white full_height">
                                 <div class="panel-heading">
                                     <div class="col-ms-8">
                                         <h4 class="panel-title">All Consignments</h4>
                                     </div>
                                     <!-- <?php //if (check_permissions('cn', 'add')){ ?>  -->
-                                    <div class="col-ms-4">
-                                        <a href="{{'create'}}"><button class="btn btn-success btn-addon m-b-sm">+ Add New</button></a>
-                                    </div>
+                                    <a href="{{'create'}}"><button class="btn btn-success btn-addon m-b-sm">+ Add New</button></a>
                                     <!-- <?php// } ?>  -->
                                 </div>
-                                <div class="panel-body"> 
+                                <div class="panel-body" style="overflow:scroll"> 
                                     <div class="">
                                         <table id="consignment_table" class="table" style="width: 100%; cellspacing: 0;">
                                             <tbody>
@@ -70,16 +75,15 @@ hr {
                                             </tbody>
                                         </table>
                                     </div>
-                            </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-8">
-                            <div class="invoice col-md-12">
-                                <div class="panel panel-white">
+                        <div class="col-sm-8">
+                            <div class="invoice panel panel-white">
                                     <div class="panel-body">
-                                    <div class="ribbon"><span>Cancelled</span></div>
+                                        <div class="ribbon"><span>Cancelled</span></div>
                                         <div class="row">
-                                            <div class="col-md-6">
+                                            <div class="col-sm-6">
                                                 <h1 style="font-size:22px;" class="m-b-md"><b>Eternity Forwarders Private Limited.</b></h1>
                                                 
                                                 <address id="warehouse_address">
@@ -90,7 +94,17 @@ hr {
                                                     Phone No. : {{$branch_add->phone ?? "-"}}
                                                 </address>
                                                 <hr>
-                                                <table class="custom_table">
+                                            </div>
+                                            <div class="col-sm-6 text-center">
+                                                <div class='hh'>
+                                                    <h2 id="kgf">CONSIGNMENT NOTE</h2>
+                                                    {{QrCode::size(150)->generate('Eternity Forwarders Pvt. Ltd.');}}
+                                                    </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <table class="custom_table" id="kk">
                                                     <tr>
                                                         <td><strong>Consignment No.</strong></td>
                                                         <td><span id="cons_no">SOJ/18-19/0001</td>
@@ -120,19 +134,12 @@ hr {
                                                     </tr>
                                                 </table>
                                             </div>
-                                            <div class="col-md-6 text-center">
-                                                <!--<img height="100px" src="<?php// echo $path;?>/assets/images/eternity_logo.JPG"/>-->
-                                                <div style="min-height:150px"></div>
-                                                <h2>CONSIGNMENT NOTE</h2>
-                                                <br>
-                                                {{QrCode::size(150)->generate('Eternity Forwarders Pvt. Ltd.');}}
-                                                <!-- <img id="bar_code" height="100px" src=""/> -->
-                                            </div>
-                                        </div><!--row-->
+                                           
+                                        </div>
+                                        <hr>
+
                                         <div class="row">
-                                            <!-- <div class="col-mo-12"> -->
-                                            <hr>
-                                            <div class="col-md-4">
+                                            <div class="col-sm-4">
                                                 <table class="custom_table" width="100%">
                                                     <tr>
                                                         <td><strong>CONSIGNOR NAME & ADDRESS</strong></td>
@@ -142,7 +149,7 @@ hr {
                                                     </tr>
                                                 </table>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-sm-4">
                                                 <table class="custom_table" width="100%">
                                                     <tr>
                                                         <td><strong>CONSIGNEE NAME & ADDRESS</strong></td>
@@ -152,7 +159,7 @@ hr {
                                                     </tr>
                                                 </table>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-sm-4">
                                                 <table class="custom_table" width="100%">
                                                     <tr>
                                                         <td><strong>SHIP TO NAME & ADDRESS</strong></td>
@@ -162,10 +169,12 @@ hr {
                                                     </tr>
                                                 </table>
                                             </div>
+                                            </div>
                                             <hr>
                                             <!-- </div> -->
-                                            
-                                            <div class="col-md-12">
+                                            <div class="row">
+                                            <div class="col-sm-12">
+                                                <div style="overflow-x:auto;">
                                                 <table id="items_table"  class="table table-striped" BORDER CELLSPACING=0>
                                                     <thead>
                                                         <tr class="line_items">
@@ -200,52 +209,35 @@ hr {
                                                         </tr>
                                                     </tfoot>
                                                 </table>
+                                                </div>
                                                 <p style="float:right" id="tot_amt_words"></p>
                                             </div>
-                                            <div class="col-md-8">
-                                                <!--<h3>Terms & Conditions</h3>
-                                                <p id="termsConditions">Nullam quis risus eget urna mollis ornare vel eu leo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nullam id dolor id nibh ultricies vehicula. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec ullamcorper nulla non metus auctor fringilla.</p>
-                                                <hr>-->
-                                                <br>
-                                                <br>
-                                                <br>
-                                                <br>
-                                                <div class="col-md-5">
-                                                <br>
-                                                <br>
-                                                <h3>Receiver's Signature</h3>
-                                                <p>Received the goods mentioned above in good condition.</p>
-                                                <br>
+                                            </div>
+                                            <div class="row">
+                                            <div class="col-md-4">
+                                                <div id="hh">
+                                                    <h6>Receiver's Signature</h6>
+                                                    <p>Received the goods mentioned above in good condition.</p>
+                                                    <br>
                                                 </div>
-                                                <div class="col-md-7">
-                                                <br>
-                                                <br>
-                                                <h4>For Eternity Eternity Forwarders Pvt. Ltd.</h4>
-                                                <br>
-                                                </div>
-                                                
-                                                <!--<img src="assets/images/signature.png" height="150" class="m-t-lg" alt="">-->
                                             </div>
                                             <div class="col-md-4">
-                                                <!--<div class="text-center">
-                                                    <h4 class="no-m m-t-sm">Total Gross Weight</h4>
-                                                    <h2 id="gross_weight" class="no-m">240</h2>
-                                                    <hr>
-                                                    <h4 class="no-m m-t-md text-success">Total Amount</h4>
-                                                    <h1 class="no-m text-success">&#x20b9; <span id="tot_amt">7522</span></h1>
-                                                    <p id="tot_amt_words"></p>
-                                                </div>-->
+                                                <div id="pp">
+                                                    <h6>For Eternity Eternity Forwarders Pvt. Ltd.</h6>
+                                                </div>
+                                            </div>
+                                                
+                                            <div class="col-md-4">
                                                 <div class="text-right">
-                                                <br>
-                                                <br>
                                                 <button class="btn btn-default" type="button"><a id="printcon" data-printtoid="1" href="{{url($prefix.'/consignments/')}}"><i class="fa fa-print"></i>Print</a></button>
                                                 <button class="btn btn-default" type="button"><a id="printshipcon" data-printtoid="2" href="{{url($prefix.'/consignments/')}}"><i class="fa fa-print"></i>Print (with Ship To)</a></button>
                                                 
                                                 </div>
                                             </div>
                                         </div><!--row-->
-                                    </div>
+                                    <!-- </div> -->
                                 </div>
+                            </div>
                             </div>
 
                             <form id="submit_for_pdf" action="pdf.php" method="POST">
@@ -274,9 +266,8 @@ hr {
                             </form>
                         
                         </div><!-- Consignment Note -->
-                    </div>
-                    <!-- end row1 -->
-                </div>
+                    
+                
             </div>
         </div>
     </div>
