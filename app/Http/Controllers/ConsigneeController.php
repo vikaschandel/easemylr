@@ -99,7 +99,7 @@ class ConsigneeController extends Controller
         $consigneesave['district']            = $request->district;
         $consigneesave['postal_code']         = $request->postal_code;
         $consigneesave['state_id']            = $request->state_id;
-        $consigneesave['status']              = $request->status;
+        // $consigneesave['status']              = $request->status;
 
         $saveconsignee = Consignee::create($consigneesave); 
         if($saveconsignee)
@@ -194,7 +194,7 @@ class ConsigneeController extends Controller
             $consigneesave['district']            = $request->district;
             $consigneesave['postal_code']         = $request->postal_code;
             $consigneesave['state_id']            = $request->state_id;
-            $consigneesave['status']              = $request->status;
+            // $consigneesave['status']              = $request->status;
             
             Consignee::where('id',$request->consignee_id)->update($consigneesave);
             $url    =   URL::to($this->prefix.'/consignees');

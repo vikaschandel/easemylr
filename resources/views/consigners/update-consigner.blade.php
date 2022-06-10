@@ -96,7 +96,7 @@
                                     <label for="exampleFormControlInput2">Pincode</label>
                                     <input type="text" class="form-control" name="postal_code" value="{{old('postal_code',isset($getconsigner->postal_code)?$getconsigner->postal_code:'')}}" placeholder="Pincode">
                                 </div>
-                                <div class="form-group col-md-6">
+                                <!-- <div class="form-group col-md-6">
                                     <label for="exampleFormControlInput2">Status</label>
                                     <div class="check-box d-flex">
                                         <div class="checkbox radio">
@@ -112,7 +112,7 @@
                                             </label>
                                         </div>
                                     </div>
-                                </div>                              
+                                </div>                               -->
                             </div>
                             <input type="submit" class="mt-4 mb-4 btn btn-primary">
                             <a class="btn btn-primary" href="{{url($prefix.'/consigners') }}"> Back</a>

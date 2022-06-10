@@ -90,7 +90,7 @@ class ConsignerController extends Controller
         $consignersave['district']     = $request->district;
         $consignersave['postal_code']  = $request->postal_code;
         $consignersave['state_id']     = $request->state_id;
-        $consignersave['status']       = $request->status;
+        // $consignersave['status']       = $request->status;
 
         $saveconsigner = Consigner::create($consignersave); 
         if($saveconsigner)
@@ -177,7 +177,7 @@ class ConsignerController extends Controller
             $consignersave['district']     = $request->district;
             $consignersave['postal_code']  = $request->postal_code;
             $consignersave['state_id']     = $request->state_id;
-            $consignersave['status']       = $request->status;
+            // $consignersave['status']       = $request->status;
             
             Consigner::where('id',$request->consigner_id)->update($consignersave);
             $url    =   URL::to($this->prefix.'/consigners');

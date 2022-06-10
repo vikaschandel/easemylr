@@ -92,7 +92,7 @@
                                     <label for="exampleFormControlInput2">Pincode</label>
                                     <input type="text" class="form-control" name="postal_code" placeholder="Pincode">
                                 </div>  
-                                <div class="form-group col-md-6">
+                                <!-- <div class="form-group col-md-6">
                                     <label for="exampleFormControlInput2">Status</label>
                                     <div class="check-box d-flex">
                                         <div class="checkbox radio">
@@ -108,7 +108,7 @@
                                             </label>
                                         </div>
                                     </div>                             
-                                </div>  
+                                </div>   -->
                             </div>
                             <button type="submit" name="time" class="mt-4 mb-4 btn btn-primary">Submit</button>
                             <a class="btn btn-primary" href="{{url($prefix.'/consigners') }}"> Back</a>
