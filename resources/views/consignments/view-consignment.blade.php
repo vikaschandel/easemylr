@@ -60,9 +60,6 @@ hr {
                                                 <div class="col-ms-6"> 
                                                     {{ Helper::ShowFormatDate($consignment->consignment_date) ?? "" }}
                                                 </div>
-                                                <!--<div class="col-ms-3">  
-                                                    {{ $consignment->supply ?? "" }}
-                                                </div>-->
                                             </div>
                                             </td></tr>
                                                 <?php
@@ -84,15 +81,14 @@ hr {
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <h1 style="font-size:22px;" class="m-b-md"><b>Eternity Forwarders Private Limited.</b></h1>
-                                                @foreach($branch_add as $value)
+                                                
                                                 <address id="warehouse_address">
-                                                    {{$value->address}}
-                                                    {{$value->district}} - {{$value->postal_code}}
-                                                    GST No. : {{$value->gst_number}}<br>
-                                                    Email : {{$value->email}}<br>
-                                                    Phone No. : {{$value->phone}}
+                                                    {{$branch_add->address ?? "-"}}
+                                                    {{$branch_add->district ?? "-"}} - {{$branch_add->postal_code ?? "-"}}
+                                                    GST No. : {{$branch_add->gst_number ?? "-"}}<br>
+                                                    Email : {{$branch_add->email ?? "-"}}<br>
+                                                    Phone No. : {{$branch_add->phone ?? "-"}}
                                                 </address>
-                                                @endforeach
                                                 <hr>
                                                 <table class="custom_table">
                                                     <tr>
@@ -122,14 +118,6 @@ hr {
                                                         <td><strong>Vehicle No.</strong></td>
                                                         <td><span id="vehicle_no">RJ148G TEMP 83737</span></td>
                                                     </tr>
-                                                    <!-- <tr>
-                                                        <td><strong>Driver</strong></td>
-                                                        <td><span id="driver_name">Rajesh Kumar</span></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><strong>Driver No.</strong></td>
-                                                        <td><span id="driver_no">9876543210</span></td>
-                                                    </tr> -->
                                                 </table>
                                             </div>
                                             <div class="col-md-6 text-center">
@@ -249,11 +237,9 @@ hr {
                                                 <div class="text-right">
                                                 <br>
                                                 <br>
-                                                <!-- <button id="get_pdf" type="button" class="btn btn-default"><i class="fa fa-print"></i> Print</button> -->
                                                 <button class="btn btn-default" type="button"><a id="printcon" data-printtoid="1" href="{{url($prefix.'/consignments/')}}"><i class="fa fa-print"></i>Print</a></button>
                                                 <button class="btn btn-default" type="button"><a id="printshipcon" data-printtoid="2" href="{{url($prefix.'/consignments/')}}"><i class="fa fa-print"></i>Print (with Ship To)</a></button>
                                                 
-                                                <!-- <button id="get_pdf_ship_to" type="button" class="btn btn-default"><i class="fa fa-print"></i> Print (with Ship To)</button> -->
                                                 </div>
                                             </div>
                                         </div><!--row-->
