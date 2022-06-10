@@ -73,18 +73,18 @@
                                     <th scope="row">State</th>
                                     <td>{{isset($getconsigner->GetState->name) ? ucfirst($getconsigner->GetState->name) : "-" }}</td>
                                 </tr>
-                                <tr>
+                                <!-- <tr>
                                     <th scope="row">Status</th>
                                     <td>
-                                        <?php if($getconsigner->status == 1){
-                                            echo "Active";
-                                        }else if($getconsigner->status == 0){
-                                            echo "Deactive";
-                                        } else{ ?>
+                                        <?php// if($getconsigner->status == 1){
+                                            // echo "Active";
+                                        // }else if($getconsigner->status == 0){
+                                            // echo "Deactive";
+                                        // } else{ ?>
                                                 {{$getconsigner->status ?? "-"}}
-                                        <?php } ?>
+                                        <?php// } ?>
                                     </td>
-                                </tr>  
+                                </tr>   -->
                                     
                             </tbody>
                         </table>  
