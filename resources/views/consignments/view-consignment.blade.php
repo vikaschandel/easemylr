@@ -125,7 +125,8 @@ hr {
                                                 <div style="min-height:150px"></div>
                                                 <h2>CONSIGNMENT NOTE</h2>
                                                 <br>
-                                                <img id="bar_code" height="100px" src=""/>
+                                                {{QrCode::size(150)->generate('Eternity Forwarders Pvt. Ltd.');}}
+                                                <!-- <img id="bar_code" height="100px" src=""/> -->
                                             </div>
                                         </div><!--row-->
                                         <div class="row">

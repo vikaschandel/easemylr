@@ -18,6 +18,7 @@ use Helper;
 use Validator;
 Use PDF;
 use PDFMerger;
+use QrCode;
 
 class ConsignmentController extends Controller
 {
@@ -461,8 +462,10 @@ class ConsignmentController extends Controller
 
                             $html .='</td>
                             <td width="50%" colspan="3">
-                                <img src="img/eternity_solutions.png" id="set_img">
-                            </td>
+                            <img src="img/eternity_solutions.png" id="set_img">';
+                                
+                            // $html .= QrCode::size(150)->generate('dsasdads');
+                            $html .='</td>
                         </tr>
                     </table>  
                 </div>
