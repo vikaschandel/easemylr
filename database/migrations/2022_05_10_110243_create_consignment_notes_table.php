@@ -36,6 +36,8 @@ class CreateConsignmentNotesTable extends Migration
             $table->string('user_id')->nullable();
             $table->string('branch_id')->nullable();
             $table->string('driver_id')->nullable();
+            $table->string('bar_code')->nullable();
+            $table->string('reason_to_cancel')->nullable();
             $table->string('status')->nullable();
             $table->timestamps();
         });

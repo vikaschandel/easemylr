@@ -26,7 +26,7 @@
                                     <th>Consignment Date</th>
                                     <th>Invoice No.</th>
                                     <th>Party Name</th>
-                                    <!-- <th>Driver Name</th> -->
+                                    <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -40,7 +40,21 @@
                                     <td>{{ Helper::ShowFormatDate($consignment->consignment_date ?? "")}}</td>
                                     <td>{{ $consignment->invoice_no ?? "-" }}</td>
                                     <td>{{ $consignment->transporter_name ?? "" }}</td>
-                                    <!-- <td>{{ $consignment->driver_id ?? "" }}</td> -->
+                                    <?php
+                                    if($consignment->status==1){
+                                        $status = 'Active';
+                                        $class = "green-text";
+                                    }else{
+                                        $class = "red-text";
+                                        $status = 'InActive';
+                                    }
+                                    ?>
+                                    <td>@if($consignment->status == 1)
+                                        <a class="inactivestatus btn" data-id = "{{$consignment->id}}" data-text="consignment" data-status = "0" data-action = "<?php echo URL::current();?>"><span><i class="fa fa-ban"></i> {{ $status }}</span></a>
+                                        @else
+                                        <a class="activestatus btn" data-id = "{{$consignment->id}}" data-text="consignment" data-status = "1" data-action = "<?php echo URL::current();?>"><span><i class="fa fa-check-circle-o"></i>  {{ $status }}</span></a>
+                                        @endif
+                                    </td>
                                     <td>
                                         <a class="btn btn-primary" href="{{url($prefix.'/consignments/'.$consignment->id)}}" ><span><i class="fa fa-eye"></i></span></a>
                                         <!-- <a class="btn btn-primary" href="{{url($prefix.'/consignments/'.Crypt::encrypt($consignment->id).'/edit')}}" ><span><i class="fa fa-edit"></i></span></a>
@@ -66,4 +80,5 @@
         </div>
     </div>
 @include('models.delete-user')
+@include('models.common-confirm')
 @endsection

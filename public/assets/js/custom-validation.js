@@ -531,7 +531,57 @@ jQuery(document).ready(function(){
     //     // jQuery('.filetext').text(fileName);
     // });
 
+    jQuery(document).on('click','.activestatus,.inactivestatus',function(event){
+        event.stopPropagation();
+        let user_id   = jQuery(this).attr('data-id');
+        var dataaction = jQuery(this).attr('data-action');
+        var datastatus = jQuery(this).attr('data-status');
+        var datatext = jQuery(this).attr('data-text');
 
+        if(datastatus == 0){
+            statustext = "disable";
+        } else{
+            statustext = "enable";
+        }
+// alert(dataaction);
+        jQuery('#commonconfirm').modal('show');
+        jQuery('.confirmtext').text('Are you sure you want to '+statustext+' this '+datatext+'?');
+
+        var data =  {id:user_id,status:datastatus,page:getpagetext,updatestatus:updatestatus,peritem:peritem};
+
+        jQuery( ".commonconfirmclick").one( "click", function() {
+
+            jQuery.ajax({
+                url         : dataaction,
+                type        : 'get',
+                cache       : false,
+                data        :  data,
+                dataType    :  'json',
+                headers     : {
+                    'X-CSRF-TOKEN': jQuery('meta[name="_token"]').attr('content')
+                },
+                processData: true,
+                beforeSend  : function () {
+                    // jQuery("input[type=submit]").attr("disabled", "disabled");
+                },
+                complete: function () {
+                    //jQuery("#loader-section").css('display','none');
+                },
+
+                success:function(response){
+                    if(response.html){
+                    jQuery('#commonconfirm').modal('hide');
+                    if(response.page == 'region'){
+                        setTimeout(() => {window.location.href = response.redirect_url},10);
+                    }
+                    jQuery('.table-responsive').html(response.html);
+                    }
+                }
+            });
+        });
+
+
+    });
 
 
 
