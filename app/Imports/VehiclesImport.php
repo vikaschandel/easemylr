@@ -22,10 +22,7 @@ class VehiclesImport implements ToModel, WithHeadingRow  //ToCollection
 
     public function model(array $row)
     {
-
-        
         // dd($row);
-
         $getState = State::where('name',$row['state'])->first();
         
         if(empty($getState)){

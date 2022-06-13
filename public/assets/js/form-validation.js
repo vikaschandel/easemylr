@@ -913,6 +913,10 @@ $('#updateuser').validate({
                 // required: true,
                 //  extension: "csv",
             },
+            consignersfile: {
+                // required: true,
+                //  extension: "csv",
+            },
         },
         messages:
         {
@@ -921,6 +925,10 @@ $('#updateuser').validate({
                 extension: "Please upload .csv file format only"
             },
             vehiclesfile: {
+                required: "Please select file",
+                extension: "Please upload .csv file format only"
+            },
+            consignersfile: {
                 required: "Please select file",
                 extension: "Please upload .csv file format only"
             }

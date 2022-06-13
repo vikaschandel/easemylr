@@ -54,7 +54,7 @@ class ConsignmentController extends Controller
                 
                 $url = $this->prefix.'/consignments';
                 $response['success'] = true;
-                $response['success_message'] = "Consignment Added successfully";
+                $response['success_message'] = "Consignment updated successfully";
                 $response['error'] = false;
                 $response['page'] = 'consignment-updateupdate';
                 $response['redirect_url'] = $url;
@@ -550,22 +550,6 @@ class ConsignmentController extends Controller
             
             return $pdfMerger->download('all.pdf');      
     }
-
-    public function statusUpdate(Request $request)
-    {
-        User::where('id',$request->id)->update(['status'=>$request->status]);
-        if($getconsignees)
-        {
-            $response['success']         = true;
-            $response['success_message'] = "Consignment status updated successfully";
-            $response['error']           = false;
-            $response['data']            = $getconsignees;
-        }else{
-            $response['success']         = false;
-            $response['error_message']   = "Can not status updated please try again";
-            $response['error']           = true;
-        }
-        return response()->json($response);
-    }
+    
 
 }

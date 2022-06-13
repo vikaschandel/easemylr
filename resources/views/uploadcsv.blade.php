@@ -29,6 +29,15 @@
                         <input type="file" name="vehiclesfile" id="vehiclefile" class="vehiclefile"> 
                     </div>
                 </div>
+                <br/>
+                <div class="row">
+                    <div class="col-lg-6 col-md-3 col-sm-12">
+                        <h4 class="win-h4">Browse Consigners Sheet</h4>
+                    </div>
+                    <div class="col-lg-6 col-md-9 col-sm-12">
+                        <input type="file" name="consignersfile" id="consignerfile" class="consignerfile"> 
+                    </div>
+                </div>
                 
                 <button type="submit" name="" class="mt-4 mb-4 btn btn-primary">Submit</button>
                 <div class="spinner-border loader" style= "display:none;"></div>
