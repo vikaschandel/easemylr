@@ -49,8 +49,7 @@ class ConsignmentController extends Controller
             $consignments = $query->orderby('id','DESC')->get();
             if($request->ajax()){
                 if(isset($request->updatestatus)){
-                    // dd("dsf");
-                    ConsignmentNote::where('id',$request->id)->update(['status'=>$request->status]);
+                    ConsignmentNote::where('id',$request->id)->update(['status'=>$request->status,'reason_to_cancel'=>$request->reason_to_cancel]);
                 }
                 
                 $url = $this->prefix.'/consignments';

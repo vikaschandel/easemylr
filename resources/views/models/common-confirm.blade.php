@@ -9,8 +9,12 @@
        <!-- Modal body -->
        <div class="modal-body">
           <div class="Delt-content text-center">
-            <img src="/assets/images/sucess.png" class="img-fluid mb-2"> 
-             <p class="confirmtext">Are you sure you want to upload sheet?</p>
+            <!-- <img src="/assets/images/sucess.png" class="img-fluid mb-2">  -->
+             <p class="confirmtext">Why do you want to cancel it?</p>
+          </div>
+          <div>
+            <label>Reason:</label>
+            <textarea class="form-control" name="reason_to_cancel" id="reason_to_cancel" rows="2"></textarea>
           </div>
        </div>
        <!-- Modal footer -->

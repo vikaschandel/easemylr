@@ -546,12 +546,12 @@ jQuery(document).ready(function(){
             statustext = "enable";
         }
         jQuery('#commonconfirm').modal('show');
-        jQuery('.confirmtext').text('Are you sure you want to '+statustext+' this '+datatext+'?');
-
-        var data =  {id:user_id,status:datastatus,updatestatus:updatestatus};
-
+        // jQuery('.confirmtext').text('Are you sure you want to '+statustext+' this '+datatext+'?');
         jQuery( ".commonconfirmclick").one( "click", function() {
+            var reason_to_cancel = jQuery('#reason_to_cancel').val();
 
+            var data =  {id:user_id,status:datastatus,updatestatus:updatestatus,reason_to_cancel:reason_to_cancel};
+            
             jQuery.ajax({
                 url         : dataaction,
                 type        : 'get',
