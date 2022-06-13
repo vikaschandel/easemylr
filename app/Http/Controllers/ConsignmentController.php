@@ -44,8 +44,24 @@ class ConsignmentController extends Controller
         // if($authuser->role_id == 2){
         //     $consignments = $query->whereIn('branch_id',$cc)->orderby('id','DESC')->get();
         // }else{
-            $consignments = $query->orderby('id','DESC')->get();
+            
         // }
+            $consignments = $query->orderby('id','DESC')->get();
+            if($request->ajax()){
+                if(isset($request->updatestatus)){
+                    // dd("dsf");
+                    ConsignmentNote::where('id',$request->id)->update(['status'=>$request->status]);
+                }
+                
+                $url = $this->prefix.'/consignments';
+                $response['success'] = true;
+                $response['success_message'] = "Consignment Added successfully";
+                $response['error'] = false;
+                $response['page'] = 'consignment-updateupdate';
+                $response['redirect_url'] = $url;
+
+                return response()->json($response);
+            }
         return view('consignments.consignment-list',['consignments'=>$consignments,'prefix'=>$this->prefix])
         ->with('i', ($request->input('page', 1) - 1) * 5);
     }
@@ -107,7 +123,6 @@ class ConsignmentController extends Controller
             $consignmentsave['consigner_id']     = $request->consigner_id;
             $consignmentsave['consignee_id']     = $request->consignee_id;
             $consignmentsave['ship_to_id']       = $request->ship_to_id;
-            //$consignmentsave['consignment_no']   = $request->consignment_no;
             $consignmentsave['consignment_date'] = $request->consignment_date;
             $consignmentsave['dispatch']         = $request->dispatch;
             $consignmentsave['invoice_no']       = $request->invoice_no;
@@ -137,7 +152,7 @@ class ConsignmentController extends Controller
                       $save_data['consignment_id'] = $saveconsignment->id; 
                       $save_data['status']         = 1;
                       $saveconsignmentitems = ConsignmentItem::create($save_data);
-                    }              
+                    }           
                 }
                 $url = $this->prefix.'/consignments';
                 $response['success'] = true;
@@ -535,6 +550,23 @@ class ConsignmentController extends Controller
             $pdfMerger->save("all.pdf");
             
             return $pdfMerger->download('all.pdf');      
+    }
+
+    public function statusUpdate(Request $request)
+    {
+        User::where('id',$request->id)->update(['status'=>$request->status]);
+        if($getconsignees)
+        {
+            $response['success']         = true;
+            $response['success_message'] = "Consignment status updated successfully";
+            $response['error']           = false;
+            $response['data']            = $getconsignees;
+        }else{
+            $response['success']         = false;
+            $response['error_message']   = "Can not status updated please try again";
+            $response['error']           = true;
+        }
+        return response()->json($response);
     }
 
 }

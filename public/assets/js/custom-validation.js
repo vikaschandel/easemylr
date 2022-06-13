@@ -531,23 +531,24 @@ jQuery(document).ready(function(){
     //     // jQuery('.filetext').text(fileName);
     // });
 
+    // consignment status change onchange
     jQuery(document).on('click','.activestatus,.inactivestatus',function(event){
         event.stopPropagation();
         let user_id   = jQuery(this).attr('data-id');
         var dataaction = jQuery(this).attr('data-action');
         var datastatus = jQuery(this).attr('data-status');
         var datatext = jQuery(this).attr('data-text');
+        var updatestatus = 'updatestatus';
 
         if(datastatus == 0){
             statustext = "disable";
         } else{
             statustext = "enable";
         }
-// alert(dataaction);
         jQuery('#commonconfirm').modal('show');
         jQuery('.confirmtext').text('Are you sure you want to '+statustext+' this '+datatext+'?');
 
-        var data =  {id:user_id,status:datastatus,page:getpagetext,updatestatus:updatestatus,peritem:peritem};
+        var data =  {id:user_id,status:datastatus,updatestatus:updatestatus};
 
         jQuery( ".commonconfirmclick").one( "click", function() {
 
@@ -569,12 +570,11 @@ jQuery(document).ready(function(){
                 },
 
                 success:function(response){
-                    if(response.html){
-                    jQuery('#commonconfirm').modal('hide');
-                    if(response.page == 'region'){
-                        setTimeout(() => {window.location.href = response.redirect_url},10);
-                    }
-                    jQuery('.table-responsive').html(response.html);
+                    if(response.success){
+                        jQuery('#commonconfirm').modal('hide');
+                        if(response.page == 'consignment-updateupdate'){
+                            setTimeout(() => {window.location.href = response.redirect_url},10);
+                        }
                     }
                 }
             });
@@ -582,6 +582,7 @@ jQuery(document).ready(function(){
 
 
     });
+
 
 
 

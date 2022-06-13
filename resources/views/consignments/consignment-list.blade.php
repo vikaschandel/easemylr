@@ -1,5 +1,11 @@
 @extends('layouts.main')
 @section('content')
+<style>
+.red-text { color: red; }
+.green-text{ color: green;}
+
+</style>
+
  <!-- BEGIN PAGE LEVEL STYLES -->
     <link rel="stylesheet" type="text/css" href="{{asset('plugins/table/datatable/datatables.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('plugins/table/datatable/dt-global_style.css')}}">
@@ -50,9 +56,9 @@
                                     }
                                     ?>
                                     <td>@if($consignment->status == 1)
-                                        <a class="inactivestatus btn" data-id = "{{$consignment->id}}" data-text="consignment" data-status = "0" data-action = "<?php echo URL::current();?>"><span><i class="fa fa-ban"></i> {{ $status }}</span></a>
+                                        <a class="inactivestatus btn {{$class}}" data-id = "{{$consignment->id}}" data-text="consignment" data-status = "0" data-action = "<?php echo URL::current();?>"><span><i class="fa fa-ban"></i> {{ $status }}</span></a>
                                         @else
-                                        <a class="activestatus btn" data-id = "{{$consignment->id}}" data-text="consignment" data-status = "1" data-action = "<?php echo URL::current();?>"><span><i class="fa fa-check-circle-o"></i>  {{ $status }}</span></a>
+                                        <a class="activestatus btn {{$class}}" data-id = "{{$consignment->id}}" data-text="consignment" data-status = "1" data-action = "<?php echo URL::current();?>"><span><i class="fa fa-check-circle-o"></i>  {{ $status }}</span></a>
                                         @endif
                                     </td>
                                     <td>
