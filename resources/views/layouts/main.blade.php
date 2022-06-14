@@ -24,17 +24,17 @@
         <!--  END NAVBAR  -->
 
         <!--  BEGIN NAVBAR  -->
-        <div class="sub-header-container">
+        <!-- <div class="sub-header-container">
             <header class="header navbar navbar-expand-sm">
             	@include('layouts.includes.navbarsec')
             </header>
-        </div>
+        </div> -->
 
         <!--  BEGIN MAIN CONTAINER  -->
         <div class="main-container" id="container">
-
+<!-- 
             <div class="overlay"></div>
-            <div class="search-overlay"></div>
+            <div class="search-overlay"></div> -->
                 @include('layouts.includes.sidebar')
 
             <!--  BEGIN CONTENT AREA  -->

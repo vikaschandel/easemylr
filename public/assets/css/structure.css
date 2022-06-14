@@ -102,7 +102,8 @@ code {
   position: relative;
   width: 50%;
   flex-grow: 8;
-  margin-top: 106px;
+  /* margin-top: 106px; */
+  margin-top: 40px;
   margin-bottom: 0;
   margin-left: 212px;
   transition: .600s; }
@@ -205,7 +206,9 @@ code {
 
 .navbar {
   padding: 0;
-  background: #0e1726; }
+  background: #ffffff;
+  /* background: #0e1726;  */
+  }
   .navbar .theme-brand {
     padding: 0.9px 0 0.9px 27px !important;
     border-radius: 6px 6px 0 0;
@@ -782,7 +785,8 @@ code {
   user-select: none;
   -webkit-user-drag: none;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-  top: 106px;
+  /* top: 106px; */
+  top: 78px;
   left: 16px; }
 
 .sidebar-theme {
