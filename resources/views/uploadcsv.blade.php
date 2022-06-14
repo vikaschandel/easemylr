@@ -38,6 +38,15 @@
                         <input type="file" name="consignersfile" id="consignerfile" class="consignerfile"> 
                     </div>
                 </div>
+                <br/>
+                <div class="row">
+                    <div class="col-lg-6 col-md-3 col-sm-12">
+                        <h4 class="win-h4">Browse Drivers Sheet</h4>
+                    </div>
+                    <div class="col-lg-6 col-md-9 col-sm-12">
+                        <input type="file" name="driversfile" id="driverfile" class="driverfile"> 
+                    </div>
+                </div>
             
                 
                 <button type="submit" name="" class="mt-4 mb-4 btn btn-primary">Submit</button>

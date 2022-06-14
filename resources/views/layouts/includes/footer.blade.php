@@ -78,9 +78,10 @@
                 "sSearchPlaceholder": "Search...",
                "sLengthMenu": "Results :  _MENU_",
             },
+            "ordering": false,
             "stripeClasses": [],
             "lengthMenu": [7, 10, 20, 50],
-            "pageLength": 7 
+            "pageLength": 25
         } );
     </script>
     <!-- END PAGE LEVEL SCRIPTS -->

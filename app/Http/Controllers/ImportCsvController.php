@@ -33,6 +33,10 @@ class ImportCsvController extends Controller
             $data = Excel::import(new ConsignerImport,request()->file('consignersfile'));
             $url  =   URL::to($this->prefix.'/consigners');
         }
+        if($request->hasFile('driversfile')){
+            $data = Excel::import(new DriverImport,request()->file('driversfile'));
+            $url  =   URL::to($this->prefix.'/drivers');
+        }
         if($data){            
             $response['success']    = true;
             $response['page']       = 'bulk-imports';

@@ -46,12 +46,12 @@ class ConsigneeImport implements ToModel,WithHeadingRow
             $state = $getState->id;
         }
 
-        if(empty($row['status'])){
-            $status = '0';
-        }
-        else{
-            $status = $row['status'];
-        }
+        // if(empty($row['status'])){
+        //     $status = '0';
+        // }
+        // else{
+        //     $status = $row['status'];
+        // }
 
         return new Consignee([
             'nick_name'         => $row['nick_name'],
