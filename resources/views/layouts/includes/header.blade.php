@@ -4,7 +4,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <?php header("Access-Control-Allow-Origin:*"); ?>
     <title>Sales Admin | CORK - Multipurpose Bootstrap Dashboard Template </title>
-    <link rel="icon" type="image/x-icon" href="{{asset('assets/img/favicon.ico')}}"/>
+    <link rel="icon" type="image/x-icon" href="{{asset('assets/img/favicon.jpg')}}"/>
     <link href="{{asset('assets/css/loader.css')}}" rel="stylesheet" type="text/css" />
     <script src="{{asset('assets/js/loader.js')}}"></script>
     <!-- BEGIN GLOBAL MANDATORY STYLES -->

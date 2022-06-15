@@ -7,7 +7,7 @@
 ?>
 <ul class="navbar-item theme-brand flex-row  text-center">
     <li class="nav-item theme-logo">
-        <a href="index.html">
+        <a href="{{$prefixurl.'dashboard'}}">
             <img src="{{asset('assets/img/LOGO_Frowarders.jpg')}}" class="navbar-logo" alt="logo" style="width: 135px;height: 44px;">
         </a>
     </li>

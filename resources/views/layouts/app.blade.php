@@ -19,7 +19,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
-    <link rel="icon" type="image/x-icon" href="{{asset('assets/img/favicon.ico')}}"/>
+    <link rel="icon" type="image/x-icon" href="{{asset('assets/img/favicon.jpg')}}"/>
     <link href="{{asset('assets/css/loader.css')}}" rel="stylesheet" type="text/css" />
     <script src="{{asset('assets/js/loader.js')}}"></script>
 
