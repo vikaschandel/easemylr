@@ -24,6 +24,7 @@
                                 <th>Sr No.</th>
                                 <th>Name</th>
                                 <th>Nick Name</th>
+                                <th>Team Id</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -36,6 +37,7 @@
                                 <td>{{ ++$i }}</td>
                                 <td>{{ ucfirst($value->name) }}</td>
                                 <td>{{ ucfirst($value->nick_name) }}</td>
+                                <td>{{ ucfirst($value->team_id) }}</td>
                                 <td>
                                     <a class="btn btn-primary editlocation" href="javascript:void(0)" data-action = "<?php echo URL::to($prefix.'/locations/get-location'); ?>" data-id="{{ $value->id }}" data-toggle="modal" data-target="#location-updatemodal"><span><span><i class="fa fa-edit"></i></span></span></a>
                                     <!-- <a class="btn btn-info" href="{{url($prefix.'/locations/'.Crypt::encrypt($value->id))}}" ><span><i class="fa fa-eye"></i></span></a> -->

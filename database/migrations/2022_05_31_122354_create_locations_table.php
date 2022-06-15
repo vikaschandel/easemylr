@@ -17,6 +17,7 @@ class CreateLocationsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('nick_name');
+            $table->string('team_id');
             $table->string('status');
             $table->timestamps();
         });

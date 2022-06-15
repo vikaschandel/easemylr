@@ -62,6 +62,7 @@ class LocationController extends Controller
         $this->prefix = request()->route()->getPrefix();
         $rules = array(
             'name'     => 'required|unique:locations',
+            'team_id'  => 'required|unique:locations',
         );
         $validator = Validator::make($request->all() , $rules);
         if ($validator->fails())
@@ -79,6 +80,9 @@ class LocationController extends Controller
         }
         if(!empty($request->nick_name)){
             $addlocation['nick_name'] = $request->nick_name;
+        }
+        if(!empty($request->team_id)){
+            $addlocation['team_id'] = $request->team_id;
         }
         $addlocation['status'] = 1;
 
@@ -100,8 +104,8 @@ class LocationController extends Controller
 
     public function updateLocation(Request $request){
         $rules = array(
-            'name'      => 'required',
-            'nick_name' => 'required',
+            'name'      => 'required|unique:locations,name,' . $request->id,
+            'team_id' => 'required|unique:locations,team_id,' . $request->id,
         );
         $validator = Validator::make($request->all(),$rules);
 
@@ -118,6 +122,9 @@ class LocationController extends Controller
         }
         if(!empty($request->nick_name)){
             $locationsave['nick_name']  = $request->nick_name;
+        }
+        if(!empty($request->team_id)){
+            $locationsave['team_id']  = $request->team_id;
         }
         $locationsave['status']     = 1;
         $location = Location::where('id',$request->id)->update($locationsave);

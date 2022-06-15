@@ -855,7 +855,10 @@ jQuery(document).ready(function(){
             },
             nick_name: {
                 required: true,
-            }
+            },
+            team_id: {
+                required: true,
+            },
         },
         messages:
         {
@@ -864,7 +867,10 @@ jQuery(document).ready(function(){
             },
             nick_name: {
                 required: "Nick name is required"
-            }
+            },
+            team_id: {
+                required: "Team id is required"
+            },
         },
         submitHandler : function(form)
         {
@@ -882,7 +888,10 @@ jQuery(document).ready(function(){
             },
             nick_name: {
                 required: true,
-            }
+            },
+            team_id: {
+                required: true,
+            },
         },
         messages:
         {
@@ -891,7 +900,10 @@ jQuery(document).ready(function(){
             },
             nick_name: {
                 required: "Nick name is required"
-            }
+            },
+            team_id: {
+                required: "Team id is required"
+            },
         },
         submitHandler : function(form)
         {

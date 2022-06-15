@@ -19,6 +19,9 @@
                         <div class="form-group my-3">
                             <input class="form-control" id="nick_name" name="nick_name" placeholder="Enter nick name">
                         </div>
+                        <div class="form-group my-3">
+                            <input class="form-control" id="team_id" name="team_id" placeholder="Enter team id">
+                        </div>
                 </div>
             <!-- Modal footer -->
                 <div class="modal-footer">

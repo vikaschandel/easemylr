@@ -520,6 +520,7 @@ jQuery(document).ready(function(){
             success:function(response){
                 jQuery('#nameup').val(response.newcata.name);
                 jQuery('#nick_nameup').val(response.newcata.nick_name);
+                jQuery('#team_idup').val(response.newcata.team_id);
             }
         });
     });  
