@@ -50,6 +50,7 @@ class ConsignmentController extends Controller
             if($request->ajax()){
                 if(isset($request->updatestatus)){
                     ConsignmentNote::where('id',$request->id)->update(['status'=>$request->status,'reason_to_cancel'=>$request->reason_to_cancel]);
+                    ConsignmentItem::where('consignment_id',$request->id)->update(['status'=>$request->status]);
                 }
                 
                 $url = $this->prefix.'/consignments';
