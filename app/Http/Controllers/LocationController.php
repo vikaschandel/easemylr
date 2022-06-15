@@ -84,12 +84,12 @@ class LocationController extends Controller
 
         $savelocation = Location::create($addlocation);
         if($savelocation){
-            $url    =   URL::to($this->prefix.'/locations');
+            
             $response['success']    = true;
             $response['page']       = 'save-locations';
             $response['error']      = false;
             $response['success_message'] = "Location created successfully";
-            $response['redirect_url'] = $url;
+            $response['redirect_url'] = URL::to($this->prefix.'/locations');
         }else{
             $response['success']       = false;
             $response['error']         = true;

@@ -121,7 +121,7 @@ class BranchController extends Controller
             $response['success_message'] = "Branch Added successfully";
             $response['error'] = false;
             $response['resetform'] = true;
-            $response['page'] = 'create-branch'; 
+            $response['page'] = 'branch-create'; 
         }
         else{
             $response['success'] = false;

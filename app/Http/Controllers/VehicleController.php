@@ -87,9 +87,9 @@ class VehicleController extends Controller
             $response['success']         = true;
             $response['success_message'] = "Vehicle Added successfully";
             $response['error']           = false;
-            $response['resetform']       = true;
-            $response['page']            = 'create-vehicle';
-            $response['redirect_url']        = URL::to('/'.$this->prefix.'/vehicles');
+            // $response['resetform']       = true;
+            $response['page']            = 'vehicle-create';
+            $response['redirect_url']    = URL::to('/'.$this->prefix.'/vehicles');
         }else{
             $response['success']         = false;
             $response['error_message']   = "Can not created vehicle please try again";
@@ -170,12 +170,11 @@ class VehicleController extends Controller
             
             Vehicle::where('id',$request->vehicle_id)->update($vehiclesave);
             
-            $url    =   URL::to($this->prefix.'/vehicles');
-            $response['page'] = 'vehicle-update';
             $response['success'] = true;
-            $response['success_message'] = "Vehicle Updated Successfully";
             $response['error'] = false;
-            $response['redirect_url'] = $url;
+            $response['page'] = 'vehicle-update';
+            $response['success_message'] = "Vehicle Updated Successfully";
+            $response['redirect_url'] = URL::to($this->prefix.'/vehicles');
         }catch(Exception $e) {
             $response['error'] = false;
             $response['error_message'] = $e;

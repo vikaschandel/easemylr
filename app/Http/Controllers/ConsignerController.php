@@ -97,7 +97,7 @@ class ConsignerController extends Controller
         {
             $response['success'] = true;
             $response['error']   = false;
-            $response['page']    = 'create-consigner';
+            $response['page']    = 'consigner-create';
             $response['success_message'] = "Consigner Added successfully";
             $response['redirect_url'] = URL::to($this->prefix.'/consigners');
             // $response['resetform'] = true;

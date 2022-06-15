@@ -16,21 +16,21 @@
 
                             <div class="form-row mb-0">
                                 <div class="form-group col-md-6">
-                                    <label for="exampleFormControlInput2">Registration No.</label>
+                                    <label for="exampleFormControlInput2">Registration No.<span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" id="regn_no" name="regn_no" value="{{old('regn_no',isset($getvehicle->regn_no)?$getvehicle->regn_no:'')}}" placeholder="" maxlength="10">
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="exampleFormControlInput2">Manufacturer</label>
+                                    <label for="exampleFormControlInput2">Manufacturer<span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="mfg" value="{{old('mfg',isset($getvehicle->mfg)?$getvehicle->mfg:'')}}" placeholder="Mahindra, Tata, etc.">
                                 </div>
                             </div>
                             <div class="form-row mb-0">                          
                                 <div class="form-group col-md-6">
-                                    <label for="exampleFormControlSelect1">Make</label>
+                                    <label for="exampleFormControlSelect1">Make<span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="make" value="{{old('make',isset($getvehicle->make)?$getvehicle->make:'')}}" placeholder="407, Supro Maxi, Truck, Pickup, Ace, etc.">
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="exampleFormControlSelect1">Engine No.</label>
+                                    <label for="exampleFormControlSelect1">Engine No.<span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="engine_no" value="{{old('engine_no',isset($getvehicle->engine_no)?$getvehicle->engine_no:'')}}" placeholder="">
                                 </div>
                             </div>

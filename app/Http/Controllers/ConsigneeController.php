@@ -107,8 +107,8 @@ class ConsigneeController extends Controller
             $response['success'] = true;
             $response['success_message'] = "Consignee Added successfully";
             $response['error'] = false;
-            $response['page'] = 'create-consigner'; 
-            $response['redirect_url'] = URL::to('/'.$this->prefix.'/consignees');
+            $response['page'] = 'consignee-create'; 
+            $response['redirect_url'] = URL::to($this->prefix.'/consignees');
             // $response['resetform'] = true;
         }else{
             $response['success'] = false;

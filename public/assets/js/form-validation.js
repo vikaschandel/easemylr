@@ -437,7 +437,7 @@ jQuery(document).ready(function(){
                 minlength: 10,
             },
             gst_number : {
-                required: true,
+                // required: true,
                 AlphabetandNumbers: true,
                 minlength: 15,
             },
@@ -702,9 +702,6 @@ jQuery(document).ready(function(){
                 required: true,
                 // AlphabetandNumbers: true,
             },
-            driver_id : {
-                required: true,
-            },
         },
         messages: {
             regn_no: {
@@ -764,9 +761,6 @@ jQuery(document).ready(function(){
                 required: "Enter engin no.",
                 AlphabetandNumbers: "Enter only alphabets and numbers",
             },
-            driver_id: {
-                required: "Select driver name",
-            }, 
         },
         submitHandler : function(form)
         {
@@ -1076,7 +1070,7 @@ function formSubmitRedirect(form)
                 setTimeout(() => {window.location.href = response.redirect_url},2000);
             }else if(response.page == 'role'){
                 setTimeout(() => {window.location.href = response.redirect_url},1000);
-            }else if(response.page == 'branch-update'){
+            }else if(response.page == 'branch-create' || response.page == 'branch-update'){
                 setTimeout(() => {window.location.href = response.redirect_url},2000);
             }else if(response.page == 'consigner-create' || response.page == 'consigner-update'){
                 setTimeout(() => {window.location.href = response.redirect_url},2000);
@@ -1086,7 +1080,7 @@ function formSubmitRedirect(form)
                 setTimeout(() => {window.location.href = response.redirect_url},2000);
             }else if(response.page == 'driver-create' || response.page == 'driver-update'){
                 setTimeout(() => {window.location.href = response.redirect_url},2000);
-            }else if(response.page == 'vehicle-update'){
+            }else if(response.page == 'vehicle-create' || response.page == 'vehicle-update'){
                 setTimeout(() => {window.location.href = response.redirect_url},2000);
             }else if(response.page == 'save-locations'|| response.page == 'update-locations')
             {
