@@ -96,10 +96,11 @@ class ConsignerController extends Controller
         if($saveconsigner)
         {
             $response['success'] = true;
+            $response['error']   = false;
+            $response['page']    = 'create-consigner';
             $response['success_message'] = "Consigner Added successfully";
-            $response['error'] = false;
-            $response['resetform'] = true;
-            $response['page'] = 'create-consigner'; 
+            $response['redirect_url'] = URL::to($this->prefix.'/consigners');
+            // $response['resetform'] = true;
         }else{
             $response['success'] = false;
             $response['error_message'] = "Can not created consigner please try again";

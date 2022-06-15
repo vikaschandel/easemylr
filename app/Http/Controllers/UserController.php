@@ -124,12 +124,13 @@ class UserController extends Controller
                 }
                 UserPermission::insert($savepermissions); 
             }
-
+            $url    =   URL::to($this->prefix.'/users');
             $response['success'] = true;
             $response['success_message'] = "Users Added successfully";
             $response['error'] = false;
-            $response['resetform'] = true;
-            $response['page'] = 'users'; 
+            // $response['resetform'] = true;
+            $response['page'] = 'user-create';
+            $response['redirect_url'] = $url;
         }else{
             $response['success'] = false;
             $response['error_message'] = "Can not created user please try again";

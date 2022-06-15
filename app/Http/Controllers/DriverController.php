@@ -102,8 +102,9 @@ class DriverController extends Controller
             $response['success']         = true;
             $response['success_message'] = "Driver Added successfully";
             $response['error']           = false;
-            $response['resetform']       = true;
-            $response['page']            = 'create-driver'; 
+            $response['page']            = 'create-driver';
+            $response['redirect_url']    = URL::to('/'.$this->prefix.'/drivers');
+            // $response['resetform']       = true;
         }else{
             $response['success']         = false;
             $response['error_message']   = "Can not created driver please try again";

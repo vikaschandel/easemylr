@@ -18,15 +18,15 @@
                             @csrf
                             <input type="hidden" name="user_id" value="{{$getuser->id}}">
                             <div class="form-group mb-4">
-                                <label for="exampleFormControlInput2">Name</label>
+                                <label for="exampleFormControlInput2">Name<span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" name="name" id="name" placeholder="Name" value="{{old('name',isset($getuser->name)?$getuser->name:'')}}">
                             </div>
                             <div class="form-group mb-4">
-                                <label for="exampleFormControlInput2">Email Address</label>
+                                <label for="exampleFormControlInput2">Email Address<span class="text-danger">*</span></label>
                                 <input type="email" class="form-control" name="email" id="email" placeholder="Email" value="{{old('email',isset($getuser->email)?$getuser->email:'')}}">
                             </div>
                             <div class="form-group mb-4">
-                                <label for="exampleFormControlInput2">Password</label>
+                                <label for="exampleFormControlInput2">Password<span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" name="password" id="password" placeholder="Password" value="{{old('user_password',isset($getuser->user_password)?$getuser->user_password:'')}}">
                             </div>
                             <div class="form-group mb-4">
@@ -46,7 +46,7 @@
                                 </select>
                             </div>
                             <div class="form-group mb-4">
-                                <label for="exampleFormControlSelect1">Location</label>
+                                <label for="exampleFormControlSelect1">Select Location<span class="text-danger">*</span></label>
                                 <select class="form-control tagging" name="branch_id[]" multiple="multiple">
                                     <option value="">Select Location</option>
                                     <?php 

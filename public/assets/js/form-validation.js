@@ -129,7 +129,8 @@ jQuery(document).ready(function(){
                 regex: "",
             },
             password : {
-              minlength : 5
+                required: true,
+                minlength : 5
             },
             phone : {
                 Numbers: true,
@@ -147,6 +148,10 @@ jQuery(document).ready(function(){
                 required: "Enter email",
                 email: "Enter correct email address",
             },
+            password : {
+                required: "Enter password",
+                minlength : "Password must be at least 5 characters long" 
+            },
             phone: {
                 Numbers: "Enter only numbers",
                 minlength: "Enter at least 10 digits",
@@ -163,8 +168,8 @@ jQuery(document).ready(function(){
     });
 
 
-/*===== update user =====*/
-$('#updateuser').validate({ 
+    /*===== update user =====*/
+    $('#updateuser').validate({ 
         rules: {
             name: {
                 required: true
@@ -175,7 +180,8 @@ $('#updateuser').validate({
                 regex: "",
             },
             password : {
-              minlength : 5
+                required: true,
+                minlength : 5
             },
             phone : {
                 Numbers: true,
@@ -192,6 +198,10 @@ $('#updateuser').validate({
             email: {
                 required: "Enter Email",
                 email: "Enter correct email address",
+            },
+            password : {
+                required: "Enter password",
+                minlength : "Password must be at least 5 characters long" 
             },
             phone: {
                 Numbers: "Enter only numbers",
@@ -1062,19 +1072,19 @@ function formSubmitRedirect(form)
                 $('#'+form.id).trigger('reset');
             }else if(response.page == 'login'){
                 setTimeout(() => {window.location.href = response.redirect_url},1000);
-            }else if(response.page == 'user-update'){
+            }else if(response.page == 'user-create' || response.page == 'user-update'){
                 setTimeout(() => {window.location.href = response.redirect_url},2000);
             }else if(response.page == 'role'){
                 setTimeout(() => {window.location.href = response.redirect_url},1000);
             }else if(response.page == 'branch-update'){
                 setTimeout(() => {window.location.href = response.redirect_url},2000);
-            }else if(response.page == 'consigner-update'){
+            }else if(response.page == 'consigner-create' || response.page == 'consigner-update'){
                 setTimeout(() => {window.location.href = response.redirect_url},2000);
-            }else if(response.page == 'consignee-update'){
+            }else if(response.page == 'consignee-create' || response.page == 'consignee-update'){
                 setTimeout(() => {window.location.href = response.redirect_url},2000);
             }else if(response.page == 'broker-update'){
                 setTimeout(() => {window.location.href = response.redirect_url},2000);
-            }else if(response.page == 'driver-update'){
+            }else if(response.page == 'driver-create' || response.page == 'driver-update'){
                 setTimeout(() => {window.location.href = response.redirect_url},2000);
             }else if(response.page == 'vehicle-update'){
                 setTimeout(() => {window.location.href = response.redirect_url},2000);

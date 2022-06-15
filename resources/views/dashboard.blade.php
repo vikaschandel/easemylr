@@ -26,7 +26,7 @@
 
                     <div class="w-content">
                         <div class="w-info">
-                            <p class="value">$ 45,141 </p>
+                            <p class="value">$ {{ $gettoday_lr }} </p>
                         </div>
                     </div>
                 </div>
@@ -51,7 +51,7 @@
 
                     <div class="w-content">
                         <div class="w-info">
-                            <p class="value">$ 45,141  </p>
+                            <p class="value">$ {{ $gettoday_weightlifted }}  </p>
                         </div>
                     </div>
                 </div>
@@ -75,7 +75,7 @@
 
                     <div class="w-content">
                         <div class="w-info">
-                            <p class="value">$ 45,141 </p>
+                            <p class="value">$ {{ $gettoday_gross_weightlifted }} </p>
                         </div>
                     </div>
                 </div>
@@ -100,7 +100,7 @@
 
                     <div class="w-content">
                         <div class="w-info">
-                            <p class="value">$ 45,141 </p>
+                            <p class="value">$ {{ $getcurrentmonth_lr }} </p>
                         </div>
                     </div>
                 </div>
@@ -124,7 +124,7 @@
 
                     <div class="w-content">
                         <div class="w-info">
-                            <p class="value">$ 45,141 </p>
+                            <p class="value">$ {{ $getmonthly_weightlifted }} </p>
                         </div>
                     </div>
                 </div>
@@ -149,7 +149,7 @@
 
                     <div class="w-content">
                         <div class="w-info">
-                            <p class="value">$ 45,141 </p>
+                            <p class="value">$ {{ $getmonthly_gross_weightlifted }} </p>
                         </div>
                     </div>
                 </div>
