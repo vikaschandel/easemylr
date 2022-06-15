@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\ConsignmentNote;
 use App\Models\ConsignmentItem;
+use Carbon\Carbon;
+use DB;
 
 class DashboardController extends Controller
 {
@@ -21,12 +23,12 @@ class DashboardController extends Controller
     {
         $this->prefix = request()->route()->getPrefix();
         $query = ConsignmentNote::query();
-$datecrnt = date('Y-m-01');
-// dd($datecrnt);
-        $gettoday_lr = $query->where('created_at', '==', date('Y-m-d'))->where('status', '1')->count();
-        $gettoday_weightlifted = ConsignmentItem::where('created_at', '>=', date('Y-m-d'))->where('status', '=', 1)->sum('weight');
+
+        $gettoday_lr = $query->whereDate('created_at', '=', Carbon::today())->where('status', '1')->count();
+        $gettoday_weightlifted = ConsignmentItem::where('created_at', '>=', date('Y-m-d'))->where('status', '=', 1)->sum('weight');        
         $gettoday_gross_weightlifted = ConsignmentItem::where('created_at', '>=', date('Y-m-d'))->where('status', '=', 1)->sum('gross_weight');
-        $getcurrentmonth_lr = $query->where('created_at', '>=', date('Y-m-01'))->where('status', '=', 1)->count();
+
+        $getcurrentmonth_lr = DB::table('consignment_notes')->whereMonth('created_at', Carbon::now()->month)->where('status', '=', 1)->count();
         $getmonthly_weightlifted = ConsignmentItem::where('created_at', '>=', date('Y-m-01'))->where('status', '=', 1)->sum('weight');
         $getmonthly_gross_weightlifted = ConsignmentItem::where('created_at', '>=', date('Y-m-01'))->where('status', '=', 1)->sum('gross_weight');
 
