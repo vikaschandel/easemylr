@@ -54,7 +54,7 @@
                             
                              
                             <button type="submit" name="" class="mt-4 mb-4 btn btn-primary">Submit</button>
-                            <a href="javascript:void(0)" class="btn btn-primary editBranchadd" title="Edit Meta Value"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i> </a>
+                            <a href="javascript:void(0)" class="btn btn-primary editBranchadd" title="Edit Meta Value"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>
                             <!-- <a class="btn btn-primary" href="{{url($prefix.'/users') }}"> Back</a> -->
                         </form>
                     </div>
