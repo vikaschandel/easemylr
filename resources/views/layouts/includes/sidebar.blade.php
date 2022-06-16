@@ -186,7 +186,7 @@
                                 <a href="{{url($prefix.'/bulk-import')}}"> Import Data </a>
                             </li>
                             <li>
-                                <a href="form_input_group_basic.html"> Input Group </a>
+                                <a href="{{url($prefix.'/settings/branch-address')}}"> Branch Address </a>
                             </li>
                             <li>
                                 <a href="form_layouts.html"> Layouts </a>

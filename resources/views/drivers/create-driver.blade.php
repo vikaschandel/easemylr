@@ -13,17 +13,17 @@
                         <form class="general_form" method="POST" action="{{url($prefix.'/drivers')}}" id="createdriver">    
                             <div class="form-row mb-0">
                                 <div class="form-group col-md-6">
-                                    <label for="exampleFormControlInput2">Driver Name</label>
+                                    <label for="exampleFormControlInput2">Driver Name<span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="name" placeholder="Name">
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="exampleFormControlInput2">Driver Phone</label>
+                                    <label for="exampleFormControlInput2">Driver Phone<span class="text-danger">*</span></label>
                                     <input type="text" class="form-control mbCheckNm" name="phone" placeholder="Phone" maxlength="10">
                                 </div>
                             </div>
                             <div class="form-row mb-0">
                                 <div class="form-group col-md-6">
-                                    <label for="exampleFormControlInput2">Driver License Number</label>
+                                    <label for="exampleFormControlInput2">Driver License Number<span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="license_number" placeholder="">
                                 </div>
                                 

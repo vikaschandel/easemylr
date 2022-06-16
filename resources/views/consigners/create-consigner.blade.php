@@ -13,7 +13,7 @@
                         <form class="general_form" method="POST" action="{{url($prefix.'/consigners')}}" id="createconsigner">
                             <div class="form-row mb-0">
                                 <div class="form-group col-md-6">
-                                    <label for="exampleFormControlInput2">Consigner Nick Name</label>
+                                    <label for="exampleFormControlInput2">Consigner Nick Name<span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="nick_name" placeholder="">
                                 </div>
                                 <div class="form-group col-md-6">
@@ -38,7 +38,7 @@
                                     </select>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="exampleFormControlInput2">GST No.</label>
+                                    <label for="exampleFormControlInput2">GST No.<span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" id="gst_number" name="gst_number" placeholder="" maxlength="15">
                                 </div>
                             </div>
@@ -54,7 +54,7 @@
                             </div>
                             <div class="form-row mb-0">
                                 <div class="form-group col-md-6">
-                                    <label for="exampleFormControlInput2">Mobile No.</label>
+                                    <label for="exampleFormControlInput2">Mobile No.<span class="text-danger">*</span></label>
                                     <input type="text" class="form-control mbCheckNm" name="phone" placeholder="Enter 10 digit mobile no" maxlength="10">
                                 </div>
                                 <div class="form-group col-md-6">

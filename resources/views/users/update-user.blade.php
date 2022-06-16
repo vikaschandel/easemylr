@@ -5,15 +5,12 @@
     <div class="row layout-top-spacing">
         <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
             <div class="widget-content widget-content-area br-6">
+                <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+                    <div class="breadcrumb-title pe-3"><h5>Update User</h5></div>
+                </div>
                 <div class="col-lg-12 col-12 layout-spacing">
                     <div class="statbox widget box box-shadow">
-                        <div class="widget-header">                                
-                            <div class="row">
-                                <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                                    <h4>Update User</h4>
-                                </div>
-                            </div>
-                        </div>
+                        
                         <form class="general_form" method="POST" action="{{url($prefix.'/users/update-user')}}" id="updateuser" enctype="multipart/form-data">
                             @csrf
                             <input type="hidden" name="user_id" value="{{$getuser->id}}">

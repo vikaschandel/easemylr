@@ -479,6 +479,7 @@ jQuery(document).ready(function(){
             //     regex: "",
             // },
             phone : {
+                required: true,
                 Numbers: true,
                 minlength: 10,
             },
@@ -496,6 +497,7 @@ jQuery(document).ready(function(){
                 email: "Enter correct email address",
             },
             phone: {
+                required: "Enter phone number",
                 Numbers: "Enter only numbers",
                 minlength: "Enter at least 10 digits",
             },
@@ -955,6 +957,62 @@ jQuery(document).ready(function(){
         }
     });
 
+    // create branch address
+    jQuery('#createbranchadd').validate({
+        rules:
+        {
+            name: {
+                required: true,
+            },
+            gst_number: {
+                required: true,
+            },
+            phone: {
+                required: true,
+            },
+            address: {
+                required: true,
+            },
+            email: {
+                required: true,
+            },
+            state: {
+                required: true,
+            },
+            postal_code: {
+                required: true,
+            },
+        },
+        messages:
+        {
+            name: {
+                required: "Enter branch name",
+            },
+            gst_number: {
+                required: "Enter GST number",
+            },
+            phone: {
+                required: "Enter phone number",
+            },
+            address: {
+                required: "Enter address",
+            },
+            email: {
+                required: "Enter email",
+            },
+            state: {
+                required: "Enter state",
+            },
+            postal_code: {
+                required: "Enter postal code",
+            },
+        },
+        submitHandler : function(form)
+        {
+            formSubmitRedirect(form);
+        }
+    });
+
     
 
 
@@ -1094,15 +1152,14 @@ function formSubmitRedirect(form)
                 setTimeout(() => {window.location.href = response.redirect_url},2000);
             }else if(response.page == 'vehicle-create' || response.page == 'vehicle-update'){
                 setTimeout(() => {window.location.href = response.redirect_url},2000);
-            }else if(response.page == 'save-locations'|| response.page == 'update-locations')
-            {
+            }else if(response.page == 'save-locations'|| response.page == 'update-locations'){
                 setTimeout(function(){location.reload();}, 50);
-            }else if(response.page == 'bulk-imports')
-            {
+            }else if(response.page == 'bulk-imports'){
                 setTimeout(() => {window.location.href = response.redirect_url},2000);
-            }else if(response.page == 'create-consignment')
-            {
+            }else if(response.page == 'create-consignment'){
                 setTimeout(() => {window.location.href = response.redirect_url},2000);
+            }else if(response.page == 'settings-branch-address'){
+                setTimeout(function(){ location.reload(); }, 50);
             }
             
             if(response.formErrors)

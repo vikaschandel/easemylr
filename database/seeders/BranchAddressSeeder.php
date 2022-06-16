@@ -15,11 +15,11 @@ class BranchAddressSeeder extends Seeder
     public function run()
     {
         BranchAddress::create([
+            'meta_key' => 'addressdata_key',
             'name' => 'Eternity Forwarders Private Limited',
             'gst_number' => '03AAGCE4639L1ZI',
             'phone' => '7531059074',
-            'address' => 'Plot No. B014/03712, Frontier Complex
-            Pabhat, Zirakpur',
+            'address' => 'Plot No. B014/03712, Frontier Complex Pabhat, Zirakpur',
             'state' => 'Punjab',
             'district' => 'SAS Nagar',
             'city' => 'Zirakpur',

@@ -17,7 +17,7 @@
                                 <div class="panel info-box panel-white">
                                     <div class="panel-body">
                                         <div class="form-group">
-                                            <label class="col-sm-12 control-label">Select Consignor</label>
+                                            <label class="col-sm-12 control-label">Select Consignor<span class="text-danger">*</span></label>
                                             <div class="col-sm-12">
                                                 <select id="select_consigner" class="form-control basic" type="text" name="consigner_id">
                                                     <option value="">Select Consignor</option>
@@ -40,7 +40,7 @@
                                 <div class="panel info-box panel-white">
                                     <div class="panel-body">
                                         <div class="form-group">
-                                            <label class="col-sm-12 control-label">Select Consignee</label>
+                                            <label class="col-sm-12 control-label">Select Consignee<span class="text-danger">*</span></label>
                                             <div class="col-sm-12">
                                                 <select class="form-control basic" type="text" name="consignee_id" id="select_consignee">
                                                     <option value="">Select Consignee</option>
@@ -64,7 +64,7 @@
                                 <div class="panel info-box panel-white">
                                     <div class="panel-body">
                                         <div class="form-group">
-                                            <label class="col-sm-12 control-label">Ship To</label>
+                                            <label class="col-sm-12 control-label">Ship To<span class="text-danger">*</span></label>
                                             <div class="col-sm-12">
                                                 <select class="form-control basic" type="text" name="ship_to_id" id="select_ship_to">
                                                     <option value="">Select Ship To</option>
@@ -104,7 +104,7 @@
                                                     </select>
                                                 </div>
                                                 <div class="form-group col-md-6">
-                                                    <label for="exampleFormControlInput2">Consignor's Invoice No.</label>
+                                                    <label for="exampleFormControlInput2">Consignor's Invoice No.<span class="text-danger">*</span></label>
                                                     <input type="text" class="form-control" id="consignerinvoice" placeholder="Enter Consignor's Invoice No." value="" name="invoice_no">
                                                 </div>
                                             </div>

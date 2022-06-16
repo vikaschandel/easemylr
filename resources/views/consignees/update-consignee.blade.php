@@ -17,7 +17,7 @@
 
                             <div class="form-row mb-0">                          
                                 <div class="form-group col-md-6">
-                                    <label for="exampleFormControlInput2">Consignee Nick Name</label>
+                                    <label for="exampleFormControlInput2">Consignee Nick Name<span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="nick_name" value="{{old('nick_name',isset($getconsignee->nick_name)?$getconsignee->nick_name:'')}}" placeholder="">
                                 </div>
                                 <div class="form-group col-md-6">
@@ -90,7 +90,7 @@
                             </div>
                             <div class="form-row mb-0">
                                 <div class="form-group col-md-6">
-                                    <label for="exampleFormControlInput2">Mobile No.</label>
+                                    <label for="exampleFormControlInput2">Mobile No.<span class="text-danger">*</span></label>
                                     <input type="text" class="form-control mbCheckNm" name="phone" value="{{old('phone',isset($getconsignee->phone)?$getconsignee->phone:'')}}" placeholder="Phone" maxlength="10">
                                 </div>
                                 <div class="form-group col-md-6">

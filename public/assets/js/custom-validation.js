@@ -584,6 +584,16 @@ jQuery(document).ready(function(){
 
     });
 
+    //for setting vintage and tax
+    jQuery(document).on('click','.editBranchadd',function(){
+        jQuery('.submitBtn').css('display','block');
+        $('input').prop('disabled', false);
+        $('#address').prop('disabled', false);
+        jQuery('.editBranchadd').css('display','none');
+    });
+
+
+
 
 
 

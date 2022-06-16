@@ -13,7 +13,7 @@
                         <form class="general_form" method="POST" action="{{url($prefix.'/consignees')}}" id="createconsignee">
                             <div class="form-row mb-0">
                                 <div class="form-group col-md-6">
-                                    <label for="exampleFormControlInput2">Consignee Nick Name</label>
+                                    <label for="exampleFormControlInput2">Consignee Nick Name<span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="nick_name" placeholder="">
                                 </div>
                                 <div class="form-group col-md-6">
@@ -80,7 +80,7 @@
                                     <input type="text" class="form-control" name="contact_name" placeholder="Contact Name">
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="exampleFormControlInput2">Mobile No.</label>
+                                    <label for="exampleFormControlInput2">Mobile No.<span class="text-danger">*</span></label>
                                     <input type="tel" class="form-control mbCheckNm" name="phone" placeholder="Enter 10 digit mobile no" maxlength="10">
                                 </div>
                             </div>

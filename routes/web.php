@@ -15,6 +15,7 @@ use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\ConsignmentController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\ImportCsvController;
+use App\Http\Controllers\SettingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -114,6 +115,10 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth','PermissionCheck']], func
 
     Route::get('bulk-import', [ImportCsvController::class, 'getBulkImport']);
     Route::post('consignees/upload_csv', [ImportCsvController::class, 'uploadCsv']);
+
+    // Route::get('settings/branch-address', [SettingController::class, 'getbranchAddress']);
+    Route::any('settings/branch-address', [SettingController::class, 'updateBranchadd']);
+    
 
     
 });
