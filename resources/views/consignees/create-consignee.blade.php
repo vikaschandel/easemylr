@@ -91,7 +91,7 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="exampleFormControlSelect1">Type Of Dealer</label>
-                                    <select class="form-control" name="dealer_type">
+                                    <select class="form-control" id="dealer_type" name="dealer_type" disabled>
                                         <option value="">Select</option>
                                         <option value="1">Registered</option>
                                         <option value="0">Unregistered</option>

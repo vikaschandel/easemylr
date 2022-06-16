@@ -34,16 +34,29 @@ jQuery(document).ready(function(){
 
     /*===== For create/update consigner/consignee page  =====*/
     $(document).on('keyup', "#gst_number",function () {
-        $gstno = $(this).val().toUpperCase();
-        $gstno = $gstno.replace(/[^A-Z0-9]/g, '');
-        $('#gst_number').val($gstno);
+        var gstno = $(this).val().toUpperCase();
+        var gstno = gstno.replace(/[^A-Z0-9]/g, '');
+        $(this).val(gstno);
+
+        if(gstno.length > 0){
+            $('#dealer_type option[value="1"]').prop('selected', true);
+        }else{
+            $('#dealer_type option[value="0"]').prop('selected', true);
+        }
     });
+
+    var gstno = $("#gst_number").val();
+    if(gstno.length > 0){
+        $('#dealer_type option[value="1"]').prop('selected', true);
+    }else{
+        $('#dealer_type option[value="0"]').prop('selected', true);
+    }
 
     /*===== For create/update vehicle page =====*/
     $(document).on('keyup', "#regn_no",function () {
-        $regn_no = $(this).val().toUpperCase();
-        $regn_no = $regn_no.replace(/[^A-Z0-9]/g, '');
-        $(this).val($regn_no);
+        var regn_no = $(this).val().toUpperCase();
+        var regn_no = regn_no.replace(/[^A-Z0-9]/g, '');
+        $(this).val(regn_no);
     });
 
      /*===== Delete Branch =====*/
@@ -584,7 +597,7 @@ jQuery(document).ready(function(){
 
     });
 
-    //for setting vintage and tax
+    //for setting branch address edit
     jQuery(document).on('click','.editBranchadd',function(){
         jQuery('.submitBtn').css('display','block');
         $('input').prop('disabled', false);
@@ -592,6 +605,13 @@ jQuery(document).ready(function(){
         jQuery('.editBranchadd').css('display','none');
     });
 
+    //onchange consignee gst-no to select type of dealer
+    // $(document).on('keyup', "#gst_number",function () {
+    //     var gstno = $(this).val();
+    //     // $gstno = $gstno.replace(/[^A-Z0-9]/g, '');
+    //     // var gst_no = $('#gst_number').val($gstno);
+    //     alert(gstno);
+    // });
 
 
 
