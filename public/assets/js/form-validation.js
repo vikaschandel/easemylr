@@ -861,6 +861,9 @@ jQuery(document).ready(function(){
             team_id: {
                 required: true,
             },
+            consignment_no: {
+                required: true,
+            },
         },
         messages:
         {
@@ -872,6 +875,9 @@ jQuery(document).ready(function(){
             },
             team_id: {
                 required: "Team id is required"
+            },
+            consignment_no: {
+                required: "Consignment no is required"
             },
         },
         submitHandler : function(form)

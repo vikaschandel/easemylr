@@ -528,6 +528,7 @@ jQuery(document).ready(function(){
                 jQuery('#nameup').val(response.newcata.name);
                 jQuery('#nick_nameup').val(response.newcata.nick_name);
                 jQuery('#team_idup').val(response.newcata.team_id);
+                jQuery('#consignment_noup').val(response.newcata.consignment_no);
             }
         });
     });  

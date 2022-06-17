@@ -62,6 +62,7 @@ class LocationController extends Controller
         $rules = array(
             'name'     => 'required|unique:locations',
             'team_id'  => 'required|unique:locations',
+            'consignment_no'  => 'required|unique:locations',
         );
         $validator = Validator::make($request->all() , $rules);
         if ($validator->fails())
@@ -82,6 +83,9 @@ class LocationController extends Controller
         }
         if(!empty($request->team_id)){
             $addlocation['team_id'] = $request->team_id;
+        }
+        if(!empty($request->consignment_no)){
+            $addlocation['consignment_no'] = $request->consignment_no;
         }
         $addlocation['status'] = 1;
 
@@ -105,6 +109,7 @@ class LocationController extends Controller
         $rules = array(
             'name'      => 'required|unique:locations,name,' . $request->id,
             'team_id' => 'required|unique:locations,team_id,' . $request->id,
+            'consignment_no' => 'required|unique:locations,consignment_no,' . $request->id,
         );
         $validator = Validator::make($request->all(),$rules);
 
@@ -124,6 +129,9 @@ class LocationController extends Controller
         }
         if(!empty($request->team_id)){
             $locationsave['team_id']  = $request->team_id;
+        }
+        if(!empty($request->consignment_no)){
+            $locationsave['consignment_no']  = $request->consignment_no;
         }
         $locationsave['status']     = 1;
         $location = Location::where('id',$request->id)->update($locationsave);
