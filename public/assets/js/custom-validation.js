@@ -1,5 +1,19 @@
 jQuery(document).ready(function(){
 
+    /*===== For create/update consigner/consignee page  =====*/
+     $(document).on('keyup', "#gst_number",function () {
+        var gstno = $(this).val().toUpperCase();
+        var gstno = gstno.replace(/[^A-Z0-9]/g, '');
+        $(this).val(gstno);
+        
+        const gst_numberlen = gstno.length;
+        if(gst_numberlen > 0){
+            $('#dealer_type option[value="1"]').prop('selected', true);
+        }else{
+            $('#dealer_type option[value="0"]').prop('selected', true);
+        }
+    });
+
 	/*======== check box checked create/update user permission page  ========*/
     jQuery(document).on('click','#ckbCheckAll',function(){
         if(this.checked){
@@ -31,27 +45,7 @@ jQuery(document).ready(function(){
         }
     });
  	/*===== End check box checked create/update user permission page =====*/
-
-    /*===== For create/update consigner/consignee page  =====*/
-    $(document).on('keyup', "#gst_number",function () {
-        var gstno = $(this).val().toUpperCase();
-        var gstno = gstno.replace(/[^A-Z0-9]/g, '');
-        $(this).val(gstno);
-
-        if(gstno.length > 0){
-            $('#dealer_type option[value="1"]').prop('selected', true);
-        }else{
-            $('#dealer_type option[value="0"]').prop('selected', true);
-        }
-    });
-
-    var gstno = $("#gst_number").val();
-    if(gstno.length > 0){
-        $('#dealer_type option[value="1"]').prop('selected', true);
-    }else{
-        $('#dealer_type option[value="0"]').prop('selected', true);
-    }
-
+ 
     /*===== For create/update vehicle page =====*/
     $(document).on('keyup', "#regn_no",function () {
         var regn_no = $(this).val().toUpperCase();

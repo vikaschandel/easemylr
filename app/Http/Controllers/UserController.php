@@ -24,7 +24,7 @@ class UserController extends Controller
 
     public function __construct()
     {
-      $this->title =  "Users Listing";
+      $this->title =  "Users";
       $this->segment = \Request::segment(2);
     }
 
@@ -39,8 +39,7 @@ class UserController extends Controller
         $peritem = 20;
         $query = User::query();
         $data = $query->with('UserRole')->orderby('id','DESC')->paginate($peritem);
-        return view('users.user-list',['data'=>$data,'prefix'=>$this->prefix])
-            ->with('i', ($request->input('page', 1) - 1) * 5);
+        return view('users.user-list',['data'=>$data,'prefix'=>$this->prefix,'title'=>$this->title])->with('i', ($request->input('page', 1) - 1) * 5);
     }
     
     /**
@@ -51,11 +50,12 @@ class UserController extends Controller
     public function create()
     {
         $this->prefix = request()->route()->getPrefix();
+        $this->pagetitle =  "Create";
         $getpermissions = Permission::all();
         $getroles = Role::all();
         $branches = Helper::getLocations();
 
-        return view('users.create-user',['getroles'=>$getroles, 'getpermissions'=>$getpermissions, 'branches'=>$branches, 'prefix'=>$this->prefix]);
+        return view('users.create-user',['getroles'=>$getroles, 'getpermissions'=>$getpermissions, 'branches'=>$branches, 'prefix'=>$this->prefix, 'title'=>$this->title, 'pagetitle'=>$this->pagetitle]);
     }
     
     /**
@@ -148,6 +148,7 @@ class UserController extends Controller
     public function show($user)
     {
         $this->prefix = request()->route()->getPrefix();
+        $this->pagetitle =  "View Details";
         $id = decrypt($user);
         $getuser = User::where('id',$id)->with('UserRole')->first();
 
@@ -155,7 +156,7 @@ class UserController extends Controller
         $branch_ids  = explode(',',$branch);
         $branches = Location::whereIn('id', $branch_ids)->pluck('name');
 
-        return view('users.view-user',['prefix'=>$this->prefix,'title'=>$this->title,'getuser'=>$getuser,'branches'=>$branches]);
+        return view('users.view-user',['prefix'=>$this->prefix,'title'=>$this->title,'getuser'=>$getuser,'branches'=>$branches,'pagetitle'=>$this->pagetitle]);
     }
     
     /**
@@ -167,6 +168,7 @@ class UserController extends Controller
     public function edit($user)
     {
         $this->prefix = request()->route()->getPrefix();
+        $this->pagetitle =  "Update";
         $id = decrypt($user); 
         $getroles = Role::all();
         $getpermissions = Permission::all();
@@ -184,7 +186,7 @@ class UserController extends Controller
             }
         }
         $getuser = User::where('id',$id)->first();
-        return view('users.update-user')->with(['prefix'=>$this->prefix,'title'=>$this->title,'getuser'=>$getuser,'getroles'=>$getroles,'getpermissions'=>$getpermissions,'getuserpermissions'=>$u,'allpermissioncount'=>$allpermissioncount,'branches'=>$branches]);
+        return view('users.update-user')->with(['prefix'=>$this->prefix,'title'=>$this->title, 'pagetitle'=>$this->pagetitle, 'getuser'=>$getuser,'getroles'=>$getroles,'getpermissions'=>$getpermissions,'getuserpermissions'=>$u,'allpermissioncount'=>$allpermissioncount,'branches'=>$branches]);
     }
     
     /**

@@ -179,3 +179,18 @@
 </div>
 
 @endsection
+@section('js')
+<script>
+jQuery(document).ready(function(){
+
+    // on ready function for create/update consignee page
+    var gstno = $("#gst_number").val().length;
+    // const gst_numberlen = gstno.length;
+    if(gstno > 0){
+        $('#dealer_type option[value="1"]').prop('selected', true);
+    }else{
+        $('#dealer_type option[value="0"]').prop('selected', true);
+    }
+});
+</script>
+@endsection

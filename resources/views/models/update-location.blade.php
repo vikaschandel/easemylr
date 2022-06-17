@@ -26,8 +26,8 @@
             <!-- Modal footer -->
                 <div class="modal-footer">
                     <div class="btn-section w-100 P-0">
-                        <button type="submit" id="location_savebtn" class="btn-cstm btn-white btn btn-modal">Update</button>
-                        <a class="btn btn-modal" data-dismiss="modal">Cancel</a>
+                        <button type="submit" id="location_savebtn" class="btn btn-primary btn-modal">Update</button>
+                        <a class="btn btn-primary btn-modal" data-dismiss="modal">Cancel</a>
                     </div>
                 </div>
             </form> 

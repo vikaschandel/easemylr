@@ -7,16 +7,25 @@
     ?>
 <a href="javascript:void(0);" class="sidebarCollapse" data-placement="bottom"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></a>
 
-            <ul class="navbar-nav flex-row">
-                <li>
-                    <div class="page-header">
+<ul class="navbar-nav flex-row">
+    <li>
+        <div class="page-header">
 
-                        <nav class="breadcrumb-one" aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="javascript:void(0);">Dashboard</a></li>
-                            </ol>
-                        </nav>
-                    </div>
-                </li>
-            </ul>
+            <nav class="breadcrumb-one" aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    @if(isset($pagetitle))
+                    <li class="breadcrumb-item" aria-current="page">Dashboard</li>
+                    <li class="breadcrumb-item"><a href="javascript:void(0);">{{$title ?? ''}}</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{$pagetitle ?? ''}}</li>
+                    @elseif(isset($title))
+                    <li class="breadcrumb-item" aria-current="page">Dashboard</li>
+                    <li class="breadcrumb-item active" aria-current="page">{{$title ?? ''}}</li>
+                    @else
+                    <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+                    @endif
+                </ol>
+            </nav>
+        </div>
+    </li>
+</ul>
             

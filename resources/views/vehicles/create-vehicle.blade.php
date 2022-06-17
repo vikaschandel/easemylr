@@ -14,7 +14,7 @@
                             <div class="form-row mb-0">
                                 <div class="form-group col-md-6">
                                     <label for="exampleFormControlInput2">Registration No.<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="regn_no" name="regn_no" placeholder="" maxlength="10">
+                                    <input type="text" class="form-control" id="regn_no" name="regn_no" placeholder="" maxlength="12">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="exampleFormControlInput2">Manufacturer<span class="text-danger">*</span></label>

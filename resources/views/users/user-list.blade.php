@@ -46,7 +46,10 @@
                                         <a class="btn btn-primary" href="{{url($prefix.'/users/'.Crypt::encrypt($user->id))}}" ><span><i class="fa fa-eye"></i></span></a>
                                         <?php $authuser = Auth::user();
                                         if($authuser->role_id ==1) { ?>
-                                            <a href="Javascript:void();" class="btn btn-danger delete_user" data-id="{{ $user->id }}" data-action="<?php echo URL::to($prefix.'/users/delete-user'); ?>"><span><i class="fa fa-trash"></i></span></a>
+                                            <!-- <a href="Javascript:void();" class="btn btn-danger delete_user" data-id="{{ $user->id }}" data-action="<?php echo URL::to($prefix.'/users/delete-user'); ?>"><span><i class="fa fa-trash"></i></span></a> -->
+
+                                            <button type="button" class="btn btn-danger delete_user" data-id="{{ $user->id }}" data-action="<?php echo URL::to($prefix.'/users/delete-user'); ?>">
+                                                <span><i class="fa fa-trash"></i></span></button>
                                         <?php } ?>
                                     </td>
                                 </tr>
