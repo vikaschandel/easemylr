@@ -16,7 +16,7 @@ class ConsignerController extends Controller
 {
     public function __construct()
     {
-      $this->title =  "Branches Listing";
+      $this->title =  "Consigners";
       $this->segment = \Request::segment(2);
 
     }
@@ -37,8 +37,7 @@ class ConsignerController extends Controller
         }else{
             $consigners = $query->orderBy('id','DESC')->with('State')->paginate($peritem);
         }
-        return view('consigners.consigner-list',['consigners'=>$consigners,'prefix'=>$this->prefix])
-            ->with('i', ($request->input('page', 1) - 1) * 5);
+        return view('consigners.consigner-list',['consigners'=>$consigners,'prefix'=>$this->prefix,'title'=>$this->title])->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
     /**
@@ -51,7 +50,7 @@ class ConsignerController extends Controller
         $this->prefix = request()->route()->getPrefix();
         $states = Helper::getStates();
         $branches = Helper::getLocations();
-        return view('consigners.create-consigner',['states'=>$states, 'branches'=>$branches, 'prefix'=>$this->prefix]);
+        return view('consigners.create-consigner',['states'=>$states, 'branches'=>$branches, 'prefix'=>$this->prefix, 'title'=>$this->title, 'pagetitle'=>'Create']);
     }
 
     /**
@@ -120,7 +119,7 @@ class ConsignerController extends Controller
         $this->prefix = request()->route()->getPrefix();
         $id = decrypt($consigner);
         $getconsigner = Consigner::where('id',$id)->with('GetBranch','GetState')->first();
-        return view('consigners.view-consigner',['prefix'=>$this->prefix,'title'=>$this->title,'getconsigner'=>$getconsigner]);
+        return view('consigners.view-consigner',['prefix'=>$this->prefix,'title'=>$this->title, 'pagetitle'=>'View Details', 'getconsigner'=>$getconsigner]);
     }
 
     /**
@@ -136,7 +135,7 @@ class ConsignerController extends Controller
         $states = Helper::getStates();
         $branches = Helper::getLocations();
         $getconsigner = Consigner::where('id',$id)->first();
-        return view('consigners.update-consigner')->with(['prefix'=>$this->prefix,'getconsigner'=>$getconsigner,'states'=>$states,'branches'=>$branches]);
+        return view('consigners.update-consigner')->with(['prefix'=>$this->prefix,'getconsigner'=>$getconsigner,'states'=>$states,'branches'=>$branches, 'title'=>$this->title, 'pagetitle'=>'Update']);
     }
 
     /**

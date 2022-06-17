@@ -16,7 +16,7 @@ class LocationController extends Controller
 {
     public function __construct()
     {
-        $this->title =  "Locations Listing";
+        $this->title =  "Locations";
         $this->segment = \Request::segment(2);
     }
     /**
@@ -37,8 +37,7 @@ class LocationController extends Controller
         else{
             $locations = $query->orderBy('id','DESC')->paginate($peritem);
         }
-        return view('locations.location-list',['locations'=>$locations,'prefix'=>$this->prefix])
-            ->with('i', ($request->input('page', 1) - 1) * 5);
+        return view('locations.location-list',['locations'=>$locations,'prefix'=>$this->prefix,'title'=>$this->title])->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
     /**
