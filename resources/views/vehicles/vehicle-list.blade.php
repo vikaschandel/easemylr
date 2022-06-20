@@ -19,7 +19,7 @@
                     </div>
                     <div class="table-responsive mb-4 mt-4">
                         @csrf
-                        <table id="usertable" class="table table-hover get-datatable" style="width:100%">
+                        <table id="vehicletable" class="table table-hover vehicle-datatable" style="width:100%">
                             <thead>
                                 <tr>
                                     <th>Regn No.</th>
@@ -28,39 +28,11 @@
                                     <th>Body Type</th>
                                     <th>Regn Date</th>
                                     <th>Action</th>
+                                   
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php 
-                                if(count($data)>0) {
-                                    foreach ($data as $key => $vehicle) {  
-                                ?> 
-                                <tr>
-                                    <td>{{ $vehicle->regn_no ?? ""}}</td>
-                                    <td>{{ $vehicle->mfg ?? "" }}</td>
-                                    <td>{{ $vehicle->make ?? "" }}</td>
-                                    <td>{{ $vehicle->body_type ?? "" }}</td>
-                                    <td>{{Helper::ShowFormatDate($vehicle->regndate ?? "")}}</td>
-                                    <td>
-                                        <a class="btn btn-primary" href="{{url($prefix.'/vehicles/'.Crypt::encrypt($vehicle->id).'/edit')}}" ><span><i class="fa fa-edit"></i></span></a>
-                                        <a class="btn btn-primary" href="{{url($prefix.'/vehicles/'.Crypt::encrypt($vehicle->id))}}" ><span><i class="fa fa-eye"></i></span></a>
-                                        <?php $authuser = Auth::user();
-                                        if($authuser->role_id ==1) { ?>
-                                            <a href="Javascript:void();" class="btn btn-danger delete_vehicle" data-id="{{ $vehicle->id }}" data-action="<?php echo URL::to($prefix.'/vehicles/delete-vehicle'); ?>"><span><i class="fa fa-trash"></i></span></a>
-                                        <?php } ?>
-                                    </td>
-                                </tr>
-                                <?php 
-                                    }
-                                }
-                                else {
-                                    ?>
-                                    <tr>
-                                        <td colspan="9" class="text-center">No Record Found </td>
-                                    </tr>
-                                <?php 
-                                    }
-                                ?>
+                                
                             </tbody>
                         </table>
                     </div>
@@ -69,4 +41,36 @@
         </div>
     </div>
 @include('models.delete-vehicle')
+@endsection
+@section('js')
+<script>
+    
+    $(function () {
+        var table = $('#vehicletable').DataTable({
+            processing: true,
+            serverSide: true,
+            // ajax: 'vehicles',
+            // ajax: {
+            //     'url': 'vehicles',
+            //     'type': 'GET',
+            //     'data': function (d) {
+            //         d.regn_no = $('#regn_no').val();
+            //         d.mfg = $('#mfg').val();
+            //         d.make = $('#make').val();
+            //         d.body_type = $('#body_type').val();
+            //         d.regndate = $('#regndate').val();
+            //     },
+            // },
+            columns: [
+                {data: 'regn_no', name: 'regn_no'},
+                {data: 'mfg', name: 'mfg'},
+                {data: 'make', name: 'make'},
+                {data: 'body_type', name: 'body_type'},
+                {data: 'regn_date', name: 'regn_date'},
+                {data: 'action', name: 'action', orderable: false, searchable: false}
+             
+            ]
+        });
+    });
+</script>
 @endsection

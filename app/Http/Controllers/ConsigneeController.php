@@ -16,7 +16,7 @@ class ConsigneeController extends Controller
 {
     public function __construct()
     {
-      $this->title =  "Consignees Listing";
+      $this->title =  "Consignees";
       $this->segment = \Request::segment(2);
 
     }
@@ -29,16 +29,15 @@ class ConsigneeController extends Controller
     public function index(Request $request)
     {
         $this->prefix = request()->route()->getPrefix();
-        $peritem = 20;
         $query = Consignee::query();
         $authuser = Auth::user();
         $cc = explode(',',$authuser->branch_id);
         if($authuser->role_id == 2){
-            $consignees = $query->whereIn('branch_id',$cc)->orderBy('id','DESC')->with(['Consigner'])->paginate($peritem);
+            $consignees = $query->whereIn('branch_id',$cc)->orderBy('id','DESC')->with(['Consigner'])->get();
         }else{
-            $consignees = $query->orderBy('id','DESC')->with(['Consigner'])->paginate($peritem);
+            $consignees = $query->orderBy('id','DESC')->with(['Consigner'])->get();
         }
-        return view('consignees.consignee-list',['consignees'=>$consignees,'prefix'=>$this->prefix])
+        return view('consignees.consignee-list',['consignees'=>$consignees,'prefix'=>$this->prefix,'title'=>$this->title])
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
@@ -53,7 +52,7 @@ class ConsigneeController extends Controller
         $consigners = Helper::getConsigners();
         $branches = Helper::getLocations();
         $states = Helper::getStates();
-        return view('consignees.create-consignee',['consigners'=>$consigners, 'branches'=>$branches, 'states'=>$states, 'prefix'=>$this->prefix]);
+        return view('consignees.create-consignee',['consigners'=>$consigners, 'branches'=>$branches, 'states'=>$states, 'prefix'=>$this->prefix, 'title'=>$this->title, 'pagetitle'=>'Create']);
     }
 
     /**
@@ -129,7 +128,7 @@ class ConsigneeController extends Controller
         $this->prefix = request()->route()->getPrefix();
         $id = decrypt($consignee);
         $getconsignee = Consignee::where('id',$id)->with('GetConsigner','GetBranch','GetState')->first();
-        return view('consignees.view-consignee',['prefix'=>$this->prefix,'title'=>$this->title,'getconsignee'=>$getconsignee]);
+        return view('consignees.view-consignee',['prefix'=>$this->prefix,'title'=>$this->title,'getconsignee'=>$getconsignee,'pagetitle'=>'View Details']);
     }
 
     /**
@@ -146,7 +145,7 @@ class ConsigneeController extends Controller
         $branches = Helper::getLocations();  
         $consigners = Helper::getConsigners();       
         $getconsignee = Consignee::where('id',$id)->first();
-        return view('consignees.update-consignee')->with(['prefix'=>$this->prefix,'getconsignee'=>$getconsignee,'states'=>$states,'branches'=>$branches,'consigners'=>$consigners]);
+        return view('consignees.update-consignee')->with(['prefix'=>$this->prefix, 'getconsignee'=>$getconsignee,'states'=>$states,'branches'=>$branches,'consigners'=>$consigners,'title'=>$this->title,'pagetitle'=>'Update']);
     }
 
     /**

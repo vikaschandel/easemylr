@@ -6,7 +6,7 @@
         <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
             <div class="widget-content widget-content-area br-6">
                 <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-                    <div class="breadcrumb-title pe-3"><h5>Consignee Details</h5></div>
+                    <!-- <div class="breadcrumb-title pe-3"><h5>Consignee Details</h5></div> -->
                     <div class="col-md-9 text-right">
                         <a href="{{url($prefix.'/consignees/'.Crypt::encrypt($getconsignee->id).'/edit')}}" class="btn my-3" href="" style="background:#fff;" title="Edit Consignee"><i class="fa fa-edit m-0"></i></a>
                     </div>

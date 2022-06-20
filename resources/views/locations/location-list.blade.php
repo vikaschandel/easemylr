@@ -40,8 +40,6 @@
                                 <td>{{ ucfirst($value->team_id) }}</td>
                                 <td>
                                     <a class="btn btn-primary editlocation" href="javascript:void(0)" data-action = "<?php echo URL::to($prefix.'/locations/get-location'); ?>" data-id="{{ $value->id }}" data-toggle="modal" data-target="#location-updatemodal"><span><span><i class="fa fa-edit"></i></span></span></a>
-                                    <!-- <a class="btn btn-info" href="{{url($prefix.'/locations/'.Crypt::encrypt($value->id))}}" ><span><i class="fa fa-eye"></i></span></a> -->
-                                    <!-- <a href="Javascript:void();" class="btn btn-danger delete_location" data-id="{{ $value->id }}" data-action="<?php// echo URL::to($prefix.'/locations/delete-location'); ?>"><span><i class="fa fa-trash"></i></span></a> -->
                                 </td>
                             </tr>
                             <?php 

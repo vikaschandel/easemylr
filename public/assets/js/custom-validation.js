@@ -363,6 +363,7 @@ jQuery(document).ready(function(){
             success:function(res){
                 $('#consigner_address').empty();
                 if(res.data){
+                    console.log(res.data.get_branch.consignment_no);
                     $('#consigner_address').append('<strong>'+res.data.address+' </strong><br/><strong>GST No. : </strong>'+res.data.gst_number+'<br/><strong>Phone No. : </strong>'+res.data.phone+'');
                     $("#dispatch").val(res.data.city);
                 }

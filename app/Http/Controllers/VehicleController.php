@@ -12,6 +12,7 @@ use Helper;
 use Hash;
 use Crypt;
 use Validator;
+use DataTables;
 
 class VehicleController extends Controller
 {
@@ -23,10 +24,25 @@ class VehicleController extends Controller
     public function index(Request $request)
     {
         $this->prefix = request()->route()->getPrefix();
-        // $peritem = 20;
-        $query = Vehicle::query();
-        $data = $query->orderby('id','DESC')->get();
-        return view('vehicles.vehicle-list',['data'=>$data,'prefix'=>$this->prefix]);
+        if ($request->ajax()) {
+            $data = Vehicle::orderby('id','DESC')->get();
+            // dd($data);
+            return Datatables::of($data)->addIndexColumn()
+            ->addIndexColumn()
+            ->addColumn('action', function($row){
+                $actionBtn = '<a href="'.URL::to($this->prefix.'/vehicles/'.Crypt::encrypt($row->id).'/edit').'" class="edit btn btn-primary btn-sm">Edit</a>';
+                $actionBtn .= '&nbsp;&nbsp;';
+                $actionBtn .= '<a href="'.URL::to($this->prefix.'/vehicles/'.Crypt::encrypt($row->id).'').'" class="view btn btn-info btn-sm">View</a>';
+                $actionBtn .= '&nbsp;&nbsp;';
+                $actionBtn .= '<button type="button" name="delete" data-id="'.$row->id.'" data-action="'.URL::to($this->prefix.'/vehicles/delete-vehicle').'" class="delete btn btn-danger btn-sm delete_vehicle">Delete</button>';
+                
+                return $actionBtn;
+            })
+          ->rawColumns(['action'])
+                ->make(true);
+        }
+
+        return view('vehicles.vehicle-list',['prefix'=>$this->prefix]);
     }
 
     /**

@@ -1,14 +1,14 @@
 @extends('layouts.main')
 @section('content')
-
+<?php $authuser = Auth::user(); ?>
 <div class="layout-px-spacing">
     <div class="row layout-top-spacing">
         <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
             <div class="widget-content widget-content-area br-6">
                 <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-                    <div class="breadcrumb-title pe-3">
+                    <!-- <div class="breadcrumb-title pe-3">
                         <h5>Create Consignment</h5>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="col-lg-12 col-12 layout-spacing">
                     <form class="general_form" method="POST" action="{{url($prefix.'/consignments')}}" id="createconsignment">
@@ -93,6 +93,7 @@
                                     <div class="panel-body">
                                         <div class="form-group">
                                             <div class="form-row mb-0">
+                                            @if($authuser->role == 1)
                                                 <div class="form-group col-md-6">
                                                     <label for="exampleFormControlInput2">Select Series</label>
                                                     <select id="selwarehouse" class="form-control" id="warehouse" name="warehouse" value="" disabled>
@@ -103,6 +104,9 @@
                                                         @endforeach
                                                     </select>
                                                 </div>
+                                                @else
+                                                <div class="form-group col-md-6"></div>
+                                                @endif
                                                 <div class="form-group col-md-6">
                                                     <label for="exampleFormControlInput2">Consignor's Invoice No.<span class="text-danger">*</span></label>
                                                     <input type="text" class="form-control" id="consignerinvoice" placeholder="Enter Consignor's Invoice No." value="" name="invoice_no">
@@ -111,7 +115,7 @@
                                             <div class="form-row mb-0">
                                                 <div class="form-group col-md-6">
                                                     <label for="exampleFormControlInput2">Consignment No.</label>
-                                                    <input type="text" class="form-control" id="consignment_no" name="consignment_no" value="" placeholder="C-94MHRG" readonly>
+                                                    <input type="text" class="form-control" id="consignment_no" name="consignment_no" value="{{$consignmentno}}" placeholder="C-94MHRG" readonly>
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label for="exampleFormControlInput2">Invoice Date</label>

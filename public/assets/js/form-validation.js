@@ -920,9 +920,9 @@ jQuery(document).ready(function(){
         }
     });
 
+    // reset location create form not working check yet
     jQuery('#add_location').click(function(){
-        $("#createlocation").trigger("reset");
-        jQuery('#location_savebtn').text('Add');
+        $("#createlocation").trigger( "reset" );
     });
 
     // Import consignee csv files

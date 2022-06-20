@@ -11,6 +11,7 @@ use App\Models\Branch;
 use App\Models\Vehicle;
 use App\Models\VehicleType;
 use App\Models\BranchAddress;
+use App\Models\Location;
 use Auth;
 use DB;
 use Crypt;
@@ -25,7 +26,7 @@ class ConsignmentController extends Controller
 
     public function __construct()
     {
-      $this->title =  "Consignments Listing";
+      $this->title =  "Consignments";
       $this->segment = \Request::segment(2);
 
     }
@@ -41,12 +42,11 @@ class ConsignmentController extends Controller
         $query = ConsignmentNote::query();
         $authuser = Auth::user();
         $cc = explode(',',$authuser->branch_id);
-        // if($authuser->role_id == 2){
-        //     $consignments = $query->whereIn('branch_id',$cc)->orderby('id','DESC')->get();
-        // }else{
-            
-        // }
+        if($authuser->role_id == 2){
+            $consignments = $query->whereIn('branch_id',$cc)->orderby('id','DESC')->get();
+        }else{
             $consignments = $query->orderby('id','DESC')->get();
+        }
             if($request->ajax()){
                 if(isset($request->updatestatus)){
                     ConsignmentNote::where('id',$request->id)->update(['status'=>$request->status,'reason_to_cancel'=>$request->reason_to_cancel]);
@@ -62,10 +62,10 @@ class ConsignmentController extends Controller
 
                 return response()->json($response);
             }
-        return view('consignments.consignment-list',['consignments'=>$consignments,'prefix'=>$this->prefix])
+        return view('consignments.consignment-list',['consignments'=>$consignments,'prefix'=>$this->prefix,'title'=>$this->title])
         ->with('i', ($request->input('page', 1) - 1) * 5);
     }
-
+    
     /**
      * Show the form for creating a new resource.
      *
@@ -76,17 +76,26 @@ class ConsignmentController extends Controller
         $this->prefix = request()->route()->getPrefix();
         $authuser = Auth::user();
         $cc = explode(',',$authuser->branch_id);
+
         if($authuser->role_id == 2){
             $consigners = Consigner::select('id','nick_name')->whereIn('branch_id',$cc)->get();
             $consignees = Consignee::select('id','nick_name')->whereIn('branch_id',$cc)->get();
+            $getconsignment = ConsignmentNote::select('id','branch_id','user_id','consignment_no')->where('branch_id',$cc)->latest('id')->first();
+            
+            $cn = explode('-',$getconsignment->consignment_no);
+            $getconsignmentno = $cn[1] + 1;
+            $consignmentno = $cn[0].'-'.$getconsignmentno;
         }else{
             $consigners = Consigner::select('id','nick_name')->get();
             $consignees = Consignee::select('id','nick_name')->get();
+            $consignmentno = "";
         }
+
         $branchs = Branch::where('status','1')->select('id','consignment_note')->get();
         $vehicles = Vehicle::where('status','1')->select('id','regn_no')->get();
         $vehicletypes = VehicleType::where('status','1')->select('id','name')->get();
-        return view('consignments.create-consignment',['prefix'=>$this->prefix,'consigners'=>$consigners,'consignees'=>$consignees,'branchs'=>$branchs,'vehicles'=>$vehicles,'vehicletypes'=>$vehicletypes]);
+
+        return view('consignments.create-consignment',['prefix'=>$this->prefix,'title'=>$this->title,'pagetitle'=>'Create','consigners'=>$consigners,'consignees'=>$consignees,'branchs'=>$branchs,'vehicles'=>$vehicles,'vehicletypes'=>$vehicletypes,'consignmentno'=>$consignmentno]);
     }
 
     /**
@@ -97,6 +106,7 @@ class ConsignmentController extends Controller
      */
     public function store(Request $request)
     {
+        //dd($request->consignment_no);
         try{
             DB::beginTransaction();
 
@@ -120,16 +130,17 @@ class ConsignmentController extends Controller
                 return response()->json($response);
             }
             
-            $consignmentsave['consigner_id']     = $request->consigner_id;
-            $consignmentsave['consignee_id']     = $request->consignee_id;
-            $consignmentsave['ship_to_id']       = $request->ship_to_id;
-            $consignmentsave['consignment_date'] = $request->consignment_date;
-            $consignmentsave['dispatch']         = $request->dispatch;
-            $consignmentsave['invoice_no']       = $request->invoice_no;
-            $consignmentsave['invoice_date']     = $request->invoice_date;
-            $consignmentsave['invoice_amount']   = $request->invoice_amount;
-            $consignmentsave['total_quantity']   = $request->total_quantity;
-            $consignmentsave['total_weight']     = $request->total_weight;          
+            $consignmentsave['consigner_id']      = $request->consigner_id;
+            $consignmentsave['consignee_id']      = $request->consignee_id;
+            $consignmentsave['ship_to_id']        = $request->ship_to_id;
+            $consignmentsave['consignment_date']  = $request->consignment_date;
+            $consignmentsave['consignment_no']    = $request->consignment_no;
+            $consignmentsave['dispatch']          = $request->dispatch;
+            $consignmentsave['invoice_no']        = $request->invoice_no;
+            $consignmentsave['invoice_date']      = $request->invoice_date;
+            $consignmentsave['invoice_amount']    = $request->invoice_amount;
+            $consignmentsave['total_quantity']    = $request->total_quantity;
+            $consignmentsave['total_weight']      = $request->total_weight;          
             $consignmentsave['total_gross_weight']= $request->total_gross_weight;          
             $consignmentsave['total_freight']     = $request->total_freight;          
             $consignmentsave['transporter_name']  = $request->transporter_name;          
@@ -137,13 +148,17 @@ class ConsignmentController extends Controller
             $consignmentsave['purchase_price']    = $request->purchase_price; 
             $consignmentsave['user_id']           = $authuser->id; 
             $consignmentsave['vehicle_id']        = $request->vehicle_id;
+            $consignmentsave['branch_id']         = $authuser->branch_id;
             $consignmentsave['status']            = 1;
 
-            $saveconsignment = ConsignmentNote::create($consignmentsave); 
+            // echo'<pre>';print_r($consignmentsave['consignment_no']); die;
+
+        $saveconsignment = ConsignmentNote::create($consignmentsave);
+          
             if($saveconsignment)
             {
-                $consignment_no = str_pad($saveconsignment->id,8,"0", STR_PAD_LEFT);
-                ConsignmentNote::where('id',$saveconsignment->id)->update(['consignment_no'=>$consignment_no]);
+                // $consignment_no = str_pad($saveconsignment->id,8,"0", STR_PAD_LEFT);
+                // ConsignmentNote::where('id',$saveconsignment->id)->update(['consignment_no'=>$consignment_no]);
 
                 // insert consignment items
                 if(!empty($request->data)){ 
@@ -234,7 +249,8 @@ class ConsignmentController extends Controller
 
     // get consigner address on change
     public function getConsigners(Request $request){
-        $getconsigners = Consigner::select('address','gst_number','phone','city')->where(['id'=>$request->consigner_id,'status'=>'1'] )->first();
+        $getconsigners = Consigner::select('address','gst_number','phone','city','branch_id')->with('GetBranch')->where(['id'=>$request->consigner_id,'status'=>'1'] )->first();
+        
         if($getconsigners)
         {
             $response['success']         = true;
@@ -252,6 +268,7 @@ class ConsignmentController extends Controller
     // get consigner address on change
     public function getConsignees(Request $request){
         $getconsignees = Consignee::select('address_line1','address_line2','address_line3','gst_number','phone')->where(['id'=>$request->consignee_id,'status'=>'1'] )->first();
+        
        if($getconsignees)
         {
             $response['success']         = true;

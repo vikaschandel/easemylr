@@ -12,7 +12,7 @@ class ConsignmentNote extends Model
         'consigner_id',
         'consignee_id',
         'ship_to_id',
-        'consignment_no ',
+        'consignment_no',
         'consignment_date',
         'dispatch',
         'invoice_no',
