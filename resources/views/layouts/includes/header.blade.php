@@ -39,5 +39,10 @@
     width: 132px;
     height: 51px;
 }
+.ms-auto {
+    position: absolute;
+    top: 43px;
+    left: 98px;
+}
 
         </style>
