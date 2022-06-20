@@ -118,6 +118,7 @@
                     } ?> 
                                           
                 <li class="menu single-menu menu-extras">
+                <?php if($authuser->role_id==1){ ?>
                     <a href="#more" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                         <div class="">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -134,7 +135,7 @@
                             <polyline points="6 9 12 15 18 9"></polyline>
                         </svg>
                     </a>
-                    <?php if($authuser->role_id==1){ ?>
+                    <?php } ?>
                     <ul class="collapse submenu list-unstyled animated fadeInUp" id="more" data-parent="#topAccordion">
                     <?php 
                     if(!empty($permissions)){
@@ -157,7 +158,6 @@
                             <a href="{{url('roles')}}"> Roles</a>
                         </li>
                     </ul>
-                    <?php } ?>
                 </li>
             </ul>
         </nav>
