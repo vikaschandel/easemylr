@@ -28,7 +28,10 @@ class VehicleController extends Controller
             $data = Vehicle::orderby('id','DESC')->get();
             
             return Datatables::of($data)->addIndexColumn()
-            // ->addIndexColumn('regn_date')
+            ->addColumn('regn_date', function($row)
+            {
+                return Helper::ShowFormatDate($row->regn_date); // show date in dd-mm-yyyy format
+            })
             ->addColumn('action', function($row){
                 $actionBtn = '<a href="'.URL::to($this->prefix.'/vehicles/'.Crypt::encrypt($row->id).'/edit').'" class="edit btn btn-primary btn-sm">Edit</a>';
                 $actionBtn .= '&nbsp;&nbsp;';

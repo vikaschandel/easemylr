@@ -4,6 +4,14 @@
 <div class="layout-px-spacing">
     <div class="row layout-top-spacing">
         <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+            <div class="page-header">
+                <nav class="breadcrumb-one" aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="javascript:void(0);">Users</a></li>
+                        <li class="breadcrumb-item active" aria-current="page"><a href="javascript:void(0);">View User</a></li>
+                    </ol>
+                </nav>
+            </div>
             <div class="widget-content widget-content-area br-6">
                 <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
                     <!-- <div class="breadcrumb-title pe-3"><h5>User Details</h5></div> -->
@@ -22,7 +30,7 @@
                                 </tr>
                                 <tr>
                                     <th scope="row">Email</th>
-                                    <td>{{isset($getuser->email) ? ucfirst($getuser->email) : "-" }}</td>
+                                    <td>{{isset($getuser->email) ? $getuser->email : "-" }}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Password</th>

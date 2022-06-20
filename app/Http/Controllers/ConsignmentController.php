@@ -80,12 +80,22 @@ class ConsignmentController extends Controller
         if($authuser->role_id == 2){
             $consigners = Consigner::select('id','nick_name')->whereIn('branch_id',$cc)->get();
             $consignees = Consignee::select('id','nick_name')->whereIn('branch_id',$cc)->get();
-            $getconsignment = ConsignmentNote::select('id','branch_id','user_id','consignment_no')->where('branch_id',$cc)->latest('id')->first();
-            
-            $cn = explode('-',$getconsignment->consignment_no);
-            $getconsignmentno = $cn[1] + 1;
-            $consignmentno = $cn[0].'-'.$getconsignmentno;
-        }else{
+            $getconsignment = Location::select('id','name','consignment_no')->whereIn('id',$cc)->latest('id')->first();
+            $con_series = $getconsignment->consignment_no;
+            $cn = ConsignmentNote::select('id','consignment_no','branch_id')->whereIn('branch_id',$cc)->latest('id')->first();
+            if($cn){
+                $cc = explode('-',$cn->consignment_no);
+                $getconsignmentno = $cc[1] + 1;
+                $consignmentno = $cc[0].'-'.$getconsignmentno;
+            }else{
+                $consignmentno = $con_series.'-1';
+            }
+        }
+
+            // $cc = explode('-',$cn->consignment_no);
+            // $getconsignmentno = $cc[1] + 1;
+            // $consignmentno = $cc[0].'-'.$getconsignmentno;
+        else{
             $consigners = Consigner::select('id','nick_name')->get();
             $consignees = Consignee::select('id','nick_name')->get();
             $consignmentno = "";

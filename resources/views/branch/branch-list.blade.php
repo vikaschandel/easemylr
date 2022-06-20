@@ -1,9 +1,10 @@
 @extends('layouts.main')
 @section('content')
- <!-- BEGIN PAGE LEVEL STYLES -->
+<!-- BEGIN PAGE LEVEL CUSTOM STYLES -->
     <link rel="stylesheet" type="text/css" href="{{asset('plugins/table/datatable/datatables.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('plugins/table/datatable/custom_dt_html5.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('plugins/table/datatable/dt-global_style.css')}}">
-    <!-- END PAGE LEVEL STYLES -->
+<!-- END PAGE LEVEL CUSTOM STYLES -->
 <div class="layout-px-spacing">
     <div class="row layout-top-spacing">
         <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">

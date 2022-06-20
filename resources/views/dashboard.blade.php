@@ -2,159 +2,273 @@
 @section('content')
 <div class="layout-px-spacing">
     <div class="row layout-top-spacing">
-        <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
-            <div class="widget widget-card-four" style="background-color: #90cfe3;">
-                <div class="widget-content">
-                    <div class="w-header">
-                        <div class="w-info">
-                            <h6 class="value">Today's LR</h6>
-                        </div>
-                        <div class="task-action">
-                            <div class="dropdown">
-                                <a class="dropdown-toggle" href="#" role="button" id="pendingTask" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <!-- <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg> -->
-                                </a>
 
-                                <!-- <div class="dropdown-menu dropdown-menu-right" aria-labelledby="pendingTask" style="will-change: transform;">
-                                    <a class="dropdown-item" href="javascript:void(0);">This Week</a>
-                                    <a class="dropdown-item" href="javascript:void(0);">Last Week</a>
-                                    <a class="dropdown-item" href="javascript:void(0);">Last Month</a>
-                                </div> -->
+    <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12 layout-spacing">
+                        <div class="widget widget-four">
+                            <div class="widget-heading">
+                                <h5 class="">TODAY</h5>
+
+                                <div class="task-action">
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle" href="#" role="button" id="pendingTask" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+                                        </a>
+
+                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="pendingTask" style="will-change: transform;">
+                                            <a class="dropdown-item" href="javascript:void(0);">View Report</a>
+                                            <a class="dropdown-item" href="javascript:void(0);">Edit Report</a>
+                                            <a class="dropdown-item" href="javascript:void(0);">Mark as Done</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="widget-content">
+
+                                <div class="order-summary">
+
+                                    <div class="summary-list summary-income">
+
+                                        <div class="summery-info">
+
+                                            <div class="w-icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-bag"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                                            </div>
+
+                                            <div class="w-summary-details">
+
+                                                <div class="w-summary-info">
+                                                    <h6>Today's LR <span class="summary-count"> </span></h6>
+                                                    <p class="summary-average">{{$gettoday_lr}}</p>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="summary-list summary-profit">
+
+                                        <div class="summery-info">
+
+                                            <div class="w-icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg>
+                                            </div>
+                                            <div class="w-summary-details">
+
+                                                <div class="w-summary-info">
+                                                    <h6>Today's Net Weight Lifted <span class="summary-count"></span></h6>
+                                                    <p class="summary-average">{{$gettoday_weightlifted}}</p>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="summary-list summary-expenses">
+
+                                        <div class="summery-info">
+
+                                            <div class="w-icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-credit-card"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
+                                            </div>
+                                            <div class="w-summary-details">
+
+                                                <div class="w-summary-info">
+                                                    <h6>Today's Gross Weight Lifted<span class="summary-count"> </span></h6>
+                                                    <p class="summary-average">{{$gettoday_gross_weightlifted}}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="w-content">
-                        <div class="w-info">
-                            <p class="value text-white">$ {{ $gettoday_lr }} </p>
-                        </div>
-                    </div>
-                </div>
-            </div>   
-        </div>
-        <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
-            <div class="widget widget-card-four" style="background-color: #30b45fb8;">
-                <div class="widget-content">
-                    <div class="w-header">
-                        <div class="w-info">
-                            <h6 class="value">Today's Net Weight Lifted</h6>
-                        </div>
-                        <div class="task-action">
-                            <div class="dropdown">
-                                <a class="dropdown-toggle" href="#" role="button" id="pendingTask" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    
-                                </a>
+                    <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12 layout-spacing">
+                        <div class="widget widget-four">
+                            <div class="widget-heading">
+                                <h5 class="">MONTH</h5>
+
+                                <div class="task-action">
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle" href="#" role="button" id="pendingTask" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="pendingTask" style="will-change: transform;">
+                                            <a class="dropdown-item" href="javascript:void(0);">View Report</a>
+                                            <a class="dropdown-item" href="javascript:void(0);">Edit Report</a>
+                                            <a class="dropdown-item" href="javascript:void(0);">Mark as Done</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="widget-content">
+                                <div class="order-summary">
+                                    <div class="summary-list summary-income">
+                                        <div class="summery-info">
+
+                                            <div class="w-icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-bag"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                                            </div>
+
+                                            <div class="w-summary-details">
+
+                                                <div class="w-summary-info">
+                                                    <h6>Current Month's LR <span class="summary-count"> </span></h6>
+                                                    <p class="summary-average">{{$getcurrentmonth_lr}}</p>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="summary-list summary-profit">
+
+                                        <div class="summery-info">
+
+                                            <div class="w-icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg>
+                                            </div>
+                                            <div class="w-summary-details">
+
+                                                <div class="w-summary-info">
+                                                    <h6>Monthly Net Weight Lifted <span class="summary-count"> </span></h6>
+                                                    <p class="summary-average">{{$getmonthly_weightlifted}}</p>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="summary-list summary-expenses">
+
+                                        <div class="summery-info">
+
+                                            <div class="w-icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-credit-card"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
+                                            </div>
+                                            <div class="w-summary-details">
+
+                                                <div class="w-summary-info">
+                                                    <h6>Monthly Gross Weight Lifted
+                                                        <span class="summary-count"> </span></h6>
+                                                    <p class="summary-average">{{$getmonthly_gross_weightlifted}}</p>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
 
                             </div>
                         </div>
                     </div>
 
-                    <div class="w-content">
-                        <div class="w-info">
-                            <p class="value text-white">$ {{ $gettoday_weightlifted }}  </p>
-                        </div>
-                    </div>
-                </div>
-            </div>   
-        </div>
-        <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
-            <div class="widget widget-card-four" style="background-color: #cfad74;">
-                <div class="widget-content">
-                    <div class="w-header">
-                        <div class="w-info">
-                            <h6 class="value">Today's Gross Weight Lifted</h6>
-                        </div>
-                        <div class="task-action">
-                            <div class="dropdown">
-                                <a class="dropdown-toggle" href="#" role="button" id="pendingTask" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    
-                                </a>
+                    <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12 layout-spacing">
+                        <div class="widget widget-four">
+                            <div class="widget-heading">
+                                <h5 class="">YEAR</h5>
+
+                                <div class="task-action">
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle" href="#" role="button" id="pendingTask" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+                                        </a>
+
+                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="pendingTask" style="will-change: transform;">
+                                            <a class="dropdown-item" href="javascript:void(0);">View Report</a>
+                                            <a class="dropdown-item" href="javascript:void(0);">Edit Report</a>
+                                            <a class="dropdown-item" href="javascript:void(0);">Mark as Done</a>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
-                        </div>
-                    </div>
+                            <div class="widget-content">
 
-                    <div class="w-content">
-                        <div class="w-info">
-                            <p class="value text-white">$ {{ $gettoday_gross_weightlifted }} </p>
-                        </div>
-                    </div>
-                </div>
-            </div>   
-        </div>
+                                <div class="order-summary">
 
-        <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
-            <div class="widget widget-card-four" style="background-color: #97b044;">
-                <div class="widget-content">
-                    <div class="w-header">
-                        <div class="w-info">
-                            <h6 class="value">Current Month's LR</h6>
-                        </div>
-                        <div class="task-action">
-                            <div class="dropdown">
-                                <a class="dropdown-toggle" href="#" role="button" id="pendingTask" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    
-                                </a>                
-                            </div>
-                        </div>
-                    </div>
+                                    <div class="summary-list summary-income">
 
-                    <div class="w-content">
-                        <div class="w-info">
-                            <p class="value text-white">$ {{ $getcurrentmonth_lr }} </p>
-                        </div>
-                    </div>
-                </div>
-            </div>   
-        </div>
-        <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
-            <div class="widget widget-card-four" style="background-color: #a04e4b;">
-                <div class="widget-content">
-                    <div class="w-header">
-                        <div class="w-info">
-                            <h6 class="value">Monthly Net Weight Lifted</h6>
-                        </div>
-                        <div class="task-action">
-                            <div class="dropdown">
-                                <a class="dropdown-toggle" href="#" role="button" id="pendingTask" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+                                        <div class="summery-info">
 
-                    <div class="w-content">
-                        <div class="w-info">
-                            <p class="value text-white">$ {{ $getmonthly_weightlifted }} </p>
-                        </div>
-                    </div>
-                </div>
-            </div>   
-        </div>
-        <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
-            <div class="widget widget-card-four" style="background-color: #bd86d3;">
-                <div class="widget-content">
-                    <div class="w-header">
-                        <div class="w-info">
-                            <h6 class="value">Monthly Gross Weight Lifted</h6>
-                        </div>
-                        <div class="task-action">
-                            <div class="dropdown">
-                                <a class="dropdown-toggle" href="#" role="button" id="pendingTask" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    
-                                </a>
+                                            <div class="w-icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-bag"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                                            </div>
+
+                                            <div class="w-summary-details">
+
+                                                <div class="w-summary-info">
+                                                    <h6>Income <span class="summary-count"> </span></h6>
+                                                    <p class="summary-average">90%</p>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="summary-list summary-profit">
+
+                                        <div class="summery-info">
+
+                                            <div class="w-icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg>
+                                            </div>
+                                            <div class="w-summary-details">
+
+                                                <div class="w-summary-info">
+                                                    <h6>Profit <span class="summary-count"> </span></h6>
+                                                    <p class="summary-average">65%</p>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="summary-list summary-expenses">
+
+                                        <div class="summery-info">
+
+                                            <div class="w-icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-credit-card"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
+                                            </div>
+                                            <div class="w-summary-details">
+
+                                                <div class="w-summary-info">
+                                                    <h6>Expenses <span class="summary-count"> </span></h6>
+                                                    <p class="summary-average">80%</p>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
 
                             </div>
                         </div>
                     </div>
 
-                    <div class="w-content">
-                        <div class="w-info">
-                            <p class="value text-white">$ {{ $getmonthly_gross_weightlifted }} </p>
-                        </div>
-                    </div>
-                </div>
-            </div>   
-        </div>
+       
+      
 
         
         <!-- <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
@@ -191,353 +305,139 @@
                 </div>
             </div>
         </div> -->
-        
-        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
-            <div class="widget-one widget">
-                <div class="widget-content">
-                    <div class="w-numeric-value">
-                        <div class="w-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
-                        </div>
-                        <div class="w-content">
-                            <span class="w-value">3,192</span>
-                            <span class="w-numeric-title">Total Orders</span>
-                        </div>
-                    </div>
-                    <div class="w-chart">
-                        <div id="total-orders"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <div class="col-xl-9 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
+                        <div class="widget widget-chart-three">
+                            <div class="widget-heading">
+                                <div class="">
+                                    <h5 class="">Unique Visitors</h5>
+                                </div>
 
-        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
+                                <div class="dropdown ">
+                                    <a class="dropdown-toggle" href="#" role="button" id="uniqueVisitors" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+                                    </a>
 
-            <div class="widget widget-activity-four">
-
-                <div class="widget-heading">
-                    <h5 class="">Recent Activities</h5>
-                </div>
-
-                <div class="widget-content">
-
-                    <div class="mt-container mx-auto">
-                        <div class="timeline-line">
-
-                            <div class="item-timeline timeline-primary">
-                                <div class="t-dot" data-original-title="" title="">
-                                </div>
-                                <div class="t-text">
-                                    <p><span>Updated</span> Server Logs</p>
-                                    <span class="badge">Pending</span>
-                                    <p class="t-time">Just Now</p>
-                                </div>
-                            </div>
-
-                            <div class="item-timeline timeline-success">
-                                <div class="t-dot" data-original-title="" title="">
-                                </div>
-                                <div class="t-text">
-                                    <p>Send Mail to <a href="javascript:void(0);">HR</a> and <a href="javascript:void(0);">Admin</a></p>
-                                    <span class="badge">Completed</span>
-                                    <p class="t-time">2 min ago</p>
-                                </div>
-                            </div>
-
-                            <div class="item-timeline  timeline-danger">
-                                <div class="t-dot" data-original-title="" title="">
-                                </div>
-                                <div class="t-text">
-                                    <p>Backup <span>Files EOD</span></p>
-                                    <span class="badge">Pending</span>
-                                    <p class="t-time">14:00</p>
-                                </div>
-                            </div>
-
-                            <div class="item-timeline  timeline-dark">
-                                <div class="t-dot" data-original-title="" title="">
-                                </div>
-                                <div class="t-text">
-                                    <p>Collect documents from <a href="javascript:void(0);">Sara</a></p>
-                                    <span class="badge">Completed</span>
-                                    <p class="t-time">16:00</p>
-                                </div>
-                            </div>
-
-                            <div class="item-timeline  timeline-warning">
-                                <div class="t-dot" data-original-title="" title="">
-                                </div>
-                                <div class="t-text">
-                                    <p>Conference call with <a href="javascript:void(0);">Marketing Manager</a>.</p>
-                                    <span class="badge">In progress</span>
-                                    <p class="t-time">17:00</p>
-                                </div>
-                            </div>
-
-                            <div class="item-timeline  timeline-secondary">
-                                <div class="t-dot" data-original-title="" title="">
-                                </div>
-                                <div class="t-text">
-                                    <p>Rebooted Server</p>
-                                    <span class="badge">Completed</span>
-                                    <p class="t-time">17:00</p>
-                                </div>
-                            </div>
-
-                            <div class="item-timeline  timeline-warning">
-                                <div class="t-dot" data-original-title="" title="">
-                                </div>
-                                <div class="t-text">
-                                    <p>Send contract details to Freelancer</p>
-                                    <span class="badge">Pending</span>
-                                    <p class="t-time">18:00</p>
-                                </div>
-                            </div>
-
-                            <div class="item-timeline  timeline-dark">
-                                <div class="t-dot" data-original-title="" title="">
-                                </div>
-                                <div class="t-text">
-                                    <p>Kelly want to increase the time of the project.</p>
-                                    <span class="badge">In Progress</span>
-                                    <p class="t-time">19:00</p>
-                                </div>
-                            </div>
-
-                            <div class="item-timeline  timeline-success">
-                                <div class="t-dot" data-original-title="" title="">
-                                </div>
-                                <div class="t-text">
-                                    <p>Server down for maintanence</p>
-                                    <span class="badge">Completed</span>
-                                    <p class="t-time">19:00</p>
-                                </div>
-                            </div>
-
-                            <div class="item-timeline  timeline-secondary">
-                                <div class="t-dot" data-original-title="" title="">
-                                </div>
-                                <div class="t-text">
-                                    <p>Malicious link detected</p>
-                                    <span class="badge">Block</span>
-                                    <p class="t-time">20:00</p>
-                                </div>
-                            </div>
-
-                            <div class="item-timeline  timeline-warning">
-                                <div class="t-dot" data-original-title="" title="">
-                                </div>
-                                <div class="t-text">
-                                    <p>Rebooted Server</p>
-                                    <span class="badge">Completed</span>
-                                    <p class="t-time">23:00</p>
-                                </div>
-                            </div>
-
-                            <div class="item-timeline timeline-primary">
-                                <div class="t-dot" data-original-title="" title="">
-                                </div>
-                                <div class="t-text">
-                                    <p><span>Updated</span> Server Logs</p>
-                                    <span class="badge">Pending</span>
-                                    <p class="t-time">Just Now</p>
-                                </div>
-                            </div>
-
-                            <div class="item-timeline timeline-success">
-                                <div class="t-dot" data-original-title="" title="">
-                                </div>
-                                <div class="t-text">
-                                    <p>Send Mail to <a href="javascript:void(0);">HR</a> and <a href="javascript:void(0);">Admin</a></p>
-                                    <span class="badge">Completed</span>
-                                    <p class="t-time">2 min ago</p>
-                                </div>
-                            </div>
-
-                            <div class="item-timeline  timeline-danger">
-                                <div class="t-dot" data-original-title="" title="">
-                                </div>
-                                <div class="t-text">
-                                    <p>Backup <span>Files EOD</span></p>
-                                    <span class="badge">Pending</span>
-                                    <p class="t-time">14:00</p>
-                                </div>
-                            </div>
-
-                            <div class="item-timeline  timeline-dark">
-                                <div class="t-dot" data-original-title="" title="">
-                                </div>
-                                <div class="t-text">
-                                    <p>Collect documents from <a href="javascript:void(0);">Sara</a></p>
-                                    <span class="badge">Completed</span>
-                                    <p class="t-time">16:00</p>
-                                </div>
-                            </div>
-
-                            <div class="item-timeline  timeline-warning">
-                                <div class="t-dot" data-original-title="" title="">
-                                </div>
-                                <div class="t-text">
-                                    <p>Conference call with <a href="javascript:void(0);">Marketing Manager</a>.</p>
-                                    <span class="badge">In progress</span>
-                                    <p class="t-time">17:00</p>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <div class="tm-action-btn">
-                        <button class="btn"><span>View All</span> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
-            <div class="widget widget-table-one">
-                <div class="widget-heading">
-                    <h5 class="">Transactions</h5>
-                    <div class="task-action">
-                        <div class="dropdown">
-                            <a class="dropdown-toggle" href="#" role="button" id="pendingTask" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
-                            </a>
-
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="pendingTask" style="will-change: transform;">
-                                <a class="dropdown-item" href="javascript:void(0);">View Report</a>
-                                <a class="dropdown-item" href="javascript:void(0);">Edit Report</a>
-                                <a class="dropdown-item" href="javascript:void(0);">Mark as Done</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="widget-content">
-
-                    <div class="transactions-list t-info">
-                        <div class="t-item">
-                            <div class="t-company-name">
-                                <div class="t-icon">
-                                    <div class="avatar avatar-xl">
-                                        <span class="avatar-title">SP</span>
+                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="uniqueVisitors">
+                                        <a class="dropdown-item" href="javascript:void(0);">View</a>
+                                        <a class="dropdown-item" href="javascript:void(0);">Update</a>
+                                        <a class="dropdown-item" href="javascript:void(0);">Download</a>
                                     </div>
                                 </div>
-                                <div class="t-name">
-                                    <h4>Shaun Park</h4>
-                                    <p class="meta-date">10 Jan 1:00PM</p>
-                                </div>
                             </div>
-                            <div class="t-rate rate-inc">
-                                <p><span>+$36.11</span></p>
+
+                            <div class="widget-content">
+                                <div id="uniqueVisits"></div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="transactions-list">
-                        <div class="t-item">
-                            <div class="t-company-name">
-                                <div class="t-icon">
-                                    <div class="icon">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
+                        <div class="widget widget-activity-five">
+
+                            <div class="widget-heading">
+                                <h5 class="">Activity Log</h5>
+
+                                <div class="task-action">
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle" href="#" role="button" id="pendingTask" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+                                        </a>
+
+                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="pendingTask" style="will-change: transform;">
+                                            <a class="dropdown-item" href="javascript:void(0);">View All</a>
+                                            <a class="dropdown-item" href="javascript:void(0);">Mark as Read</a>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="t-name">
-                                    <h4>Electricity Bill</h4>
-                                    <p class="meta-date">04 Jan 1:00PM</p>
+                            </div>
+
+                            <div class="widget-content">
+
+                                <div class="w-shadow-top"></div>
+
+                                <div class="mt-container mx-auto">
+                                    <div class="timeline-line">
+                                        
+                                        <div class="item-timeline timeline-new">
+                                            <div class="t-dot">
+                                                <div class="t-secondary"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></div>
+                                            </div>
+                                            <div class="t-content">
+                                                <div class="t-uppercontent">
+                                                    <h5>New project created : <a href="javscript:void(0);"><span>[Cork Admin Template]</span></a></h5>
+                                                </div>
+                                                <p>27 Feb, 2020</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="item-timeline timeline-new">
+                                            <div class="t-dot">
+                                                <div class="t-success"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg></div>
+                                            </div>
+                                            <div class="t-content">
+                                                <div class="t-uppercontent">
+                                                    <h5>Mail sent to <a href="javascript:void(0);">HR</a> and <a href="javascript:void(0);">Admin</a></h5>
+                                                </div>
+                                                <p>28 Feb, 2020</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="item-timeline timeline-new">
+                                            <div class="t-dot">
+                                                <div class="t-primary"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+                                            </div>
+                                            <div class="t-content">
+                                                <div class="t-uppercontent">
+                                                    <h5>Server Logs Updated</h5>
+                                                </div>
+                                                <p>27 Feb, 2020</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="item-timeline timeline-new">
+                                            <div class="t-dot">
+                                                <div class="t-danger"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+                                            </div>
+                                            <div class="t-content">
+                                                <div class="t-uppercontent">
+                                                    <h5>Task Completed : <a href="javscript:void(0);"><span>[Backup Files EOD]</span></a></h5>
+                                                </div>
+                                                <p>01 Mar, 2020</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="item-timeline timeline-new">
+                                            <div class="t-dot">
+                                                <div class="t-warning"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg></div>
+                                            </div>
+                                            <div class="t-content">
+                                                <div class="t-uppercontent">
+                                                    <h5>Documents Submitted from <a href="javascript:void(0);">Sara</a></h5>
+                                                    <span class=""></span>
+                                                </div>
+                                                <p>10 Mar, 2020</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="item-timeline timeline-new">
+                                            <div class="t-dot">
+                                                <div class="t-dark"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-server"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6" y2="6"></line><line x1="6" y1="18" x2="6" y2="18"></line></svg></div>
+                                            </div>
+                                            <div class="t-content">
+                                                <div class="t-uppercontent">
+                                                    <h5>Server rebooted successfully</h5>
+                                                    <span class=""></span>
+                                                </div>
+                                                <p>06 Apr, 2020</p>
+                                            </div>
+                                        </div>                                      
+                                    </div>                                    
                                 </div>
 
-                            </div>
-                            <div class="t-rate rate-dec">
-                                <p><span>-$16.44</span></p>
+                                <div class="w-shadow-bottom"></div>
                             </div>
                         </div>
                     </div>
-
-                    <div class="transactions-list">
-                        <div class="t-item">
-                            <div class="t-company-name">
-                                <div class="t-icon">
-                                    <div class="avatar avatar-xl">
-                                        <span class="avatar-title">AD</span>
-                                    </div>
-                                </div>
-                                <div class="t-name">
-                                    <h4>Amy Diaz</h4>
-                                    <p class="meta-date">31 Jan 1:00PM</p>
-                                </div>
-
-                            </div>
-                            <div class="t-rate rate-inc">
-                                <p><span>+$66.44</span></p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="transactions-list t-secondary">
-                        <div class="t-item">
-                            <div class="t-company-name">
-                                <div class="t-icon">
-                                    <div class="icon">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-                                    </div>
-                                </div>
-                                <div class="t-name">
-                                    <h4>Netflix</h4>
-                                    <p class="meta-date">02 Feb 1:00PM</p>
-                                </div>
-
-                            </div>
-                            <div class="t-rate rate-dec">
-                                <p><span>-$32.00</span></p>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="transactions-list t-info">
-                        <div class="t-item">
-                            <div class="t-company-name">
-                                <div class="t-icon">
-                                    <div class="avatar avatar-xl">
-                                        <span class="avatar-title">DA</span>
-                                    </div>
-                                </div>
-                                <div class="t-name">
-                                    <h4>Daisy Anderson</h4>
-                                    <p class="meta-date">15 Feb 1:00PM</p>
-                                </div>
-                            </div>
-                            <div class="t-rate rate-inc">
-                                <p><span>+$10.08</span></p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="transactions-list">
-                        <div class="t-item">
-                            <div class="t-company-name">
-                                <div class="t-icon">
-                                    <div class="avatar avatar-xl">
-                                        <span class="avatar-title">OG</span>
-                                    </div>
-                                </div>
-                                <div class="t-name">
-                                    <h4>Oscar Garner</h4>
-                                    <p class="meta-date">20 Feb 1:00PM</p>
-                                </div>
-
-                            </div>
-                            <div class="t-rate rate-dec">
-                                <p><span>-$22.00</span></p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                </div>
-            </div>
-        </div>
-        
 
     </div>
 

@@ -26,6 +26,14 @@ div#hh {
 <div class="layout-px-spacing">
     <div class="row layout-top-spacing">
         <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+            <div class="page-header">
+                <nav class="breadcrumb-one" aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="javascript:void(0);">Consignments</a></li>
+                        <li class="breadcrumb-item active" aria-current="page"><a href="javascript:void(0);">View Consignment</a></li>
+                    </ol>
+                </nav>
+            </div>
             <div class="widget-content widget-content-area br-6">
                     <!-- row1 start -->
                     <div class="row">
