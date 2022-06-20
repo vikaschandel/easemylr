@@ -34,4 +34,3 @@
     <link rel="stylesheet" type="text/css" href="{{asset('plugins/table/datatable/custom_dt_html5.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('plugins/table/datatable/dt-global_style.css')}}"> -->
     <!-- END PAGE LEVEL CUSTOM STYLES -->
-    
