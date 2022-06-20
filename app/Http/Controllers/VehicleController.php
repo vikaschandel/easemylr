@@ -26,16 +26,15 @@ class VehicleController extends Controller
         $this->prefix = request()->route()->getPrefix();
         if ($request->ajax()) {
             $data = Vehicle::orderby('id','DESC')->get();
-            // dd($data);
+            
             return Datatables::of($data)->addIndexColumn()
-            ->addIndexColumn()
+            // ->addIndexColumn('regn_date')
             ->addColumn('action', function($row){
                 $actionBtn = '<a href="'.URL::to($this->prefix.'/vehicles/'.Crypt::encrypt($row->id).'/edit').'" class="edit btn btn-primary btn-sm">Edit</a>';
                 $actionBtn .= '&nbsp;&nbsp;';
                 $actionBtn .= '<a href="'.URL::to($this->prefix.'/vehicles/'.Crypt::encrypt($row->id).'').'" class="view btn btn-info btn-sm">View</a>';
                 $actionBtn .= '&nbsp;&nbsp;';
                 $actionBtn .= '<button type="button" name="delete" data-id="'.$row->id.'" data-action="'.URL::to($this->prefix.'/vehicles/delete-vehicle').'" class="delete btn btn-danger btn-sm delete_vehicle">Delete</button>';
-                
                 return $actionBtn;
             })
           ->rawColumns(['action'])

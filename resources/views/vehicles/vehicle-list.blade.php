@@ -49,18 +49,6 @@
         var table = $('#vehicletable').DataTable({
             processing: true,
             serverSide: true,
-            // ajax: 'vehicles',
-            // ajax: {
-            //     'url': 'vehicles',
-            //     'type': 'GET',
-            //     'data': function (d) {
-            //         d.regn_no = $('#regn_no').val();
-            //         d.mfg = $('#mfg').val();
-            //         d.make = $('#make').val();
-            //         d.body_type = $('#body_type').val();
-            //         d.regndate = $('#regndate').val();
-            //     },
-            // },
             columns: [
                 {data: 'regn_no', name: 'regn_no'},
                 {data: 'mfg', name: 'mfg'},
