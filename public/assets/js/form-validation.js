@@ -337,7 +337,10 @@ jQuery(document).ready(function(){
                 required: true,
                 AlphabetandNumbers: true,
                 minlength: 15,
-            }, 
+            },
+            branch_id : {
+                required: true,
+            },
         },
         messages: {
             nick_name: {
@@ -359,6 +362,9 @@ jQuery(document).ready(function(){
                 required: "Enter gst number",
                 AlphabetandNumbers: "Enter only alphabets and numbers",
                 minlength: "Enter at least 15 digits",
+            },
+            branch_id: {
+                required: "Please select location",
             },
         },
         submitHandler : function(form)
@@ -390,7 +396,10 @@ jQuery(document).ready(function(){
                 required: true,
                 AlphabetandNumbers: true,
                 minlength: 15,
-            },      
+            },
+            branch_id : {
+                required: true,
+            },     
         },
         messages: {
             nick_name: {
@@ -412,6 +421,9 @@ jQuery(document).ready(function(){
                 required: "Enter gst number",
                 AlphabetandNumbers: "Enter only alphabets and numbers",
                 minlength: "Enter at least 15 digits",
+            },
+            branch_id: {
+                required: "Please select location",
             },
         },
         submitHandler : function(form)

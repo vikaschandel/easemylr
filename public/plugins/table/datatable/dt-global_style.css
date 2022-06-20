@@ -93,11 +93,13 @@ table.dataTable {
   -webkit-transition: all 0.1s ease;
   transition: all 0.1s ease;
   padding: 10px 21px 10px 21px;
-  color: #515365;
+  color: #6973cf;
   font-weight: 600;
   font-size: 14px;
   letter-spacing: 1px;
-  white-space: nowrap; }
+  white-space: nowrap;
+  font-weight: 700;
+ }
 
 .dataTable.table-striped.table > thead > tr > th {
   background: transparent;
@@ -117,10 +119,12 @@ table.dataTable {
   font-size: 13px;
   border: none;
   padding: 0;
-  padding: 10px 21px 10px 21px;
-  color: #515365;
+  padding: 3px 21px 3px 21px;
+  color: #000000;
   letter-spacing: normal;
-  white-space: nowrap; }
+  white-space: nowrap; 
+  font-weight: 600;
+}
 
 .table-striped tbody tr:nth-of-type(odd) {
   background-color: transparent !important; }

@@ -12,3 +12,8 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
+
+label.error {
+  color: #ff0000;
+  font-weight: normal;
+}

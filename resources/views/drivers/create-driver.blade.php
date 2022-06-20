@@ -1,5 +1,12 @@
 @extends('layouts.main')
 @section('content')
+<style>
+.row.layout-top-spacing {
+    width: 80%;
+    margin: auto;
+
+}
+    </style>
 
 <div class="layout-px-spacing">
     <div class="row layout-top-spacing">

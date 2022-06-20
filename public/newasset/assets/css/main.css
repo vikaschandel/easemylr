@@ -193,8 +193,9 @@ span.red {
 /*      Form Group Label       */
 .form-group label, label {
   font-size: 15px;
-  color: #888ea8;
-  letter-spacing: 1px; }
+  color: #000000;
+  letter-spacing: 1px;
+  font-weight: 600; }
 
 /*  Disable forms     */
 .custom-control-input:disabled ~ .custom-control-label {

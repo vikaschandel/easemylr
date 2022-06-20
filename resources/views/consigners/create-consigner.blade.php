@@ -1,6 +1,12 @@
 @extends('layouts.main')
 @section('content')
+<style>
+.row.layout-top-spacing {
+    width: 80%;
+    margin: auto;
 
+}
+</style>
 <div class="layout-px-spacing">
     <div class="row layout-top-spacing">
         <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
@@ -66,7 +72,7 @@
                                     <input type="text" class="form-control mbCheckNm" name="phone" placeholder="Enter 10 digit mobile no" maxlength="10">
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="exampleFormControlSelect1">Select Location</label>
+                                    <label for="exampleFormControlSelect1">Select Location<span class="text-danger">*</span></label>
                                     <select class="form-control" name="branch_id">
                                         <option value="">Select</option>
                                         <?php 

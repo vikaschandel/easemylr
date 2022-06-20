@@ -885,7 +885,7 @@ code {
     Breadcrumb
 */
 .layout-top-spacing {
-  margin-top: 20px; }
+  margin-top: -20px; }
 
 .page-title {
   float: none;

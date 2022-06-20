@@ -193,8 +193,9 @@ span.red {
 /*      Form Group Label       */
 .form-group label, label {
   font-size: 15px;
-  color: #888ea8;
-  letter-spacing: 1px; }
+  color: #0000;
+  letter-spacing: 1px; 
+  font-weight: 600; }
   .general_form label.error { color:red !important; }
 
 /*  Disable forms     */
@@ -434,7 +435,7 @@ select.form-control.form-custom {
   vertical-align: middle; }
 
 .btn {
-  padding: 0.4375rem 1.25rem;
+  padding: 5px 10px;
   text-shadow: none;
   font-size: 14px;
   color: #3b3f5c;
