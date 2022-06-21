@@ -4,7 +4,6 @@
      .row.layout-top-spacing {
     width: 80%;
     margin: auto;
-
 }
     </style>
 
