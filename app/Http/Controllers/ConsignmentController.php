@@ -116,7 +116,6 @@ class ConsignmentController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request->consignment_no);
         try{
             DB::beginTransaction();
 
@@ -161,8 +160,6 @@ class ConsignmentController extends Controller
             $consignmentsave['branch_id']         = $authuser->branch_id;
             $consignmentsave['status']            = 1;
 
-            // echo'<pre>';print_r($consignmentsave['consignment_no']); die;
-
         $saveconsignment = ConsignmentNote::create($consignmentsave);
           
             if($saveconsignment)
@@ -173,11 +170,11 @@ class ConsignmentController extends Controller
                 // insert consignment items
                 if(!empty($request->data)){ 
                     $get_data=$request->data;
-                    foreach ($get_data as $key => $save_data ) { 
+                    foreach ($get_data as $key => $save_data ) {
                       $save_data['consignment_id'] = $saveconsignment->id; 
                       $save_data['status']         = 1;
                       $saveconsignmentitems = ConsignmentItem::create($save_data);
-                    }           
+                    }
                 }
                 $url = $this->prefix.'/consignments';
                 $response['success'] = true;

@@ -254,11 +254,11 @@
                             <div class="col-md-12">
                                 <div class="form-row mb-0">
                                     <div class="form-group col-md-4">
-                                        <label for="exampleFormControlInput2">Transporter Name</label>
+                                        <label for="exampleFormControlInput2">Transporter Name<span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" id="Transporter" name="transporter_name"  value="">
                                     </div>
                                     <div class="form-group col-md-4">
-                                        <label for="exampleFormControlInput2">Vehicle Type</label>
+                                        <label for="exampleFormControlInput2">Vehicle Type<span class="text-danger">*</span></label>
                                         <select class="js-states form-control basic" id="vehicle_type" name="vehicle_type" tabindex="-1" style="width: 100%">
                                             <option value="">Select vehicle type</option>
                                             @foreach($vehicletypes as $vehicle)
@@ -286,12 +286,28 @@
 
 @endsection
 @section('js')
-    <script>
-        var ss = $(".basic").select2({
-            tags: true,
-        });
+<script>
+    var ss = $(".basic").select2({
+        tags: true,
+    });
+    // add consignment date
+    $('#consignDate').val(new Date().toJSON().slice(0, 10));
 
-        $('#consignDate').val(new Date().toJSON().slice(0, 10));
+    function showResult(str) {
+        if (str.length==0) {
+            $( ".search-suggestions" ).empty();
+            $( ".search-suggestions" ).css('border', '0px');
+        } else if (str.length > 0) {
+            $( ".search-suggestions" ).css('border', 'solid 1px #f6f6f6');
+            var options = '';
+            options = "<option value='Seeds'>";
+            options += "<option value='Chemicals'>";
+            options += "<option value='PGR'>";
+            options += "<option value='Fertilizer'>";
+            options += "<option value='Pesticides'>";
+            $('#json-datalist').html(options);
+        }
+    }
         
-    </script>
+</script>
 @endsection

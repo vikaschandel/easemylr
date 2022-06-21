@@ -799,6 +799,12 @@ jQuery(document).ready(function(){
                 // AlphabetandNumbers: true,
             },
             driver_id : {
+                // required: true,
+            },
+            transporter_name : {
+                required: true,
+            },
+            vehicle_type : {
                 required: true,
             },
         },
@@ -815,7 +821,16 @@ jQuery(document).ready(function(){
             invoice_no: {
                 required: "Enter invoice no.",
                 AlphabetandNumbers: "Enter only alphabets and numbers",
-            }, 
+            },
+            driver_id : {
+                required: "Select driver",
+            },
+            transporter_name : {
+                required: "Enter transporter name",
+            },
+            vehicle_type : {
+                required: "Select vehicle type",
+            },
         },
         submitHandler : function(form)
         {
@@ -1182,7 +1197,20 @@ function formSubmitRedirect(form)
             
             if(response.formErrors)
             {
-                
+                var i = 0;
+              $('.error').remove();
+              $.each(response.errors, function(index,value)
+              {
+                  if (i == 0) {
+                   $("input[name='"+index+"']").focus();
+                  }
+                  $("input[name='"+index+"']").parents('.form-group').addClass('has-error');
+                  $("input[name='"+index+"']").after('<label id="'+index+'-error" class="error" for="'+index+'">'+value+'</label>');
+
+                  $("select[name='"+index+"']").parents('.form-group').addClass('has-error');
+                  $("select[name='"+index+"']").after('<label id="'+index+'-error" class="has-error" for="'+index+'">'+value+'</label>');
+                  i++;
+              });
 	        }
             if(response.email_error){
                 jQuery("#email-error").remove();
