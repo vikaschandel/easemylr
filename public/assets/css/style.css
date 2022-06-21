@@ -23,8 +23,8 @@ label.error {
   height: 51px;
 }
 .ms-auto { 
-  position: relative;
-  top: 75px;
+  position: absolute;
+  top: 22px;
   left: 98px;
   z-index: 99999;
 } 
