@@ -34,6 +34,7 @@
                                 <th>Name</th>
                                 <th>Nick Name</th>
                                 <th>Team Id</th>
+                                <th>Series No</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -44,9 +45,10 @@
                             ?> 
                             <tr>
                                 <td>{{ ++$i }}</td>
-                                <td>{{ ucfirst($value->name) }}</td>
-                                <td>{{ ucfirst($value->nick_name) }}</td>
-                                <td>{{ ucfirst($value->team_id) }}</td>
+                                <td>{{ ucfirst($value->name ?? '-') }}</td>
+                                <td>{{ ucfirst($value->nick_name ?? '-') }}</td>
+                                <td>{{ ucfirst($value->team_id ?? '-') }}</td>
+                                <td>{{ ucfirst($value->consignment_no ?? '-') }}</td>
                                 <td>
                                     <a class="btn btn-primary editlocation" href="javascript:void(0)" data-action = "<?php echo URL::to($prefix.'/locations/get-location'); ?>" data-id="{{ $value->id }}" data-toggle="modal" data-target="#location-updatemodal"><span><span><i class="fa fa-edit"></i></span></span></a>
                                 </td>
