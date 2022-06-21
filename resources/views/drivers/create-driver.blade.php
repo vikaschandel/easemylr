@@ -48,7 +48,10 @@
                                 <div class="form-group col-md-6">
                                     <label for="exampleFormControlInput2">Driver License File(Optional)</label>
                                     <input type="file" class="form-control license_image" name="license_image" accept="image/*">
-                                </div>     
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <div class="image_upload"><img src="{{url("/assets/img/upload-img.png")}}" class="licenseshow image-fluid" id="img-tag" width="320" height="240"></div>
+                                </div> 
                             </div>
                             <h5 class="form-row mb-2">Bank Details</h5>
                             <div class="form-row mb-0">
@@ -87,4 +90,39 @@
     </div>
 </div>
 
+@endsection
+@section('js')
+<script>
+    $(document).on("click",".remove_licensefield", function(e){ //user click on remove text
+    var getUrl = window.location;
+    var baseurl =  getUrl.origin + '/' +getUrl.pathname.split('/')[0];
+    var imgurl = baseurl+'assets/img/upload-img.png';
+      
+      $(this).parent().children(".image_upload").children().attr('src', imgurl);
+      $(this).parent().children("input").val('');;
+      // $(this).parent().children('div').children('h4').text('Add Image');
+      // $(this).parent().children('div').children('h4').css("display", "block");
+      $(this).css("display", "none");
+   });
+
+    function readURL1(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            
+            reader.onload = function (e) {
+                $('.licenseshow').attr('src', e.target.result);
+                $(".remove_licensefield").css("display", "block");
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $(document).on("change",'.license_image', function(e){
+        var fileName = this.files[0].name;
+        // $(this).parent().parent().find('.file_graph').text(fileName);
+
+        readURL1(this);
+    });
+
+</script>
 @endsection

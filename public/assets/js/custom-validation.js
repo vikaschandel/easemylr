@@ -263,6 +263,35 @@ jQuery(document).ready(function(){
         });
     });
 
+    // Delete driver Image from updatedriver view //
+    $(document).on('click', '.deletelicenseimg', function () {
+        let id = $(this).attr('data-id');
+        $("#deletedriverlicenseimgpop").modal('show');
+        jQuery('.deletedriverlicenseimgdata').attr('data-id',id);
+    });
+
+    ///// Delete driver Image Method /////
+    $('body').on('click', '.deletedriverlicenseimgdata', function () {
+        let id  = jQuery(this).attr('data-id');
+        var url = jQuery(this).attr('data-action');
+
+        jQuery.ajax({
+            type     : "post",
+            data     : {licenseimgid:id},
+            url      : url,
+            dataType : "JSON",
+            headers  : {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success : function (data) {
+                if(data){
+                    jQuery("#deletedriverlicenseimgpop").modal("hide");
+                    location.reload();
+                }
+            }
+        });
+    });
+
   	/*===== delete User =====*/
     jQuery(document).on('click', '.delete_user', function(){
         jQuery('#deleteuser').modal('show');

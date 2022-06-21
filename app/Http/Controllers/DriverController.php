@@ -98,7 +98,6 @@ class DriverController extends Controller
             
             $savebankdetails = Bank::create($bankdetails);
 
-
             $response['success']         = true;
             $response['success_message'] = "Driver Added successfully";
             $response['error']           = false;
@@ -231,7 +230,7 @@ class DriverController extends Controller
         return response()->json($response);
     }
 
-    // Delete pancard image from edit view
+    // Delete licence image from edit view
     public function deletelicenseImage(Request $request)
     {
             $path = 'public/images/driverlicense_images';
@@ -239,16 +238,24 @@ class DriverController extends Controller
             $getimagename = Driver::where('id',$request["licenseimgid"])->first(); 
 
             $image_path=$image_path.'/'.$getimagename->license_image;
-            if (\File::exists($image_path)) {
+            if(file_exists($image_path)){
                 unlink($image_path);
             }
-            $deleteimage = Driver::where('id',$request->licenseimgid)->update(['license_image'=>null]); 
+            $driversave['license_image']  = '';
+            $savedriver = Driver::where('id',$request["licenseimgid"])->update($driversave);
 
-            $response['success']           = true;
-            $response['success_message']   = 'License Image deleted successfully';
-            $response['error']             = false;
-            $response['deldriver_license'] = "deldriver_license";
-
+            if($savedriver)
+            {
+                $response['success']         = true;
+                $response['success_message'] = 'Driver license image deleted successfully';
+                $response['error']           = false;
+                $response['deldriver_license'] = "deldriver_license";
+            }
+            else{
+                $response['success']         = false;
+                $response['error_message']   = "Can not delete driver license image please try again";
+                $response['error']           = true;
+            }
             return response()->json($response);
     }
 
