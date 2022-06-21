@@ -460,13 +460,13 @@ jQuery(document).ready(function(){
             var tds = '<tr>';
             var item_no = $('tr', this).length;
             tds += '<td><div class="srno">'+item_no+'</div></td>';
-            tds += '<td><div class="form-group"><input type="text" class="form-control sel1" id="description'+item_no+'" value="Pesticides" name="data['+item_no+'][description]" list="json-datalist" onkeyup="showResult(this.value)"><datalist id="json-datalist"></datalist></div></td>';
-            tds += '<td><div class="form-group"><input type="text" class="form-control mode" id="mode'+item_no+'" value="Case/s" name="data['+item_no+'][packing_type]"></div></td>'
-            tds += '<td> <input type="number" class="form-control qnt" name="data['+item_no+'][quantity]"></td>';
-            tds += '<td> <input type="number" class="form-control net" name="data['+item_no+'][weight]"></td>';
-            tds += '<td> <input type="number" class="form-control gross" name="data['+item_no+'][gross_weight]"></td>';
-            tds += '<td> <input type="text" class="form-control frei" name="data['+item_no+'][freight]"></td>';
-            tds += '<td><div class="form-group"><select class="form-control term" name="data['+item_no+'][payment_type]"><option value=""></option><option value="To be Billed">To be Billed</option><option value="To Pay">To Pay</option><option value="Paid">Paid</option></select></div></td>'
+            tds += '<td><input type="text" class="seteing sel1" id="description'+item_no+'" value="Pesticides" name="data['+item_no+'][description]" list="json-datalist" onkeyup="showResult(this.value)"><datalist id="json-datalist"></datalist></td>';
+            tds += '<td><input type="text" class="seteing mode" id="mode'+item_no+'" value="Case/s" name="data['+item_no+'][packing_type]"></td>'
+            tds += '<td> <input type="number" class="seteing qnt" name="data['+item_no+'][quantity]"></td>';
+            tds += '<td> <input type="number" class="seteing net" name="data['+item_no+'][weight]"></td>';
+            tds += '<td> <input type="number" class="seteing gross" name="data['+item_no+'][gross_weight]"></td>';
+            tds += '<td> <input type="text" class="seteing frei" name="data['+item_no+'][freight]"></td>';
+            tds += '<td><select class="seteing term" name="data['+item_no+'][payment_type]"><option value=""></option><option value="To be Billed">To be Billed</option><option value="To Pay">To Pay</option><option value="Paid">Paid</option></select></td>'
             tds += '<td><button type="button" class="btn btn-default btn-rounded insert-more"> + </button><button type="button" class="btn btn-default btn-rounded remove-row"> - </button></td>';
             tds += '</tr>';
             if ($('tbody', this).length > 0) {

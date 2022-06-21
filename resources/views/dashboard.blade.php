@@ -1,28 +1,30 @@
 @extends('layouts.main')
 @section('content')
-<div class="layout-px-spacing">
-    <div class="row layout-top-spacing">
+<style>
+    .widget-four .widget-content .w-summary-info .summary-count {
+    display: block;
+    /* font-size: 16px; */
+    margin-top: 4px;
+    font-weight: 600;
+    color: #515365;
+    background: #03a9f4 ! important;
 
+}
+    </style>
+
+<div class="layout-px-spacing">
+<div class="page-header layout-spacing">
+                <nav class="breadcrumb-one" aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="javascript:void(0);">Dashboard</a></li>
+                        <li class="breadcrumb-item active" aria-current="page"><a href="javascript:void(0);">Widgets</a></li>
+                    </ol>
+                </nav>
+            </div>
+    <div class="row layout-top-spacing">
         <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12 layout-spacing">
             <div class="widget widget-four">
-                <div class="widget-heading">
-                    <h5 class="">TODAY</h5>
-
-                    <div class="task-action">
-                        <div class="dropdown">
-                            <a class="dropdown-toggle" href="#" role="button" id="pendingTask" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
-                            </a>
-
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="pendingTask" style="will-change: transform;">
-                                <a class="dropdown-item" href="javascript:void(0);">View Report</a>
-                                <a class="dropdown-item" href="javascript:void(0);">Edit Report</a>
-                                <a class="dropdown-item" href="javascript:void(0);">Mark as Done</a>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
+                
                 <div class="widget-content">
 
                     <div class="order-summary">
@@ -38,7 +40,7 @@
                                 <div class="w-summary-details">
 
                                     <div class="w-summary-info">
-                                        <h6>Today's LR <span class="summary-count"> </span></h6>
+                                        <h6>Today's LR <span class="summary-count smry"> </span></h6>
                                         <p class="summary-average">{{$gettoday_lr}}</p>
                                     </div>
                                 </div>
@@ -55,29 +57,14 @@
                                 <div class="w-summary-details">
 
                                     <div class="w-summary-info">
-                                        <h6>Today's Net Weight Lifted <span class="summary-count"></span></h6>
+                                        <h6>Current Month's LR<span class="summary-count"></span></h6>
                                         <p class="summary-average">{{$gettoday_weightlifted}}</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="summary-list summary-expenses">
-
-                            <div class="summery-info">
-
-                                <div class="w-icon">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-credit-card"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
-                                </div>
-                                <div class="w-summary-details">
-
-                                    <div class="w-summary-info">
-                                        <h6>Today's Gross Weight Lifted<span class="summary-count"> </span></h6>
-                                        <p class="summary-average">{{$gettoday_gross_weightlifted}}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                       
                     </div>
                 </div>
             </div>
@@ -85,22 +72,7 @@
 
         <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12 layout-spacing">
             <div class="widget widget-four">
-                <div class="widget-heading">
-                    <h5 class="">MONTH</h5>
-
-                    <div class="task-action">
-                        <div class="dropdown">
-                            <a class="dropdown-toggle" href="#" role="button" id="pendingTask" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="pendingTask" style="will-change: transform;">
-                                <a class="dropdown-item" href="javascript:void(0);">View Report</a>
-                                <a class="dropdown-item" href="javascript:void(0);">Edit Report</a>
-                                <a class="dropdown-item" href="javascript:void(0);">Mark as Done</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+               
                 <div class="widget-content">
                     <div class="order-summary">
                         <div class="summary-list summary-income">
@@ -113,8 +85,8 @@
                                 <div class="w-summary-details">
 
                                     <div class="w-summary-info">
-                                        <h6>Current Month's LR <span class="summary-count"> </span></h6>
-                                        <p class="summary-average">{{$getcurrentmonth_lr}}</p>
+                                        <h6><span style="font-size: 23px;">20,20,20,2000</span><span class="summary-count"> </span>Today Net Weight lifted</h6>
+                                        <p class="summary-average"></p>
                                     </div>
                                 </div>
                             </div>
@@ -130,30 +102,14 @@
                                 <div class="w-summary-details">
 
                                     <div class="w-summary-info">
-                                        <h6>Monthly Net Weight Lifted <span class="summary-count"> </span></h6>
-                                        <p class="summary-average">{{$getmonthly_weightlifted}}</p>
+                                        <h6><span style="font-size: 23px;">20,20,20,2000</span><span class="summary-count"> </span>Monthly Net Weight Lifted</h6>
+                                        <p class="summary-average"></p>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="summary-list summary-expenses">
-
-                            <div class="summery-info">
-
-                                <div class="w-icon">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-credit-card"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
-                                </div>
-                                <div class="w-summary-details">
-
-                                    <div class="w-summary-info">
-                                        <h6>Monthly Gross Weight Lifted
-                                            <span class="summary-count"> </span></h6>
-                                        <p class="summary-average">{{$getmonthly_gross_weightlifted}}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                      
                     </div>
                 </div>
             </div>
@@ -161,24 +117,7 @@
 
         <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12 layout-spacing">
             <div class="widget widget-four">
-                <div class="widget-heading">
-                    <h5 class="">YEAR</h5>
-
-                    <div class="task-action">
-                        <div class="dropdown">
-                            <a class="dropdown-toggle" href="#" role="button" id="pendingTask" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
-                            </a>
-
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="pendingTask" style="will-change: transform;">
-                                <a class="dropdown-item" href="javascript:void(0);">View Report</a>
-                                <a class="dropdown-item" href="javascript:void(0);">Edit Report</a>
-                                <a class="dropdown-item" href="javascript:void(0);">Mark as Done</a>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
+              
                 <div class="widget-content">
                     <div class="order-summary">
                         <div class="summary-list summary-income">
@@ -189,8 +128,8 @@
 
                                 <div class="w-summary-details">
                                     <div class="w-summary-info">
-                                        <h6>Income <span class="summary-count"> </span></h6>
-                                        <p class="summary-average">90%</p>
+                                        <h6><span style="font-size: 23px;">Income </span><span class="summary-count"> </span>Today's Gross Weight Lifted</h6>
+                                        <p class="summary-average"></p>
                                     </div>
                                 </div>
                             </div>
@@ -206,27 +145,13 @@
                                 <div class="w-summary-details">
 
                                     <div class="w-summary-info">
-                                        <h6>Profit <span class="summary-count"> </span></h6>
-                                        <p class="summary-average">65%</p>
+                                        <h6><span style="font-size: 23px;">20,20,20,2000</span><span class="summary-count"> </span>Monthly Gross Weight Lifted</h6>
+                                        <p class="summary-average"></p>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="summary-list summary-expenses">
-                            <div class="summery-info">
-                                <div class="w-icon">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-credit-card"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
-                                </div>
-                                <div class="w-summary-details">
-
-                                    <div class="w-summary-info">
-                                        <h6>Expenses <span class="summary-count"> </span></h6>
-                                        <p class="summary-average">80%</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
