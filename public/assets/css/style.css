@@ -22,8 +22,9 @@ label.error {
   width: 132px;
   height: 51px;
 }
-/* .ms-auto {
-  position: absolute;
-  top: 43px;
+.ms-auto { 
+  position: relative;
+  top: 75px;
   left: 98px;
-} */
+  z-index: 99999;
+} 

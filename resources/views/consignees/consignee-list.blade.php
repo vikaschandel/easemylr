@@ -8,8 +8,10 @@
 <style>
     .ms-auto {
     position: absolute;
-    top: 43px;
+    top: 42px;
     left: 98px;
+    z-index: 99999;
+ 
 }
 </style>
 <div class="layout-px-spacing">
