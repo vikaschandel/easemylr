@@ -54,12 +54,12 @@
                                 ?> 
                             <tr>
                                 <td>{{ ++$i }}</td>
-                                <td>{{ ucfirst($value->nick_name ?? "") }}</td>
-                                <td>{{ ucwords($value->Consigner->nick_name ?? "") }}</td>
-                                <td>{{ ucfirst($value->contact_name ?? "") }}</td>
-                                <td>{{ $value->phone ?? "" }}</td>
-                                <td>{{ $value->email ?? "" }}</td>
-                                <td>{{ $value->district ?? "" }}</td>
+                                <td>{{ ucfirst($value->nick_name ?? "-") }}</td>
+                                <td>{{ ucwords($value->Consigner->nick_name ?? "-") }}</td>
+                                <td>{{ ucfirst($value->contact_name ?? "-") }}</td>
+                                <td>{{ $value->phone ?? "-" }}</td>
+                                <td>{{ $value->email ?? "-" }}</td>
+                                <td>{{ $value->district ?? "-" }}</td>
                                 <td>
                                     <a class="btn btn-primary" href="{{url($prefix.'/consignees/'.Crypt::encrypt($value->id).'/edit')}}" ><span><i class="fa fa-edit"></i></span></a>
                                     <a class="btn btn-info" href="{{url($prefix.'/consignees/'.Crypt::encrypt($value->id))}}" ><span><i class="fa fa-eye"></i></span></a>

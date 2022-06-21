@@ -53,7 +53,7 @@
                                     <td>{{ $consignment->consignment_no ?? "-" }}</td>
                                     <td>{{ Helper::ShowFormatDate($consignment->consignment_date ?? "")}}</td>
                                     <td>{{ $consignment->invoice_no ?? "-" }}</td>
-                                    <td>{{ $consignment->transporter_name ?? "" }}</td>
+                                    <td>{{ $consignment->transporter_name ?? "-" }}</td>
                                     <?php
                                     if($consignment->status==1){
                                         $status = 'Active';
