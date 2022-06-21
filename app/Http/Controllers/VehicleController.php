@@ -30,7 +30,7 @@ class VehicleController extends Controller
             return Datatables::of($data)->addIndexColumn()
             ->addColumn('regn_date', function($row)
             {
-                return Helper::ShowFormatDate($row->regn_date); // show date in dd-mm-yyyy format
+                return $row->regn_date ? with(new \Carbon\Carbon($row->regn_date))->format('d-m-Y') : '-'; 
             })
             ->addColumn('action', function($row){
                 $actionBtn = '<a href="'.URL::to($this->prefix.'/vehicles/'.Crypt::encrypt($row->id).'/edit').'" class="edit btn btn-primary btn-sm">Edit</a>';
