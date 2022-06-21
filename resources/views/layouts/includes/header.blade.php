@@ -34,15 +34,3 @@
     <link rel="stylesheet" type="text/css" href="{{asset('plugins/table/datatable/custom_dt_html5.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('plugins/table/datatable/dt-global_style.css')}}"> -->
     <!-- END PAGE LEVEL CUSTOM STYLES -->
-    <style>
-        .navbar .nav-logo a.navbar-brand img {
-    width: 132px;
-    height: 51px;
-}
-.ms-auto {
-    position: absolute;
-    top: 43px;
-    left: 98px;
-}
-
-        </style>

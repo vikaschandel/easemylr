@@ -17,3 +17,13 @@ label.error {
   color: #ff0000;
   font-weight: normal;
 }
+
+.navbar .nav-logo a.navbar-brand img {
+  width: 132px;
+  height: 51px;
+}
+/* .ms-auto {
+  position: absolute;
+  top: 43px;
+  left: 98px;
+} */

@@ -7,7 +7,7 @@
                 </div>
             </div>
         </div>
-        <!--  END CONTENT AREA  -->
+        <!--  END CONTENT AREA  --> 
 
     </div>
     <!-- END MAIN CONTAINER -->
