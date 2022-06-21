@@ -81,7 +81,12 @@ class ConsignmentController extends Controller
             $consigners = Consigner::select('id','nick_name')->whereIn('branch_id',$cc)->get();
             $consignees = Consignee::select('id','nick_name')->whereIn('branch_id',$cc)->get();
             $getconsignment = Location::select('id','name','consignment_no')->whereIn('id',$cc)->latest('id')->first();
-            $con_series = $getconsignment->consignment_no;
+            if(!empty($getconsignment->consignment_no)){
+                $con_series = $getconsignment->consignment_no;
+            }else{
+                $con_series = '';
+            }
+            // $con_series = $getconsignment->consignment_no;
             $cn = ConsignmentNote::select('id','consignment_no','branch_id')->whereIn('branch_id',$cc)->latest('id')->first();
             if($cn){
                 $cc = explode('-',$cn->consignment_no);

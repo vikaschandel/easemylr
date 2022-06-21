@@ -26,6 +26,9 @@
         padding: 10px 7px 6px 8px;
 
 }
+label.error{
+    color: red;
+}
 
    
     .seteing {
@@ -134,7 +137,7 @@
                                     </div>
                                     <!-- <input type="hidden" name="consignee_id" id="consignee_id" /> -->
                                     <div class="container" style="padding-top:11px">
-                                        <div id="consignee_address">
+                                        <div id="ship_to_address">
 
                                         </div>
 
@@ -155,6 +158,8 @@
 
                                 <div class="row con1 form-group" style="background: white; height: 188px; ">
                                     <div class=" col-sm-12" style="margin-top: 7px;">
+                                        <?php $auth_user = Auth::user();
+                                        if($auth_user->role_id ==1){ ?>
                                         <div class="row">
                                             <div class=" col-sm-4" style="margin-top:10px;">
                                                 <label for="exampleFormControlInput2">Select Series</label>
@@ -172,6 +177,7 @@
                                                 </select>
                                             </div>
                                         </div>
+                                        <?php } ?>
                                         <div class="row">
                                             <div class=" col-sm-4" style="margin-top:10px;">
                                                 <label for="exampleFormControlInput2">Consignment No.</label>
@@ -179,8 +185,7 @@
                                             <div class=" col-sm-8" style="margin-top:2px;">
 
                                                 <input type="text" class="form-seteing" id="consignment_no"
-                                                    name="consignment_no" value="" placeholder="C-94MHRG" readonly
-                                                    style="border:none;">
+                                                    name="consignment_no" value="{{$consignmentno ?? ''}}" placeholder="C-94MHRG" readonly style="border:none;">
 
                                             </div>
                                         </div>
@@ -441,6 +446,25 @@
     var ss = $(".basic").select2({
         tags: true,
     });
+
+      // add consignment date
+    $('#consignDate').val(new Date().toJSON().slice(0, 10));
+    
+    function showResult(str) {
+        if (str.length==0) {
+            $( ".search-suggestions" ).empty();
+            $( ".search-suggestions" ).css('border', '0px');
+        } else if (str.length > 0) {
+            $( ".search-suggestions" ).css('border', 'solid 1px #f6f6f6');
+            var options = '';
+            options = "<option value='Seeds'>";
+            options += "<option value='Chemicals'>";
+            options += "<option value='PGR'>";
+            options += "<option value='Fertilizer'>";
+            options += "<option value='Pesticides'>";
+            $('#json-datalist').html(options);
+        }
+    }
 
 </script>
 @endsection
