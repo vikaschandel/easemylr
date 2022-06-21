@@ -28,14 +28,13 @@ class ConsignerController extends Controller
     public function index(Request $request)
     {
         $this->prefix = request()->route()->getPrefix();
-        $peritem = 20;
         $query = Consigner::query();
         $authuser = Auth::user();
         $cc = explode(',',$authuser->branch_id);
         if($authuser->role_id == 2){
-            $consigners = $query->whereIn('branch_id',$cc)->orderBy('id','DESC')->with('State')->paginate($peritem);
+            $consigners = $query->whereIn('branch_id',$cc)->orderBy('id','DESC')->with('State')->get();
         }else{
-            $consigners = $query->orderBy('id','DESC')->with('State')->paginate($peritem);
+            $consigners = $query->orderBy('id','DESC')->with('State')->get();
         }
         return view('consigners.consigner-list',['consigners'=>$consigners,'prefix'=>$this->prefix,'title'=>$this->title])->with('i', ($request->input('page', 1) - 1) * 5);
     }

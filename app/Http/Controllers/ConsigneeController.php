@@ -33,7 +33,8 @@ class ConsigneeController extends Controller
         $authuser = Auth::user();
         $cc = explode(',',$authuser->branch_id);
         if($authuser->role_id == 2){
-            $consignees = $query->whereIn('branch_id',$cc)->orderBy('id','DESC')->with(['Consigner'])->get();
+            $consignees = $query->where('user_id',$authuser->id)->orderBy('id','DESC')->with('Consigner')->get();
+            // $consignees = $query->whereIn('branch_id',$cc)->orderBy('id','DESC')->with(['Consigner'])->get();
         }else{
             $consignees = $query->orderBy('id','DESC')->with(['Consigner'])->get();
         }
@@ -64,12 +65,13 @@ class ConsigneeController extends Controller
     public function store(Request $request)
     {
         $this->prefix = request()->route()->getPrefix();
+        $authuser = Auth::user();
         $rules = array(
             'nick_name' => 'required',
             // 'email' => 'required|unique:consignees',
         );
         $validator = Validator::make($request->all(),$rules);
-    
+        
         if($validator->fails())
         {
             $errors                  = $validator->errors();
@@ -98,7 +100,7 @@ class ConsigneeController extends Controller
         $consigneesave['district']            = $request->district;
         $consigneesave['postal_code']         = $request->postal_code;
         $consigneesave['state_id']            = $request->state_id;
-        // $consigneesave['status']              = $request->status;
+        $consigneesave['user_id']             = $authuser->id;
 
         $saveconsignee = Consignee::create($consigneesave); 
         if($saveconsignee)

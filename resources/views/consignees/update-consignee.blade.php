@@ -34,7 +34,7 @@
                                 </div>
                             </div>
                             <div class="form-row mb-0">                          
-                                <div class="form-group col-md-6">
+                                <!-- <div class="form-group col-md-6">
                                     <label for="exampleFormControlSelect1">Location</label>
                                     <select class="form-control" name="branch_id">
                                         <option value="">Select</option>
@@ -48,7 +48,7 @@
                                         }
                                         ?>
                                     </select>
-                                </div>
+                                </div> -->
                                 <div class="form-group col-md-6">
                                     <label for="exampleFormControlSelect1">Consigner</label>
                                     <select class="form-control" name="consigner_id">
@@ -64,8 +64,6 @@
                                         ?>
                                     </select>
                                 </div>
-                            </div>
-                            <div class="form-row mb-0">        
                                 <div class="form-group col-md-6">
                                     <label for="exampleFormControlSelect1">Select State</label>
                                     <select class="form-control" name="state_id">
@@ -79,6 +77,16 @@
                                             }
                                         }
                                         ?>                            
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row mb-0">
+                                <div class="form-group col-md-6">
+                                    <label for="exampleFormControlSelect1">Type Of Dealer</label>
+                                    <select class="form-control" id="dealer_type" name="dealer_type" disabled>
+                                        <option value="">Select</option>
+                                        <option value="1" {{$getconsignee->dealer_type == '1' ? 'selected' : ''}}>Registered</option>
+                                        <option value="0" {{$getconsignee->dealer_type == '0' ? 'selected' : ''}}>Unregistered</option>
                                     </select>
                                 </div>
                                 <div class="form-group col-md-6">
@@ -101,14 +109,7 @@
                                     <label for="exampleFormControlInput2">Mobile No.<span class="text-danger">*</span></label>
                                     <input type="text" class="form-control mbCheckNm" name="phone" value="{{old('phone',isset($getconsignee->phone)?$getconsignee->phone:'')}}" placeholder="Phone" maxlength="10">
                                 </div>
-                                <div class="form-group col-md-6">
-                                    <label for="exampleFormControlSelect1">Type Of Dealer</label>
-                                    <select class="form-control" id="dealer_type" name="dealer_type" disabled>
-                                        <option value="">Select</option>
-                                        <option value="1" {{$getconsignee->dealer_type == '1' ? 'selected' : ''}}>Registered</option>
-                                        <option value="0" {{$getconsignee->dealer_type == '0' ? 'selected' : ''}}>Unregistered</option>
-                                    </select>
-                                </div>
+                                
                             </div>
                             <div class="form-row mb-0">                          
                                 <div class="form-group col-md-6">

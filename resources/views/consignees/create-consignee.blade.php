@@ -30,7 +30,7 @@
                                 </div>
                             </div>
                             <div class="form-row mb-0">                          
-                                <div class="form-group col-md-6">
+                                <!-- <div class="form-group col-md-6">
                                     <label for="exampleFormControlSelect1">Location</label>
                                     <select class="form-control" name="branch_id">
                                         <option value="">Select</option>
@@ -44,7 +44,7 @@
                                         }
                                         ?>
                                     </select>
-                                </div>
+                                </div> -->
                                 <div class="form-group col-md-6">
                                     <label for="exampleFormControlSelect1">Consigner</label>
                                     <select class="form-control" name="consigner_id">
@@ -60,8 +60,6 @@
                                         ?>
                                     </select>
                                 </div>
-                            </div>
-                            <div class="form-row mb-0">     
                                 <div class="form-group col-md-6">
                                     <label for="exampleFormControlSelect1">Select State</label>
                                     <select class="form-control" name="state_id">
@@ -75,6 +73,16 @@
                                             }
                                         }
                                         ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row mb-0">     
+                                <div class="form-group col-md-6">
+                                    <label for="exampleFormControlSelect1">Type Of Dealer</label>
+                                    <select class="form-control" id="dealer_type" name="dealer_type" disabled>
+                                        <option value="">Select</option>
+                                        <option value="1">Registered</option>
+                                        <option value="0">Unregistered</option>
                                     </select>
                                 </div>
                                 <div class="form-group col-md-6">
@@ -97,14 +105,7 @@
                                     <label for="exampleFormControlInput2">Email ID</label>
                                     <input type="email" class="form-control" name="email" placeholder="">
                                 </div>
-                                <div class="form-group col-md-6">
-                                    <label for="exampleFormControlSelect1">Type Of Dealer</label>
-                                    <select class="form-control" id="dealer_type" name="dealer_type" disabled>
-                                        <option value="">Select</option>
-                                        <option value="1">Registered</option>
-                                        <option value="0">Unregistered</option>
-                                    </select>
-                                </div>
+                                
                             </div>
                             <div class="form-row mb-0">
                                 <div class="form-group col-md-6">

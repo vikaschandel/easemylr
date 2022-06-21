@@ -230,7 +230,7 @@ label.error{
                                         <div class="row">
                                             <div class=" col-sm-4" style="margin-top:15px;">
                                                 <label for="exampleFormControlInput2">Consignor's Invoice
-                                                    No.</label>
+                                                    No.<span class="text-danger">*</span></label>
                                             </div>
                                             <div class=" col-sm-8" style="margin-top:2px;">
 
@@ -396,7 +396,7 @@ label.error{
 
                 <div class="row" style="margin: auto; padding: auto;">
                     <div class=" col-sm-1">
-                        <label for="exampleFormControlInput2">Transporter <br>Name</label>
+                        <label for="exampleFormControlInput2">Transporter <br>Name<span class="text-danger">*</span></label>
                        
                     </div>
                    
@@ -404,7 +404,7 @@ label.error{
                             <input type="text" class="seteing" id="Transporter" name="transporter_name" value="">
                         </div>
                         <div class=" col-sm-1">
-                            <label for="exampleFormControlInput2">Vehicle Type</label>
+                            <label for="exampleFormControlInput2">Vehicle Type<span class="text-danger">*</span></label>
                            
                         </div>
                         <div class=" col-sm-2">
