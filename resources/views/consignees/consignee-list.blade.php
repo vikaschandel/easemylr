@@ -5,14 +5,7 @@
     <link rel="stylesheet" type="text/css" href="{{asset('plugins/table/datatable/custom_dt_html5.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('plugins/table/datatable/dt-global_style.css')}}">
 <!-- END PAGE LEVEL CUSTOM STYLES -->
-<style>
-    .ms-auto {
-    position: absolute;
-    top: 42px;
-    left: 98px;
-    z-index: 99999;
- 
-}
+
 </style>
 <div class="layout-px-spacing">
     <div class="row layout-top-spacing">

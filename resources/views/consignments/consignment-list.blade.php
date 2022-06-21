@@ -25,7 +25,7 @@
                 <div class="widget-content widget-content-area br-6">
                     <div style="margin-left:9px;" class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
                         <!-- <div class="breadcrumb-title pe-3"><h5>Consignments</h5></div> -->
-                        <div class="ms-auto" style="margin: 10px 0 0px 682px">
+                        <div class="ms-auto">
                             <div class="btn-group">
                                 <a href="{{'consignments/create'}}" class="btn btn-primary pull-right">Create Consignment</a>
                             </div>
