@@ -60,8 +60,8 @@
                                 <div class="w-summary-details">
 
                                     <div class="w-summary-info">
-                                        <h6 style="margin-top:10px;"><span style="font-size: 20px;">Today's LR </span><span class="summary-count smry"> </span></h6>
-                                        <p class="summary-average" style="margin-top: 10px;">{{$gettoday_lr}}</p>
+                                        <h6><span  style="font-size: 23px;">{{$gettoday_lr}}</span><span class="summary-count smry"> </span>Today's LR</h6>
+                                        <p class="summary-average" style="margin-top: 10px;"></p>
                                     </div>
                                 </div>
                             </div>
@@ -77,8 +77,8 @@
                                 <div class="w-summary-details">
 
                                     <div class="w-summary-info">
-                                        <h6 style="margin-top:10px;"><span style="font-size: 20px;">Current Month's LR</span><span class="summary-count"></span></h6>
-                                        <p class="summary-average" style="margin-top: 10px;">{{$gettoday_weightlifted}}</p>
+                                        <h6><span  style="font-size: 23px;">{{$gettoday_weightlifted}}</span><span class="summary-count"></span>Current Month's LR</h6>
+                                        <p class="summary-average" style="margin-top: 10px;"></p>
                                     </div>
                                 </div>
                             </div>
@@ -105,7 +105,7 @@
                                 <div class="w-summary-details">
 
                                     <div class="w-summary-info">
-                                        <h6><span style="font-size: 23px;">20,20,20,2000</span><span class="summary-count"> </span>Today Net Weight lifted</h6>
+                                        <h6><span style="font-size: 23px;">{{$gettoday_weightlifted}}(Kgs)</span><span class="summary-count"> </span>Today Net Weight lifted</h6>
                                         <p class="summary-average"></p>
                                     </div>
                                 </div>
@@ -122,7 +122,7 @@
                                 <div class="w-summary-details">
 
                                     <div class="w-summary-info">
-                                        <h6><span style="font-size: 23px;">20,20,20,2000</span><span class="summary-count"> </span>Monthly Net Weight Lifted</h6>
+                                        <h6><span style="font-size: 23px;">{{$getmonthly_weightlifted}}(Kgs)</span><span class="summary-count"> </span>Monthly Net Weight Lifted</h6>
                                         <p class="summary-average"></p>
                                     </div>
                                 </div>
@@ -148,7 +148,7 @@
 
                                 <div class="w-summary-details">
                                     <div class="w-summary-info">
-                                        <h6><span style="font-size: 23px;">Income </span><span class="summary-count"> </span>Today's Gross Weight Lifted</h6>
+                                        <h6><span style="font-size: 23px;">{{$gettoday_gross_weightlifted}} </span><span class="summary-count"> </span>Today's Gross Weight Lifted</h6>
                                         <p class="summary-average"></p>
                                     </div>
                                 </div>
@@ -165,7 +165,7 @@
                                 <div class="w-summary-details">
 
                                     <div class="w-summary-info">
-                                        <h6><span style="font-size: 23px;">20,20,20,2000</span><span class="summary-count"> </span>Monthly Gross Weight Lifted</h6>
+                                        <h6><span style="font-size: 23px;">{{$getmonthly_gross_weightlifted}}</span><span class="summary-count"> </span>Monthly Gross Weight Lifted</h6>
                                         <p class="summary-average"></p>
                                     </div>
                                 </div>
