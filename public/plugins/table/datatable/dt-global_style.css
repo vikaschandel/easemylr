@@ -19,8 +19,11 @@
 .dataTables_wrapper {
   padding: 0; }
 
-.dt--top-section {
-  margin: 20px 21px 20px 21px; }
+ .dt--top-section {
+margin-left: 20px;
+margin-bottom: 10px;
+   }
+
 
 .dt--bottom-section {
   padding: 15px; }
