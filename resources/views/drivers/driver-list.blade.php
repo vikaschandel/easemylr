@@ -44,9 +44,9 @@
                             ?> 
                             <tr>
                                 <td>{{ ++$i }}</td>
-                                <td>{{ ucfirst($value->name) }}</td>
-                                <td>{{ ucfirst($value->phone) }}</td>
-                                <td>{{ ucfirst($value->license_number) }}</td>
+                                <td>{{ ucfirst($value->name ?? '-') }}</td>
+                                <td>{{ ucfirst($value->phone ?? '-') }}</td>
+                                <td>{{ ucfirst($value->license_number ?? '-') }}</td>
                                 <td>
                                     <a class="btn btn-primary" href="{{url($prefix.'/drivers/'.Crypt::encrypt($value->id).'/edit')}}" ><span><i class="fa fa-edit"></i></span></a>
                                     <a class="btn btn-info" href="{{url($prefix.'/drivers/'.Crypt::encrypt($value->id))}}" ><span><i class="fa fa-eye"></i></span></a>
