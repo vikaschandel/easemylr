@@ -133,7 +133,7 @@
                                             <div class="form-row mb-0">
                                                 <div class="form-group col-md-6">
                                                     <label for="exampleFormControlInput2">Consignment Date</label>
-                                                    <input type="date" class="form-control date-picker" id="consignDate" name="consignment_date" placeholder="" value="<?php echo date("d-m-Y")?>">
+                                                    <input type="date" class="form-control date-picker" id="consignDate" name="consignment_date" placeholder="" value="">
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label for="exampleFormControlInput2">Value (INR)</label>
@@ -290,6 +290,8 @@
         var ss = $(".basic").select2({
             tags: true,
         });
+
+        $('#consignDate').val(new Date().toJSON().slice(0, 10));
         
     </script>
 @endsection
