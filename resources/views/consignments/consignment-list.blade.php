@@ -76,10 +76,10 @@ div.relative {
                                     <?php
                                     if($consignment->status==1){
                                         $status = 'Active';
-                                        $class = "green-text";
+                                        $class = "btn-success";
                                     }else{
-                                        $class = "red-text";
                                         $status = 'InActive';
+                                        $class = "btn-danger";
                                     }
                                     ?>
                                     <td>@if($consignment->status == 1)
