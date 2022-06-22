@@ -6,21 +6,15 @@
     <link rel="stylesheet" type="text/css" href="{{asset('plugins/table/datatable/dt-global_style.css')}}">
 <!-- END PAGE LEVEL CUSTOM STYLES -->
 <style>
-.ms-auto {
+div.relative {
     position: absolute;
-    top: 13px;
-    left: 304px;
-    z-index: 99999;
+    left: 173px;
+    top: 24px;
+    z-index: 1;
+    width: 95px;
+    height: 34px;
 }
-.btn-group > .btn, .btn-group .btn {
-    padding: 0px 0px;
-    height: 33px;
-    width: 136px;
-    margin-top: 1px;
-}
-.btn {
-    font-size: 15px;
-}
+
 </style>
 <div class="layout-px-spacing">
     <div class="row layout-top-spacing">
@@ -34,17 +28,12 @@
                 </nav>
             </div>
             <div class="widget-content widget-content-area br-6">
-                <div style="margin-left:9px;" class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-                    <!-- <div class="breadcrumb-title pe-3"><h5>Vehicles</h5></div> -->
-                    <div class="ms-auto" style="margin: 10px 0 0px 742px">
-                        <div class="btn-group">
-                            <a href="{{'vehicles/create'}}" class="btn btn-primary pull-right">Create Vehicle</a>
-                        </div>
-                    </div>
-                </div>
                 <div class="table-responsive mb-4 mt-4">
                     @csrf
                     <table id="vehicletable" class="table table-hover vehicle-datatable" style="width:100%">
+                    <div class="btn-group relative">
+                                <a href="{{'vehicles/create'}}" class="btn btn-primary pull-right" style="font-size: 12px; padding: 8px 0px;"><span><i class="fa fa-plus" ></i> Add New</span></a>
+                            </div>
                         <thead>
                             <tr>
                                 <th>Regn No.</th>

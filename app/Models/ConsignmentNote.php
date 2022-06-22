@@ -61,5 +61,9 @@ class ConsignmentNote extends Model
     {
         return $this->hasOne('App\Models\Vehicle','id','vehicle_id');
     }
+    public function DriverDetail()
+    {
+        return $this->hasOne('App\Models\Driver','id','driver_id');
+    }
 
 }

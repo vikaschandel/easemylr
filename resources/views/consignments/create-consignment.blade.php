@@ -28,11 +28,17 @@
 }
 label.error{
     color: red;
+    font-weight: bold;
 }
+
 
    
     .seteing {
-    width: 101px;
+    width: 130px;
+    
+}
+.sete{
+    width: 170px;
     
 }
 
@@ -44,8 +50,8 @@ label.error{
         <div class="page-header">
                 <nav class="breadcrumb-one" aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="javascript:void(0);">Consignee</a></li>
-                        <li class="breadcrumb-item active" aria-current="page"><a href="javascript:void(0);">Consignee List</a></li>
+                        <li class="breadcrumb-item"><a href="{{$prefix.'/consignments'}}">Consignments</a></li>
+                        <li class="breadcrumb-item active" aria-current="page"><a href="javascript:void(0);">Create Consignment</a></li>
                     </ol>
                 </nav>
             </div>
@@ -288,7 +294,7 @@ label.error{
                     </div>
 
                 </div><!-- Row -->
-                <div class="row" style=" padding: 10px;">
+                <div class="row" >
                     <div class="col-sm-12" >
                         <div style="overflow-x:auto; background-color: white;">
                             <table id="items_table" class="table table-striped primary-items">
@@ -393,43 +399,51 @@ label.error{
                     </div>
                 </div>
 
-
-                <div class="row" style="margin: auto; padding: auto;">
+                <div class="row" style="margin-top: 15px;">
                     <div class=" col-sm-1">
                         <label for="exampleFormControlInput2">Transporter <br>Name<span class="text-danger">*</span></label>
-                       
                     </div>
-                   
-                        <div class=" col-sm-2">
-                            <input type="text" class="seteing" id="Transporter" name="transporter_name" value="">
-                        </div>
-                        <div class=" col-sm-1">
-                            <label for="exampleFormControlInput2">Vehicle Type<span class="text-danger">*</span></label>
-                           
-                        </div>
-                        <div class=" col-sm-2">
-                           
-                            <select class=" seteing " id="vehicle_type" name="vehicle_type"
-                                tabindex="-1">
-                                <option value="">Select vehicle type</option>
-                                @foreach($vehicletypes as $vehicle)
-                                <option value="{{$vehicle->id}}">{{$vehicle->name}}
-                                </option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class=" col-sm-1">
-                            <label for="exampleFormControlInput2">Purchase Price</label>
-                           
-                        </div>
-                        <div class=" col-sm-2">
-                          
-                            <input type="text" class="seteing" id="purchase_price" name="purchase_price" value="">
-                        </div>
-                        <div class=" col-sm-3">
-                            <button type="submit" class="mt-4 mb-4 btn btn-primary">Submit</button>
-                            <a class="btn btn-primary" href="{{url($prefix.'/consignments') }}"> Back</a>
-                         </div>
+                    <div class=" col-sm-2">
+                        <input type="text" class="sete" id="Transporter" name="transporter_name" value="">
+                    </div>
+                    <div class=" col-sm-1">
+                        <label for="exampleFormControlInput2">Vehicle Type<span class="text-danger">*</span></label>
+                    </div>
+                    <div class=" col-sm-2">
+                        
+                        <select class=" sete " id="vehicle_type" name="vehicle_type"
+                            tabindex="-1">
+                            <option value="">Select vehicle type</option>
+                            @foreach($vehicletypes as $vehicle)
+                            <option value="{{$vehicle->id}}">{{$vehicle->name}}
+                            </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class=" col-sm-1">
+                        <label for="exampleFormControlInput2">Driver Name</label>
+                    </div>
+                    <div class=" col-sm-2">
+                        <select class="sete" id="driver_id" name="driver_id" tabindex="-1">
+                            <option value="">Select driver</option>
+                            @foreach($drivers as $driver)
+                            <option value="{{$vehicle->id}}">{{ucfirst($driver->name) ?? '-'}}
+                            </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class=" col-sm-1">
+                        <label for="exampleFormControlInput2">Purchase Price</label>
+                    </div>
+                    <div class=" col-sm-2">
+                        
+                        <input type="text" class="sete" id="purchase_price" name="purchase_price" value="">
+                    </div>
+                    
+                    <div class=" col-sm-3">
+                        <button type="submit" class="mt-4 mb-4 btn btn-primary">Submit</button>
+                        <a class="btn btn-primary" href="{{url($prefix.'/consignments') }}"> Back</a>
+                    </div>
                 </div><!-- Row -->
 
                 

@@ -1,28 +1,5 @@
 @extends('layouts.main')
 @section('content')
-<!-- <style>
-hr {
-  border: 1;
-  clear:both;
-  display:block;
-  width: 96%;               
-  background-color:#f1f2f3;
-  height: 1px;
-}
-
-#kgf {
-    margin-top: 158px;
-}
-.widget-content.widget-content-area.br-6 {
-    padding: 12px;
-}
-div#pp {
-    margin-top: 120px;
-}
-div#hh {
-    margin-top: 120px;
-} 
-</style> -->
 <style>
 hr {
     border: 1;
@@ -74,7 +51,7 @@ div#hh {
             <div class="page-header">
                 <nav class="breadcrumb-one" aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="javascript:void(0);">Consignments</a></li>
+                        <li class="breadcrumb-item"><a href="{{$prefix.'/consignments'}}">Consignments</a></li>
                         <li class="breadcrumb-item active" aria-current="page"><a href="javascript:void(0);">View Consignment</a></li>
                     </ol>
                 </nav>
@@ -84,15 +61,19 @@ div#hh {
                     <div class="row">
                         <div class="col-sm-4">
                             <div class="panel panel-white full_height">
-                                <div class="panel-heading">
-                                    <div class="col-ms-8">
-                                        <h4 class="panel-title">All Consignments</h4>
-                                    </div>
-                                    <!-- <?php //if (check_permissions('cn', 'add')){ ?>  -->
-                                    <a href="{{'create'}}"><button class="btn btn-success btn-addon m-b-sm">+ Add New</button></a>
-                                    <!-- <?php// } ?>  -->
+                                <div class="panel-heading" style="padding:10px;">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                         <h6 class="panel-title" style="font-weight: bolder;">All Consignments</h6>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <!-- <?php //if (check_permissions('cn', 'add')){ ?>  -->
+                                                <a href="{{'create'}}"><button class="btn btn-success btn-addon m-b-sm" style="margin-left: 39px;">+ Add New</button></a>
+                                            <!-- <?php// } ?>  -->
+                                        </div>
+                                     </div>
                                 </div>
-                                <div class="panel-body" style="overflow:scroll"> 
+                                <div class="panel-body"  style="overflow:scroll; width: 347px; height: 600px;">
                                     <div class="">
                                         <table id="consignment_table" class="table" style="width: 100%; cellspacing: 0;">
                                             <tbody>
@@ -179,6 +160,10 @@ div#hh {
                                                     <tr>
                                                         <td><strong>Vehicle No.</strong></td>
                                                         <td><span id="vehicle_no">RJ148G TEMP 83737</span></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><strong>Driver Name</strong></td>
+                                                        <td><span id="driver_name">Raj Kumar</span></td>
                                                     </tr>
                                                 </table>
                                             </div>
@@ -287,8 +272,8 @@ div#hh {
                                                 
                                             <div class="col-md-4">
                                                 <div class="text-right">
-                                                <button class="btn btn-default" type="button"><a id="printcon" data-printtoid="1" href="{{url($prefix.'/consignments/')}}"><i class="fa fa-print"></i>Print</a></button>
-                                                <button class="btn btn-default" type="button"><a id="printshipcon" data-printtoid="2" href="{{url($prefix.'/consignments/')}}"><i class="fa fa-print"></i>Print (with Ship To)</a></button>
+                                                <button class="btn btn-default" type="button"><a id="printcon" data-printtoid="1" href="{{url($prefix.'/consignments/')}}"><i class="fa fa-print"></i>  Print</a></button>
+                                                <button class="btn btn-default" type="button"><a id="printshipcon" data-printtoid="2" href="{{url($prefix.'/consignments/')}}"><i class="fa fa-print"></i>  Print (with Ship To)</a></button>
                                                 
                                                 </div>
                                             </div>
@@ -306,7 +291,7 @@ div#hh {
                                 <input type="hidden" id="form_supply" name="supply" value="">
                                 <input type="hidden" id="form_cons_invoice_no" name="cons_invoice_no" value="">
                                 <input type="hidden" id="form_vehicle_no" name="vehicle_no" value="">
-                                <!-- <input type="hidden" id="form_driver_name" name="driver_name" value=""> -->
+                                <input type="hidden" id="form_driver_name" name="driver_name" value="">
                                 <!-- <input type="hidden" id="form_driver_no" name="driver_no" value=""> -->
                                 <input type="hidden" id="form_invoice_amount" name="invoice_amount" value="">
                                 <input type="hidden" id="form_invoice_date" name="invoice_date" value="">
@@ -388,7 +373,7 @@ div#hh {
                     $('#dispatch').html(data.consigner_detail.city);
                     $('#cons_invoice_no').html(data.invoice_no);
                     $('#vehicle_no').html(data.vehicle_detail.regn_no);
-                    // $('#driver_name').html(data.driver_name);
+                    $('#driver_name').html(data.driver_detail.name);
                     // $('#driver_no').html(data.driver_mobile_no);
                     $('#invoice_amount').html(data.invoice_amount);
 
@@ -510,7 +495,7 @@ div#hh {
                 $('#dispatch').html(data.consigner_detail.city);
                 $('#cons_invoice_no').html(data.invoice_no);
                 $('#vehicle_no').html(data.vehicle_detail.regn_no);
-                // $('#driver_name').html(data.driver_name);
+                $('#driver_name').html(data.driver_detail.name);
                 // $('#driver_no').html(data.driver_mobile_no);
                 $('#invoice_amount').html(data.invoice_amount);
 
@@ -587,7 +572,7 @@ div#hh {
         $('#form_supply').val($('#supply').html());
         $('#form_cons_invoice_no').val($('#cons_invoice_no').html());
         $('#form_vehicle_no').val($('#vehicle_no').html());
-        // $('#form_driver_name').val($('#driver_name').html());
+        $('#form_driver_name').val($('#driver_name').html());
         // $('#form_driver_no').val($('#driver_no').html());
         $('#form_invoice_amount').val($('#invoice_amount').html());
         $('#form_invoice_date').val($('#invoice_date').html());
@@ -613,7 +598,7 @@ div#hh {
         $('#form_supply').val($('#supply').html());
         $('#form_cons_invoice_no').val($('#cons_invoice_no').html());
         $('#form_vehicle_no').val($('#vehicle_no').html());
-        // $('#form_driver_name').val($('#driver_name').html());
+        $('#form_driver_name').val($('#driver_name').html());
         // $('#form_driver_no').val($('#driver_no').html());
         $('#form_invoice_amount').val($('#invoice_amount').html());
         $('#form_invoice_date').val($('#invoice_date').html());
