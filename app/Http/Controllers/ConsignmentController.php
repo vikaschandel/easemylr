@@ -212,14 +212,15 @@ class ConsignmentController extends Controller
      */
     public function show($consignment)
     {
+        // $id = $consignment;
         $this->prefix = request()->route()->getPrefix();
-        $id = $consignment;
-        $auth = Auth::user();
         $query = ConsignmentNote::query();
-        if ( ($auth->role_id == 1) || ($auth->role_id == 2) ) {
-            $getconsignment = $query->orderBy('id','DESC')->get();
-        } else {
-            $getconsignment = $query->where('branch_id',$auth->branch_id)->orderBy('id','DESC')->get();
+        $authuser = Auth::user();
+        $cc = explode(',',$authuser->branch_id);
+        if($authuser->role_id == 2){
+            $getconsignment = $query->whereIn('branch_id',$cc)->orderby('id','DESC')->get();
+        }else{
+            $getconsignment = $query->orderby('id','DESC')->get();
         }
         $branch_add = BranchAddress::first();
         return view('consignments.view-consignment',['prefix'=>$this->prefix,'getconsignment'=>$getconsignment,'branch_add'=>$branch_add]);
