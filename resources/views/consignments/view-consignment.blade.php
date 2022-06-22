@@ -1,6 +1,6 @@
 @extends('layouts.main')
 @section('content')
-<style>
+<!-- <style>
 hr {
   border: 1;
   clear:both;
@@ -22,6 +22,51 @@ div#pp {
 div#hh {
     margin-top: 120px;
 } 
+</style> -->
+<style>
+hr {
+    border: 1;
+    clear:both;
+    display:block;
+    width: 96%;               
+    background-color:#f1f2f3;
+    height: 1px;
+}
+.hh {
+    margin-top: -66px;
+    margin-left: 66px;
+}
+
+/* #kgf {
+    margin-top: 85px;
+} */
+.widget-content.widget-content-area.br-6 {
+    padding: 12px;
+}
+div#pp {
+    margin-top: 120px;
+}
+div#hh {
+    margin-top: 120px;
+} 
+#QR_design{
+    margin-left: 118px;
+  
+}
+.btn:not(:disabled):not(.disabled) {
+    margin-right: 15px;
+}
+@media only screen and (max-width: 479px) and (min-width: 0px) {
+    .hh {
+    margin-top: 14px;
+    margin-left: 33px;
+}
+#QR_design {
+    margin-left: 84px;
+}
+
+}
+    
 </style>
 <div class="layout-px-spacing">
     <div class="row layout-top-spacing">
@@ -103,12 +148,7 @@ div#hh {
                                                 </address>
                                                 <hr>
                                             </div>
-                                            <div class="col-sm-6 text-center">
-                                                <div class='hh'>
-                                                    <h2 id="kgf">CONSIGNMENT NOTE</h2>
-                                                    {{QrCode::size(150)->generate('Eternity Forwarders Pvt. Ltd.');}}
-                                                    </div>
-                                            </div>
+                                            
                                         </div>
                                         <div class="row">
                                             <div class="col-sm-6">
@@ -142,7 +182,17 @@ div#hh {
                                                     </tr>
                                                 </table>
                                             </div>
+                                            <div class="col-sm-6 ">
                                            
+                                                <div class='hh'>
+                                                    <h4 id="kgf">CONSIGNMENT NOTE</h4>
+                                                    
+                                                </div>
+                                           
+                                                <div id="QR_design" >
+                                                     {{QrCode::size(150)->generate('Eternity Forwarders Pvt. Ltd.');}}
+                                                </div>
+                                            </div>
                                         </div>
                                         <hr>
 
