@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Consignee;
 use App\Models\Branch;
 use App\Models\State;
+use App\Models\Consigner;
 use DB;
 use URL;
 use Auth;
@@ -50,7 +51,14 @@ class ConsigneeController extends Controller
     public function create()
     {
         $this->prefix = request()->route()->getPrefix();
-        $consigners = Helper::getConsigners();
+        // $consigners = Helper::getConsigners();
+        $authuser = Auth::user();
+        $cc = explode(',',$authuser->branch_id);
+        if($authuser->role_id == 2){
+            $consigners = Consigner::whereIn('branch_id',$cc)->orderby('nick_name','ASC')->pluck('nick_name','id');
+        }else{
+            $consigners = Consigner::where('status',1)->orderby('nick_name','ASC')->pluck('nick_name','id');
+        }
         $branches = Helper::getLocations();
         $states = Helper::getStates();
         return view('consignees.create-consignee',['consigners'=>$consigners, 'branches'=>$branches, 'states'=>$states, 'prefix'=>$this->prefix, 'title'=>$this->title, 'pagetitle'=>'Create']);
@@ -145,7 +153,14 @@ class ConsigneeController extends Controller
         $id = decrypt($id);      
         $states = Helper::getStates();
         $branches = Helper::getLocations();  
-        $consigners = Helper::getConsigners();       
+        // $consigners = Helper::getConsigners(); 
+        $authuser = Auth::user();
+        $cc = explode(',',$authuser->branch_id);
+        if($authuser->role_id == 2){
+            $consigners = Consigner::whereIn('branch_id',$cc)->orderby('nick_name','ASC')->pluck('nick_name','id');
+        }else{
+            $consigners = Consigner::where('status',1)->orderby('nick_name','ASC')->pluck('nick_name','id');
+        }      
         $getconsignee = Consignee::where('id',$id)->first();
         return view('consignees.update-consignee')->with(['prefix'=>$this->prefix, 'getconsignee'=>$getconsignee,'states'=>$states,'branches'=>$branches,'consigners'=>$consigners,'title'=>$this->title,'pagetitle'=>'Update']);
     }

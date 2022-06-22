@@ -185,6 +185,10 @@
 <script>
 jQuery(document).ready(function(){
 
+    // if ($('input').val().replace(/[\s]/, '') == '') {
+    //     alert('Input is not filled!');
+    // }
+
     // on ready function for create/update consignee page
     var gstno = $("#gst_number").val().length;
     // const gst_numberlen = gstno.length;

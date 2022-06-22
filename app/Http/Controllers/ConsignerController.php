@@ -6,6 +6,7 @@ use App\Models\Consigner;
 use Illuminate\Http\Request;
 use App\Models\Branch;
 use App\Models\State;
+use App\Models\Location;
 use DB;
 use URL;
 use Auth;
@@ -48,7 +49,14 @@ class ConsignerController extends Controller
     {
         $this->prefix = request()->route()->getPrefix();
         $states = Helper::getStates();
-        $branches = Helper::getLocations();
+        // $branches = Helper::getLocations();
+        $authuser = Auth::user();
+        $cc = explode(',',$authuser->branch_id);
+        if($authuser->role_id == 2){
+            $branches = Location::whereIn('branch_id',$cc)->orWhere('status',1)->orderby('name','ASC')->pluck('name','id');
+        }else{
+            $branches = Location::where('status',1)->orderby('name','ASC')->pluck('name','id');
+        }
         return view('consigners.create-consigner',['states'=>$states, 'branches'=>$branches, 'prefix'=>$this->prefix, 'title'=>$this->title, 'pagetitle'=>'Create']);
     }
 
