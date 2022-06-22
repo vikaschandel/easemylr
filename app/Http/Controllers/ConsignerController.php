@@ -53,7 +53,7 @@ class ConsignerController extends Controller
         $authuser = Auth::user();
         $cc = explode(',',$authuser->branch_id);
         if($authuser->role_id == 2){
-            $branches = Location::whereIn('branch_id',$cc)->orWhere('status',1)->orderby('name','ASC')->pluck('name','id');
+            $branches = Location::whereIn('id',$cc)->orWhere('status',1)->orderby('name','ASC')->pluck('name','id');
         }else{
             $branches = Location::where('status',1)->orderby('name','ASC')->pluck('name','id');
         }
@@ -140,7 +140,14 @@ class ConsignerController extends Controller
         $this->prefix = request()->route()->getPrefix();
         $id = decrypt($id);      
         $states = Helper::getStates();
-        $branches = Helper::getLocations();
+        // $branches = Helper::getLocations();
+        $authuser = Auth::user();
+        $cc = explode(',',$authuser->branch_id);
+        if($authuser->role_id == 2){
+            $branches = Location::whereIn('id',$cc)->orWhere('status',1)->orderby('name','ASC')->pluck('name','id');
+        }else{
+            $branches = Location::where('status',1)->orderby('name','ASC')->pluck('name','id');
+        }
         $getconsigner = Consigner::where('id',$id)->first();
         return view('consigners.update-consigner')->with(['prefix'=>$this->prefix,'getconsigner'=>$getconsigner,'states'=>$states,'branches'=>$branches, 'title'=>$this->title, 'pagetitle'=>'Update']);
     }
