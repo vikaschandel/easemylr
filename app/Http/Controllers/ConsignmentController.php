@@ -107,12 +107,12 @@ class ConsignmentController extends Controller
             $consignmentno = "";
         }
 
-        $branchs = Branch::where('status','1')->select('id','consignment_note')->get();
+        $locations = Location::where('status','1')->select('id','consignment_no')->get();
         $vehicles = Vehicle::where('status','1')->select('id','regn_no')->get();
         $drivers = Driver::where('status','1')->select('id','name')->get();
         $vehicletypes = VehicleType::where('status','1')->select('id','name')->get();
 
-        return view('consignments.create-consignment',['prefix'=>$this->prefix,'title'=>$this->title,'pagetitle'=>'Create','consigners'=>$consigners,'consignees'=>$consignees,'branchs'=>$branchs,'vehicles'=>$vehicles, 'vehicletypes'=>$vehicletypes, 'consignmentno'=>$consignmentno,'drivers'=>$drivers]);
+        return view('consignments.create-consignment',['prefix'=>$this->prefix,'consigners'=>$consigners, 'consignees'=>$consignees,'locations'=>$locations,'vehicles'=>$vehicles, 'vehicletypes'=>$vehicletypes, 'consignmentno'=>$consignmentno,'drivers'=>$drivers]);
     }
 
     /**

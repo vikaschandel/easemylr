@@ -172,12 +172,11 @@ label.error{
                                             </div>
                                             <div class=" col-sm-8" style="margin-top:2px;">
 
-                                                <select id="selwarehouse" class="form-seteing" id="warehouse"
-                                                    name="warehouse" value="" disabled>
+                                                <select id="selwarehouse" class="form-seteing" id="warehouse" name="warehouse" value="" disabled>
                                                     <option value="">Select Series</option>
-                                                    @foreach($branchs as $branch)
-                                                    <option value="{{$branch->consignment_note}}">
-                                                        {{$branch->consignment_note}}
+                                                    @foreach($locations as $location)
+                                                    <option value="{{$location->consignment_no}}">
+                                                        {{$location->consignment_no}}
                                                     </option>
                                                     @endforeach
                                                 </select>

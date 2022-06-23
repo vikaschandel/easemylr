@@ -79,7 +79,7 @@
                             <div class="form-row mb-0">     
                                 <div class="form-group col-md-6">
                                     <label for="exampleFormControlSelect1">Type Of Dealer</label>
-                                    <select class="form-control" id="dealer_type" name="dealer_type" disabled>
+                                    <select class="form-control" id="dealer_type" name="dealer_type">
                                         <option value="">Select</option>
                                         <option value="1">Registered</option>
                                         <option value="0">Unregistered</option>
@@ -87,7 +87,8 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="exampleFormControlInput2">GST No.</label>
-                                    <input type="text" class="form-control" id="gst_number" name="gst_number" placeholder="" maxlength="15">
+                                    <input type="text" class="form-control" id="gst_number" name="gst_number" disabled placeholder="" maxlength="15">
+                                    <p class="gstno_error text-danger" style="display: none; color: #ff0000; font-weight: 500;">Please enter GST no.</p>
                                 </div>
                             </div>
                             <div class="form-row mb-0">                          
@@ -190,13 +191,15 @@ jQuery(document).ready(function(){
     // }
 
     // on ready function for create/update consignee page
-    var gstno = $("#gst_number").val().length;
-    // const gst_numberlen = gstno.length;
-    if(gstno > 0){
-        $('#dealer_type option[value="1"]').prop('selected', true);
-    }else{
-        $('#dealer_type option[value="0"]').prop('selected', true);
-    }
+    // var gstno = $("#gst_number").val().length;
+    
+    // if(gstno > 0){
+    //     $('#dealer_type option[value="1"]').prop('selected', true);
+    // }else{
+    //     $('#dealer_type option[value="0"]').prop('selected', true);
+    // }
+    
+    
 });
 </script>
 @endsection

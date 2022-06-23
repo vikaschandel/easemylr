@@ -1142,6 +1142,12 @@ function formSubmitRedirect(form)
         dataType    : "json",
         beforeSend  : function () {
             $(".loader").show();
+            if ($('#dealer_type').val() == 1 && $("#gst_number").val() == '') {
+                $('.gstno_error').show();
+                return false;
+            }else{
+                $('.gstno_error').hide();
+            }
         },
         complete: function (response) {
             $("input[type=submit]").attr("enabled", "enabled");
