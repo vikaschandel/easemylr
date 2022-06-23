@@ -77,7 +77,7 @@
                                 <div class="w-summary-details">
 
                                     <div class="w-summary-info">
-                                        <h6><span  style="font-size: 23px;">{{$gettoday_weightlifted}}</span><span class="summary-count"></span>Current Month's LR</h6>
+                                        <h6><span  style="font-size: 23px;">{{$getcurrentmonth_lr}}</span><span class="summary-count"></span>Current Month's LR</h6>
                                         <p class="summary-average" style="margin-top: 10px;"></p>
                                     </div>
                                 </div>
