@@ -60,11 +60,14 @@ div.relative {
                         </div>
                         <thead> 
                             <tr>
-                                <th>Sr No.</th>
-                                <th>Nick Name</th>
-                                <th>GST No.</th>
-                                <th>Contact Name</th>
-                                <th>Mobile</th>
+                                <th>S No.</th>
+                                <th>Consigner Nick Name</th>
+                                <th>Contact Person Name</th>
+                                <th>Mobile No.</th>
+                                <th>PIN Code</th>
+                                <th>City</th>
+                                <th>District</th>
+                                <th>State</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -75,10 +78,13 @@ div.relative {
                                 ?> 
                             <tr>
                                 <td>{{ ++$i }}</td>
-                                <td>{{ ucfirst($value->nick_name ?? '-') }}</td>
-                                <td>{{ $value->gst_number ?? '-'}}</td>
-                                <td>{{ ucfirst($value->contact_name ?? '-') }}</td>
+                                <td>{{ ucwords($value->nick_name ?? '-') }}</td>
+                                <td>{{ ucwords($value->contact_name ?? '-') }}</td>
                                 <td>{{ $value->phone ?? '-'}}</td>
+                                <td>{{ $value->postal_code ?? '-'}}</td>
+                                <td>{{ ucwords($value->city ?? '-') }}</td>
+                                <td>{{ ucwords($value->district ?? '-') }}</td>
+                                <td>{{ ucwords($value->State->name ?? '-') }}</td>
                                 <td>
                                     <a class="btn btn-primary" href="{{url($prefix.'/consigners/'.Crypt::encrypt($value->id).'/edit')}}" ><span><i class="fa fa-edit"></i></span></a>
                                     <a class="btn btn-info" href="{{url($prefix.'/consigners/'.Crypt::encrypt($value->id))}}" ><span><i class="fa fa-eye"></i></span></a>

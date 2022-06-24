@@ -54,10 +54,10 @@ div.relative {
                         </div>
                         <thead>
                             <tr>
-                                <th>Sr No.</th>
-                                <th>Driver</th>
-                                <th>Phone</th>
-                                <th>License No</th>
+                                <th>S No.</th>
+                                <th>Driver Name</th>
+                                <th>Driver Phone</th>
+                                <th>Driver License Number</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -68,9 +68,9 @@ div.relative {
                             ?> 
                             <tr>
                                 <td>{{ ++$i }}</td>
-                                <td>{{ ucfirst($value->name ?? '-') }}</td>
-                                <td>{{ ucfirst($value->phone ?? '-') }}</td>
-                                <td>{{ ucfirst($value->license_number ?? '-') }}</td>
+                                <td>{{ ucwords($value->name ?? '-') }}</td>
+                                <td>{{ $value->phone ?? '-' }}</td>
+                                <td>{{ $value->license_number ?? '-' }}</td>
                                 <td>
                                     <a class="btn btn-primary" href="{{url($prefix.'/drivers/'.Crypt::encrypt($value->id).'/edit')}}" ><span><i class="fa fa-edit"></i></span></a>
                                     <a class="btn btn-info" href="{{url($prefix.'/drivers/'.Crypt::encrypt($value->id))}}" ><span><i class="fa fa-eye"></i></span></a>

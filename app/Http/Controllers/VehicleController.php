@@ -28,6 +28,7 @@ class VehicleController extends Controller
             $data = Vehicle::orderby('id','DESC')->get();
             
             return Datatables::of($data)->addIndexColumn()
+           
             ->addColumn('regn_date', function($row)
             {
                 return $row->regn_date ? with(new \Carbon\Carbon($row->regn_date))->format('d-m-Y') : '-'; 
