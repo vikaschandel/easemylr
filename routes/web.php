@@ -119,6 +119,9 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth','PermissionCheck']], func
 
     // Route::get('settings/branch-address', [SettingController::class, 'getbranchAddress']);
     Route::any('settings/branch-address', [SettingController::class, 'updateBranchadd']);
+
+    Route::get('/sample-consignees',[ImportCsvController::class, 'consigneesSampleDownload']);
+    Route::get('/sample-consigner',[ImportCsvController::class, 'consignerSampleDownload']);
     
 
     
