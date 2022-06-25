@@ -21,6 +21,7 @@ class Vehicle extends Model
         'state_id',
         'regndate',
         'hypothecation',
+        'driver_id',
         'ownership',
         'owner_name',
         'owner_phone',
