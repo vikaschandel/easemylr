@@ -39,6 +39,7 @@ div.relative {
                                 <!-- <th>S No.</th> -->
                                 <th>Vehicle Number</th>
                                 <th>Registration Date</th>
+                                <th>State(Regd)</th>
                                 <th>Body Type</th>
                                 <th>Make</th>
                                 <th>Vehicle Capacity</th>
@@ -81,7 +82,8 @@ var table = $('#vehicletable').DataTable({
 
     columns: [
         {data: 'regn_no', name: 'regn_no'},
-        {data: 'regn_date', name: 'regn_date'},
+        {data: 'regndate', name: 'regndate'},
+        {data: 'state_id', name: 'state_id'},
         {data: 'body_type', name: 'body_type'},
         {data: 'make', name: 'make'},
         {data: 'make', name: 'make'},
@@ -89,7 +91,7 @@ var table = $('#vehicletable').DataTable({
         {data: 'action', name: 'action', orderable: false, searchable: false}
         
     ]
-}); 
+});
 </script>
 <!-- <script>
     $(function () {

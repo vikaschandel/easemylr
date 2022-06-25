@@ -29,8 +29,11 @@ class Vehicle extends Model
     public function GetState(){
         return $this->hasOne('App\Models\State','id','state_id');
     }
-
+    public function State(){
+        return $this->belongsTo('App\Models\State','state_id');
+    }
     public function Driver(){
         return $this->belongsTo('App\Models\Driver','driver_id');
     }
+    
 }

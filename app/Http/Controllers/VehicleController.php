@@ -25,13 +25,20 @@ class VehicleController extends Controller
     {
         $this->prefix = request()->route()->getPrefix();
         if ($request->ajax()) {
-            $data = Vehicle::orderby('id','DESC')->get();
-            
+            $data = Vehicle::orderby('id','DESC')->with('State')->get();
             return Datatables::of($data)->addIndexColumn()
-           
-            ->addColumn('regn_date', function($row)
+            ->addColumn('state_id', function($row)
             {
-                return $row->regn_date ? with(new \Carbon\Carbon($row->regn_date))->format('d-m-Y') : '-'; 
+                return ($row->State->name ?? '-'); 
+            })
+            ->addColumn('regndate', function($row)
+            {
+                if($row->regndate){
+                    $date = date("d-m-Y", strtotime($row->regndate));
+                }else{
+                    $date = '-';
+                }
+                return $date;
             })
             ->addColumn('action', function($row){
                 $actionBtn = '<a href="'.URL::to($this->prefix.'/vehicles/'.Crypt::encrypt($row->id).'/edit').'" class="edit btn btn-primary btn-sm"><span><i class="fa fa-edit"></i></span></a>';
