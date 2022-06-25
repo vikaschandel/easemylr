@@ -17,6 +17,7 @@ class CreateConsigneesTable extends Migration
             $table->increments('id');
             $table->string('nick_name')->nullable();
             $table->string('legal_name')->nullable();
+            $table->string('user_id')->nullable();
             $table->string('branch_id')->nullable();
             $table->string('consigner_id')->nullable();
             $table->string('dealer_type')->nullable()->comment('0=>not register 1=>register');

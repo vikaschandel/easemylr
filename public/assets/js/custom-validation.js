@@ -1,19 +1,5 @@
 jQuery(document).ready(function(){
 
-    /*===== For create/update consigner/consignee page  =====*/
-     $(document).on('keyup', "#gst_number",function () {
-        var gstno = $(this).val().toUpperCase();
-        var gstno = gstno.replace(/[^A-Z0-9]/g, '');
-        $(this).val(gstno);
-        
-        const gst_numberlen = gstno.length;
-        if(gst_numberlen > 0){
-            $('#dealer_type option[value="1"]').prop('selected', true);
-        }else{
-            $('#dealer_type option[value="0"]').prop('selected', true);
-        }
-    });
-
 	/*======== check box checked create/update user permission page  ========*/
     jQuery(document).on('click','#ckbCheckAll',function(){
         if(this.checked){
@@ -630,13 +616,35 @@ jQuery(document).ready(function(){
         jQuery('.editBranchadd').css('display','none');
     });
 
-    //onchange consignee gst-no to select type of dealer
-    // $(document).on('keyup', "#gst_number",function () {
-    //     var gstno = $(this).val();
-    //     // $gstno = $gstno.replace(/[^A-Z0-9]/g, '');
-    //     // var gst_no = $('#gst_number').val($gstno);
-    //     alert(gstno);
-    // });
+    /*===== For create/update consigner/consignee page  =====*/
+    $(document).on('keyup', "#gst_number",function () {
+        var gstno = $(this).val().toUpperCase();
+        var gstno = gstno.replace(/[^A-Z0-9]/g, '');
+        $(this).val(gstno);
+        
+        const gst_numberlen = gstno.length;
+        if(gst_numberlen > 0){
+            $('.gstno_error').hide();
+        }else{
+            $('.gstno_error').show();
+        }
+    });
+
+    $('#dealer_type').change(function (e) {
+        e.preventDefault();
+        var valueSelected = this.value;
+        var gstno = $("#gst_number").val();
+        if(valueSelected==1 && gstno == ''){
+            $("#gst_number").attr("disabled", false);
+            $('.gstno_error').show();
+            return false;
+        }else{
+            $("#gst_number").val('');
+            $("#gst_number").attr("disabled", true);
+            $('.gstno_error').hide();
+        }
+    });
+
 
 
 

@@ -52,20 +52,17 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="exampleFormControlInput2">Gross Vehicle Weight</label>
-                                    <input type="text" class="form-control" name="gross_vehicle_weight" placeholder="">
+                                    <input type="text" class="form-control" id="gross_vehicle_weight" name="gross_vehicle_weight" placeholder="">
                                 </div>
                             </div>
                             <div class="form-row mb-0">                          
                                 <div class="form-group col-md-6">
                                     <label for="exampleFormControlInput2">Unladen Weight</label>
-                                    <input type="text" class="form-control" name="unladen_weight" placeholder="">
+                                    <input type="text" class="form-control" id="unladen_weight" name="unladen_weight" placeholder="" readonly>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="exampleFormControlInput2">Body Type</label>
-                                    <select class="form-control" name="body_type">
-                                        <option value="Container">Container</option>
-                                        <option value="Open Body">Open Body</option>
-                                    </select>
+                                    <label for="exampleFormControlInput2">Tonnage Capacity</label>
+                                    <input type="text" class="form-control" id="tonnage_capacity" name="tonnage_capacity" value="" placeholder="" readonly>
                                 </div>
                             </div>
                             <div class="form-row mb-0">
@@ -103,6 +100,25 @@
                                     </select>
                                 </div>
                             </div>
+                            <div class="form-row mb-0">
+                                <div class="form-group col-md-6">
+                                    <label for="exampleFormControlInput2">Owner Name</label>
+                                    <input type="text" class="form-control" name="owner_name" placeholder="">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="exampleFormControlInput2">Owner Mobile No.</label>
+                                    <input type="text" class="form-control" name="owner_phone" placeholder="">
+                                </div>
+                            </div>
+                            <div class="form-row mb-0">
+                                <div class="form-group col-md-6">
+                                    <label for="exampleFormControlInput2">Body Type</label>
+                                    <select class="form-control" name="body_type">
+                                        <option value="Container">Container</option>
+                                        <option value="Open Body">Open Body</option>
+                                    </select>
+                                </div>
+                            </div>
                             
                             <button type="submit" class="mt-4 mb-4 btn btn-primary">Submit</button>
                             <a class="btn btn-primary" href="{{url($prefix.'/vehicles')}}"> Back</a>
@@ -114,4 +130,32 @@
     </div>
 </div>
 
+@endsection
+@section('js')
+<script>
+    $('#gross_vehicle_weight').keyup(function(){
+        var gross_vehicle_weight = $('#gross_vehicle_weight').val();
+        if(gross_vehicle_weight!='') {
+            $("#unladen_weight").prop("readonly", false);
+        }else{
+            $("#unladen_weight").prop("readonly", true);
+        }
+    });
+    $('#unladen_weight').keyup(function(){
+        var gross_vehicle_weight = $('#gross_vehicle_weight').val();
+        if(gross_vehicle_weight!='') {
+            $("#unladen_weight").prop("readonly", false);
+        }else{
+            $("#unladen_weight").prop("readonly", true);
+        }
+        var unladen_weight = $('#unladen_weight').val();
+        var total_weight = parseInt(gross_vehicle_weight) - parseInt(unladen_weight);
+        if(parseInt(gross_vehicle_weight) > parseInt(unladen_weight)){
+            $('#tonnage_capacity').val(total_weight);
+        }else{
+            $('#unladen_weight').val('');
+            $('#tonnage_capacity').val('');
+        }
+    });
+</script>
 @endsection

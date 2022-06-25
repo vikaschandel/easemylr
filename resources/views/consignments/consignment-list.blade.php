@@ -1,10 +1,34 @@
 @extends('layouts.main')
 @section('content')
 <style>
-.red-text { color: red; }
-.green-text{ color: green;}
-
-</style>
+        .dt--top-section {
+    margin:none;
+}
+div.relative {
+    position: absolute;
+    left: 110px;
+    top: 24px;
+    z-index: 1;
+    width: 145px;
+    height: 38px;
+}
+/* .table > tbody > tr > td {
+    color: #4361ee;
+} */
+.dt-buttons .dt-button {
+    width: 83px;
+    height: 38px;
+    font-size: 13px;
+}
+.btn-group > .btn, .btn-group .btn {
+    padding: 0px 0px;
+    padding: 10px;
+}
+.btn {
+   
+    font-size: 10px;
+    }
+    </style>
 <!-- BEGIN PAGE LEVEL CUSTOM STYLES -->
     <link rel="stylesheet" type="text/css" href="{{asset('plugins/table/datatable/datatables.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('plugins/table/datatable/custom_dt_html5.css')}}">
@@ -23,17 +47,12 @@
                     </nav>
                 </div>
                 <div class="widget-content widget-content-area br-6">
-                    <div style="margin-left:9px;" class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-                        <!-- <div class="breadcrumb-title pe-3"><h5>Consignments</h5></div> -->
-                        <div class="ms-auto">
-                            <div class="btn-group">
-                                <a href="{{'consignments/create'}}" class="btn btn-primary pull-right">Create Consignment</a>
-                            </div>
-                        </div>  
-                    </div>
                     <div class="table-responsive mb-4 mt-4">
                         @csrf
                         <table id="usertable" class="table table-hover get-datatable" style="width:100%">
+                        <div class="btn-group relative">
+                                <a href="{{'consignments/create'}}" class="btn btn-primary pull-right" style="font-size: 13px; padding: 6px 0px;">Create Consignment</a>
+                            </div>
                             <thead>
                                 <tr>
                                     <th>Consignment No.</th>
@@ -57,10 +76,10 @@
                                     <?php
                                     if($consignment->status==1){
                                         $status = 'Active';
-                                        $class = "green-text";
+                                        $class = "btn-success";
                                     }else{
-                                        $class = "red-text";
                                         $status = 'InActive';
+                                        $class = "btn-danger";
                                     }
                                     ?>
                                     <td>@if($consignment->status == 1)

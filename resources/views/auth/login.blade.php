@@ -27,11 +27,10 @@
 
         }
 
-        .nn {
+        body {
             background-image: url("/assets/bg.jpg");
-            background-size: 100% 100%;
+            background-size: cover;
             background-repeat: no-repeat;
-            background-position: center;
             min-height: 640px;
         } 
         .EE{
@@ -51,14 +50,14 @@
             margin-top: 118px;
             display: block;
             margin-left: auto;
-            height: 330px;
+            height: 360px;
             width: 361px;
             background-color: #989b9e21;
             border-radius: 39px;
         }
 
         .form-group {
-            padding: 6px;
+            padding: 3px;
         }
 
         button.jj {
@@ -89,14 +88,14 @@
                     </div>
                 </div>
                 <div class="col-sm-6">
-                    <div class="main-container">
+                    <div class="main-container" >
                         <div class="container">
                             <a><img src="http://easemylr.in/assets/images/ease my lr final.png" class="EE"> </a>
                         </div>
                         <div class="container">
                             <p style="text-align:center;">Please login into your account.</p>
                             <form method="POST" action="{{ route('login') }}" id="loginform" autocomplete="off" class="text-left">
-                            @csrf
+                                @csrf
                                 <div class="form-group">
                                     <label for="email">Email:</label>
                                     <input type="email" name="email" id="email" class="form-control" value="{{ old('email') }}" autocomplete="email" autofocus>
@@ -106,8 +105,10 @@
                                     <label for="pwd">Password:</label>
                                     <input type="password" name="password" class="form-control" id="pwd" value="{{ old('password') }}" autocomplete="password" autofocus>
                                 </div>
-
+                                <div class="form-group">
                                 <button type="submit" class="jj">Submit</button>
+                                </div>
+
                             </form>
                         </div>
                     </div>
@@ -123,7 +124,7 @@
 <script src="{{asset('bootstrap/js/bootstrap.min.js')}}"></script>
 
 <script src="{{asset('assets/js/customjquery.validate.min.js')}}"></script>
-<script src="http://jqueryvalidation.org/files/dist/additional-methods.min.js"></script>
+<!-- <script src="http://jqueryvalidation.org/files/dist/additional-methods.min.js"></script> -->
 
 
 <script src="{{asset('plugins/perfect-scrollbar/perfect-scrollbar.min.js')}}"></script>

@@ -25,19 +25,27 @@ class VehicleController extends Controller
     {
         $this->prefix = request()->route()->getPrefix();
         if ($request->ajax()) {
-            $data = Vehicle::orderby('id','DESC')->get();
-            
+            $data = Vehicle::orderby('id','DESC')->with('State')->get();
             return Datatables::of($data)->addIndexColumn()
-            ->addColumn('regn_date', function($row)
+            ->addColumn('state_id', function($row)
             {
-                return $row->regn_date ? with(new \Carbon\Carbon($row->regn_date))->format('d-m-Y') : '-'; 
+                return ($row->State->name ?? '-'); 
+            })
+            ->addColumn('regndate', function($row)
+            {
+                if($row->regndate){
+                    $date = date("d-m-Y", strtotime($row->regndate));
+                }else{
+                    $date = '-';
+                }
+                return $date;
             })
             ->addColumn('action', function($row){
-                $actionBtn = '<a href="'.URL::to($this->prefix.'/vehicles/'.Crypt::encrypt($row->id).'/edit').'" class="edit btn btn-primary btn-sm">Edit</a>';
+                $actionBtn = '<a href="'.URL::to($this->prefix.'/vehicles/'.Crypt::encrypt($row->id).'/edit').'" class="edit btn btn-primary btn-sm"><span><i class="fa fa-edit"></i></span></a>';
                 $actionBtn .= '&nbsp;&nbsp;';
-                $actionBtn .= '<a href="'.URL::to($this->prefix.'/vehicles/'.Crypt::encrypt($row->id).'').'" class="view btn btn-info btn-sm">View</a>';
+                $actionBtn .= '<a href="'.URL::to($this->prefix.'/vehicles/'.Crypt::encrypt($row->id).'').'" class="view btn btn-info btn-sm"><span><i class="fa fa-eye"></i></span></a>';
                 $actionBtn .= '&nbsp;&nbsp;';
-                $actionBtn .= '<button type="button" name="delete" data-id="'.$row->id.'" data-action="'.URL::to($this->prefix.'/vehicles/delete-vehicle').'" class="delete btn btn-danger btn-sm delete_vehicle">Delete</button>';
+                $actionBtn .= '<button type="button" name="delete" data-id="'.$row->id.'" data-action="'.URL::to($this->prefix.'/vehicles/delete-vehicle').'" class="delete btn btn-danger btn-sm delete_vehicle"><span><i class="fa fa-trash"></i></span></button>';
                 return $actionBtn;
             })
           ->rawColumns(['action'])
@@ -92,11 +100,14 @@ class VehicleController extends Controller
         $vehiclesave['chassis_no']     = $request->chassis_no;
         $vehiclesave['gross_vehicle_weight'] = $request->gross_vehicle_weight;
         $vehiclesave['unladen_weight'] = $request->unladen_weight;
+        $vehiclesave['tonnage_capacity'] = $request->tonnage_capacity;
         $vehiclesave['body_type']      = $request->body_type;
         $vehiclesave['state_id']       = $request->state_id;
         $vehiclesave['regndate']       = $request->regndate;
         $vehiclesave['hypothecation']  = $request->hypothecation;
         $vehiclesave['ownership']      = $request->ownership;
+        $vehiclesave['owner_name']     = $request->owner_name;
+        $vehiclesave['owner_phone']    = $request->owner_phone;
         $vehiclesave['status']         = '1';
         
         $savevehicle = Vehicle::create($vehiclesave); 
@@ -107,7 +118,7 @@ class VehicleController extends Controller
             $response['error']           = false;
             // $response['resetform']       = true;
             $response['page']            = 'vehicle-create';
-            $response['redirect_url']    = URL::to('/'.$this->prefix.'/vehicles');
+            $response['redirect_url']    = URL::to($this->prefix.'/vehicles');
         }else{
             $response['success']         = false;
             $response['error_message']   = "Can not created vehicle please try again";
@@ -179,11 +190,14 @@ class VehicleController extends Controller
             $vehiclesave['chassis_no']     = $request->chassis_no;
             $vehiclesave['gross_vehicle_weight'] = $request->gross_vehicle_weight;
             $vehiclesave['unladen_weight'] = $request->unladen_weight;
+            $vehiclesave['tonnage_capacity'] = $request->tonnage_capacity;
             $vehiclesave['body_type']      = $request->body_type;
             $vehiclesave['state_id']       = $request->state_id;
             $vehiclesave['regndate']       = $request->regndate;
             $vehiclesave['hypothecation']  = $request->hypothecation;
             $vehiclesave['ownership']      = $request->ownership;
+            $vehiclesave['owner_name']     = $request->owner_name;
+            $vehiclesave['owner_phone']    = $request->owner_phone;
             $vehiclesave['status']         = '1';
             
             Vehicle::where('id',$request->vehicle_id)->update($vehiclesave);

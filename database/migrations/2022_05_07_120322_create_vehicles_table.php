@@ -22,11 +22,14 @@ class CreateVehiclesTable extends Migration
             $table->string('chassis_no')->nullable();
             $table->string('gross_vehicle_weight')->nullable();
             $table->string('unladen_weight')->nullable();
+            $table->string('tonnage_capacity')->nullable();
             $table->string('body_type')->nullable();
             $table->string('state_id')->nullable();
             $table->string('regndate')->nullable();
             $table->string('hypothecation')->nullable();
             $table->string('ownership')->nullable();
+            $table->string('owner_name')->nullable();
+            $table->string('owner_phone')->nullable();
             $table->tinyinteger('status')->default(1)->comment('0=>not active 1=>active');
             $table->timestamps();
         });
