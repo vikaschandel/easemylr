@@ -30,6 +30,7 @@ class CreateVehiclesTable extends Migration
             $table->string('ownership')->nullable();
             $table->string('owner_name')->nullable();
             $table->string('owner_phone')->nullable();
+            $table->string('rc_image')->nullable();
             $table->tinyinteger('status')->default(1)->comment('0=>not active 1=>active');
             $table->timestamps();
         });

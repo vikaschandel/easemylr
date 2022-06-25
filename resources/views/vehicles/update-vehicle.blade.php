@@ -49,13 +49,13 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="exampleFormControlInput2">Gross Vehicle Weight</label>
-                                    <input type="text" class="form-control" name="gross_vehicle_weight" value="{{old('gross_vehicle_weight',isset($getvehicle->gross_vehicle_weight)?$getvehicle->gross_vehicle_weight:'')}}" placeholder="">
+                                    <input type="text" class="form-control" id="gross_vehicle_weight" name="gross_vehicle_weight" value="{{old('gross_vehicle_weight',isset($getvehicle->gross_vehicle_weight)?$getvehicle->gross_vehicle_weight:'')}}" placeholder="">
                                 </div>
                             </div>
                             <div class="form-row mb-0">                          
                                 <div class="form-group col-md-6">
                                     <label for="exampleFormControlInput2">Unladen Weight</label>
-                                    <input type="text" class="form-control" name="unladen_weight" value="{{old('unladen_weight',isset($getvehicle->unladen_weight)?$getvehicle->unladen_weight:'')}}" placeholder="">
+                                    <input type="text" class="form-control" id="unladen_weight" name="unladen_weight" value="{{old('unladen_weight',isset($getvehicle->unladen_weight)?$getvehicle->unladen_weight:'')}}" placeholder="">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="exampleFormControlInput2">Tonnage Capacity</label>
@@ -116,6 +116,31 @@
                                     </select>
                                 </div>
                             </div>
+                            <div class="form-row mb-0">
+                                <div class="form-group col-md-6 rc-load">
+                                    <label for="exampleFormControlInput2">Vehicle RC File(Optional)</label>
+                                    <?php if(!empty($getvehicle->rc_image))
+                                    { 
+                                        ?> 
+                                        <input type="file" class="form-control rcfile" name="rc_image" value="" placeholder="">
+
+                                        <div class="image_upload"><img src="{{url("storage/images/vehicle_rc_images/$getvehicle->rc_image")}}" class="rcshow image-fluid" id="img-tag" width="320" height="240"></div>  
+                                    <?php }
+                                    else{
+                                        ?>  
+                                        <input type="file" class="form-control rcfile" name="rc_image" value="" placeholder="">
+
+                                        <div class="image_upload"><img src="{{url("/assets/img/upload-img.png")}}" class="rcshow image-fluid" id="img-tag" width="320" height="240"></div>
+                                    <?php
+                                    }
+                                        ?>
+                                    <?php if($getvehicle->rc_image!=null){ ?>
+                                        <a class="deletercimg d-block text-center" href="javascript:void(0)" data-action = "<?php echo URL::to($prefix.'/vehicles/update-rc'); ?>" data-rcimg = "del-rcimg" data-id="{{ $getvehicle->id }}" data-name="{{$getvehicle->rc_image}}"><i class="red-text fa fa-trash"></i> </a>
+                                    <?php } else { ?>
+                                    <a href="javascript:void(0)" class="remove_rcfield" style="display: none;"><i class="red-text fa fa-trash"></i> </a>
+                                    <?php } ?>
+                                </div>
+                            </div>
                             
                             <button type="submit" class="mt-4 mb-4 btn btn-primary">Submit</button>
                             <a class="btn btn-primary" href="{{url($prefix.'/vehicles')}}"> Back</a>
@@ -126,33 +151,40 @@
         </div>
     </div>
 </div>
-
+@include('models.delete-vehicle-rcimagepop')
 @endsection
 @section('js')
 <script>
-    $('#gross_vehicle_weight').keyup(function(){
-        var gross_vehicle_weight = $('#gross_vehicle_weight').val();
-        if(gross_vehicle_weight!='') {
-            $("#unladen_weight").prop("readonly", false);
-        }else{
-            $("#unladen_weight").prop("readonly", true);
+    $(document).on("click",".remove_rcfield", function(e){ //user click on remove text
+    var getUrl = window.location;
+    var baseurl =  getUrl.origin + '/' +getUrl.pathname.split('/')[0];
+    var imgurl = baseurl+'assets/img/upload-img.png';
+      
+      $(this).parent().children(".image_upload").children().attr('src', imgurl);
+      $(this).parent().children("input").val('');;
+      // $(this).parent().children('div').children('h4').text('Add Image');
+      // $(this).parent().children('div').children('h4').css("display", "block");
+      $(this).css("display", "none");
+   });
+
+    function readURL1(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            
+            reader.onload = function (e) {
+                $('.rcshow').attr('src', e.target.result);
+                $(".remove_rcfield").css("display", "block");
+            }
+            reader.readAsDataURL(input.files[0]);
         }
+    }
+
+    $(document).on("change",'.rcfile', function(e){
+        var fileName = this.files[0].name;
+        // $(this).parent().parent().find('.file_graph').text(fileName);
+
+        readURL1(this);
     });
-    $('#unladen_weight').keyup(function(){
-        var gross_vehicle_weight = $('#gross_vehicle_weight').val();
-        if(gross_vehicle_weight!='') {
-            $("#unladen_weight").prop("readonly", false);
-        }else{
-            $("#unladen_weight").prop("readonly", true);
-        }
-        var unladen_weight = $('#unladen_weight').val();
-        var total_weight = parseInt(gross_vehicle_weight) - parseInt(unladen_weight);
-        if(parseInt(gross_vehicle_weight) > parseInt(unladen_weight)){
-            $('#tonnage_capacity').val(total_weight);
-        }else{
-            $('#unladen_weight').val('');
-            $('#tonnage_capacity').val('');
-        }
-    });
+
 </script>
 @endsection
