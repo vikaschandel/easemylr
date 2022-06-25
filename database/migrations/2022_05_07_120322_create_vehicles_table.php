@@ -27,6 +27,7 @@ class CreateVehiclesTable extends Migration
             $table->string('state_id')->nullable();
             $table->string('regndate')->nullable();
             $table->string('hypothecation')->nullable();
+            $table->string('driver_id')->nullable();
             $table->string('ownership')->nullable();
             $table->string('owner_name')->nullable();
             $table->string('owner_phone')->nullable();
