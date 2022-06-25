@@ -13,6 +13,7 @@ use Hash;
 use Crypt;
 use Validator;
 use DataTables;
+use Storage;
 
 class VehicleController extends Controller
 {
@@ -109,6 +110,14 @@ class VehicleController extends Controller
         $vehiclesave['owner_name']     = $request->owner_name;
         $vehiclesave['owner_phone']    = $request->owner_phone;
         $vehiclesave['status']         = '1';
+
+        // upload rc image
+        if($request->rc_image){
+            $file = $request->file('rc_image');
+            $path = 'public/images/vehicle_rc_images';
+            $name = Helper::uploadImage($file,$path);
+            $vehiclesave['rc_image']  = $name;
+        }
         
         $savevehicle = Vehicle::create($vehiclesave); 
         if($savevehicle)
@@ -199,6 +208,14 @@ class VehicleController extends Controller
             $vehiclesave['owner_name']     = $request->owner_name;
             $vehiclesave['owner_phone']    = $request->owner_phone;
             $vehiclesave['status']         = '1';
+
+             // upload vehicle_rc image
+             if($request->rc_image){
+                $file = $request->file('rc_image');
+                $path = 'public/images/vehicle_rc_images';
+                $name = Helper::uploadImage($file,$path); 
+                $vehiclesave['rc_image']  = $name;
+           }
             
             Vehicle::where('id',$request->vehicle_id)->update($vehiclesave);
             
@@ -225,6 +242,35 @@ class VehicleController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    // Delete rc image from update view
+    public function deletercImage(Request $request)
+    {
+            $path = 'public/images/vehicle_rc_images';
+            $image_path=Storage::disk('local')->getDriver()->getAdapter()->getPathPrefix().$path;   
+            $getimagename = Vehicle::where('id',$request["rcimgid"])->first(); 
+
+            $image_path=$image_path.'/'.$getimagename->rc_image;
+            if(file_exists($image_path)){
+                unlink($image_path);
+            }
+            $vehiclesave['rc_image']  = '';
+            $savevehicle = Vehicle::where('id',$request["rcimgid"])->update($vehiclesave);
+
+            if($savevehicle)
+            {
+                $response['success']         = true;
+                $response['success_message'] = 'Vehicle RC image deleted successfully';
+                $response['error']           = false;
+                $response['delvehicle_rc'] = "delvehicle_rc";
+            }
+            else{
+                $response['success']         = false;
+                $response['error_message']   = "Can not delete vehicle rc image please try again";
+                $response['error']           = true;
+            }
+            return response()->json($response);
     }
 
     public function deleteVehicle(Request $request)

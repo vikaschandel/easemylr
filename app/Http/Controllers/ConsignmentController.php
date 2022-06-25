@@ -90,9 +90,13 @@ class ConsignmentController extends Controller
             // $con_series = $getconsignment->consignment_no;
             $cn = ConsignmentNote::select('id','consignment_no','branch_id')->whereIn('branch_id',$cc)->latest('id')->first();
             if($cn){
-                $cc = explode('-',$cn->consignment_no);
-                $getconsignmentno = $cc[1] + 1;
-                $consignmentno = $cc[0].'-'.$getconsignmentno;
+                if(!empty($cn->consignment_no)){
+                    $cc = explode('-',$cn->consignment_no);
+                    $getconsignmentno = @$cc[1] + 1;
+                    $consignmentno = $cc[0].'-'.$getconsignmentno;
+                }else{
+                    $consignmentno = $con_series.'-1';
+                }
             }else{
                 $consignmentno = $con_series.'-1';
             }

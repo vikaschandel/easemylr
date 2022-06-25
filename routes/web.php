@@ -101,6 +101,7 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth','PermissionCheck']], func
     Route::resource('vehicles', VehicleController::class);
     Route::post('vehicles/update-vehicle', [VehicleController::class, 'updateVehicle']);
     Route::post('vehicles/delete-vehicle', [VehicleController::class, 'deleteVehicle']);
+    Route::post('/vehicles/delete-rcimage', [VehicleController::class, 'deletercImage']);
 
     Route::resource('consignments', ConsignmentController::class);
     Route::post('consignments/update-consignment', [ConsignmentController::class, 'updateConsignment']);

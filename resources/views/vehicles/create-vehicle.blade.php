@@ -119,6 +119,15 @@
                                     </select>
                                 </div>
                             </div>
+                            <div class="form-row mb-0">
+                                <div class="form-group col-md-6">
+                                    <label for="exampleFormControlInput2">Vehicle RC File(Optional)</label>
+                                    <input type="file" class="form-control rc_image" name="rc_image" accept="image/*">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <div class="image_upload"><img src="{{url("/assets/img/upload-img.png")}}" class="rcshow image-fluid" id="img-tag" width="320" height="240"></div>
+                                </div>
+                            </div>
                             
                             <button type="submit" class="mt-4 mb-4 btn btn-primary">Submit</button>
                             <a class="btn btn-primary" href="{{url($prefix.'/vehicles')}}"> Back</a>
@@ -133,29 +142,23 @@
 @endsection
 @section('js')
 <script>
-    $('#gross_vehicle_weight').keyup(function(){
-        var gross_vehicle_weight = $('#gross_vehicle_weight').val();
-        if(gross_vehicle_weight!='') {
-            $("#unladen_weight").prop("readonly", false);
-        }else{
-            $("#unladen_weight").prop("readonly", true);
+    function readURL1(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            
+            reader.onload = function (e) {
+                $('.rcshow').attr('src', e.target.result);
+                // $(".remove_licensefield").css("display", "block");
+            }
+            reader.readAsDataURL(input.files[0]);
         }
+    }
+
+    $(document).on("change",'.rc_image', function(e){
+        var fileName = this.files[0].name;
+        readURL1(this);
     });
-    $('#unladen_weight').keyup(function(){
-        var gross_vehicle_weight = $('#gross_vehicle_weight').val();
-        if(gross_vehicle_weight!='') {
-            $("#unladen_weight").prop("readonly", false);
-        }else{
-            $("#unladen_weight").prop("readonly", true);
-        }
-        var unladen_weight = $('#unladen_weight').val();
-        var total_weight = parseInt(gross_vehicle_weight) - parseInt(unladen_weight);
-        if(parseInt(gross_vehicle_weight) > parseInt(unladen_weight)){
-            $('#tonnage_capacity').val(total_weight);
-        }else{
-            $('#unladen_weight').val('');
-            $('#tonnage_capacity').val('');
-        }
-    });
+
+
 </script>
 @endsection

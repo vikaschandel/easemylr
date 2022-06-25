@@ -278,6 +278,35 @@ jQuery(document).ready(function(){
         });
     });
 
+    // Delete vehicle RC Image from update vehicle view //
+    $(document).on('click', '.deletercimg', function () {
+        let id = $(this).attr('data-id');
+        $("#deletevehiclercimgpop").modal('show');
+        jQuery('.deletevehiclercimgdata').attr('data-id',id);
+    });
+
+    ///// Delete vehicle RC Image Method /////
+    $('body').on('click', '.deletevehiclercimgdata', function () {
+        let id  = jQuery(this).attr('data-id');
+        var url = jQuery(this).attr('data-action');
+
+        jQuery.ajax({
+            type     : "post",
+            data     : {rcimgid:id},
+            url      : url,
+            dataType : "JSON",
+            headers  : {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success : function (data) {
+                if(data){
+                    jQuery("#deletevehiclercimgpop").modal("hide");
+                    location.reload();
+                }
+            }
+        });
+    });
+
   	/*===== delete User =====*/
     jQuery(document).on('click', '.delete_user', function(){
         jQuery('#deleteuser').modal('show');
@@ -645,6 +674,31 @@ jQuery(document).ready(function(){
         }
     });
 
+    // for vehicle tonnage capacity calculation
+    $('#gross_vehicle_weight').keyup(function(){
+        var gross_vehicle_weight = $('#gross_vehicle_weight').val();
+        if(gross_vehicle_weight!='') {
+            $("#unladen_weight").prop("readonly", false);
+        }else{
+            $("#unladen_weight").prop("readonly", true);
+        }
+    });
+    $('#unladen_weight, #gross_vehicle_weight').keyup(function(){
+        var gross_vehicle_weight = $('#gross_vehicle_weight').val();
+        if(gross_vehicle_weight!='') {
+            $("#unladen_weight").prop("readonly", false);
+        }else{
+            $("#unladen_weight").prop("readonly", true);
+        }
+        var unladen_weight = $('#unladen_weight').val();
+        var total_weight = parseInt(gross_vehicle_weight) - parseInt(unladen_weight);
+        if(parseInt(gross_vehicle_weight) > parseInt(unladen_weight)){
+            $('#tonnage_capacity').val(total_weight);
+        }else{
+            $('#unladen_weight').val('');
+            $('#tonnage_capacity').val('');
+        }
+    });
 
 
 
