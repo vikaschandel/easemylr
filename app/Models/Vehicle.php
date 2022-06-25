@@ -16,11 +16,14 @@ class Vehicle extends Model
         'chassis_no',
         'gross_vehicle_weight',
         'unladen_weight',
+        'tonnage_capacity',
         'body_type',
         'state_id',
         'regndate',
         'hypothecation',
         'ownership',
+        'owner_name',
+        'owner_phone',
         'status',
         'created_at',
         'updated_at'
@@ -35,5 +38,5 @@ class Vehicle extends Model
     public function Driver(){
         return $this->belongsTo('App\Models\Driver','driver_id');
     }
-    
+
 }

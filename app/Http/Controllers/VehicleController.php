@@ -100,11 +100,14 @@ class VehicleController extends Controller
         $vehiclesave['chassis_no']     = $request->chassis_no;
         $vehiclesave['gross_vehicle_weight'] = $request->gross_vehicle_weight;
         $vehiclesave['unladen_weight'] = $request->unladen_weight;
+        $vehiclesave['tonnage_capacity'] = $request->tonnage_capacity;
         $vehiclesave['body_type']      = $request->body_type;
         $vehiclesave['state_id']       = $request->state_id;
         $vehiclesave['regndate']       = $request->regndate;
         $vehiclesave['hypothecation']  = $request->hypothecation;
         $vehiclesave['ownership']      = $request->ownership;
+        $vehiclesave['owner_name']     = $request->owner_name;
+        $vehiclesave['owner_phone']    = $request->owner_phone;
         $vehiclesave['status']         = '1';
         
         $savevehicle = Vehicle::create($vehiclesave); 
@@ -115,7 +118,7 @@ class VehicleController extends Controller
             $response['error']           = false;
             // $response['resetform']       = true;
             $response['page']            = 'vehicle-create';
-            $response['redirect_url']    = URL::to('/'.$this->prefix.'/vehicles');
+            $response['redirect_url']    = URL::to($this->prefix.'/vehicles');
         }else{
             $response['success']         = false;
             $response['error_message']   = "Can not created vehicle please try again";
@@ -187,11 +190,14 @@ class VehicleController extends Controller
             $vehiclesave['chassis_no']     = $request->chassis_no;
             $vehiclesave['gross_vehicle_weight'] = $request->gross_vehicle_weight;
             $vehiclesave['unladen_weight'] = $request->unladen_weight;
+            $vehiclesave['tonnage_capacity'] = $request->tonnage_capacity;
             $vehiclesave['body_type']      = $request->body_type;
             $vehiclesave['state_id']       = $request->state_id;
             $vehiclesave['regndate']       = $request->regndate;
             $vehiclesave['hypothecation']  = $request->hypothecation;
             $vehiclesave['ownership']      = $request->ownership;
+            $vehiclesave['owner_name']     = $request->owner_name;
+            $vehiclesave['owner_phone']    = $request->owner_phone;
             $vehiclesave['status']         = '1';
             
             Vehicle::where('id',$request->vehicle_id)->update($vehiclesave);

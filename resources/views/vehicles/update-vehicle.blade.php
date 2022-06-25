@@ -58,11 +58,8 @@
                                     <input type="text" class="form-control" name="unladen_weight" value="{{old('unladen_weight',isset($getvehicle->unladen_weight)?$getvehicle->unladen_weight:'')}}" placeholder="">
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="exampleFormControlInput2">Body Type</label>
-                                    <select class="form-control" name="body_type">
-                                        <option value="Container" {{$getvehicle->body_type == 'Container' ? 'selected' : ''}}>Container</option>
-                                        <option value="Open Body" {{$getvehicle->body_type == 'Open Body' ? 'selected' : ''}}>Open Body</option>
-                                    </select>
+                                    <label for="exampleFormControlInput2">Tonnage Capacity</label>
+                                    <input type="text" class="form-control" id="tonnage_capacity" name="tonnage_capacity" value="{{old('tonnage_capacity',isset($getvehicle->tonnage_capacity)?$getvehicle->tonnage_capacity:'')}}" readonly>
                                 </div>
                             </div>
                             <div class="form-row mb-0">
@@ -100,6 +97,25 @@
                                     </select>
                                 </div>
                             </div>
+                            <div class="form-row mb-0">
+                                <div class="form-group col-md-6">
+                                    <label for="exampleFormControlInput2">Owner Name</label>
+                                    <input type="text" class="form-control" name="owner_name" value="{{old('owner_name',isset($getvehicle->owner_name)?$getvehicle->owner_name:'')}}">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="exampleFormControlInput2">Owner Mobile No.</label>
+                                    <input type="text" class="form-control" name="owner_phone" value="{{old('owner_phone',isset($getvehicle->owner_phone)?$getvehicle->owner_phone:'')}}">
+                                </div>
+                            </div>
+                            <div class="form-row mb-0">
+                                <div class="form-group col-md-6">
+                                    <label for="exampleFormControlInput2">Body Type</label>
+                                    <select class="form-control" name="body_type">
+                                        <option value="Container" {{$getvehicle->body_type == 'Container' ? 'selected' : ''}}>Container</option>
+                                        <option value="Open Body" {{$getvehicle->body_type == 'Open Body' ? 'selected' : ''}}>Open Body</option>
+                                    </select>
+                                </div>
+                            </div>
                             
                             <button type="submit" class="mt-4 mb-4 btn btn-primary">Submit</button>
                             <a class="btn btn-primary" href="{{url($prefix.'/vehicles')}}"> Back</a>
@@ -111,4 +127,32 @@
     </div>
 </div>
 
+@endsection
+@section('js')
+<script>
+    $('#gross_vehicle_weight').keyup(function(){
+        var gross_vehicle_weight = $('#gross_vehicle_weight').val();
+        if(gross_vehicle_weight!='') {
+            $("#unladen_weight").prop("readonly", false);
+        }else{
+            $("#unladen_weight").prop("readonly", true);
+        }
+    });
+    $('#unladen_weight').keyup(function(){
+        var gross_vehicle_weight = $('#gross_vehicle_weight').val();
+        if(gross_vehicle_weight!='') {
+            $("#unladen_weight").prop("readonly", false);
+        }else{
+            $("#unladen_weight").prop("readonly", true);
+        }
+        var unladen_weight = $('#unladen_weight').val();
+        var total_weight = parseInt(gross_vehicle_weight) - parseInt(unladen_weight);
+        if(parseInt(gross_vehicle_weight) > parseInt(unladen_weight)){
+            $('#tonnage_capacity').val(total_weight);
+        }else{
+            $('#unladen_weight').val('');
+            $('#tonnage_capacity').val('');
+        }
+    });
+</script>
 @endsection
