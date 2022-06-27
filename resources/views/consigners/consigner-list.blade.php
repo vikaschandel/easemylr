@@ -52,7 +52,8 @@ div.relative {
                         
                     </div> 
                 </div>
-                <div class="table-responsive mb-4 mt-4">
+                <!-- <div class="table-responsive mb-4 mt-4"> -->
+                <div class="mb-4 mt-4">
                     @csrf
                     <table id="consignertable" class="table table-hover get-datatable" style="width:100%">
                         <div class="btn-group relative">

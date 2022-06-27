@@ -19,7 +19,7 @@ use Crypt;
 use Helper;
 use Validator;
 Use PDF;
-use PDFMerger;
+use LynX39\LaraPdfMerger\Facades\PdfMerger;
 use QrCode;
 
 class ConsignmentController extends Controller
@@ -369,6 +369,7 @@ class ConsignmentController extends Controller
             <p>Phone No. : '.$data['consignee_detail']['phone'].'</p>';
 
         $generate_qrcode = QrCode::size(150)->generate('Eternity Forwarders Pvt. Ltd.');
+        // echo'<pre>'; print_r($generate_qrcode);
             //  dd($generate_qrcode);
         if ($request->typeid == 1){
             $adresses = '<table width="100%">
@@ -584,9 +585,9 @@ class ConsignmentController extends Controller
                 $pdfMerger->addPDF(public_path().'/consignment-pdf/'.$pdf);
             }
             $pdfMerger->merge();
-            $pdfMerger->save("all.pdf");
-            
-            return $pdfMerger->download('all.pdf');      
+            $pdfMerger->save("all.pdf", "download");
+            $file = new Filesystem;
+            $file->cleanDirectory('pdf');
     }
     
 
