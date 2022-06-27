@@ -103,10 +103,7 @@ label.error{
                                         <select class="basic form-seteing" type="text" name="consignee_id"
                                             id="select_consignee">
                                             <option value="">Select Consignee</option>
-                                            @foreach($consignees as $consignee)
-                                            <option value="{{$consignee->id}}">{{$consignee->nick_name}}
-                                            </option>
-                                            @endforeach
+                                            
                                         </select>
 
                                     </div>
@@ -134,10 +131,10 @@ label.error{
                                         <select class="basic form-seteing" type="text" name="ship_to_id"
                                             id="select_ship_to">
                                             <option value="">Select Ship To</option>
-                                            @foreach($consignees as $consignee)
+                                            <!-- @foreach($consignees as $consignee)
                                             <option value="{{$consignee->id}}">{{$consignee->nick_name}}
                                             </option>
-                                            @endforeach
+                                            @endforeach -->
                                         </select>
 
                                     </div>
