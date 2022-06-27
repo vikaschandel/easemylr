@@ -807,6 +807,22 @@ jQuery(document).ready(function(){
             vehicle_type : {
                 required: true,
             },
+            'quantity[]': {
+                required: true,
+                //   lettersonly:true
+                },
+           'weight[]': {
+                  required: true
+                },
+           'gross_weight[]': {
+                  required: true
+                },
+           'freight[]': {
+                  required: true
+                },
+            'payment_type[]': {
+                required: true
+                },
         },
         messages: {
             consigner_id: {
@@ -830,6 +846,9 @@ jQuery(document).ready(function(){
             },
             vehicle_type : {
                 required: "Select vehicle type",
+            },
+            'quantity[]': {
+                required: "Enter quantity",
             },
         },
         submitHandler : function(form)
