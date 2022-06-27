@@ -477,37 +477,37 @@ class ConsignmentController extends Controller
                                 <p><b>Vehicle No.</b></p>
                             </td>
                             <td width="30%">';
-                            if($data['consignment_no'] != ''){
+                            if(@$data['consignment_no'] != ''){
                                 $html .= '<p>'.$data['consignment_no'].'</p>';
                             } else {
                                 $html .= '<p>N/A</p>';
                             }
-                            if($data['consignment_date'] != ''){
+                            if(@$data['consignment_date'] != ''){
                                 $html .= '<p>'.date('d-m-Y', strtotime($data['consignment_date'])).'</p>';
                             }else{
                                 $html .=  '<p> N/A </p>';
                             }
-                            if($data['consigner_detail']['city'] != ''){
+                            if(@$data['consigner_detail']['city'] != ''){
                                 $html .='<p> '.$data['consigner_detail']['city'].'</p>';
                             }else{
                                 $html .= '<p> N/A </p>';
                             }
-                            if($data['invoice_no'] != ''){
+                            if(@$data['invoice_no'] != ''){
                                 $html .= '<p>'.$data['invoice_no'].'</p>';
                             }else{
                                 $html .= '<p> N/A </p>';
                             }
-                            if($data['invoice_date'] != ''){
+                            if(@$data['invoice_date'] != ''){
                                 $html .= '<p>'.date('d-m-Y', strtotime($data['invoice_date'])).'</p>';
                             }else{
                                 $html .= '<p> N/A </p>';
                             }
-                            if($data['invoice_amount'] != ''){
+                            if(@$data['invoice_amount'] != ''){
                                 $html .= '<p>'.$data['invoice_amount'].'</p>';
                             }else{
                                 $html .= '<p> N/A </p>';
                             }
-                            if($data['vehicle_detail']['regn_no'] != ''){
+                            if(@$data['vehicle_detail']['regn_no'] != ''){
                                 $html .= '<p>'.$data['vehicle_detail']['regn_no'].'</p>';
                             }else{
                                 $html .= '<p> N/A </p>';
@@ -580,7 +580,6 @@ class ConsignmentController extends Controller
             }
             $pdfMerger = PDFMerger::init();
             foreach($pdf_name as $pdf){
-                // echo'<pre>'; print_r($pdf); die;
                 $pdfMerger->addPDF(public_path().'/consignment-pdf/'.$pdf);
             }
             $pdfMerger->merge();
