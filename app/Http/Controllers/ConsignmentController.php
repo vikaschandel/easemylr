@@ -21,6 +21,7 @@ use Validator;
 Use PDF;
 use LynX39\LaraPdfMerger\Facades\PdfMerger;
 use QrCode;
+use Storage;
 
 class ConsignmentController extends Controller
 {
@@ -372,7 +373,10 @@ class ConsignmentController extends Controller
             <p>Phone No. : '.$data['consignee_detail']['phone'].'</p>';
 
         $generate_qrcode = QrCode::size(150)->generate('Eternity Forwarders Pvt. Ltd.');
-        // echo'<pre>'; print_r($generate_qrcode);
+        $output_file = '/qr-code/img-' . time() . '.svg';
+        Storage::disk('public')->put($output_file, $generate_qrcode);
+        $fullpath = storage_path('app/public/' . $output_file);
+        //echo'<pre>'; print_r($fullpath);
             //  dd($generate_qrcode);
         if ($request->typeid == 1){
             $adresses = '<table width="100%">
@@ -390,7 +394,6 @@ class ConsignmentController extends Controller
                         </tr>
                     </table>';
             }
-                
             for ($i=1; $i<5; $i++){
                 if ($i == 1) {$type='ORIGINAL';} elseif ($i == 2){$type='DUPLICATE';} elseif ($i == 3){$type='TRIPLICATE';} elseif ($i == 4){$type='QUADRUPLE';}
 
@@ -520,7 +523,7 @@ class ConsignmentController extends Controller
 
                             $html .='</td>
                             <td width="50%" colspan="3">
-                            '.$generate_qrcode.'
+                            <img src= "'.$fullpath.'" alt="barcode">
                             </td>
                         </tr>
                     </table>  
@@ -580,8 +583,8 @@ class ConsignmentController extends Controller
                 $pdf = \App::make('dompdf.wrapper');
                 $pdf->loadHTML($html);
                 $pdf->setPaper('A4', 'portrait');
-                $pdf->save(public_path().'/consignment-pdf/congn.pdf')->stream('congn.pdf');
-                $pdf_name[] = 'congn.pdf';
+                $pdf->save(public_path().'/consignment-pdf/congn-'.$i.'.pdf')->stream('congn-'.$i.'.pdf');
+                $pdf_name[] = 'congn-'.$i.'.pdf';
             }
             $pdfMerger = PDFMerger::init();
             foreach($pdf_name as $pdf){
