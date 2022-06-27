@@ -80,7 +80,8 @@ class ConsignmentController extends Controller
 
         if($authuser->role_id == 2){
             $consigners = Consigner::select('id','nick_name')->whereIn('branch_id',$cc)->get();
-            $consignees = Consignee::select('id','nick_name')->whereIn('branch_id',$cc)->get();
+            $consignees = Consignee::select('id','nick_name')->where('user_id',$authuser->id)->get();
+            // $consignees = Consignee::select('id','nick_name')->whereIn('branch_id',$cc)->get();
             $getconsignment = Location::select('id','name','consignment_no')->whereIn('id',$cc)->latest('id')->first();
             if(!empty($getconsignment->consignment_no)){
                 $con_series = $getconsignment->consignment_no;
@@ -303,22 +304,22 @@ class ConsignmentController extends Controller
     	return response()->json($response);
     }
 
-    public function get_cn_details(Request $request){
-        $consignment_id = request()->consignment_id;
-        $consignment_details = ConsignmentNote::select('consignment_no','consignment_date','dispatch','invoice_no','invoice_date','invoice_amount','total_quantity','total_weight','total_gross_weight','total_freight','transporter_name','vehicle_type','purchase_price')->where(['id'=>$consignment_id])->first();
-        if($consignment_details)
-        {
-            $response['success']         = true;
-            $response['success_message'] = "Consignment details fetch successfully";
-            $response['error']           = false;
-            $response['data']            = $consignment_details;
-        }else{
-            $response['success']         = false;
-            $response['error_message']   = "Can not fetch consignment details please try again";
-            $response['error']           = true;
-        }
-        return response()->json($response);
-    }
+    // public function get_cn_details(Request $request){
+    //     $consignment_id = request()->consignment_id;
+    //     $consignment_details = ConsignmentNote::select('consignment_no','consignment_date','dispatch','invoice_no','invoice_date','invoice_amount','total_quantity','total_weight','total_gross_weight','total_freight','transporter_name','vehicle_type','purchase_price')->where(['id'=>$consignment_id])->first();
+    //     if($consignment_details)
+    //     {
+    //         $response['success']         = true;
+    //         $response['success_message'] = "Consignment details fetch successfully";
+    //         $response['error']           = false;
+    //         $response['data']            = $consignment_details;
+    //     }else{
+    //         $response['success']         = false;
+    //         $response['error_message']   = "Can not fetch consignment details please try again";
+    //         $response['error']           = true;
+    //     }
+    //     return response()->json($response);
+    // }
 
     // getConsigndetails
     public function getConsigndetails(Request $request){

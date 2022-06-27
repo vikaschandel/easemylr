@@ -115,7 +115,7 @@ div#hh {
                         <div class="col-sm-8">
                             <div class="invoice panel panel-white">
                                     <div class="panel-body">
-                                        <div class="ribbon"><span>Cancelled</span></div>
+                                        <!-- <div class="ribbon"><span>Cancelled</span></div> -->
                                         <div class="row">
                                             <div class="col-sm-6">
                                                 <h1 style="font-size:22px;" class="m-b-md"><b>Eternity Forwarders Private Limited.</b></h1>
@@ -355,6 +355,7 @@ div#hh {
                 success: function(response){
                     var data = response.data;
                     console.log(data);
+                    
                     var consigneradd = '<strong>'+data.consigner_detail.nick_name+'</strong><br>'+data.consigner_detail.address+',<br>'+data.consigner_detail.district+',<br>'+data.consigner_detail.city+' - '+data.consigner_detail.postal_code+',<strong><br>GST No. : </strong>'+data.consigner_detail.gst_number+'';
 
                     var consigneeadd = '<strong>'+data.consignee_detail.nick_name+'</strong><br>'+data.consignee_detail.address_line1+' '+data.consignee_detail.address_line2+' '+data.consignee_detail.address_line3+',<br>'+data.consignee_detail.district+',<br>'+data.consignee_detail.city+' - '+data.consignee_detail.postal_code+',<strong><br>GST No. : </strong>'+data.consignee_detail.gst_number+'';
@@ -369,11 +370,12 @@ div#hh {
                     }else{
                         var consDate = '';
                     }
+                    // console.log(data.driver_detail?data.driver_detail.name:'');
                     $('#cons_date').html(consDate);
-                    $('#dispatch').html(data.consigner_detail.city);
+                    $('#dispatch').html(data.consigner_detail?data.consigner_detail.city:'');
                     $('#cons_invoice_no').html(data.invoice_no);
-                    $('#vehicle_no').html(data.vehicle_detail.regn_no);
-                    $('#driver_name').html(data.driver_detail.name);
+                    $('#vehicle_no').html(data.vehicle_detail?data.vehicle_detail.regn_no:'');
+                    $('#driver_name').html(data.driver_detail?data.driver_detail.name:'');
                     // $('#driver_no').html(data.driver_mobile_no);
                     $('#invoice_amount').html(data.invoice_amount);
 
@@ -389,19 +391,17 @@ div#hh {
                     $('#consigneeAddress').html(consigneeadd);
                     $('#ship_to_Address').html(shiptoadd);
                     // $('#warehouse_address').html(data.w_address);
-                    
+                
                     // /'.$consignment->id.'/print-view
-
                     var cn_status = data.status;
-                    if (cn_status == '0' || cn_status == null) {
+                    if (cn_status == 0 || cn_status == null){
                         $('.ribbon').css("display", "block");
-                        $('#get_pdf').hide();
-                        $('#get_pdf_ship_to').hide();
-                        
+                        $('#printcon').hide();
+                        $('#printshipcon').hide();
                     } else {
                         $('.ribbon').css("display", "none");
-                        $('#get_pdf').show();
-                        $('#get_pdf_ship_to').show();
+                        $('#printcon').show();
+                        $('#printshipcon').show();
                     }
                     var item_nos = data.consignment_items;
                     var w = item_nos.length;
@@ -476,7 +476,6 @@ div#hh {
             success: function(response){
                 var data = response.data;
                 console.log(data);
-
                 var consigneradd = '<strong>'+data.consigner_detail.nick_name+'</strong><br>'+data.consigner_detail.address+',<br>'+data.consigner_detail.district+',<br>'+data.consigner_detail.city+' - '+data.consigner_detail.postal_code+',<strong><br>GST No. : </strong>'+data.consigner_detail.gst_number+'';
 
                 var consigneeadd = '<strong>'+data.consignee_detail.nick_name+'</strong><br>'+data.consignee_detail.address_line1+' '+data.consignee_detail.address_line2+' '+data.consignee_detail.address_line3+',<br>'+data.consignee_detail.district+',<br>'+data.consignee_detail.city+' - '+data.consignee_detail.postal_code+',<strong><br>GST No. : </strong>'+data.consignee_detail.gst_number+'';
@@ -492,10 +491,10 @@ div#hh {
                     var consDate = '';
                 }
                 $('#cons_date').html(consDate);
-                $('#dispatch').html(data.consigner_detail.city);
+                $('#dispatch').html(data.consigner_detail?data.consigner_detail.city:'');
                 $('#cons_invoice_no').html(data.invoice_no);
-                $('#vehicle_no').html(data.vehicle_detail.regn_no);
-                $('#driver_name').html(data.driver_detail.name);
+                $('#vehicle_no').html(data.vehicle_detail?data.vehicle_detail.regn_no:'');
+                $('#driver_name').html(data.driver_detail?data.driver_detail.name:'');
                 // $('#driver_no').html(data.driver_mobile_no);
                 $('#invoice_amount').html(data.invoice_amount);
 
@@ -518,12 +517,12 @@ div#hh {
                 var cn_status = data.status;
                 if (cn_status == '0' || cn_status == null){
                     $('.ribbon').css("display", "block");
-                    $('#get_pdf').hide();
-                    $('#get_pdf_ship_to').hide();
+                    $('#printcon').hide();
+                    $('#printshipcon').hide();
                 } else {
                     $('.ribbon').css("display", "none");
-                    $('#get_pdf').show();
-                    $('#get_pdf_ship_to').show();
+                    $('#printcon').show();
+                    $('#printshipcon').show();
                 }
                 // var item_nos = JSON.parse(data['line_items']);
                 var item_nos = data.consignment_items;
@@ -533,6 +532,7 @@ div#hh {
                     // var items_array = item_nos[i][0].split(",");
                     c  = i + 1;
                     var items_array = item_nos;
+                    // console.log(items_array+'kk');
 
                     tds += '<tr class="line_items" style="border-bottom:solid 1px #A9A9A9;border-style:solid; padding:5px;">';
                     tds += '<td class="line_items" id="first_data" style="border:solid 1px #A9A9A9;border-style:solid; padding:5px;">'+c+'</td>';
