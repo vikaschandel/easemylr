@@ -850,6 +850,18 @@ jQuery(document).ready(function(){
             'quantity[]': {
                 required: "Enter quantity",
             },
+            'weight[]': {
+                required: "Enter weight",
+            },
+            'gross_weight[]': {
+                required: "Enter gross weight",
+            },
+            'freight[]': {
+                required: "Enter freight",
+            },
+            'payment_type[]': {
+                required: "Select payment type",
+            },
         },
         submitHandler : function(form)
         {
