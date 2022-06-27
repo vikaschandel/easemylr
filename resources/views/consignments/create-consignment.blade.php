@@ -70,7 +70,7 @@ label.error{
                                             Consignor<span class="text-danger">*</span></label>
                                     </div>
                                     <div class="col-sm-9" style="margin-top:3px;" >
-                                        <select id="select_consigner" class="form-seteing" type="text"
+                                        <select id="select_consigner" class="basic form-seteing" type="text"
                                             name="consigner_id">
                                             <option value="">Select Consignor</option>
                                             @foreach($consigners as $consigner)
@@ -100,13 +100,10 @@ label.error{
                                             Consignee<span class="text-danger">*</span></label>
                                     </div>
                                     <div class="col-sm-9" >
-                                        <select class="form-seteing" type="text" name="consignee_id"
+                                        <select class="basic form-seteing" type="text" name="consignee_id"
                                             id="select_consignee">
-                                             <option value="">Select Consignee</option>
-                                            @foreach($consignees as $consignee)
-                                            <option value="{{$consignee->id}}">{{$consignee->nick_name}}
-                                            </option>
-                                            @endforeach
+                                            <option value="">Select Consignee</option>
+                                            
                                         </select>
 
                                     </div>
@@ -131,13 +128,13 @@ label.error{
                                                 class="text-danger">*</span></label>
                                     </div>
                                     <div class="col-sm-9" style="margin-top:2px;">
-                                        <select class=" form-seteing  " type="text" name="ship_to_id"
+                                        <select class="basic form-seteing" type="text" name="ship_to_id"
                                             id="select_ship_to">
                                             <option value="">Select Ship To</option>
-                                            @foreach($consignees as $consignee)
+                                            <!-- @foreach($consignees as $consignee)
                                             <option value="{{$consignee->id}}">{{$consignee->nick_name}}
                                             </option>
-                                            @endforeach
+                                            @endforeach -->
                                         </select>
 
                                     </div>
@@ -272,9 +269,7 @@ label.error{
                                                 <label for="exampleFormControlInput2">Vehicle No.</label>
                                             </div>
                                             <div class=" col-sm-8" style="margin-top:2px;">
-
-                                                <select class="js-states  vehicle form-seteing" id="vehicle_no"
-                                                    name="vehicle_id" tabindex="-1">
+                                                <select class="js-states vehicle form-seteing" id="vehicle_no" name="vehicle_id" tabindex="-1">
                                                     <option value="">Select vehicle no</option>
                                                     @foreach($vehicles as $vehicle)
                                                     <option value="{{$vehicle->id}}">{{$vehicle->regn_no}}
@@ -410,7 +405,7 @@ label.error{
                     </div>
                     <div class=" col-sm-2">
                         
-                        <select class=" sete " id="vehicle_type" name="vehicle_type"
+                        <select class="basic sete" id="vehicle_type" name="vehicle_type"
                             tabindex="-1">
                             <option value="">Select vehicle type</option>
                             @foreach($vehicletypes as $vehicle)
@@ -423,7 +418,7 @@ label.error{
                         <label for="exampleFormControlInput2">Driver Name</label>
                     </div>
                     <div class=" col-sm-2">
-                        <select class="sete" id="driver_id" name="driver_id" tabindex="-1">
+                        <select class="basic sete" id="driver_id" name="driver_id" tabindex="-1">
                             <option value="">Select driver</option>
                             @foreach($drivers as $driver)
                             <option value="{{$vehicle->id}}">{{ucfirst($driver->name) ?? '-'}}
@@ -449,16 +444,23 @@ label.error{
             </form>
 
 
-        </div> ``````` `````
+        </div>
     </div>
 </div>
 
 @endsection
 @section('js')
 <script>
-    var ss = $(".basic").select2({
-        tags: true,
+    
+
+
+    $(function() {
+        $('.basic').selectpicker();
     });
+
+    // var ss = $(".basic").select2({
+    //     tags: true,
+    // });
 
       // add consignment date
     $('#consignDate').val(new Date().toJSON().slice(0, 10));
