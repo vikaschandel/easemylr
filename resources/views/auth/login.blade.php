@@ -28,10 +28,9 @@
         }
 
         body {
-            background-image: url("/assets/bg.jpg");
+            background-image: url("/assets/bg2.jpg");
             background-size: cover;
             background-repeat: no-repeat;
-            min-height: 640px;
         } 
         .EE{
             margin-top: 21px;
@@ -83,7 +82,7 @@
             <div class="row">
                 <div class="col-sm-6">
                     <div class=" container">
-                        <img src="http://easemylr.in/assets/images/Eternity_Forwarder.png" width="200px" height="100px"
+                        <img src="http://easemylr.in/assets/images/Eternity_Forwarder.png" width="250px" height="110px"
                             class="dd">
                     </div>
                 </div>

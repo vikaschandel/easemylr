@@ -97,7 +97,7 @@ label.error{
                                 <div class="row con1 form-group" style="background: white; ">
                                     <div class=" col-sm-3" >
                                         <label class=" control-label" style="font-weight: bold;">Select
-                                            Consignor<span class="text-danger">*</span></label>
+                                            Consignee<span class="text-danger">*</span></label>
                                     </div>
                                     <div class="col-sm-9" >
                                         <select class="basic form-seteing" type="text" name="consignee_id"
