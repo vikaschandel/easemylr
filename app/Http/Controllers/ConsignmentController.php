@@ -271,6 +271,8 @@ class ConsignmentController extends Controller
     // get consigner address on change
     public function getConsigners(Request $request){
         $getconsigners = Consigner::select('address','gst_number','phone','city','branch_id')->with('GetBranch')->where(['id'=>$request->consigner_id,'status'=>'1'] )->first();
+
+        $getConsignees = Consignee::select('id','nick_name')->where(['consigner_id'=>$request->consigner_id])->get();
         
         if($getconsigners)
         {
@@ -278,6 +280,7 @@ class ConsignmentController extends Controller
             $response['success_message'] = "Consigner list fetch successfully";
             $response['error']           = false;
             $response['data']            = $getconsigners;
+            $response['consignee']       = $getConsignees;
         }else{
             $response['success']         = false;
             $response['error_message']   = "Can not fetch consigner list please try again";
