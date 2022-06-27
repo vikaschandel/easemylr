@@ -374,6 +374,7 @@ div#hh {
                     $('#cons_date').html(consDate);
                     $('#dispatch').html(data.consigner_detail?data.consigner_detail.city:'');
                     $('#cons_invoice_no').html(data.invoice_no);
+
                     $('#vehicle_no').html(data.vehicle_detail?data.vehicle_detail.regn_no:'');
                     $('#driver_name').html(data.driver_detail?data.driver_detail.name:'');
                     // $('#driver_no').html(data.driver_mobile_no);
