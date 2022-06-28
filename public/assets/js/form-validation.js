@@ -1138,7 +1138,6 @@ function formSubmit(form)
                 var i = 0;
                 $.each(response.errors, function(index,value)
                 {
-                    alert(index);
                     if (i == 0) {
                         $("input[name='"+index+"']").focus();
                     }
