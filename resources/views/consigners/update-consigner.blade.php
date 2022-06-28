@@ -34,7 +34,7 @@
                             </div>                         
                             <div class="form-row mb-0">
                                 <div class="form-group col-md-6">
-                                    <label for="exampleFormControlSelect1">Select State</label>
+                                    <label for="exampleFormControlSelect1">State</label>
                                     <select class="form-control" name="state_id">
                                         <option value="">Select</option>
                                         <?php 
@@ -55,7 +55,7 @@
                             </div>
                             <div class="form-row mb-0">
                                 <div class="form-group col-md-6">
-                                    <label for="exampleFormControlInput2">Contact Name</label>
+                                    <label for="exampleFormControlInput2">Contact Person Name</label>
                                     <input type="text" class="form-control" name="contact_name" value="{{old('contact_name',isset($getconsigner->contact_name)?$getconsigner->contact_name:'')}}" placeholder="Contact Name">
                                 </div>
                                 <div class="form-group col-md-6">
@@ -69,7 +69,7 @@
                                     <input type="text" class="form-control mbCheckNm" name="phone" value="{{old('phone',isset($getconsigner->phone)?$getconsigner->phone:'')}}" placeholder="Phone" maxlength="10">
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="exampleFormControlSelect1">Select Location<span class="text-danger">*</span></label>
+                                    <label for="exampleFormControlSelect1">Branch Location<span class="text-danger">*</span></label>
                                     <select class="form-control" name="branch_id">
                                         <option value="">Select</option>
                                         <?php 
@@ -84,24 +84,38 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group mb-4">
+                            <!-- <div class="form-group mb-4">
                                 <label for="exampleFormControlInput2">Address</label>
                                 <textarea class="form-control" name="address" cols="5" rows="3" placeholder="Address">{{old('address',isset($getconsigner->address)?$getconsigner->address:'')}}</textarea>
+                            </div> -->
+                            <div class="form-row mb-0">
+                                <div class="form-group col-md-6">
+                                    <label for="exampleFormControlInput2">Address Line 1</label>
+                                    <input type="text" class="form-control" name="address_line1" value="{{old('address_line1',isset($getconsigner->address_line1)?$getconsigner->address_line1:'')}}" placeholder="">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="exampleFormControlInput2">Address Line 2</label>
+                                    <input type="text" class="form-control" name="address_line2" value="{{old('address_line2',isset($getconsigner->address_line2)?$getconsigner->address_line2:'')}}" placeholder="">
+                                </div>
                             </div>
                             <div class="form-row mb-0">
+                                <div class="form-group col-md-6">
+                                    <label for="exampleFormControlInput2">Address Line 3</label>
+                                    <input type="text" class="form-control" name="address_line3" value="{{old('address_line3',isset($getconsigner->address_line3)?$getconsigner->address_line3:'')}}" placeholder="">
+                                </div>
                                 <div class="form-group col-md-6">
                                     <label for="exampleFormControlInput2">City</label>
-                                    <input type="text" class="form-control" name="city" value="{{old('city',isset($getconsigner->city)?$getconsigner->city:'')}}" placeholder="City">
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="exampleFormControlInput2">District</label>
-                                    <input type="text" class="form-control" name="district" value="{{old('district',isset($getconsigner->district)?$getconsigner->district:'')}}" placeholder="District">
+                                    <input type="text" class="form-control" name="city" value="{{old('city',isset($getconsigner->city)?$getconsigner->city:'')}}" placeholder="">
                                 </div>
                             </div>
                             <div class="form-row mb-0">
                                 <div class="form-group col-md-6">
+                                    <label for="exampleFormControlInput2">District</label>
+                                    <input type="text" class="form-control" name="district" value="{{old('district',isset($getconsigner->district)?$getconsigner->district:'')}}" placeholder="">
+                                </div>
+                                <div class="form-group col-md-6">
                                     <label for="exampleFormControlInput2">Pincode</label>
-                                    <input type="text" class="form-control" name="postal_code" value="{{old('postal_code',isset($getconsigner->postal_code)?$getconsigner->postal_code:'')}}" placeholder="Pincode">
+                                    <input type="text" class="form-control" name="postal_code" value="{{old('postal_code',isset($getconsigner->postal_code)?$getconsigner->postal_code:'')}}" placeholder="">
                                 </div>
                                 <!-- <div class="form-group col-md-6">
                                     <label for="exampleFormControlInput2">Status</label>
