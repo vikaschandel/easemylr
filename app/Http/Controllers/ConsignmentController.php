@@ -274,7 +274,6 @@ class ConsignmentController extends Controller
         $getconsigners = Consigner::select('address','gst_number','phone','city','branch_id')->with('GetBranch')->where(['id'=>$request->consigner_id,'status'=>'1'] )->first();
 
         $getConsignees = Consignee::select('id','nick_name')->where(['consigner_id'=>$request->consigner_id])->get();
-        
         if($getconsigners)
         {
             $response['success']         = true;
