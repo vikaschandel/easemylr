@@ -23,7 +23,7 @@
                             <input class="form-control" id="team_id" name="team_id" placeholder="Enter team id">
                         </div>
                         <div class="form-group my-3">
-                            <input class="form-control" id="consignment_no" name="consignment_no" placeholder="Enter consignment no." maxlength="3">
+                            <input class="form-control" id="consignment_no" name="consignment_no" placeholder="Enter consignment no." maxlength="4">
                         </div>
                 </div>
             <!-- Modal footer -->
