@@ -1236,6 +1236,7 @@ function formSubmitRedirect(form)
             {
                 var i = 0;
               $('.error').remove();
+              
               $.each(response.errors, function(index,value)
               {
                   if (i == 0) {
