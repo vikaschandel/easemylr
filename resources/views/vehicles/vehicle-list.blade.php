@@ -28,7 +28,7 @@ div.relative {
                 </nav>
             </div>
             <div class="widget-content widget-content-area br-6">
-                <div class="table-responsive mb-4 mt-4">
+                <div class="mb-4 mt-4">
                     @csrf
                     <table id="vehicletable" class="table table-hover vehicle-datatable" style="width:100%">
                     <div class="btn-group relative">

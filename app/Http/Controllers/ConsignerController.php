@@ -49,11 +49,10 @@ class ConsignerController extends Controller
     {
         $this->prefix = request()->route()->getPrefix();
         $states = Helper::getStates();
-        // $branches = Helper::getLocations();
         $authuser = Auth::user();
         $cc = explode(',',$authuser->branch_id);
         if($authuser->role_id == 2){
-            $branches = Location::whereIn('id',$cc)->orWhere('status',1)->orderby('name','ASC')->pluck('name','id');
+            $branches = Location::whereIn('id',$cc)->orderby('name','ASC')->pluck('name','id');
         }else{
             $branches = Location::where('status',1)->orderby('name','ASC')->pluck('name','id');
         }
@@ -144,7 +143,7 @@ class ConsignerController extends Controller
         $authuser = Auth::user();
         $cc = explode(',',$authuser->branch_id);
         if($authuser->role_id == 2){
-            $branches = Location::whereIn('id',$cc)->orWhere('status',1)->orderby('name','ASC')->pluck('name','id');
+            $branches = Location::whereIn('id',$cc)->orderby('name','ASC')->pluck('name','id');
         }else{
             $branches = Location::where('status',1)->orderby('name','ASC')->pluck('name','id');
         }
