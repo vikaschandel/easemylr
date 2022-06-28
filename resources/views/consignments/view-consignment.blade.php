@@ -356,7 +356,7 @@ div#hh {
                     var data = response.data;
                     console.log(data);
                     
-                    var consigneradd = '<strong>'+data.consigner_detail.nick_name+'</strong><br>'+data.consigner_detail.address+',<br>'+data.consigner_detail.district+',<br>'+data.consigner_detail.city+' - '+data.consigner_detail.postal_code+',<strong><br>GST No. : </strong>'+data.consigner_detail.gst_number+'';
+                    var consigneradd = '<strong>'+data.consigner_detail.nick_name+'</strong><br>'+data.consigner_detail.address_line1+'<br>'+data.consigner_detail.address_line2+'<br>'+data.consigner_detail.address_line3+'<br>'+data.consigner_detail.district+',<br>'+data.consigner_detail.city+' - '+data.consigner_detail.postal_code+',<strong><br>GST No. : </strong>'+data.consigner_detail.gst_number+'';
 
                     var consigneeadd = '<strong>'+data.consignee_detail.nick_name+'</strong><br>'+data.consignee_detail.address_line1+' '+data.consignee_detail.address_line2+' '+data.consignee_detail.address_line3+',<br>'+data.consignee_detail.district+',<br>'+data.consignee_detail.city+' - '+data.consignee_detail.postal_code+',<strong><br>GST No. : </strong>'+data.consignee_detail.gst_number+'';
 
