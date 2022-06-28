@@ -271,7 +271,7 @@ class ConsignmentController extends Controller
 
     // get consigner address on change
     public function getConsigners(Request $request){
-        $getconsigners = Consigner::select('address','gst_number','phone','city','branch_id')->with('GetBranch')->where(['id'=>$request->consigner_id,'status'=>'1'] )->first();
+        $getconsigners = Consigner::select('address_line1','address_line2','address_line3','gst_number','phone','city','branch_id')->with('GetBranch')->where(['id'=>$request->consigner_id,'status'=>'1'] )->first();
 
         $getConsignees = Consignee::select('id','nick_name')->where(['consigner_id'=>$request->consigner_id])->get();
         if($getconsigners)
@@ -353,7 +353,7 @@ class ConsignmentController extends Controller
         // dd($data['consignment_date']);
         // dd($data['consigner_detail']['city']);
         $conr_add = '<p>'.'CONSIGNOR NAME & ADDRESS'.'</p>
-            <p><b>'.$data['consigner_detail']['nick_name'].'</b></p><p>'.$data['consigner_detail']['address'].',</p>
+            <p><b>'.$data['consigner_detail']['nick_name'].'</b></p><p>'.$data['consigner_detail']['address_line1'].'<br>'.$data['consigner_detail']['address_line2'].'<br>'.$data['consigner_detail']['address_line3'].',</p>
             <p>'.$data['consigner_detail']['district'].'</p>
             <p>GST No. : '.$data['consigner_detail']['gst_number'].'</p>
             <p>Phone No. : '.$data['consigner_detail']['phone'].'</p>';

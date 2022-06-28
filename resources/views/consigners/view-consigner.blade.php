@@ -54,17 +54,17 @@
                                     <td>{{isset($getconsigner->email)? $getconsigner->email:'-'}}</td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">Address</th>
-                                    <td>{{isset($getconsigner->address)?ucfirst($getconsigner->address):'-'}} </td>
+                                    <th scope="row">Address Line 1</th>
+                                    <td>{{isset($getconsigner->address_line1)?ucfirst($getconsigner->address_line1):'-'}} </td>
                                 </tr>
-                                <!-- <tr>
+                                <tr>
                                     <th scope="row">Address Line 2</th>
                                     <td>{{isset($getconsigner->address_line2)?ucfirst($getconsigner->address_line2):'-'}}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Address Line 3</th>
                                     <td>{{isset($getconsigner->address_line3)?ucfirst($getconsigner->address_line3):'-'}}</td>
-                                </tr> -->
+                                </tr>
                                 <tr>
                                     <th scope="row">City</th>
                                     <td>{{isset($getconsigner->city) ? ucfirst($getconsigner->city):'-'}} </td>

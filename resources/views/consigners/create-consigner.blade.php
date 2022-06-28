@@ -37,7 +37,7 @@
                             </div>
                             <div class="form-row mb-0">
                                 <div class="form-group col-md-6">
-                                    <label for="exampleFormControlSelect1">Select State</label>
+                                    <label for="exampleFormControlSelect1">State</label>
                                     <select class="form-control" name="state_id">
                                         <option value="">Select</option>
                                         <?php 
@@ -58,7 +58,7 @@
                             </div>
                             <div class="form-row mb-0">
                                 <div class="form-group col-md-6">
-                                    <label for="exampleFormControlInput2">Contact Name</label>
+                                    <label for="exampleFormControlInput2">Contact Person Name</label>
                                     <input type="text" class="form-control" name="contact_name" placeholder="Contact Name">
                                 </div>
                                 <div class="form-group col-md-6">
@@ -72,7 +72,7 @@
                                     <input type="text" class="form-control mbCheckNm" name="phone" placeholder="Enter 10 digit mobile no" maxlength="10">
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="exampleFormControlSelect1">Select Location<span class="text-danger">*</span></label>
+                                    <label for="exampleFormControlSelect1">Branch Location<span class="text-danger">*</span></label>
                                     <select class="form-control" name="branch_id">
                                         <option value="">Select</option>
                                         <?php 
@@ -87,24 +87,38 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group mb-4">
+                            <!-- <div class="form-group mb-4">
                                 <label for="exampleFormControlInput2">Address</label>
                                 <textarea class="form-control" name="address" cols="5" rows="3" placeholder="Address"></textarea>
+                            </div> -->
+                            <div class="form-row mb-0">
+                                <div class="form-group col-md-6">
+                                    <label for="exampleFormControlInput2">Address Line 1</label>
+                                    <input type="text" class="form-control" name="address_line1" placeholder="">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="exampleFormControlInput2">Address Line 2</label>
+                                    <input type="text" class="form-control" name="address_line2" placeholder="">
+                                </div>
                             </div>
                             <div class="form-row mb-0">
+                            <div class="form-group col-md-6">
+                                    <label for="exampleFormControlInput2">Address Line 3</label>
+                                    <input type="text" class="form-control" name="address_line3" placeholder="">
+                                </div>
                                 <div class="form-group col-md-6">
                                     <label for="exampleFormControlInput2">City</label>
-                                    <input type="text" class="form-control" name="city" placeholder="City">
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="exampleFormControlInput2">District</label>
-                                    <input type="text" class="form-control" name="district" placeholder="District">
+                                    <input type="text" class="form-control" name="city" placeholder="">
                                 </div>
                             </div>
                             <div class="form-row mb-0">
                                 <div class="form-group col-md-6">
+                                    <label for="exampleFormControlInput2">District</label>
+                                    <input type="text" class="form-control" name="district" placeholder="">
+                                </div>
+                                <div class="form-group col-md-6">
                                     <label for="exampleFormControlInput2">Pincode</label>
-                                    <input type="text" class="form-control" name="postal_code" placeholder="Pincode">
+                                    <input type="text" class="form-control" name="postal_code" placeholder="">
                                 </div>  
                                 <!-- <div class="form-group col-md-6">
                                     <label for="exampleFormControlInput2">Status</label>

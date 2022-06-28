@@ -50,7 +50,7 @@ div.relative {
                     <div class="table-responsive mb-4 mt-4">
                         @csrf
                         <table id="usertable" class="table table-hover get-datatable" style="width:100%">
-                        <div class="btn-group relative">
+                            <div class="btn-group relative">
                                 <a href="{{'consignments/create'}}" class="btn btn-primary pull-right" style="font-size: 13px; padding: 6px 0px;">Create Consignment</a>
                             </div>
                             <thead>
@@ -65,7 +65,6 @@ div.relative {
                             </thead>
                             <tbody>
                                 <?php 
-                                if(count($consignments)>0) {
                                     foreach ($consignments as $key => $consignment) {  
                                 ?> 
                                 <tr>
@@ -94,14 +93,6 @@ div.relative {
                                         <a href="Javascript:void();" class="btn btn-danger delete_consignment" data-id="{{ $consignment->id }}" data-action="<?php// echo URL::to($prefix.'/consignments/delete-consignment'); ?>"><span><i class="fa fa-trash"></i></span></a> -->
                                     </td>
                                 </tr>
-                                <?php 
-                                    }
-                                }
-                                else {
-                                    ?>
-                                    <tr>
-                                        <td colspan="7" class="text-center">No Record Found </td>
-                                    </tr>
                                 <?php 
                                     }
                                 ?>

@@ -197,9 +197,7 @@ label.error{
                                             </div>
                                             <div class=" col-sm-8" style="margin-top:2px;">
 
-                                                <input type="date" class="form-seteing date-picker" id="consignDate"
-                                                    name="consignment_date" placeholder=""
-                                                    value="<?php echo date('d-m-Y') ?>">
+                                                <input type="date" class="form-seteing date-picker" id="consignDate" name="consignment_date" placeholder="" value="<?php echo date('d-m-Y'); ?>">
 
                                             </div>
                                         </div>
@@ -209,8 +207,7 @@ label.error{
                                             </div>
                                             <div class=" col-sm-8" style="margin-top:2px;">
 
-                                                <input type="text" class="form-seteing" id="dispatch"
-                                                    name="dispatch_form" value="" placeholder="" readonly
+                                                <input type="text" class="form-seteing" id="dispatch" name="dispatch_form" value="" placeholder="" readonly
                                                     style="border:none;">
                                             </div>
                                         </div>
@@ -431,7 +428,7 @@ label.error{
                     </div>
                     <div class=" col-sm-2">
                         
-                        <input type="text" class="sete" id="purchase_price" name="purchase_price" value="">
+                        <input type="text" class="sete" id="purchase_price" name="purchase_price" value="" maxlength="9">
                     </div>
                     
                     <div class=" col-sm-3">
@@ -451,13 +448,9 @@ label.error{
 @endsection
 @section('js')
 <script>
-    
-
-
     $(function() {
         $('.basic').selectpicker();
     });
-
     // var ss = $(".basic").select2({
     //     tags: true,
     // });
