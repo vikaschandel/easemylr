@@ -28,7 +28,7 @@ div.relative {
                 </nav>
             </div>
             <div class="widget-content widget-content-area br-6">
-                <div class="table-responsive mb-4 mt-4">
+                <div class="mb-4 mt-4">
                     @csrf
                     <table id="vehicletable" class="table table-hover vehicle-datatable" style="width:100%">
                     <div class="btn-group relative">
@@ -44,6 +44,7 @@ div.relative {
                                 <th>Make</th>
                                 <th>Vehicle Capacity</th>
                                 <th>Manufacture</th>
+                                <th>RC Image</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -88,6 +89,7 @@ var table = $('#vehicletable').DataTable({
         {data: 'make', name: 'make'},
         {data: 'make', name: 'make'},
         {data: 'mfg', name: 'mfg'},
+        {data: 'rc_image', name: 'rc_image'},
         {data: 'action', name: 'action', orderable: false, searchable: false}
         
     ]

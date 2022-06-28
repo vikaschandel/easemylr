@@ -46,6 +46,16 @@ class DashboardController extends Controller
         $gettoday_weightlifted = ConsignmentItem::where('created_at', '>=', date('Y-m-d'))
                         ->where('status', '=', 1)
                         ->sum('weight');
+
+        // $gettoday_weightlifted = ConsignmentNote::with(array(
+        //                     'ConsignmentItems' => function($query)
+        //                     {
+        //                         $query->select(DB::raw('sum(weight) as itemweight'))
+        //                         ->where('created_at', '>=', date('Y-m-d'))
+        //                         ->where('status', '=', 1);
+        //                     }))
+        //                     ->get();
+
         $getmonthly_weightlifted = ConsignmentItem::where('created_at', '>=', date('Y-m-01'))
                         ->where('status', '=', 1)
                         ->sum('weight');
