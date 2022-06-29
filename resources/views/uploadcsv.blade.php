@@ -40,7 +40,7 @@
                         <input type="file" name="vehiclesfile" id="vehiclefile" class="vehiclefile"> 
                     </div>
                     <div class="col-lg-4 col-md-9 col-sm-12">
-                    <a class="btn btn-primary" href="#">Sample Download</a> 
+                    <a class="btn btn-primary" href="{{url($prefix.'/sample-vehicle')}}">Sample Download</a> 
                     </div>
                 </div>
                 <br/>

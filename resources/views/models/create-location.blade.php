@@ -14,16 +14,20 @@
                 <div class="modal-body">
                         <!-- <h5>Wine Style</h5> -->
                         <div class="form-group my-3">
-                            <input class="form-control" id="name" name="name" placeholder="Enter location name">
+                            <label for="location_name">Location Name</label>
+                            <input class="form-control" id="name" name="name" placeholder="">
                         </div>
                         <div class="form-group my-3">
-                            <input class="form-control" id="nick_name" name="nick_name" placeholder="Enter nick name">
+                            <label for="location_name">Location Nick Name</label>
+                            <input class="form-control" id="nick_name" name="nick_name" placeholder="">
                         </div>
                         <div class="form-group my-3">
-                            <input class="form-control" id="team_id" name="team_id" placeholder="Enter team id">
+                            <label for="location_name">Team ID</label>
+                            <input class="form-control" id="team_id" name="team_id" placeholder="">
                         </div>
                         <div class="form-group my-3">
-                            <input class="form-control" id="consignment_no" name="consignment_no" placeholder="Enter consignment no." maxlength="4">
+                            <label for="location_name"> Consignment No.</label>
+                            <input class="form-control" id="consignment_no" name="consignment_no" placeholder="" maxlength="4">
                         </div>
                 </div>
             <!-- Modal footer -->
