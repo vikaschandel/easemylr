@@ -32,26 +32,43 @@
                                     <td>{{isset($getconsigner->legal_name)?ucfirst($getconsigner->legal_name):'-'}} </td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">GSTNO.</th>
-                                    <td>{{isset($getconsigner->gst_number)?ucfirst($getconsigner->gst_number):'-'}}</td>
+                                    <th scope="row">Contact Person Name</th>
+                                    <td>{{isset($getconsigner->contact_name)?ucfirst($getconsigner->contact_name):'-'}}</td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">Contact Name</th>
-                                    <td>{{isset($getconsigner->contact_name)?ucfirst($getconsigner->contact_name):'-'}}</td>
+                                    <th scope="row">Email ID</th>
+                                    <td>{{isset($getconsigner->email)? $getconsigner->email:'-'}}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Mobile No.</th>
                                     <td>{{isset($getconsigner->phone)?ucfirst($getconsigner->phone):'-'}}</td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">Location</th>
+                                    <th scope="row">Branch Location</th>
                                     <td>
                                         {{isset($getconsigner->GetBranch->name) ? ucfirst($getconsigner->GetBranch->name) : "-" }}
                                     </td>                                       
                                 </tr>
                                 <tr>
-                                    <th scope="row">Email ID</th>
-                                    <td>{{isset($getconsigner->email)? $getconsigner->email:'-'}}</td>
+                                    <th scope="row">GSTNO.</th>
+                                    <td>{{isset($getconsigner->gst_number)?ucfirst($getconsigner->gst_number):'-'}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Pincode</th>
+                                    <td>{{isset($getconsigner->postal_code) ? ucfirst($getconsigner->postal_code):'-'}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">City</th>
+                                    <td>{{isset($getconsigner->city) ? ucfirst($getconsigner->city):'-'}} </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">District</th>
+                                    <td>{{isset($getconsigner->district)?ucfirst($getconsigner->district):'-'}} </td>
+                                </tr>
+                              
+                                <tr>
+                                    <th scope="row">State</th>
+                                    <td>{{isset($getconsigner->GetState->name) ? ucfirst($getconsigner->GetState->name) : "-" }}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Address Line 1</th>
@@ -66,21 +83,10 @@
                                     <td>{{isset($getconsigner->address_line3)?ucfirst($getconsigner->address_line3):'-'}}</td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">City</th>
-                                    <td>{{isset($getconsigner->city) ? ucfirst($getconsigner->city):'-'}} </td>
+                                    <th scope="row">Address Line 4</th>
+                                    <td>{{isset($getconsigner->address_line4)?ucfirst($getconsigner->address_line4):'-'}}</td>
                                 </tr>
-                                <tr>
-                                    <th scope="row">District</th>
-                                    <td>{{isset($getconsigner->district)?ucfirst($getconsigner->district):'-'}} </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Pincode</th>
-                                    <td>{{isset($getconsigner->postal_code) ? ucfirst($getconsigner->postal_code):'-'}}</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">State</th>
-                                    <td>{{isset($getconsigner->GetState->name) ? ucfirst($getconsigner->GetState->name) : "-" }}</td>
-                                </tr>
+                                
                                 <!-- <tr>
                                     <th scope="row">Status</th>
                                     <td>

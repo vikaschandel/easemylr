@@ -93,6 +93,7 @@ class ConsignerController extends Controller
         $consignersave['address_line1'] = $request->address_line1;
         $consignersave['address_line2'] = $request->address_line2;
         $consignersave['address_line3'] = $request->address_line3;
+        $consignersave['address_line4'] = $request->address_line4;
         $consignersave['city']         = $request->city;
         $consignersave['district']     = $request->district;
         $consignersave['postal_code']  = $request->postal_code;
@@ -190,6 +191,7 @@ class ConsignerController extends Controller
             $consignersave['address_line1'] = $request->address_line1;
             $consignersave['address_line2'] = $request->address_line2;
             $consignersave['address_line3'] = $request->address_line3;
+            $consignersave['address_line4'] = $request->address_line4;
             $consignersave['city']         = $request->city;
             $consignersave['district']     = $request->district;
             $consignersave['postal_code']  = $request->postal_code;

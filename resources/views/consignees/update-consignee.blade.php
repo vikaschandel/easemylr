@@ -34,21 +34,20 @@
                                 </div>
                             </div>
                             <div class="form-row mb-0">                          
-                                <!-- <div class="form-group col-md-6">
-                                    <label for="exampleFormControlSelect1">Location</label>
-                                    <select class="form-control" name="branch_id">
-                                        <option value="">Select</option>
-                                        <?php 
-                                        if(count($branches)>0) {
-                                            foreach ($branches as $k => $branch) {
-                                        ?>
-                                            <option value="{{ $k }}" {{ $k == $getconsignee->branch_id ? 'selected' : ''}}>{{ucwords($branch)}}</option>
-                                            <?php 
-                                            }
-                                        }
-                                        ?>
-                                    </select>
-                                </div> -->
+                                <div class="form-group col-md-6">
+                                    <label for="exampleFormControlInput2">Contact Person Name</label>
+                                    <input type="text" class="form-control" name="contact_name" value="{{old('contact_name',isset($getconsignee->contact_name)?$getconsignee->contact_name:'')}}" placeholder="Contact Name">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="exampleFormControlInput2">Email ID</label>
+                                    <input type="email" class="form-control" name="email" value="{{old('email',isset($getconsignee->email)?$getconsignee->email:'')}}" placeholder="Email">
+                                </div>
+                            </div>
+                            <div class="form-row mb-0">
+                                <div class="form-group col-md-6">
+                                    <label for="exampleFormControlInput2">Mobile No.<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control mbCheckNm" name="phone" value="{{old('phone',isset($getconsignee->phone)?$getconsignee->phone:'')}}" placeholder="Phone" maxlength="10">
+                                </div>
                                 <div class="form-group col-md-6">
                                     <label for="exampleFormControlSelect1">Consigner</label>
                                     <select class="form-control" name="consigner_id">
@@ -62,21 +61,6 @@
                                             }
                                         }
                                         ?>
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="exampleFormControlSelect1">Select State</label>
-                                    <select class="form-control" name="state_id">
-                                        <option value="">Select</option>
-                                        <?php 
-                                        if(count($states)>0) {
-                                            foreach ($states as $k => $state) {
-                                        ?>
-                                            <option value="{{ $k }}" {{ $k == $getconsignee->state_id ? 'selected' : ''}}>{{ucwords($state)}}</option> 
-                                            <?php 
-                                            }
-                                        }
-                                        ?>                            
                                     </select>
                                 </div>
                             </div>
@@ -95,68 +79,81 @@
                                     <p class="gstno_error text-danger" style="display: none; color: #ff0000; font-weight: 500;">Please enter GST no.</p>
                                 </div>
                             </div>
-                            <div class="form-row mb-0">                          
-                                <div class="form-group col-md-6">
-                                    <label for="exampleFormControlInput2">Contact Name</label>
-                                    <input type="text" class="form-control" name="contact_name" value="{{old('contact_name',isset($getconsignee->contact_name)?$getconsignee->contact_name:'')}}" placeholder="Contact Name">
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="exampleFormControlInput2">Email ID</label>
-                                    <input type="email" class="form-control" name="email" value="{{old('email',isset($getconsignee->email)?$getconsignee->email:'')}}" placeholder="Email">
-                                </div>
-                            </div>
-                            <div class="form-row mb-0">
-                                <div class="form-group col-md-6">
-                                    <label for="exampleFormControlInput2">Mobile No.<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control mbCheckNm" name="phone" value="{{old('phone',isset($getconsignee->phone)?$getconsignee->phone:'')}}" placeholder="Phone" maxlength="10">
-                                </div>
+                           
+                         
+                            <div class="form-row mb-0">      
+                            <div class="form-group col-md-6">
+                                    <label for="exampleFormControlInput2">Pincode</label>
+                                    <input type="text" class="form-control" name="postal_code" value="{{old('postal_code',isset($getconsignee->postal_code)?$getconsignee->postal_code:'')}}" placeholder="Pincode">
+                                </div> 
+                            <div class="form-group col-md-6">
+                                    <label for="exampleFormControlInput2">Village/City</label>
+                                    <input type="text" class="form-control" name="city" value="{{old('city',isset($getconsignee->city)?$getconsignee->city:'')}}" placeholder="City">
+                                </div>                   
+                                <!-- <div class="form-group col-md-6">
+                                    <label for="exampleFormControlSelect1">Location</label>
+                                    <select class="form-control" name="branch_id">
+                                        <option value="">Select</option>
+                                        <?php 
+                                        if(count($branches)>0) {
+                                            foreach ($branches as $k => $branch) {
+                                        ?>
+                                            <option value="{{ $k }}" {{ $k == $getconsignee->branch_id ? 'selected' : ''}}>{{ucwords($branch)}}</option>
+                                            <?php 
+                                            }
+                                        }
+                                        ?>
+                                    </select>
+                                </div>-->
                                 
                             </div>
                             <div class="form-row mb-0">                          
-                                <div class="form-group col-md-6">
-                                    <label for="exampleFormControlInput2">Sales Officer Name</label>
-                                    <input type="text" class="form-control" name="sales_officer_name" value="{{old('sales_officer_name',isset($getconsignee->sales_officer_name)?$getconsignee->sales_officer_name:'')}}" placeholder="">
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="exampleFormControlInput2">Sales Officer Email</label>
-                                    <input type="text" class="form-control" name="sales_officer_email" value="{{old('sales_officer_email',isset($getconsignee->sales_officer_email)?$getconsignee->sales_officer_email:'')}}" placeholder="">
-                                </div>
-                            </div>
+                               
+                               <div class="form-group col-md-6">
+                                   <label for="exampleFormControlInput2">District</label>
+                                   <input type="text" class="form-control" name="district" value="{{old('district',isset($getconsignee->district)?$getconsignee->district:'')}}" placeholder="District">
+                               </div>
+                               <div class="form-group col-md-6">
+                                   <label for="exampleFormControlSelect1">Select State</label>
+                                   <select class="form-control" name="state_id">
+                                       <option value="">Select</option>
+                                       <?php 
+                                       if(count($states)>0) {
+                                           foreach ($states as $k => $state) {
+                                       ?>
+                                           <option value="{{ $k }}" {{ $k == $getconsignee->state_id ? 'selected' : ''}}>{{ucwords($state)}}</option> 
+                                           <?php 
+                                           }
+                                       }
+                                       ?>                            
+                                   </select>
+                               </div>
+                           </div>
+                           
                             <div class="form-row mb-0">                          
-                                <div class="form-group col-md-6">
-                                    <label for="exampleFormControlInput2">Sales Officer Mobile</label>
-                                    <input type="text" class="form-control" name="sales_officer_phone" value="{{old('sales_officer_phone',isset($getconsignee->sales_officer_phone)?$getconsignee->sales_officer_phone:'')}}" placeholder="">
-                                </div>
-                                <div class="form-group col-md-6">
+                            <div class="form-group col-md-6">
                                     <label for="exampleFormControlInput2">Address Line 1</label>
                                     <input type="text" class="form-control" name="address_line1" value="{{old('address_line1',isset($getconsignee->address_line1)?$getconsignee->address_line1:'')}}" placeholder="">
                                 </div>
-                            </div>
-                            <div class="form-row mb-0">                          
                                 <div class="form-group col-md-6">
                                     <label for="exampleFormControlInput2">Address Line 2</label>
                                     <input type="text" class="form-control" name="address_line2" value="{{old('address_line2',isset($getconsignee->address_line2)?$getconsignee->address_line2:'')}}" placeholder="">
                                 </div>
-                                <div class="form-group col-md-6">
+                            </div>
+                            <div class="form-row mb-0">                          
+                            <div class="form-group col-md-6">
                                     <label for="exampleFormControlInput2">Address Line 3</label>
                                     <input type="text" class="form-control" name="address_line3" value="{{old('address_line3',isset($getconsignee->address_line3)?$getconsignee->address_line3:'')}}" placeholder="">
                                 </div>
-                            </div>
-                            <div class="form-row mb-0">                          
                                 <div class="form-group col-md-6">
-                                    <label for="exampleFormControlInput2">Village/City</label>
-                                    <input type="text" class="form-control" name="city" value="{{old('city',isset($getconsignee->city)?$getconsignee->city:'')}}" placeholder="City">
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="exampleFormControlInput2">District</label>
-                                    <input type="text" class="form-control" name="district" value="{{old('district',isset($getconsignee->district)?$getconsignee->district:'')}}" placeholder="District">
+                                    <label for="exampleFormControlInput2">Address Line 4</label>
+                                    <input type="text" class="form-control" name="address_line4" value="{{old('address_line3',isset($getconsignee->address_line4)?$getconsignee->address_line4:'')}}" placeholder="">
                                 </div>
                             </div>
-                            <div class="form-row mb-0">                          
-                                <div class="form-group col-md-6">
-                                    <label for="exampleFormControlInput2">Pincode</label>
-                                    <input type="text" class="form-control" name="postal_code" value="{{old('postal_code',isset($getconsignee->postal_code)?$getconsignee->postal_code:'')}}" placeholder="Pincode">
-                                </div>
+                          
+                            <div class="form-row mb-0">         
+                                            
+                              
                                 <!-- <div class="form-row col-md-6">
                                 <div class="form-group col-md-6">
                                     <label for="exampleFormControlInput2">Status</label>

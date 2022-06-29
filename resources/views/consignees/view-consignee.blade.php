@@ -32,6 +32,18 @@
                                     <td>{{isset($getconsignee->legal_name)?ucfirst($getconsignee->legal_name):'-'}} </td>
                                 </tr>
                                 <tr>
+                                    <th scope="row">Contact Person Name</th>
+                                    <td>{{isset($getconsignee->contact_name)?ucfirst($getconsignee->contact_name):'-'}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Email ID</th>
+                                    <td>{{isset($getconsignee->email)?ucfirst($getconsignee->email):'-'}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Mobile No.</th>
+                                    <td>{{isset($getconsignee->phone)?ucfirst($getconsignee->phone):'-'}}</td>
+                                </tr>
+                                <tr>
                                     <th scope="row">Consigner</th>
                                     <td> 
                                         {{isset($getconsignee->GetConsigner->nick_name) ? ucfirst($getconsignee->GetConsigner->nick_name) : "-" }}
@@ -53,18 +65,23 @@
                                     <td>{{isset($getconsignee->gst_number)?ucfirst($getconsignee->gst_number):'-'}}</td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">Contact Name</th>
-                                    <td>{{isset($getconsignee->contact_name)?ucfirst($getconsignee->contact_name):'-'}}</td>
+                                    <th scope="row">Pincode</th>
+                                    <td>{{isset($getconsignee->postal_code) ? ucfirst($getconsignee->postal_code):'-'}}</td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">Mobile No.</th>
-                                    <td>{{isset($getconsignee->phone)?ucfirst($getconsignee->phone):'-'}}</td>
+                                    <th scope="row">City</th>
+                                    <td>{{isset($getconsignee->city) ? ucfirst($getconsignee->city):'-'}} </td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">Email ID</th>
-                                    <td>{{isset($getconsignee->email)?ucfirst($getconsignee->email):'-'}}</td>
+                                    <th scope="row">District</th>
+                                    <td>{{isset($getconsignee->district)?ucfirst($getconsignee->district):'-'}} </td>
                                 </tr>
+                              
                                 <tr>
+                                    <th scope="row">State</th>
+                                    <td>{{isset($getconsignee->GetState->name) ? ucfirst($getconsignee->GetState->name) : "-" }}</td>
+                                </tr>
+                                <!-- <tr>
                                     <th scope="row">Sales officer Name</th>
                                     <td>{{isset($getconsignee->sales_officer_name)?ucfirst($getconsignee->sales_officer_name):'-'}}</td>
                                 </tr>
@@ -75,7 +92,7 @@
                                 <tr>
                                 <th scope="row">Sales officer Mobile</th>
                                     <td>{{isset($getconsignee->sales_officer_phone)?ucfirst($getconsignee->sales_officer_phone):'-'}}</td>
-                                </tr>
+                                </tr> -->
                                 <tr>
                                     <th scope="row">Address Line 1</th>
                                     <td>{{isset($getconsignee->address_line1)?ucfirst($getconsignee->address_line1):'-'}} </td>
@@ -89,21 +106,10 @@
                                     <td>{{isset($getconsignee->address_line3)?ucfirst($getconsignee->address_line3):'-'}}</td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">City</th>
-                                    <td>{{isset($getconsignee->city) ? ucfirst($getconsignee->city):'-'}} </td>
+                                    <th scope="row">Address Line 4</th>
+                                    <td>{{isset($getconsignee->address_line4)?ucfirst($getconsignee->address_line4):'-'}}</td>
                                 </tr>
-                                <tr>
-                                    <th scope="row">District</th>
-                                    <td>{{isset($getconsignee->district)?ucfirst($getconsignee->district):'-'}} </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Pincode</th>
-                                    <td>{{isset($getconsignee->postal_code) ? ucfirst($getconsignee->postal_code):'-'}}</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">State</th>
-                                    <td>{{isset($getconsignee->GetState->name) ? ucfirst($getconsignee->GetState->name) : "-" }}</td>
-                                </tr>
+                               
                                 <!-- <tr>
                                     <th scope="row">Status</th>
                                     <td>
