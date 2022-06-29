@@ -50,11 +50,7 @@ div.relative {
                 </div>
                 <div class="widget-content widget-content-area br-6">
                     <div style="margin-left:9px;" class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-                        <!-- <div class="breadcrumb-title pe-3"><h5>Users</h5></div> -->
                         <div class="ms-auto">
-                            <!-- <div class="btn-group">
-                                <a href="{{'users/create'}}" class="btn btn-primary pull-right" >Create User</a>
-                            </div> -->
                         </div>
                     </div>
                     <div class="table-responsive mb-4 mt-4">
@@ -67,6 +63,7 @@ div.relative {
                                 <tr>
                                     <th>No</th>
                                     <th>Name</th>
+                                    <th>Login ID</th>
                                     <th>Email</th>
                                     <th>Roles</th>
                                     <th style="display: none;">Password</th>
@@ -81,6 +78,7 @@ div.relative {
                                 <tr>
                                     <td>{{ ++$i }}</td>
                                     <td>{{ ucwords($user->name ?? "-")}}</td>
+                                    <td>{{ $user->login_id ?? "-"}}</td>
                                     <td>{{ $user->email ?? "-" }}</td>
                                     <td>{{ ucwords($user->UserRole->name ?? "-") }}</td>
                                     <td style="display: none;">{{ $user->user_password ?? "-" }}</td>

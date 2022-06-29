@@ -29,6 +29,10 @@
                                     <td>{{isset($getuser->name)?ucfirst($getuser->name):'-'}} </td>
                                 </tr>
                                 <tr>
+                                    <th scope="row">Login ID</th>
+                                    <td>{{isset($getuser->login_id) ? $getuser->login_id:'-'}} </td>
+                                </tr>
+                                <tr>
                                     <th scope="row">Email</th>
                                     <td>{{isset($getuser->email) ? $getuser->email : "-" }}</td>
                                 </tr>
