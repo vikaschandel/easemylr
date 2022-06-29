@@ -31,28 +31,7 @@
                                     <label for="exampleFormControlInput2">Consigner Legal Name</label>
                                     <input type="text" class="form-control" name="legal_name" value="{{old('legal_name',isset($getconsigner->legal_name)?$getconsigner->legal_name:'')}}" placeholder="">
                                 </div>
-                            </div>                         
-                            <div class="form-row mb-0">
-                                <div class="form-group col-md-6">
-                                    <label for="exampleFormControlSelect1">State</label>
-                                    <select class="form-control" name="state_id">
-                                        <option value="">Select</option>
-                                        <?php 
-                                        if(count($states)>0) {
-                                            foreach ($states as $k => $state) {
-                                        ?>
-                                            <option value="{{ $k }}" {{ $k == $getconsigner->state_id ? 'selected' : ''}}>{{ucwords($state)}}</option> 
-                                            <?php 
-                                            }
-                                        }
-                                        ?>                            
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="exampleFormControlInput2">GST No.<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="gst_number" name="gst_number" value="{{old('gst_number',isset($getconsigner->gst_number)?$getconsigner->gst_number:'')}}" placeholder="" maxlength="15">
-                                </div>
-                            </div>
+                            </div>        
                             <div class="form-row mb-0">
                                 <div class="form-group col-md-6">
                                     <label for="exampleFormControlInput2">Contact Person Name</label>
@@ -62,7 +41,7 @@
                                     <label for="exampleFormControlInput2">Email ID</label>
                                     <input type="email" class="form-control" name="email" value="{{old('email',isset($getconsigner->email)?$getconsigner->email:'')}}" placeholder="Email">
                                 </div>
-                            </div>
+                            </div>        
                             <div class="form-row mb-0">
                                 <div class="form-group col-md-6">
                                     <label for="exampleFormControlInput2">Mobile No.<span class="text-danger">*</span></label>
@@ -83,40 +62,35 @@
                                         ?>
                                     </select>
                                 </div>
+                            </div>         
+                            <div class="form-row mb-0">
+                            <div class="form-group col-md-6">
+                                    <label for="exampleFormControlInput2">GST No.<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="gst_number" name="gst_number" value="{{old('gst_number',isset($getconsigner->gst_number)?$getconsigner->gst_number:'')}}" placeholder="" maxlength="15">
+                                </div>
+                               
+                                <div class="form-group col-md-6">
+                                    <label for="exampleFormControlInput2">Pincode</label>
+                                    <input type="text" class="form-control" name="postal_code" value="{{old('postal_code',isset($getconsigner->postal_code)?$getconsigner->postal_code:'')}}" placeholder="">
+                                </div>
+                               
                             </div>
+                          
+                           
                             <!-- <div class="form-group mb-4">
                                 <label for="exampleFormControlInput2">Address</label>
                                 <textarea class="form-control" name="address" cols="5" rows="3" placeholder="Address">{{old('address',isset($getconsigner->address)?$getconsigner->address:'')}}</textarea>
                             </div> -->
                             <div class="form-row mb-0">
-                                <div class="form-group col-md-6">
-                                    <label for="exampleFormControlInput2">Address Line 1</label>
-                                    <input type="text" class="form-control" name="address_line1" value="{{old('address_line1',isset($getconsigner->address_line1)?$getconsigner->address_line1:'')}}" placeholder="">
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="exampleFormControlInput2">Address Line 2</label>
-                                    <input type="text" class="form-control" name="address_line2" value="{{old('address_line2',isset($getconsigner->address_line2)?$getconsigner->address_line2:'')}}" placeholder="">
-                                </div>
-                            </div>
-                            <div class="form-row mb-0">
-                                <div class="form-group col-md-6">
-                                    <label for="exampleFormControlInput2">Address Line 3</label>
-                                    <input type="text" class="form-control" name="address_line3" value="{{old('address_line3',isset($getconsigner->address_line3)?$getconsigner->address_line3:'')}}" placeholder="">
-                                </div>
-                                <div class="form-group col-md-6">
+                            <div class="form-group col-md-6">
                                     <label for="exampleFormControlInput2">City</label>
                                     <input type="text" class="form-control" name="city" value="{{old('city',isset($getconsigner->city)?$getconsigner->city:'')}}" placeholder="">
                                 </div>
-                            </div>
-                            <div class="form-row mb-0">
                                 <div class="form-group col-md-6">
                                     <label for="exampleFormControlInput2">District</label>
                                     <input type="text" class="form-control" name="district" value="{{old('district',isset($getconsigner->district)?$getconsigner->district:'')}}" placeholder="">
                                 </div>
-                                <div class="form-group col-md-6">
-                                    <label for="exampleFormControlInput2">Pincode</label>
-                                    <input type="text" class="form-control" name="postal_code" value="{{old('postal_code',isset($getconsigner->postal_code)?$getconsigner->postal_code:'')}}" placeholder="">
-                                </div>
+                               
                                 <!-- <div class="form-group col-md-6">
                                     <label for="exampleFormControlInput2">Status</label>
                                     <div class="check-box d-flex">
@@ -134,6 +108,45 @@
                                         </div>
                                     </div>
                                 </div>                               -->
+                            </div>
+                            <div class="form-row mb-0">
+                                <div class="form-group col-md-6">
+                                    <label for="exampleFormControlSelect1">State</label>
+                                    <select class="form-control" name="state_id">
+                                        <option value="">Select</option>
+                                        <?php 
+                                        if(count($states)>0) {
+                                            foreach ($states as $k => $state) {
+                                        ?>
+                                            <option value="{{ $k }}" {{ $k == $getconsigner->state_id ? 'selected' : ''}}>{{ucwords($state)}}</option> 
+                                            <?php 
+                                            }
+                                        }
+                                        ?>                            
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="exampleFormControlInput2">Address Line 1</label>
+                                    <input type="text" class="form-control" name="address_line1" value="{{old('address_line1',isset($getconsigner->address_line1)?$getconsigner->address_line1:'')}}" placeholder="">
+                                </div>
+                            </div>
+                            <div class="form-row mb-0">
+                            
+                                <div class="form-group col-md-6">
+                                    <label for="exampleFormControlInput2">Address Line 2</label>
+                                    <input type="text" class="form-control" name="address_line2" value="{{old('address_line2',isset($getconsigner->address_line2)?$getconsigner->address_line2:'')}}" placeholder="">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="exampleFormControlInput2">Address Line 3</label>
+                                    <input type="text" class="form-control" name="address_line3" value="{{old('address_line3',isset($getconsigner->address_line3)?$getconsigner->address_line3:'')}}" placeholder="">
+                                </div>
+                            </div>
+                            <div class="form-row mb-0">
+                               
+                            <div class="form-group col-md-6">
+                                    <label for="exampleFormControlInput2">Address Line 4</label>
+                                    <input type="text" class="form-control" name="address_line4" value="{{old('address_line3',isset($getconsigner->address_line4)?$getconsigner->address_line4:'')}}" placeholder="">
+                                </div>
                             </div>
                             <input type="submit" class="mt-4 mb-4 btn btn-primary">
                             <a class="btn btn-primary" href="{{url($prefix.'/consigners') }}"> Back</a>

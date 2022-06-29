@@ -104,6 +104,7 @@ class ConsigneeController extends Controller
         $consigneesave['address_line1']       = $request->address_line1;
         $consigneesave['address_line2']       = $request->address_line2;
         $consigneesave['address_line3']       = $request->address_line3;
+        $consigneesave['address_line4']       = $request->address_line4;
         $consigneesave['city']                = $request->city;
         $consigneesave['district']            = $request->district;
         $consigneesave['postal_code']         = $request->postal_code;
@@ -207,6 +208,7 @@ class ConsigneeController extends Controller
             $consigneesave['address_line1']       = $request->address_line1;
             $consigneesave['address_line2']       = $request->address_line2;
             $consigneesave['address_line3']       = $request->address_line3;
+            $consigneesave['address_line4']       = $request->address_line4;
             $consigneesave['city']                = $request->city;
             $consigneesave['district']            = $request->district;
             $consigneesave['postal_code']         = $request->postal_code;
