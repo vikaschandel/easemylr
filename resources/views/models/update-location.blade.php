@@ -27,7 +27,7 @@
                         </div>
                         <div class="form-group my-3">
                             <label for="location_name"> Consignment No.</label>
-                            <input class="form-control" id="consignment_noup" name="consignment_no" placeholder="Enter consignment no" value="" maxlength="3">
+                            <input class="form-control" id="consignment_noup" name="consignment_no" placeholder="Enter consignment no" value="" maxlength="4">
                         </div>
                 </div>
             <!-- Modal footer -->
