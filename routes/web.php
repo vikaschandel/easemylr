@@ -45,12 +45,6 @@ Route::get('/', function () {
         }
         else if($userrole == 3) {
             return redirect('/account-manager/dashboard');
-        }else if($userrole == 4) {
-            return redirect('/inventory/dashboard');
-        }else if($userrole == 5) {
-            return redirect('/super-admin/dashboard');
-        }else if($userrole == 6) {
-            return redirect('/manager/dashboard');
         }
     }
    else

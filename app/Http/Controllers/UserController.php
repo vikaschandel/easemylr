@@ -70,8 +70,8 @@ class UserController extends Controller
         $this->prefix = request()->route()->getPrefix();
         $rules = array(
             'name' => 'required',
-            // 'email'      => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'email' => 'required|email|unique:users,email',
+            'login_id' => 'required|unique:users,login_id',
+            'email' => 'email|unique:users,email',
             'password' => 'required',
         );
 
@@ -88,6 +88,9 @@ class UserController extends Controller
         }
         if(!empty($request->name)){
             $usersave['name']   = $request->name;
+        }
+        if(!empty($request->login_id)){
+            $usersave['login_id']   = $request->login_id;
         }
         if(!empty($request->email)){
             $usersave['email']  = $request->email;
@@ -203,9 +206,9 @@ class UserController extends Controller
         $this->prefix = request()->route()->getPrefix();
         $rules = array(
             'name' => 'required',
+            'login_id' => 'required',
             'email'  => 'required',
         );
-
         $validator = Validator::make($request->all(),$rules);
 
         if($validator->fails())
@@ -221,6 +224,7 @@ class UserController extends Controller
 
         $usersave['name']       = $request->name;
         $usersave['email']      = $request->email;
+        $usersave['login_id']   = $request->login_id;
         $usersave['role_id']    = $request->role_id;
         $usersave['phone']      = $request->phone;
         // $usersave['branch_id']  = $request->branch_id;
@@ -234,19 +238,19 @@ class UserController extends Controller
             $usersave['password'] = $getpass->password;
         }
             
-            User::where('id',$request->user_id)->update($usersave);
+        User::where('id',$request->user_id)->update($usersave);
 
-              $userid = $request->user_id;
-              UserPermission::where('user_id',$userid)->delete();
-              if(!empty($request->permisssion_id)){                
+            $userid = $request->user_id;
+            UserPermission::where('user_id',$userid)->delete();
+            if(!empty($request->permisssion_id)){                
                 foreach ($request->permisssion_id as $key => $permissionvalue)  {
                     $savepermissions[] = [
                       'user_id'=>$userid,
                       'permisssion_id'=>$permissionvalue,
                     ];   
-                  }
-                  UserPermission::insert($savepermissions); 
-              }
+                }
+                UserPermission::insert($savepermissions); 
+            }
 
             $getsavedusers = User::where('id',$request->user_id)->first();
             $url    =   URL::to($this->prefix.'/users');
@@ -255,7 +259,6 @@ class UserController extends Controller
             $response['success'] = true;
             $response['success_message'] = "User Updated Successfully";
             $response['error'] = false;
-            // $response['html'] = $html;
             $response['redirect_url'] = $url;
         }catch(Exception $e) {
             $response['error'] = false;

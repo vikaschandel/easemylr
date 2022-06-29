@@ -11,6 +11,8 @@
 
     <link rel="stylesheet" href="{{asset('assets/css/jquery.toast.css')}}"> 
     <link href="{{asset('assets/css/style.css')}}" rel="stylesheet" type="text/css" /> 
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
     <style>
         @media only screen and (max-width: 479px) and (min-width: 0px) {
             .nn {
@@ -72,6 +74,11 @@
             background-color: #008CBA;
             color: white;
         }
+        i#togglePassword {
+    margin-left: 274px;
+    position: relative;
+    bottom: 31px;
+}
     </style>
 </head>
 
@@ -96,13 +103,13 @@
                             <form method="POST" action="{{ route('login') }}" id="loginform" autocomplete="off" class="text-left">
                                 @csrf
                                 <div class="form-group">
-                                    <label for="email">Email:</label>
-                                    <input type="email" name="email" id="email" class="form-control" value="{{ old('email') }}" autocomplete="email" autofocus>
+                                    <label for="login">Login iD:</label>
+                                    <input type="text" name="login_id" id="login_id" class="form-control" value="{{ old('login_id') }}" autocomplete="login_id" autofocus>
                                 </div>
-
                                 <div class="form-group">
                                     <label for="pwd">Password:</label>
                                     <input type="password" name="password" class="form-control" id="pwd" value="{{ old('password') }}" autocomplete="password" autofocus>
+                                    <i class="bi bi-eye-slash hidePass" id="togglePassword"></i>
                                 </div>
                                 <div class="form-group">
                                 <button type="submit" class="jj">Submit</button>
@@ -123,9 +130,6 @@
 <script src="{{asset('bootstrap/js/bootstrap.min.js')}}"></script>
 
 <script src="{{asset('assets/js/customjquery.validate.min.js')}}"></script>
-<!-- <script src="http://jqueryvalidation.org/files/dist/additional-methods.min.js"></script> -->
-
-
 <script src="{{asset('plugins/perfect-scrollbar/perfect-scrollbar.min.js')}}"></script>
 <script src="{{asset('assets/js/app.js')}}"></script>
 <script src="{{asset('assets/js/custom-validation.js')}}"></script>
@@ -143,6 +147,19 @@
     $(document).ready(function() {
         App.init();
     });
+
+    $(document).on('click', '#togglePassword', function(){
+        if($(this).hasClass('hidePass')){
+            $(this).removeClass('bi-eye-slash, hidePass');
+            $(this).addClass('bi-eye');
+            $('#pwd').attr('type', 'text');
+        }else{
+            $(this).removeClass('bi-eye');
+            $(this).addClass('bi-eye-slash, hidePass');
+            $('#pwd').attr('type', 'password');
+        }
+        
+    });
 </script>
 
 <!-- END GLOBAL MANDATORY SCRIPTS -->
@@ -155,21 +172,6 @@
 <script src="{{asset('assets/js/custom.js')}}"></script>
 <script src="{{asset('assets/js/jquery.toast.js')}}"></script>
 <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
-
-
-
-<!-- <script src="{{asset('assets/js/libs/jquery-3.1.1.min.js')}}"></script>
-<script src="{{asset('bootstrap/js/popper.min.js')}}"></script>
-<script src="{{asset('bootstrap/js/bootstrap.min.js')}}"></script>
-<script src="{{asset('assets/js/authentication/form-2.js')}}"></script>
-
-<script src="{{asset('assets/js/form-validation.js')}}"></script>
-<script src="{{asset('assets/js/custom.js')}}"></script>
-<script src="{{asset('assets/js/jquery.toast.js')}}"></script> -->
-
-
-
-
 
 </body>
 

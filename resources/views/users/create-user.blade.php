@@ -31,6 +31,10 @@
                                 <input type="text" class="form-control" name="name" id="name" placeholder="Name">
                             </div>
                             <div class="form-group mb-4">
+                                <label for="exampleFormControlInput2">Login ID<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="login_id" id="login_id" placeholder="Login ID">
+                            </div>
+                            <div class="form-group mb-4">
                                 <label for="exampleFormControlInput2">Email Address<span class="text-danger">*</span></label>
                                 <input type="email" class="form-control" name="email" id="email" placeholder="Email">
                             </div>

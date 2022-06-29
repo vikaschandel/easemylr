@@ -25,6 +25,7 @@ class CreateConsignersTable extends Migration
             $table->text('address_line1')->nullable();
             $table->text('address_line2')->nullable();
             $table->text('address_line3')->nullable();
+            $table->text('address_line4')->nullable();
             $table->string('city')->nullable();
             $table->string('district')->nullable();
             $table->string('postal_code')->nullable();
