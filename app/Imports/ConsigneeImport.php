@@ -12,6 +12,7 @@ use App\Models\Consigner;
 use App\Models\Location;
 use App\Models\State;
 use App\Models\User;
+use Auth;
 
 class ConsigneeImport implements ToModel,WithHeadingRow
 {
@@ -23,13 +24,15 @@ class ConsigneeImport implements ToModel,WithHeadingRow
         $getState = State::where('name',$row['state'])->first();
         $getLocation = Location::where('name',$row['location'])->first();
         $getConsigner = Consigner::where('nick_name',$row['consigner'])->first();
-        $getUser   = User::where('name',$row['user'])->first();
+        //$getUser   = User::where('name',$row['user'])->first();
+        $getuser = Auth::user();
 
-        if(empty($getUser)){
-            $user_name = '';
-        }else{
-            $user_name = $getUser->id;
-        }
+
+        // if(empty($getUser)){
+        //     $user_name = '';
+        // }else{
+        //     $user_name = $getUser->id;
+        // }
 
         if(empty($getConsigner)){
             $consigner = '';
@@ -63,7 +66,7 @@ class ConsigneeImport implements ToModel,WithHeadingRow
             'nick_name'         => $row['nick_name'],
             'legal_name'        => $row['legal_name'],
             'branch_id'         => $location,
-            'user_id'           => $user_name,
+            'user_id'           => $getuser->id,
             'consigner_id'      => $consigner,
             'dealer_type'       => $dealer_type,
             'gst_number'        => $row['gst_number'],
