@@ -53,8 +53,10 @@ class ConsignerImport implements ToModel,WithHeadingRow
             'phone'        => $row['phone'],
             'branch_id'    => $location,
             'email'        => $row['email'],
-            'address'      => $row['address'],
-            
+            'address_line1'=> $row['address_line1'],
+            'address_line2'=> $row['address_line2'],
+            'address_line3'=> $row['address_line3'],
+            'address_line4'=> $row['address_line4'], 
             'city'         => $row['city'],
             'district'     => $row['district'],
             'postal_code'  => $row['postal_code'],
