@@ -38,6 +38,8 @@ class VehiclesImport implements ToModel, WithHeadingRow  //ToCollection
         else{
             $status = $row['status'];
         }
+        $tonnage_capacity = (int)$row['gross_vehicle_weight'] - (int)$row['unladen_weight'];
+
 
         $regn_date= \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['regn_date']);
         
@@ -51,6 +53,7 @@ class VehiclesImport implements ToModel, WithHeadingRow  //ToCollection
             'gross_vehicle_weight' => $row['gross_vehicle_weight'],
             'unladen_weight' => $row['unladen_weight'], 
             'body_type'      => $row['body_type'],
+            'tonnage_capacity' => $tonnage_capacity,
             'state_id'       => $state,
             'regndate'       => $regn_date,
             'hypothecation'  => $row['hypothecation'],

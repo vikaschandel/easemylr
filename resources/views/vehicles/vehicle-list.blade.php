@@ -87,7 +87,7 @@ var table = $('#vehicletable').DataTable({
         {data: 'state_id', name: 'state_id'},
         {data: 'body_type', name: 'body_type'},
         {data: 'make', name: 'make'},
-        {data: 'make', name: 'make'},
+        {data: 'tonnage_capacity', name: 'tonnage_capacity'},
         {data: 'mfg', name: 'mfg'},
         {data: 'rc_image', name: 'rc_image'},
         {data: 'action', name: 'action', orderable: false, searchable: false}

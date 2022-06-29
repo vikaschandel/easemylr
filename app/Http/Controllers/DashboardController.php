@@ -74,22 +74,28 @@ class DashboardController extends Controller
                         ->where('status', 1)
                         ->count();
 
-            $gettoday_weightlifted = ConsignmentItem::where('created_at', '>=', date('Y-m-d'))
+            $today_weightlifted = ConsignmentItem::where('created_at', '>=', date('Y-m-d'))
                         ->where('status', '=', 1)
                         ->sum('weight');
-            $getmonthly_weightlifted = ConsignmentItem::where('created_at', '>=', date('Y-m-01'))
-                        ->where('status', '=', 1)
-                        ->sum('weight');
+            $gettoday_weightlifted = $today_weightlifted/1000; 
 
-            $gettoday_gross_weightlifted = ConsignmentItem::where('created_at', '>=', date('Y-m-d'))
+            $monthly_weightlifted = ConsignmentItem::where('created_at', '>=', date('Y-m-01'))
+                        ->where('status', '=', 1)
+                        ->sum('weight');
+            $getmonthly_weightlifted = $monthly_weightlifted/1000;
+
+            $today_gross_weightlifted = ConsignmentItem::where('created_at', '>=', date('Y-m-d'))
                         ->where('status', '=', 1)
                         ->sum('gross_weight'); 
-            $getmonthly_gross_weightlifted = ConsignmentItem::where('created_at', '>=', date('Y-m-01'))
+            $gettoday_gross_weightlifted = $today_gross_weightlifted/1000; 
+            
+            $monthly_gross_weightlifted = ConsignmentItem::where('created_at', '>=', date('Y-m-01'))
                         ->where('status', '=', 1)
                         ->sum('gross_weight');
+            $getmonthly_gross_weightlifted = $monthly_gross_weightlifted/1000;
         }
 
-        return view('dashboard',['prefix'=>$this->prefix,'gettoday_lr'=>$gettoday_lr,'gettoday_weightlifted'=>$gettoday_weightlifted,'gettoday_gross_weightlifted'=>$gettoday_gross_weightlifted,'getcurrentmonth_lr'=>$getcurrentmonth_lr,'getmonthly_weightlifted'=>$getmonthly_weightlifted,'getmonthly_gross_weightlifted'=>$getmonthly_gross_weightlifted]);
+        return view('dashboard',['prefix'=>$this->prefix,'title'=>$this->title,'gettoday_lr'=>$gettoday_lr,'gettoday_weightlifted'=>$gettoday_weightlifted,'gettoday_gross_weightlifted'=>$gettoday_gross_weightlifted,'getcurrentmonth_lr'=>$getcurrentmonth_lr,'getmonthly_weightlifted'=>$getmonthly_weightlifted,'getmonthly_gross_weightlifted'=>$getmonthly_gross_weightlifted]);
     }
 
     public function ForbiddenPage(Request $request)
