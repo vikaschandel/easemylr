@@ -63,7 +63,7 @@
                             </div>
                             <div class="form-group mb-4">
                                 <label for="exampleFormControlSelect1">Select Location<span class="text-danger">*</span></label>
-                                <select class="form-control tagging" name="branch_id[]" multiple="multiple">
+                                <select class="form-control" name="branch_id[]">
                                     <option value="">Select</option>
                                     <?php 
                                     if(count($branches)>0) {
