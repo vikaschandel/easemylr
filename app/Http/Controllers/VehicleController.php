@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Vehicle;
 use App\Models\Driver;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\VehicleExport;
 use DB;
 use URL;
 use Helper;
@@ -17,6 +19,11 @@ use Storage;
 
 class VehicleController extends Controller
 {
+    public function __construct()
+    {
+      $this->title =  "Vehicles";
+      $this->segment = \Request::segment(2);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -53,7 +60,7 @@ class VehicleController extends Controller
                 ->make(true);
         }
 
-        return view('vehicles.vehicle-list',['prefix'=>$this->prefix]);
+        return view('vehicles.vehicle-list',['prefix'=>$this->prefix,'title'=>$this->title,'segment'=>$this->segment]);
     }
 
     /**
@@ -281,6 +288,12 @@ class VehicleController extends Controller
         $response['success_message'] = 'Vehicle deleted successfully';
         $response['error']           = false;
         return response()->json($response);
+    }
+
+    //download excel/csv
+    public function exportExcel()
+    {
+        return Excel::download(new VehicleExport, 'vehicles.csv');
     }
 
     // not use yet
