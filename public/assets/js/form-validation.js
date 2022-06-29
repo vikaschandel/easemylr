@@ -1263,11 +1263,11 @@ function formSubmitRedirect(form)
               });
 	        }
             if(response.email_error){
-                jQuery("#email-error").remove();
-                jQuery("input[name='email']").focus();
-                jQuery("input[name='email']").parents('.form-group').addClass('has-error');
-                jQuery("input[name='email']").after('<label id="email-error" class="error" for="email">'+response.error_message+'</label>');
-                $("select[name='email']").after('<label id="email-error" class="has-error" for="email">'+response.error_message+'</label>');
+                jQuery("#login_id-error").remove();
+                jQuery("input[name='login_id']").focus();
+                jQuery("input[name='login_id']").parents('.form-group').addClass('has-error');
+                jQuery("input[name='login_id']").after('<label id="login_id-error" class="error" for="login_id">'+response.error_message+'</label>');
+                $("select[name='login_id']").after('<label id="login_id-error" class="has-error" for="login_id">'+response.error_message+'</label>');
             }
 		    var i = 0;
             $.each(response.errors, function( index, value )
