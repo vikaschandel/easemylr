@@ -110,7 +110,7 @@
                                     <label for="pwd">Password:</label>
                                     <i class="bi bi-eye-slash hidePass" id="togglePassword"></i>    
                                     <input type="password" name="password" class="form-control" id="pwd" value="{{ old('password') }}" autocomplete="password" autofocus>
-                                   
+                                    <i class="bi bi-eye-slash hidePass" id="togglePassword"></i>
                                 </div>
                                 <div class="form-group">
                                 <button type="submit" class="jj">Submit</button>
