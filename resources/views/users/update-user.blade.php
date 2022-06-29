@@ -27,6 +27,10 @@
                                 <input type="text" class="form-control" name="name" id="name" placeholder="Name" value="{{old('name',isset($getuser->name)?$getuser->name:'')}}">
                             </div>
                             <div class="form-group mb-4">
+                                <label for="exampleFormControlInput2">Login ID<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="login_id" id="login_id" placeholder="Login ID" value="{{old('login_id',isset($getuser->login_id)?$getuser->login_id:'')}}">
+                            </div>
+                            <div class="form-group mb-4">
                                 <label for="exampleFormControlInput2">Email Address<span class="text-danger">*</span></label>
                                 <input type="email" class="form-control" name="email" id="email" placeholder="Email" value="{{old('email',isset($getuser->email)?$getuser->email:'')}}">
                             </div>

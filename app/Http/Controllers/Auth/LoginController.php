@@ -45,8 +45,9 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
+        // dd($request->all());
         $rules = array(
-            'email'    => 'required|email',
+            'login_id' => 'required',
             'password' => 'required',
         );
 
@@ -59,11 +60,10 @@ class LoginController extends Controller
             $response['errors']      = $errors;
         }
 
-        $remember = $request->has('remember') ? true : false;
+        // $remember = $request->has('remember') ? true : false;
 
-        $credentials = $request->only('email', 'password');
-        if (Auth::attempt(['email' => $request->input('email'), 'password' => $request->input('password')], 
-            $remember))
+        $credentials = $request->only('login_id', 'password');
+        if (Auth::attempt(['login_id' => $request->input('login_id'), 'password' => $request->input('password')]))
         {
             // Authentication passed...
             $getauthuser = Auth::user();
@@ -84,13 +84,7 @@ class LoginController extends Controller
             }
             else if($getauthuser->role_id == 3) {
                 $url = URL::to('/account-manager/dashboard');  
-            }else if($getauthuser->role_id == 4) {
-                $url = URL::to('/inventory/dashboard');  
-            }else if($getauthuser->role_id == 5) {
-                $url = URL::to('/super-admin/dashboard');  
-            }else if($getauthuser->role_id == 6) {
-                $url = URL::to('/manager/dashboard');  
-            }            
+            }          
             // Log::channel('customlog')->info('Activity: User Logged In, Name: '.Auth::user()->name);
             $response['success'] = true;
             $response['page'] = "login";
@@ -99,17 +93,15 @@ class LoginController extends Controller
             $response['redirect_url'] = $url;
         }else{
             $response['success'] = false;
-            $response['error_message'] = "Incorrect email and password";
+            $response['error_message'] = "Incorrect login id and password";
             $response['error'] = true;
             $response['email_error'] = true;
         }
-        // return Response::json($response);
         return response()->json($response);
     }
 
     public function logout(Request $request){
         $user = Auth::user();
-        // dd($user);
         $user_name = "";
         if(isset($user->name))
         {

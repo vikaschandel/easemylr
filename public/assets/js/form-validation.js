@@ -44,8 +44,11 @@ jQuery(document).ready(function(){
     jQuery('#loginform').validate({
         rules:
         {
-            email: {
+            login_id: {
                 required: true,
+            },
+            email: {
+                // required: true,
                 regex: "",
                 email: true,
             },
@@ -55,6 +58,9 @@ jQuery(document).ready(function(){
         },
         messages:
         {
+            login_id: {
+                required: "Please enter login id",
+            },
             email: {
               required: "Email address is required",
              },
@@ -123,6 +129,9 @@ jQuery(document).ready(function(){
             name: {
                 required: true
             },
+            login_id: {
+                required: true
+            },
             email: {
                 required: true,
                 email: true,
@@ -143,6 +152,9 @@ jQuery(document).ready(function(){
         messages: {
             name: {
                 required: "Enter name",
+            },
+            login_id: {
+                required: "Enter login id",
             },
             email: {
                 required: "Enter email",
