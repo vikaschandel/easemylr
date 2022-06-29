@@ -38,13 +38,6 @@ class ConsignerImport implements ToModel,WithHeadingRow
             $state = $getState->id;
         }
 
-        if(empty($row['status'])){
-            $status = '0';
-        }
-        else{
-            $status = $row['status'];
-        }
-
         return new Consigner([
             'nick_name'    => $row['nick_name'],
             'legal_name'   => $row['legal_name'],
@@ -61,7 +54,7 @@ class ConsignerImport implements ToModel,WithHeadingRow
             'district'     => $row['district'],
             'postal_code'  => $row['postal_code'],
             'state_id'     => $state,
-            'status'       => $status,
+            'status'       => 1,
             'created_at'   => time(),
         ]);
     }
