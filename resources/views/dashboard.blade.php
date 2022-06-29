@@ -105,7 +105,7 @@
                                 <div class="w-summary-details">
 
                                     <div class="w-summary-info">
-                                        <h6><span style="font-size: 23px;">{{$gettoday_weightlifted}}(Kgs)</span><span class="summary-count"> </span>Today Net Weight lifted</h6>
+                                        <h6><span style="font-size: 23px;">{{$gettoday_weightlifted}} (MTs)</span><span class="summary-count"> </span>Today Net Weight lifted</h6>
                                         <p class="summary-average"></p>
                                     </div>
                                 </div>
@@ -122,7 +122,7 @@
                                 <div class="w-summary-details">
 
                                     <div class="w-summary-info">
-                                        <h6><span style="font-size: 23px;">{{$getmonthly_weightlifted}}(Kgs)</span><span class="summary-count"> </span>Monthly Net Weight Lifted</h6>
+                                        <h6><span style="font-size: 23px;">{{$getmonthly_weightlifted}} (MTs)</span><span class="summary-count"> </span>Monthly Net Weight Lifted</h6>
                                         <p class="summary-average"></p>
                                     </div>
                                 </div>
@@ -148,7 +148,7 @@
 
                                 <div class="w-summary-details">
                                     <div class="w-summary-info">
-                                        <h6><span style="font-size: 23px;">{{$gettoday_gross_weightlifted}} </span><span class="summary-count"> </span>Today's Gross Weight Lifted</h6>
+                                        <h6><span style="font-size: 23px;">{{$gettoday_gross_weightlifted}} (MTs)</span><span class="summary-count"> </span>Today's Gross Weight Lifted</h6>
                                         <p class="summary-average"></p>
                                     </div>
                                 </div>
@@ -165,7 +165,7 @@
                                 <div class="w-summary-details">
 
                                     <div class="w-summary-info">
-                                        <h6><span style="font-size: 23px;">{{$getmonthly_gross_weightlifted}}</span><span class="summary-count"> </span>Monthly Gross Weight Lifted</h6>
+                                        <h6><span style="font-size: 23px;">{{$getmonthly_gross_weightlifted}} (MTs)</span><span class="summary-count"> </span>Monthly Gross Weight Lifted</h6>
                                         <p class="summary-average"></p>
                                     </div>
                                 </div>
@@ -265,7 +265,7 @@
 
                     <div class="w-shadow-top"></div>
 
-                    <div class="mt-container mx-auto">
+                    <div class="MTs-container mx-auto">
                         <div class="timeline-line">
                             
                             <div class="item-timeline timeline-new">
