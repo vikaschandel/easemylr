@@ -75,9 +75,9 @@
             color: white;
         }
         i#togglePassword {
-    margin-left: 274px;
-    position: relative;
-    bottom: 31px;
+            position: relative;
+            top: 29px;
+            left: 205px;
 }
     </style>
 </head>
@@ -103,11 +103,12 @@
                             <form method="POST" action="{{ route('login') }}" id="loginform" autocomplete="off" class="text-left">
                                 @csrf
                                 <div class="form-group">
-                                    <label for="login">Login iD:</label>
+                                    <label for="login">Login ID:</label>
                                     <input type="text" name="login_id" id="login_id" class="form-control" value="{{ old('login_id') }}" autocomplete="login_id" autofocus>
                                 </div>
                                 <div class="form-group">
                                     <label for="pwd">Password:</label>
+                                    <i class="bi bi-eye-slash hidePass" id="togglePassword"></i>    
                                     <input type="password" name="password" class="form-control" id="pwd" value="{{ old('password') }}" autocomplete="password" autofocus>
                                     <i class="bi bi-eye-slash hidePass" id="togglePassword"></i>
                                 </div>
