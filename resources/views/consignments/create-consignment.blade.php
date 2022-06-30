@@ -54,8 +54,7 @@ label.error{
     margin: 0 auto;
 }
 .cusright {
-    / border-left: 2px solid #ccc; /
-    min-height: 225px;
+    min-height: 238px;
     box-shadow: -7px 0px 6px -8px #000;
 }
 .cuss span {
@@ -196,7 +195,7 @@ label.error{
                 </div>
 
                 <!-- Row -->
-                <div class="row mb-4 cuss" style=" padding: 11px;" style="background:#c4c9d4;">
+                <div class="row mb-4 cuss" >
                     <div class=" col-sm-6">
 
                         <div class="panel info-box panel-white">
