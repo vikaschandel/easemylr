@@ -25,47 +25,60 @@ class DashboardController extends Controller
         $this->prefix = request()->route()->getPrefix();
         $query = ConsignmentNote::query();
         $authuser = Auth::user();
-        $cc = explode(',',$authuser->branch_id);
+        // $cc = explode(',',$authuser->branch_id);
         if($authuser->role_id == 2){
-            // $consignments = ConsignmentNote::whereIn('branch_id',$cc)->orderby('id','DESC')->get();
-        $gettoday_lr = $query->whereIn('branch_id',$cc)
+        $gettoday_lr = $query->where('user_id',$authuser->id)
                         ->whereDate('created_at', '=', Carbon::today())
                         ->where('status', '1')
                         ->count();
         $getcurrentmonth_lr = ConsignmentNote::where('created_at', '>=', date('Y-m-01'))
-                        ->whereIn('branch_id',$cc)
+                        ->where('user_id',$authuser->id)
                         ->where('status', 1)
                         ->count();
-        // $getcurrentmonth_lr = DB::table('consignment_notes')
-        //                 ->whereIn('branch_id',$cc)
-        //                 ->where('status', 1)
-        //                 ->whereYear('created_at', Carbon::now()->year)
-        //                 ->whereMonth('created_at', Carbon::now()->month)
-        //                 ->count();
 
-        $gettoday_weightlifted = ConsignmentItem::where('created_at', '>=', date('Y-m-d'))
-                        ->where('status', '=', 1)
+        // $today_weightlifted = ConsignmentItem::where('created_at', '>=', date('Y-m-d'))
+        //                 ->where('status', '=', 1)
+        //                 ->sum('weight');
+        $today_weightlifted = DB::table('consignment_items')->select('consignment_items.*', 'consignment_notes.id as consignment_id')
+                        ->join('consignment_notes', 'consignment_notes.id', '=', 'consignment_items.consignment_id')
+                        ->where('consignment_items.created_at', '>=', date('Y-m-d'))
+                        ->where('consignment_items.status', '=', 1)
+                        ->where('consignment_notes.user_id',$authuser->id)
                         ->sum('weight');
+        $gettoday_weightlifted = $today_weightlifted/1000;              
 
-        // $gettoday_weightlifted = ConsignmentNote::with(array(
-        //                     'ConsignmentItems' => function($query)
-        //                     {
-        //                         $query->select(DB::raw('sum(weight) as itemweight'))
-        //                         ->where('created_at', '>=', date('Y-m-d'))
-        //                         ->where('status', '=', 1);
-        //                     }))
-        //                     ->get();
-
-        $getmonthly_weightlifted = ConsignmentItem::where('created_at', '>=', date('Y-m-01'))
-                        ->where('status', '=', 1)
+        // $monthly_weightlifted = ConsignmentItem::where('created_at', '>=', date('Y-m-01'))
+        //                 ->where('status', '=', 1)
+        //                 ->sum('weight');
+        $monthly_weightlifted = DB::table('consignment_items')->select('consignment_items.*', 'consignment_notes.id as consignment_id')
+                        ->join('consignment_notes', 'consignment_notes.id', '=', 'consignment_items.consignment_id')
+                        ->where('consignment_items.created_at', '>=', date('Y-m-01'))
+                        ->where('consignment_items.status', '=', 1)
+                        ->where('consignment_notes.user_id',$authuser->id)
                         ->sum('weight');
+        $getmonthly_weightlifted = $monthly_weightlifted/1000;
 
-        $gettoday_gross_weightlifted = ConsignmentItem::where('created_at', '>=', date('Y-m-d'))
-                        ->where('status', '=', 1)
+        // $today_gross_weightlifted = ConsignmentItem::where('created_at', '>=', date('Y-m-d'))
+        //                 ->where('status', '=', 1)
+        //                 ->sum('gross_weight');
+        $today_gross_weightlifted = DB::table('consignment_items')->select('consignment_items.*', 'consignment_notes.id as consignment_id')
+                        ->join('consignment_notes', 'consignment_notes.id', '=', 'consignment_items.consignment_id')
+                        ->where('consignment_items.created_at', '>=', date('Y-m-d'))
+                        ->where('consignment_items.status', '=', 1)
+                        ->where('consignment_notes.user_id',$authuser->id)
                         ->sum('gross_weight');
-        $getmonthly_gross_weightlifted = ConsignmentItem::where('created_at', '>=', date('Y-m-01'))
-                        ->where('status', '=', 1)
+        $gettoday_gross_weightlifted = $today_gross_weightlifted/1000;
+
+        // $monthly_gross_weightlifted = ConsignmentItem::where('created_at', '>=', date('Y-m-01'))
+        //                 ->where('status', '=', 1)
+        //                 ->sum('gross_weight');
+        $monthly_gross_weightlifted = DB::table('consignment_items')->select('consignment_items.*', 'consignment_notes.id as consignment_id')
+                        ->join('consignment_notes', 'consignment_notes.id', '=', 'consignment_items.consignment_id')
+                        ->where('consignment_items.created_at', '>=', date('Y-m-01'))
+                        ->where('consignment_items.status', '=', 1)
+                        ->where('consignment_notes.user_id',$authuser->id)
                         ->sum('gross_weight');
+        $getmonthly_gross_weightlifted = $monthly_gross_weightlifted/1000;
         }else{
             $gettoday_lr = $query->whereDate('created_at', '=', Carbon::today())
                         ->where('status', '1')
