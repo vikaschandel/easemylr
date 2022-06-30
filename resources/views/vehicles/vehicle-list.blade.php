@@ -44,7 +44,7 @@ div.relat {
                                
                             </div>
                             <div class="btn-group relat">
-                            <a style="font-size: 12px; padding: 8px 0px;" href="<?php echo URL::to($prefix.'/'.$segment.'/export/excel'); ?>" class="downloadEx btn btn-primary pull-right" data-action="<?php echo URL::to($prefix.'vehivles/export/excel'); ?>" download>
+                            <a style="font-size: 12px; padding: 8px 0px;" href="<?php echo URL::to($prefix.'/'.$segment.'/export/excel'); ?>" class="downloadEx btn btn-primary pull-right" data-action="<?php echo URL::to($prefix.'vehicles/export/excel'); ?>" download>
                                 <span><i class="fa fa-download"></i> Export</span></a>
                             </div>
                         <thead>
