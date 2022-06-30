@@ -30,7 +30,6 @@ class ConsignmentController extends Controller
     {
       $this->title =  "Consignments";
       $this->segment = \Request::segment(2);
-
     }
     /**
      * Display a listing of the resource.
@@ -151,6 +150,11 @@ class ConsignmentController extends Controller
                 $response['errors']     = $errors;
                 return response()->json($response);
             }
+            if(empty($request->vehicle_id)){
+                $status = '2';
+            }else{
+                $status = '1';
+            }
             
             $consignmentsave['consigner_id']      = $request->consigner_id;
             $consignmentsave['consignee_id']      = $request->consignee_id;
@@ -170,9 +174,9 @@ class ConsignmentController extends Controller
             $consignmentsave['purchase_price']    = $request->purchase_price; 
             $consignmentsave['user_id']           = $authuser->id; 
             $consignmentsave['vehicle_id']        = $request->vehicle_id;
-            $consignmentsave['driver_id']        = $request->driver_id;
+            $consignmentsave['driver_id']         = $request->driver_id;
             $consignmentsave['branch_id']         = $authuser->branch_id;
-            $consignmentsave['status']            = 1;
+            $consignmentsave['status']            = $status;
 
         $saveconsignment = ConsignmentNote::create($consignmentsave);
           
@@ -306,23 +310,6 @@ class ConsignmentController extends Controller
         }
     	return response()->json($response);
     }
-
-    // public function get_cn_details(Request $request){
-    //     $consignment_id = request()->consignment_id;
-    //     $consignment_details = ConsignmentNote::select('consignment_no','consignment_date','dispatch','invoice_no','invoice_date','invoice_amount','total_quantity','total_weight','total_gross_weight','total_freight','transporter_name','vehicle_type','purchase_price')->where(['id'=>$consignment_id])->first();
-    //     if($consignment_details)
-    //     {
-    //         $response['success']         = true;
-    //         $response['success_message'] = "Consignment details fetch successfully";
-    //         $response['error']           = false;
-    //         $response['data']            = $consignment_details;
-    //     }else{
-    //         $response['success']         = false;
-    //         $response['error_message']   = "Can not fetch consignment details please try again";
-    //         $response['error']           = true;
-    //     }
-    //     return response()->json($response);
-    // }
 
     // getConsigndetails
     public function getConsigndetails(Request $request){
@@ -593,6 +580,12 @@ class ConsignmentController extends Controller
             $pdfMerger->save("all.pdf", "download");
             $file = new Filesystem;
             $file->cleanDirectory('pdf');
+    }
+
+    public function unverifiedList(){
+        // dd('unverifiedList');
+        $consignments = Consignment::where('status', '=', '2')->get();
+        return view('consignments.unverified-list', compact('consignments'));
     }
     
 
