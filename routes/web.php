@@ -99,6 +99,7 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth','PermissionCheck']], func
     Route::get('vehicles/export/excel', [VehicleController::class, 'exportExcel']);
 
     Route::resource('consignments', ConsignmentController::class);
+    Route::get('unverified-list', [ConsignmentController::class, 'unverifiedList']);
     Route::post('consignments/update-consignment', [ConsignmentController::class, 'updateConsignment']);
     Route::post('consignments/delete-consignment', [ConsignmentController::class, 'deleteConsignment']);
     Route::post('consignments/get-consign-details', [ConsignmentController::class, 'getConsigndetails']);
