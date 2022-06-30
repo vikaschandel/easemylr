@@ -82,18 +82,23 @@ div.relative {
                                 <td>{{ ucwords($value->nick_name ?? "-") }}</td>
                                 <?php 
                                 $auth_user = Auth::user();
-                                        if($auth_user->role_id == 1) {?>
-                                            <td>{{ ucwords($value->Consigner->nick_name ?? "-") }}</td>
-                                            <?php   } else {?>
-                                            <td>{{ ucwords($value->consigner_id ?? "-") }}</td>
-                                            <?php  }?>
-                                
+                                if($auth_user->role_id == 1) {?>
+                                    <td>{{ ucwords($value->Consigner->nick_name ?? "-") }}</td>
+                                <?php   } else {?>
+                                    <td>{{ ucwords($value->consigner_id ?? "-") }}</td>
+                                <?php  }?>
                                 <td>{{ ucwords($value->contact_name ?? "-") }}</td>
                                 <td>{{ $value->phone ?? "-" }}</td>
                                 <td>{{ $value->postal_code ?? "-" }}</td>
                                 <td>{{ ucwords($value->city ?? "-") }}</td>
                                 <td>{{ ucwords($value->district ?? "-") }}</td>
-                                <td>{{ ucwords($value->State->name ?? "-") }}</td>
+                                <?php 
+                                if($auth_user->role_id == 1) {?>
+                                    <td>{{ ucwords($value->State->name ?? "-") }}</td>
+                                <?php   } else {?>
+                                    <td>{{ ucwords($value->state_id ?? "-") }}</td>
+                                <?php  }?>
+                                <!-- <td>{{ ucwords($value->State->name ?? "-") }}</td> -->
                                 <td>
                                     <a class="btn btn-primary" href="{{url($prefix.'/consignees/'.Crypt::encrypt($value->id).'/edit')}}" ><span><i class="fa fa-edit"></i></span></a>
                                     <a class="btn btn-info" href="{{url($prefix.'/consignees/'.Crypt::encrypt($value->id))}}" ><span><i class="fa fa-eye"></i></span></a>

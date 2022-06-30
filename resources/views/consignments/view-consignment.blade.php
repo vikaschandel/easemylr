@@ -370,7 +370,7 @@ div#hh {
                     }else{
                         var consDate = '';
                     }
-                    // console.log(data.driver_detail?data.driver_detail.name:'');
+                    console.log(data.driver_detail);
                     $('#cons_date').html(consDate);
                     $('#dispatch').html(data.consigner_detail?data.consigner_detail.city:'');
                     $('#cons_invoice_no').html(data.invoice_no);

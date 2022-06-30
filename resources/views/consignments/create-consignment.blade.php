@@ -461,7 +461,7 @@ label.error{
                         <select class="basic sete" id="driver_id" name="driver_id" tabindex="-1">
                             <option value="">Select driver</option>
                             @foreach($drivers as $driver)
-                            <option value="{{$vehicle->id}}">{{ucfirst($driver->name) ?? '-'}}
+                            <option value="{{$driver->id}}">{{ucfirst($driver->name) ?? '-'}}
                             </option>
                             @endforeach
                         </select>
