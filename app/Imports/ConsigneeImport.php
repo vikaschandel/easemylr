@@ -22,7 +22,7 @@ class ConsigneeImport implements ToModel,WithHeadingRow
     public function model(array $row)
     {
         $getState = State::where('name',$row['state'])->first();
-        $getLocation = Location::where('name',$row['location'])->first();
+        //$getLocation = Location::where('name',$row['location'])->first();
         $getConsigner = Consigner::where('nick_name',$row['consigner'])->first();
         //$getUser   = User::where('name',$row['user'])->first();
         $getuser = Auth::user();
@@ -41,12 +41,12 @@ class ConsigneeImport implements ToModel,WithHeadingRow
             $consigner = $getConsigner->id;
         }
 
-        if(empty($getLocation)){
-            $location = '';
-        }
-        else{
-            $location = $getLocation->id;
-        }
+        // if(empty($getLocation)){
+        //     $location = '';
+        // }
+        // else{
+        //     $location = $getLocation->id;
+        // }
 
         if(empty($getState)){
             $state = '';
@@ -65,7 +65,6 @@ class ConsigneeImport implements ToModel,WithHeadingRow
         return new Consignee([
             'nick_name'         => $row['nick_name'],
             'legal_name'        => $row['legal_name'],
-            'branch_id'         => $location,
             'user_id'           => $getuser->id,
             'consigner_id'      => $consigner,
             'dealer_type'       => $dealer_type,
