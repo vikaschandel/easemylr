@@ -36,8 +36,9 @@ class ConsigneeController extends Controller
         if($authuser->role_id == 2){
             $consignees = DB::table('consignees')->select('consignees.*', 'consigners.nick_name as consigner_id')
                         ->join('consigners', 'consigners.id', '=', 'consignees.consigner_id')
+                        ->where('consigners.branch_id', $cc)
                         ->get();
-         //echo "<pre>"; print_r($consignees); die;
+        //  echo "<pre>"; print_r($consignees); die;
         }else{
             $consignees = $query->orderBy('id','DESC')->with(['Consigner'])->get();
         }
