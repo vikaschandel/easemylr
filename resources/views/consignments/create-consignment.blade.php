@@ -2,11 +2,13 @@
 @section('content')
 <style>
     .form-seteing {
-        width: 224px;
-         margin-top: 10px; 
-        height: 29px;
-        background-color: #f5f6f7;
-        border: none;
+        width: 100%;
+    margin-top: 10px;
+    height: 40px;
+    background-color: #f5f6f7;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
     }
     .form-group label, label {
     font-size: 12px; 
@@ -30,23 +32,64 @@ label.error{
     color: red;
     font-weight: bold;
 }
-
-
-   
-    .seteing {
+.seteing {
     width: 130px;
-    
+    background: #4361ee;
+    height: 40px;
+    border: none;
+    border-radius: 5px;
+    padding: 0 10px;
+    color: #fff;
 }
-.sete{
+.sete {
     width: 170px;
-    
+    height: 40px;
+    border: none;
+    background: #f1f2f3 !important;
+    border-radius: 5px;
 }
-
-   
+.row.cuss {
+    box-shadow: 1px 0px 9px 1px #3b3f5c;
+    width: 100%;
+    margin: 0 auto;
+}
+.cusright {
+    / border-left: 2px solid #ccc; /
+    min-height: 225px;
+    box-shadow: -7px 0px 6px -8px #000;
+}
+.cuss span {
+    margin-bottom: 0px !important;
+}
+.row.cuss {
+    box-shadow: 1px 0px 7px 1px #3b3f5c4f;
+    width: 100%;
+    margin: 0 auto;
+}
+.select2-container .select2-selection--single .select2-selection__rendered {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    border: none;
+    color: #3b3f5c !important;
+    font-size: 15px;
+    padding: 8px 10px;
+    letter-spacing: 1px;
+    background-color: #f1f2f3 !important;
+    height: calc(1.4em + 1.4rem + 2px);
+    / padding: 0.75rem 1.25rem; /
+    border-radius: 6px;
+    box-shadow: none;
+    height: 40px;
+}
+.row.cuss.fuss {
+    padding: 15px 0;
+}
 </style>
 <div class="layout-px-spacing">
-    <div class="row layout-top-spacing" style="background-color: aliceblue;">
-        <div class=" col-sm-12  layout-spacing">
+    <div class="row layout-top-spacing">
+        <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
         <div class="page-header">
                 <nav class="breadcrumb-one" aria-label="breadcrumb">
                     <ol class="breadcrumb">
@@ -55,16 +98,16 @@ label.error{
                     </ol>
                 </nav>
             </div>
-
+            <div class="widget-content widget-content-area br-6">
             <form class="general_form" method="POST" action="{{url($prefix.'/consignments')}}" id="createconsignment"
                 style="margin: auto; ">
-                <div class="row">
+                <div class="row cuss">
                     <div class="col-sm-4">
 
                         <div class="panel info-box panel-white">
                             <div class="panel-body" style="padding: 10px;">
 
-                                <div class="row con1 form-group" style="background: white; padding: 0px;">
+                                <div class="row con1" style="background: white; padding: 0px;">
                                     <div class=" col-sm-3" style="margin-top:3px;" >
                                         <label class=" control-label" style="font-weight: bold;">Select
                                             Consignor<span class="text-danger">*</span></label>
@@ -81,7 +124,7 @@ label.error{
                                         
 
                                     </div>
-                                    <div class="container" style="padding-top:10px">
+                                    <div class="container" style="padding-top:10px"> 
                                         <div id="consigner_address">
                                             <!-- <strong>FRONTIER AGROTECH PRIVATE LIMITED </strong><br/>KHASRA NO-390, RELIANCE ROAD <br/>GRAM BHOVAPUR <br/>HAPUR-245304 <br/><strong>GST No. : </strong>09AACCF3772B1ZU<br/><strong>Phone No. : </strong>9115115612 -->
                                         </div>
@@ -153,7 +196,7 @@ label.error{
                 </div>
 
                 <!-- Row -->
-                <div class="row" style=" padding: 11px;" style="background:#c4c9d4;">
+                <div class="row mb-4 cuss" style=" padding: 11px;" style="background:#c4c9d4;">
                     <div class=" col-sm-6">
 
                         <div class="panel info-box panel-white">
@@ -219,7 +262,7 @@ label.error{
 
                     </div>
                     <!-- .////////////////////////////////////////////// -->
-                    <div class=" col-sm-6" style="margin-bottom:10px;">
+                    <div class=" col-sm-6 cusright" style="margin-bottom:10px;">
 
                         <div class="panel info-box panel-white">
                             <div class="panel-body">
@@ -390,7 +433,7 @@ label.error{
                     </div>
                 </div>
 
-                <div class="row" style="margin-top: 15px;">
+                <div class="row cuss fuss" style="margin-top: 15px;">
                     <div class=" col-sm-1">
                         <label for="exampleFormControlInput2">Transporter <br>Name<span class="text-danger">*</span></label>
                     </div>
@@ -432,14 +475,14 @@ label.error{
                     </div>
                     
                     <div class=" col-sm-3">
-                        <button type="submit" class="mt-4 mb-4 btn btn-primary">Submit</button>
-                        <a class="btn btn-primary" href="{{url($prefix.'/consignments') }}"> Back</a>
+                        <button type="submit" class="mt-2 btn btn-primary">Submit</button>
+                        <a class="mt-2 btn btn-primary" href="{{url($prefix.'/consignments') }}"> Back</a>
                     </div>
                 </div><!-- Row -->
 
                 
             </form>
-
+          </div>
 
         </div>
     </div>

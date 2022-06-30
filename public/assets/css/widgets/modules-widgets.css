@@ -2176,10 +2176,10 @@
         stroke-width: 1px; }
     .widget-four .widget-content .summary-list:nth-child(1) .w-icon svg {
       color: #805dca;
-      fill: rgba(92, 26, 195, 0.16); }
+      fill: rgba(255, 255, 255, 0.16); }
     .widget-four .widget-content .summary-list:nth-child(2) .w-icon svg {
-      color: #2196f3;
-      fill: rgba(33, 150, 243, 0.16); }
+      color: #ffffff;
+      fill: rgba(255, 255, 255, 0.16); }
     .widget-four .widget-content .summary-list:nth-child(3) .w-icon svg {
       color: #e2a03f;
       fill: rgba(226, 160, 63, 0.16); }
