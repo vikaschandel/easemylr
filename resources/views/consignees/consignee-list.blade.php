@@ -80,7 +80,14 @@ div.relative {
                             <tr>
                                 <td>{{ ++$i }}</td>
                                 <td>{{ ucwords($value->nick_name ?? "-") }}</td>
-                                <td>{{ ucwords($value->consigner_id ?? "-") }}</td>
+                                <?php 
+                                $auth_user = Auth::user();
+                                        if($auth_user->role_id == 1) {?>
+                                            <td>{{ ucwords($value->Consigner->nick_name ?? "-") }}</td>
+                                            <?php   } else {?>
+                                            <td>{{ ucwords($value->consigner_id ?? "-") }}</td>
+                                            <?php  }?>
+                                
                                 <td>{{ ucwords($value->contact_name ?? "-") }}</td>
                                 <td>{{ $value->phone ?? "-" }}</td>
                                 <td>{{ $value->postal_code ?? "-" }}</td>
