@@ -34,11 +34,10 @@ class ConsigneeController extends Controller
         $authuser = Auth::user();
         $cc = explode(',',$authuser->branch_id);
         if($authuser->role_id == 2){
-            $consignees = $query->select('*')
-                            ->join('consigners', 'consigners.id', '=', 'consignees.consigner_id')
-                            ->get();
-                // echo "<pre>"; print_r($consignees); die;
-            // $consignees = $query->where('user_id',$authuser->id)->orderBy('id','DESC')->with('Consigner')->get();
+            $consignees = DB::table('consignees')->select('consignees.*', 'consigners.nick_name as consigner_id')
+                        ->join('consigners', 'consigners.id', '=', 'consignees.consigner_id')
+                        ->get();
+         //echo "<pre>"; print_r($consignees); die;
         }else{
             $consignees = $query->orderBy('id','DESC')->with(['Consigner'])->get();
         }
