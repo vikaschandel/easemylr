@@ -582,10 +582,12 @@ class ConsignmentController extends Controller
             $file->cleanDirectory('pdf');
     }
 
-    public function unverifiedList(){
-        // dd('unverifiedList');
-        $consignments = Consignment::where('status', '=', '2')->get();
-        return view('consignments.unverified-list', compact('consignments'));
+    public function unverifiedList(Request $request){
+        $this->prefix = request()->route()->getPrefix();
+        $consignments = ConsignmentNote::where('status', '=', '2')->get();
+        
+        return view('consignments.unverified-list',['consignments'=>$consignments,'prefix'=>$this->prefix,'title'=>$this->title])
+        ->with('i', ($request->input('page', 1) - 1) * 5);
     }
     
 
