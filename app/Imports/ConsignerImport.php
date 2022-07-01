@@ -20,7 +20,7 @@ class ConsignerImport implements ToModel,WithHeadingRow
     */
     public function model(array $row)
     {
-       echo "<pre>"; print_r($row);
+    //    echo "<pre>"; print_r($row);
         $getState = State::where('name',$row['state'])->first();
         $getLocation = Location::where('name',$row['location'])->first();
 
@@ -57,6 +57,6 @@ class ConsignerImport implements ToModel,WithHeadingRow
             'status'       => 1,
             'created_at'   => time(),
         ]);
-        die;
+        // die;
     }
 }
