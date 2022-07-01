@@ -20,26 +20,25 @@ class ImportCsvController extends Controller
 
     public function uploadCsv(Request $request)
     {
-        // print_r($request->all()); 
         $this->prefix = request()->route()->getPrefix();
         if($request->hasFile('consigneesfile')){
             $data = Excel::import(new ConsigneeImport,request()->file('consigneesfile'));
-            $url  =   URL::to($this->prefix.'/consignees');
+            $url  = URL::to($this->prefix.'/consignees');
             $message = 'Consignees Imported Successfully';
         }
         if($request->hasFile('vehiclesfile')){
             $data = Excel::import(new VehiclesImport,request()->file('vehiclesfile'));
-            $url  =   URL::to($this->prefix.'/vehicles');
+            $url  = URL::to($this->prefix.'/vehicles');
             $message = "Vehicles Imported Successfully";
         }
         if($request->hasFile('consignersfile')){
             $data = Excel::import(new ConsignerImport,request()->file('consignersfile'));
-            $url  =   URL::to($this->prefix.'/consigners');
+            $url  = URL::to($this->prefix.'/consigners');
             $message = 'Consigners Uploaded Successfully';
         }
         if($request->hasFile('driversfile')){
             $data = Excel::import(new DriverImport,request()->file('driversfile'));
-            $url  =   URL::to($this->prefix.'/drivers');
+            $url  = URL::to($this->prefix.'/drivers');
             $message = 'Drivers Uploaded Successfully';
         }
         if($data){            
