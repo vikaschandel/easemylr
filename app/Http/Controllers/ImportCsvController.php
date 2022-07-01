@@ -34,7 +34,7 @@ class ImportCsvController extends Controller
         }
         if($request->hasFile('consignersfile')){
             $data = Excel::import(new ConsignerImport,request()->file('consignersfile'));
-            // $url  =   URL::to($this->prefix.'/consigners');
+            $url  =   URL::to($this->prefix.'/consigners');
             $message = 'Consigners Uploaded Successfully';
         }
         if($request->hasFile('driversfile')){
@@ -47,7 +47,7 @@ class ImportCsvController extends Controller
             $response['page']       = 'bulk-imports';
             $response['error']      = false;
             $response['success_message'] = $message;
-            // $response['redirect_url'] = $url;
+            $response['redirect_url'] = $url;
         }else{
             $response['success']       = false;
             $response['error']         = true;
