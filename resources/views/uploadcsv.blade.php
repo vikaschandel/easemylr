@@ -64,7 +64,7 @@
                         <input type="file" name="driversfile" id="driverfile" class="driverfile"> 
                     </div>
                     <div class="col-lg-4 col-md-9 col-sm-12">
-                    <a class="btn btn-primary" href="#">Sample Download</a> 
+                    <a class="btn btn-primary" href="{{url($prefix.'/sample-driver')}}">Sample Download</a> 
                     </div>
                 </div>
                 <button type="submit" name="" class="mt-4 mb-4 btn btn-primary">Submit</button>
