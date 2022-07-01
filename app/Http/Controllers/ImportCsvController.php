@@ -34,7 +34,7 @@ class ImportCsvController extends Controller
         }
         if($request->hasFile('consignersfile')){
             $data = Excel::import(new ConsignerImport,request()->file('consignersfile'));
-            $url  =   URL::to($this->prefix.'/consigners');
+            // $url  =   URL::to($this->prefix.'/consigners');
             $message = 'Consigners Uploaded Successfully';
         }
         if($request->hasFile('driversfile')){
