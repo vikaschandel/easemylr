@@ -60,22 +60,25 @@ class ImportCsvController extends Controller
     public function consigneesSampleDownload()
     {
         $path = public_path('sample/consignee_bulkimport.xlsx');
-        return response()->download($path);      
-
+        return response()->download($path);     // use download() helper to download the file
     }
 
     public function consignerSampleDownload()
     {
         $path = public_path('sample/consigner_bulk_import.xlsx');
-        return response()->download($path);     
-
+        return response()->download($path);   
     }
 
     public function vehicleSampleDownload()
     {
         $path = public_path('sample/vehicle_bulkimport.xlsx');
-        return response()->download($path);     
+        return response()->download($path); 
+    }
 
+    public function driverSampleDownload()
+    {
+        $path = public_path('sample/driver_bulkimport.xlsx');
+        return response()->download($path);   
     }
 
 
