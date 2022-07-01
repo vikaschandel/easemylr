@@ -27,7 +27,6 @@ class DashboardController extends Controller
         $authuser = Auth::user();
         // $cc = explode(',',$authuser->branch_id);
         if($authuser->role_id == 2){
-            // dd(date('Y-m-d'));
         $gettoday_lr = $query->where('user_id',$authuser->id)
                         ->whereDate('created_at', '=', date('Y-m-d'))
                         ->where('status', '1')

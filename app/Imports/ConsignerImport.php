@@ -36,7 +36,6 @@ class ConsignerImport implements ToModel,WithHeadingRow
         else{
             $state = $getState->id;
         }
-$phn[]=$row['phone'];
         return new Consigner([
             'nick_name'    => $row['nick_name'],
             'legal_name'   => $row['legal_name'],
@@ -56,6 +55,5 @@ $phn[]=$row['phone'];
             'status'       => 1,
             'created_at'   => time(),
         ]);
-        echo "<pre>"; print_r($phn); die;
     }
 }
