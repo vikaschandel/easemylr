@@ -508,7 +508,7 @@ class ConsignmentController extends Controller
                                 $html .= '<p> N/A </p>';
                             }
                             if(@$data['driver_detail']['name'] != ''){
-                                $html .= '<p>'.$data['driver_detail']['name'].'</p>';
+                                $html .= '<p>'.ucwords($data['driver_detail']['name']).'</p>';
                             }else{
                                 $html .= '<p> N/A </p>';
                             }
