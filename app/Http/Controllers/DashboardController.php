@@ -27,10 +27,12 @@ class DashboardController extends Controller
         $authuser = Auth::user();
         // $cc = explode(',',$authuser->branch_id);
         if($authuser->role_id == 2){
+            // dd(date('Y-m-d'));
         $gettoday_lr = $query->where('user_id',$authuser->id)
-                        ->whereDate('created_at', '=', Carbon::today())
+                        ->whereDate('created_at', '=', date('Y-m-d'))
                         ->where('status', '1')
-                        ->count();
+                        ->toSql();
+                        // dd($gettoday_lr);
         $getcurrentmonth_lr = ConsignmentNote::where('created_at', '>=', date('Y-m-01'))
                         ->where('user_id',$authuser->id)
                         ->where('status', 1)
