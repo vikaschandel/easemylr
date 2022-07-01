@@ -47,7 +47,7 @@ class ImportCsvController extends Controller
             $response['page']       = 'bulk-imports';
             $response['error']      = false;
             $response['success_message'] = $message;
-            $response['redirect_url'] = $url;
+            // $response['redirect_url'] = $url;
         }else{
             $response['success']       = false;
             $response['error']         = true;
