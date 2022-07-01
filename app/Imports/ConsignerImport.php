@@ -41,7 +41,7 @@ class ConsignerImport implements ToModel,WithHeadingRow
             'legal_name'   => $row['legal_name'],
             'gst_number'   => $row['gst_number'],
             'contact_name' => $row['contact_name'],
-            'phone'        => $row['phone'],
+            'phone'        => (float)$row['phone'],
             'branch_id'    => $location,
             'email'        => $row['email'],
             'address_line1'=> $row['address_line1'],

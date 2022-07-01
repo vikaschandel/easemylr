@@ -7,10 +7,7 @@ use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
-use App\Models\Consignee;
-use App\Models\Consigner;
-use App\Models\Location;
-use App\Models\State;
+use App\Models\Driver;
 
 class DriverImport implements ToModel,WithHeadingRow
 {
@@ -19,13 +16,6 @@ class DriverImport implements ToModel,WithHeadingRow
     */
     public function model(array $row)
     {
-        if(empty($row['status'])){
-            $status = '0';
-        }
-        else{
-            $status = $row['status'];
-        }
-
         return new Driver([
             'name'           => $row['name'],
             'email'          => $row['email'],
@@ -37,16 +27,16 @@ class DriverImport implements ToModel,WithHeadingRow
 
         ]);
 
-        return new Bank([
-            'broker_id'      => $row['broker_id'],
-            'bank_name'      => $row['bank_name'],
-            'branch_name'    => $row['branch_name'],
-            'ifsc'           => $row['ifsc'],
-            'account_number' => $row['account_number'],
-            'account_holdername' => $row['account_holdername'],
-            'status'         => "1",
-            'created_at'     => time(),
-        ]);
+        // return new Bank([
+        //     'broker_id'      => $row['broker_id'],
+        //     'bank_name'      => $row['bank_name'],
+        //     'branch_name'    => $row['branch_name'],
+        //     'ifsc'           => $row['ifsc'],
+        //     'account_number' => $row['account_number'],
+        //     'account_holdername' => $row['account_holdername'],
+        //     'status'         => "1",
+        //     'created_at'     => time(),
+        // ]);
 
     }
 }

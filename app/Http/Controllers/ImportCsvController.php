@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Imports\ConsigneeImport;
 use App\Imports\VehiclesImport;
 use App\Imports\ConsignerImport;
+use App\Imports\DriverImport;
 use Maatwebsite\Excel\Facades\Excel;
 use URL;
 
