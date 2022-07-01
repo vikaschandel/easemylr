@@ -18,8 +18,7 @@ class DriverImport implements ToModel,WithHeadingRow
     {
         return new Driver([
             'name'           => $row['name'],
-            'email'          => $row['email'],
-            'phone'          => $row['phone'],
+            'phone'          => (float)$row['phone'],
             'license_number' => $row['license_number'],
             'license_image'  => $row['license_image'],
             'status'         => "1",
