@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Imports\ConsigneeImport;
 use App\Imports\VehiclesImport;
 use App\Imports\ConsignerImport;
+use App\Imports\DriverImport;
 use Maatwebsite\Excel\Facades\Excel;
 use URL;
 
@@ -23,22 +24,22 @@ class ImportCsvController extends Controller
         $this->prefix = request()->route()->getPrefix();
         if($request->hasFile('consigneesfile')){
             $data = Excel::import(new ConsigneeImport,request()->file('consigneesfile'));
-            $url  =   URL::to($this->prefix.'/consignees');
+            $url  = URL::to($this->prefix.'/consignees');
             $message = 'Consignees Imported Successfully';
         }
         if($request->hasFile('vehiclesfile')){
             $data = Excel::import(new VehiclesImport,request()->file('vehiclesfile'));
-            $url  =   URL::to($this->prefix.'/vehicles');
+            $url  = URL::to($this->prefix.'/vehicles');
             $message = "Vehicles Imported Successfully";
         }
         if($request->hasFile('consignersfile')){
             $data = Excel::import(new ConsignerImport,request()->file('consignersfile'));
-            $url  =   URL::to($this->prefix.'/consigners');
+            $url  = URL::to($this->prefix.'/consigners');
             $message = 'Consigners Uploaded Successfully';
         }
         if($request->hasFile('driversfile')){
             $data = Excel::import(new DriverImport,request()->file('driversfile'));
-            $url  =   URL::to($this->prefix.'/drivers');
+            $url  = URL::to($this->prefix.'/drivers');
             $message = 'Drivers Uploaded Successfully';
         }
         if($data){            
@@ -59,22 +60,25 @@ class ImportCsvController extends Controller
     public function consigneesSampleDownload()
     {
         $path = public_path('sample/consignee_bulkimport.xlsx');
-        return response()->download($path);      
-
+        return response()->download($path);     // use download() helper to download the file
     }
 
     public function consignerSampleDownload()
     {
         $path = public_path('sample/consigner_bulk_import.xlsx');
-        return response()->download($path);     
-
+        return response()->download($path);   
     }
 
     public function vehicleSampleDownload()
     {
         $path = public_path('sample/vehicle_bulkimport.xlsx');
-        return response()->download($path);     
+        return response()->download($path); 
+    }
 
+    public function driverSampleDownload()
+    {
+        $path = public_path('sample/driver_bulkimport.xlsx');
+        return response()->download($path);   
     }
 
 

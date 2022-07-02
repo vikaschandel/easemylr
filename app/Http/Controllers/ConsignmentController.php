@@ -335,7 +335,7 @@ class ConsignmentController extends Controller
         $branch_add = json_decode(json_encode($b_add), true);
         
         $cn_id = $request->id;
-        $getdata = ConsignmentNote::where('id',$cn_id)->with('ConsignmentItems','ConsignerDetail','ConsigneeDetail','ShiptoDetail','VehicleDetail')->first();
+        $getdata = ConsignmentNote::where('id',$cn_id)->with('ConsignmentItems','ConsignerDetail','ConsigneeDetail','ShiptoDetail','VehicleDetail','DriverDetail')->first();
        
         $data = json_decode(json_encode($getdata), true);
         // dd($data['consignment_date']);
@@ -470,6 +470,7 @@ class ConsignmentController extends Controller
                                 <p><b>Invoice Date</b></p>
                                 <p><b>Value INR</b></p>
                                 <p><b>Vehicle No.</b></p>
+                                <p><b>Driver Name</b></p>
                             </td>
                             <td width="30%">';
                             if(@$data['consignment_no'] != ''){
@@ -504,6 +505,11 @@ class ConsignmentController extends Controller
                             }
                             if(@$data['vehicle_detail']['regn_no'] != ''){
                                 $html .= '<p>'.$data['vehicle_detail']['regn_no'].'</p>';
+                            }else{
+                                $html .= '<p> N/A </p>';
+                            }
+                            if(@$data['driver_detail']['name'] != ''){
+                                $html .= '<p>'.ucwords($data['driver_detail']['name']).'</p>';
                             }else{
                                 $html .= '<p> N/A </p>';
                             }

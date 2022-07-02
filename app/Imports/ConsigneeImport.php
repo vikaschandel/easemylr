@@ -54,7 +54,7 @@ class ConsigneeImport implements ToModel,WithHeadingRow
             'dealer_type'       => $dealer_type,
             'gst_number'        => $row['gst_number'],
             'contact_name'      => $row['contact_name'],
-            'phone'             => $row['phone'],
+            'phone'             => (float)$row['phone'],
             'email'             => $row['email'],
             'address_line1'     => $row['address_line1'],
             'address_line2'     => $row['address_line2'],

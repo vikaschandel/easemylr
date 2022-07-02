@@ -20,7 +20,6 @@ class ConsignerImport implements ToModel,WithHeadingRow
     */
     public function model(array $row)
     {
-        // dd($row);
         $getState = State::where('name',$row['state'])->first();
         $getLocation = Location::where('name',$row['location'])->first();
 
@@ -37,13 +36,12 @@ class ConsignerImport implements ToModel,WithHeadingRow
         else{
             $state = $getState->id;
         }
-
         return new Consigner([
             'nick_name'    => $row['nick_name'],
             'legal_name'   => $row['legal_name'],
             'gst_number'   => $row['gst_number'],
             'contact_name' => $row['contact_name'],
-            'phone'        => $row['phone'],
+            'phone'        => (float)$row['phone'],
             'branch_id'    => $location,
             'email'        => $row['email'],
             'address_line1'=> $row['address_line1'],

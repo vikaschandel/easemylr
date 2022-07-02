@@ -376,7 +376,12 @@ div#hh {
                     $('#cons_invoice_no').html(data.invoice_no);
 
                     $('#vehicle_no').html(data.vehicle_detail?data.vehicle_detail.regn_no:'');
-                    $('#driver_name').html(data.driver_detail?data.driver_detail.name:'');
+                    var driver_name = data.driver_detail?data.driver_detail.name:'';
+                    var driver_name = driver_name.toLowerCase().replace(/\b[a-z]/g, function(letter) {
+                        return letter.toUpperCase();
+                    });
+                    $('#driver_name').html(driver_name);
+                    
                     // $('#driver_no').html(data.driver_mobile_no);
                     $('#invoice_amount').html(data.invoice_amount);
 
