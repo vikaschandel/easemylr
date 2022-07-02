@@ -16,7 +16,7 @@
                         </nav>
                     </div>
                     <div class="col-md-9 text-right">
-                        <a href="{{url($prefix.'/consignees/'.Crypt::encrypt($getconsignee->id).'/edit')}}" class="btn my-3" href="" style="background:#fff;" title="Edit Consignee"><i class="fa fa-edit m-0"></i></a>
+                        <!-- <a href="{{url($prefix.'/consignees/'.Crypt::encrypt($getconsignee->id).'/edit')}}" class="btn my-3" href="" style="background:#fff;" title="Edit Consignee"><i class="fa fa-edit m-0"></i></a> -->
                     </div>
                 </div>
                 <div class="col-lg-12 col-12 layout-spacing">
@@ -125,6 +125,7 @@
                                     
                             </tbody>
                         </table>  
+                     <a href="{{url($prefix.'/consignees/'.Crypt::encrypt($getconsignee->id).'/edit')}}" class="btn btn-primary my-3" href="" style="background:#fff;" title="Edit Consignee"><i class="fa fa-edit m-0"></i>Edit</a>
                         <a class="btn btn-primary" href="{{url($prefix.'/consignees')}}"> Back</a>
                     </div>
                 </div>
