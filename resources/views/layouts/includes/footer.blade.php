@@ -84,5 +84,27 @@
             "lengthMenu": [7, 10, 20, 50],
             "pageLength": 25
         } );
+////////////////////////////////////////////////////////
+        $("#select_all").click(function () {
+                    if($(this).is(':checked')){
+                     
+                        $('.ddd').prop('checked', true);
+                 }else{
+                   $('.ddd').prop('checked', false);
+              }
+                });
+                $(function () {
+                    $('#launch_model').click(function () {
+                        var selectedID = [];
+                $(':checkbox[name="checked_consign[]"]:checked').each (function () {
+                    selectedID.push(this.value);
+                });
+
+                        //alert(selectedID );
+                        $('#consignment_id').val(selectedID);
+                    }); 
+                });
+                ///////////////////////////
+               
     </script>
     <!-- END PAGE LEVEL SCRIPTS -->
