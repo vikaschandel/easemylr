@@ -592,8 +592,8 @@ class ConsignmentController extends Controller
         $this->prefix = request()->route()->getPrefix();
         $consignments = ConsignmentNote::where('status', '=', '2')->get();
         $vehicles = Vehicle::where('status','1')->select('id','regn_no')->get();
-        
-        return view('consignments.unverified-list',['consignments'=>$consignments,'prefix'=>$this->prefix,'title'=>$this->title,'vehicles'=>$vehicles])
+        $drivers = Driver::where('status','1')->select('id','name','phone')->get();
+        return view('consignments.unverified-list',['consignments'=>$consignments,'prefix'=>$this->prefix,'title'=>$this->title,'vehicles'=>$vehicles ,'drivers'=>$drivers])
         ->with('i', ($request->input('page', 1) - 1) * 5);
     }
     
@@ -602,8 +602,9 @@ class ConsignmentController extends Controller
           $consignerId = $request->consignment_id;
           $cc = explode(',', $consignerId);
           $addvechileNo = $request->vehicle_id;
+          $adddriverId = $request->driver_id;
 
-          $consigner = DB::table('consignment_notes')->whereIn('id',$cc)->update(['vehicle_id'=>$addvechileNo,'status'=>'1']);
+          $consigner = DB::table('consignment_notes')->whereIn('id',$cc)->update(['vehicle_id'=>$addvechileNo,'status'=>'1', 'driver_id'=>$adddriverId]);
            //echo'hii';
 
            $consignees = DB::table('consignment_notes')->select('consignment_notes.*', 'consigners.nick_name as consigner_id','consignees.nick_name as consignee_id','vehicles.regn_no as vehicle_id','consignees.city as city','consignees.postal_code as pincode','drivers.name as driver_id','drivers.phone as driver_phone' )
@@ -632,8 +633,18 @@ class ConsignmentController extends Controller
 
            }
                                                                        
-           $transaction_details = json_encode($data);  
-           $transaction = DB::table('transaction_sheets')->insert(['transaction_details'=>$transaction_details,'vehicle_no' => $vehicle_no ,'driver_name' => $driverName,'driver_no' => $driverPhone]);
+           $transaction_details = json_encode($data); 
+
+           $no_of_digit = 5;
+           $drs = DB::table('transaction_sheets')->select('drs_no')->latest('drs_no')->first();
+           $drs_no = json_decode(json_encode($drs), true);
+           if(empty($drs_no) || $drs_no == null){
+            $drs_no['drs_no'] = 0;
+           }
+            $number = $drs_no['drs_no'] + 1;
+            $drs_no = str_pad($number, $no_of_digit, "0", STR_PAD_LEFT);
+           
+           $transaction = DB::table('transaction_sheets')->insert(['transaction_details'=>$transaction_details,'vehicle_no' => $vehicle_no ,'driver_name' => $driverName,'driver_no' => $driverPhone, 'drs_no' => $drs_no]);
 
             $response['success'] = true;
             $response['success_message'] = "Data Imported successfully";
@@ -670,6 +681,8 @@ class ConsignmentController extends Controller
        // echo'<pre>'; print_r($simplyfy['vehicle_no']); die;
        $pay = url('assets/img/LOGO_Frowarders.jpg');
        //echo'<pre>'; print_r($pay); die;
+    //    <img src="" alt="logo" alt="" width="80" height="70">
+    $drsDate = date('d-m-Y', strtotime($simplyfy['created_at']));
        $html = '<!DOCTYPE html>
        <html lang="en">
        <head>
@@ -681,9 +694,25 @@ class ConsignmentController extends Controller
        <body>
        <div class="row">
                            <div class="col-sm-12">
-                           <img src="'.$pay.'" alt="logo" alt="" width="80" height="70">
+                        
                                <h1 style="text-align:center;">Delivery Run Sheet</h1>
                                <table>
+                               <tr>
+                               <td>
+                                   <label>DRS No :</label>
+                               </td>
+                               <td >
+                                   <label id="sss">DRS-'.$simplyfy['drs_no'].'</label>
+                               </td>
+                           </tr>
+                           <tr>
+                           <td>
+                               <label>Date:</label>
+                           </td>
+                           <td >
+                               <label id="sss">'.$drsDate.'</label>
+                           </td>
+                       </tr>
                                    <tr>
                                        <td>
                                            <label>Vehicle No :</label>
@@ -697,14 +726,14 @@ class ConsignmentController extends Controller
                                            <label>Driver Name :</label>
                                        </td>
                                        <td style="width: 157px;">
-                                           <label id="ppp" >'.$simplyfy['driver_name'].'</label>
+                                           <label id="ppp" >'.@$simplyfy['driver_name'].'</label>
                                        </td>
        
                                        <td >
                                            <label>Driver Number :</label>
                                        </td>
                                        <td width: 131px;>
-                                           <label id="nnn">'.$simplyfy['driver_no'].'</label>
+                                           <label id="nnn">'.@$simplyfy['driver_no'].'</label>
                                        </td>
                                    </tr>
                                </table>

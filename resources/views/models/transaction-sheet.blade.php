@@ -24,6 +24,14 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <table>
+                        <tr>
+                                <td width: 131px;>
+                                    <label>DRS No :</label>
+                                </td>
+                                <td width: 131px;>
+                                    <label id="drsdate"></label>
+                                </td>
+                            </tr>
                             <tr>
                                 <td width: 131px;>
                                     <label>Vehicle No :</label>

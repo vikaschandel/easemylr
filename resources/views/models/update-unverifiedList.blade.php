@@ -15,7 +15,8 @@
                     value="">
                     <div class="form-group my-3">
                             <label for="location_name">Vehicle No.</label>
-                            <select class="form-control" id="vehicle_no" name="vehicle_id" tabindex="-1">
+                            
+                            <select class="form-control my-select2" id="vehicle_no" name="vehicle_id" tabindex="-1">
                             <option value="">Select vehicle no</option>
                             @foreach($vehicles as $vehicle)
                             <option value="{{$vehicle->id}}">{{$vehicle->regn_no}}
@@ -24,6 +25,18 @@
                         </select>
                             
                         </div>
+                        <div class="form-group my-3">
+                        <label for="exampleFormControlInput2">Driver Name</label>
+                    </div>
+                    
+                        <select class="form-control my-select2" id="driver_id" name="driver_id" tabindex="-1">
+                            <option value="">Select driver</option>
+                            @foreach($drivers as $driver)
+                            <option value="{{$driver->id}}">{{ucfirst($driver->name) ?? '-'}}-{{$driver->phone ?? '-'}}
+                            </option>
+                            @endforeach
+                        </select>
+                    
             </div>
            
             <div class="modal-footer">
