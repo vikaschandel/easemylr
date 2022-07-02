@@ -66,7 +66,7 @@ div.relative {
                               <tr>
                                 <td>{{$trns['id']}}</td>
                                 <td>{{$trns['vehicle_no']}}</td>
-                                <td><button type="button" class="btn btn-warning view-sheet" value="{{$trns['id']}}">View</button></td>
+                                <td><button type="button" class="btn btn-warning view-sheet" value="{{$trns['id']}}" style="margin-right:4px;">View</button><a class="btn btn-primary" href="{{url($prefix.'/print-transaction/'.$trns['id'])}}" role="button">Print</a></td>
                               </tr>
                               @endforeach
                             </tbody>

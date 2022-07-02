@@ -17,9 +17,9 @@
                 </button>
             </div>
             <div class="modal-body">
-                <button type="button" id="print" class="btn btn-primary commonButton">
+                <!-- <button type="button" id="print" class="btn btn-primary commonButton">
                     <i class="fas fa-save"></i>&nbsp;Print
-                </button>
+                </button> -->
                 <div id="www">
                 <div class="row">
                     <div class="col-sm-12">
