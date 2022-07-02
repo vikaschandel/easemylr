@@ -73,7 +73,7 @@ div.relative {
                                     <td>{{ $consignment->invoice_no ?? "-" }}</td>
                                     <td>{{ $consignment->transporter_name ?? "-" }}</td>
                                     <?php
-                                    if($consignment->status==1){
+                                    if($consignment->status==1 || $consignment->status==2){
                                         $status = 'Active';
                                         $class = "btn-success";
                                     }else{
