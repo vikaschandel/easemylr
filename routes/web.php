@@ -100,10 +100,13 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth','PermissionCheck']], func
 
     Route::resource('consignments', ConsignmentController::class);
     Route::get('unverified-list', [ConsignmentController::class, 'unverifiedList']);
+    Route::any('update_unverifiedLR', [ConsignmentController::class, 'updateUnverifiedLr']);
     Route::post('consignments/update-consignment', [ConsignmentController::class, 'updateConsignment']);
     Route::post('consignments/delete-consignment', [ConsignmentController::class, 'deleteConsignment']);
     Route::post('consignments/get-consign-details', [ConsignmentController::class, 'getConsigndetails']);
     Route::get('consignments/{id}/print-view/{typeid}', [ConsignmentController::class, 'consignPrintview']);
+    Route::get('transaction-sheet', [ConsignmentController::class, 'transactionSheet']);
+    Route::any('view-transactionSheet/{id}', [ConsignmentController::class, 'getTransactionDetails']);
     
     Route::resource('locations', LocationController::class);
     Route::post('/locations/update', [LocationController::class, 'updateLocation']);
@@ -142,6 +145,7 @@ Route::group(['prefix'=>'branch-manager', 'middleware'=>['auth','PermissionCheck
     Route::post('consigners/delete-consigner', [ConsignerController::class, 'deleteConsigner']);
 
     Route::resource('consignees', ConsigneeController::class);
+    Route::get('unverified-list', [ConsignmentController::class, 'unverifiedList']);
     Route::post('consignees/update-consignee', [ConsigneeController::class, 'updateConsignee']);
     Route::post('consignees/delete-consignee', [ConsigneeController::class, 'deleteConsignee']);
 
@@ -155,10 +159,14 @@ Route::group(['prefix'=>'branch-manager', 'middleware'=>['auth','PermissionCheck
     Route::post('vehicles/delete-vehicle', [VehicleController::class, 'deleteVehicle']);
 
     Route::resource('consignments', ConsignmentController::class);
+    Route::get('unverified-list', [ConsignmentController::class, 'unverifiedList']);
+    Route::any('update_unverifiedLR', [ConsignmentController::class, 'updateUnverifiedLr']);
     Route::post('consignments/update-consignment', [ConsignmentController::class, 'updateConsignment']);
     Route::post('consignments/delete-consignment', [ConsignmentController::class, 'deleteConsignment']);
     Route::post('consignments/get-consign-details', [ConsignmentController::class, 'getConsigndetails']);
     Route::get('consignments/{id}/print-view/{typeid}', [ConsignmentController::class, 'consignPrintview']);
+    Route::get('transaction-sheet', [ConsignmentController::class, 'transactionSheet']);
+    Route::any('view-transactionSheet/{id}', [ConsignmentController::class, 'getTransactionDetails']);
     
     Route::resource('locations', LocationController::class);
     Route::post('/locations/update', [LocationController::class, 'updateLocation']);
