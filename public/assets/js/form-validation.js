@@ -810,6 +810,10 @@ jQuery(document).ready(function(){
                 required: true,
                 // AlphabetandNumbers: true,
             },
+            invoice_amount: {
+                required: true,
+                // AlphabetandNumbers: true,
+            },
             driver_id : {
                 // required: true,
             },
@@ -848,6 +852,10 @@ jQuery(document).ready(function(){
             },
             invoice_no: {
                 required: "Enter invoice no.",
+                AlphabetandNumbers: "Enter only alphabets and numbers",
+            },
+            invoice_amount: {
+                required: "Enter invoice amount",
                 AlphabetandNumbers: "Enter only alphabets and numbers",
             },
             driver_id : {
@@ -934,6 +942,16 @@ jQuery(document).ready(function(){
             consignment_no: {
                 required: true,
             },
+            email: {
+                required: true,
+                email: true,
+            },
+            phone: {
+                required: true,
+                Numbers: true,
+                minlength: 10,
+            },
+
         },
         messages:
         {
@@ -948,6 +966,15 @@ jQuery(document).ready(function(){
             },
             consignment_no: {
                 required: "Consignment no is required"
+            },
+            email: {
+                required: "Email is required",
+                email: "Enter valid email",
+            },
+            phone: {
+                required: "Phone is required",
+                Numbers: "Enter numeric value only",
+                minlength: "Enter at least 10 digits",
             },
         },
         submitHandler : function(form)
@@ -970,6 +997,18 @@ jQuery(document).ready(function(){
             team_id: {
                 required: true,
             },
+            consignment_no: {
+                required: true,
+            },
+            email: {
+                required: true,
+                email: true,
+            },
+            phone: {
+                required: true,
+                Numbers: true,
+                minlength: 10,
+            },
         },
         messages:
         {
@@ -981,6 +1020,18 @@ jQuery(document).ready(function(){
             },
             team_id: {
                 required: "Team id is required"
+            },
+            consignment_no: {
+                required: "Consignment no is required"
+            },
+            email: {
+                required: "Email is required",
+                email: "Enter valid email",
+            },
+            phone: {
+                required: "Phone is required",
+                Numbers: "Enter numeric value only",
+                minlength: "Enter at least 10 digits",
             },
         },
         submitHandler : function(form)

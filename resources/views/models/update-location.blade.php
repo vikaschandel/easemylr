@@ -1,34 +1,44 @@
 <div class="modal" id="location-updatemodal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <!-- <button type="button" class="close" data-dismiss="modal"><img src="{{asset('assets/images/close-bottle.png')}}" class="img-fluid"></button> -->
-            <!-- Modal Header -->
             <form class="general_form" method="POST" action="{{url($prefix.'/locations/update')}}" id="updatelocation">
                 @csrf
                 <input type="hidden" class="locationid" value="" name="id">
-                <!-- <input type="hidden" value="locationpage" name="locationpage"> -->
                 <div class="modal-header text-center">
                     <h4 class="modal-title">Location</h4>
                 </div>
                 <!-- Modal body -->
                 <div class="modal-body">
-                        <!-- <h5>Wine Style</h5> -->
-                        <div class="form-group my-3">
+                    <div class="form-row mb-0">
+                        <div class="form-group col-md-6">
                             <label for="location_name">Location Name</label>
-                            <input class="form-control" id="nameup" name="name" placeholder="Enter location name" value="">
+                            <input class="form-control" id="nameup" name="name" value="">
                         </div>
-                        <div class="form-group my-3">
+                        <div class="form-group col-md-6">
                             <label for="location_name">Location Nick Name</label>
-                            <input class="form-control" id="nick_nameup" name="nick_name" placeholder="Enter nick name" value="">
+                            <input class="form-control" id="nick_nameup" name="nick_name" value="">
                         </div>
-                        <div class="form-group my-3">
+                    </div>
+                    <div class="form-row mb-0">
+                        <div class="form-group col-md-6">
                             <label for="location_name">Team ID</label>
-                            <input class="form-control" id="team_idup" name="team_id" placeholder="Enter team id" value="">
+                            <input class="form-control" id="team_idup" name="team_id" value="">
                         </div>
-                        <div class="form-group my-3">
-                            <label for="location_name"> Consignment No.</label>
-                            <input class="form-control" id="consignment_noup" name="consignment_no" placeholder="Enter consignment no" value="" maxlength="4">
+                        <div class="form-group col-md-6">
+                            <label for="location_name">Consignment No.</label>
+                            <input class="form-control" id="consignment_noup" name="consignment_no" value="" maxlength="4">
                         </div>
+                    </div>
+                    <div class="form-row mb-0">
+                        <div class="form-group col-md-6">
+                            <label for="location_name">Email</label>
+                            <input class="form-control" id="emailup" name="email" value="">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="location_name">Mobile No.</label>
+                            <input class="form-control" id="phoneup" name="phone" value="" maxlength="10">
+                        </div>
+                    </div>
                 </div>
             <!-- Modal footer -->
                 <div class="modal-footer">

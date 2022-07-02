@@ -19,6 +19,8 @@ class CreateLocationsTable extends Migration
             $table->string('nick_name')->nullable();
             $table->string('team_id')->nullable();
             $table->string('consignment_no')->nullable();
+            $table->string('email')->nullable();
+            $table->string('phone')->nullable();
             $table->tinyInteger('status')->default(0);
             $table->timestamps();
         });
