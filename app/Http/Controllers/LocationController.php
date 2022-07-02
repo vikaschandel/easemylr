@@ -60,9 +60,11 @@ class LocationController extends Controller
     {
         $this->prefix = request()->route()->getPrefix();
         $rules = array(
-            'name'     => 'required|unique:locations',
-            'team_id'  => 'required|unique:locations',
-            'consignment_no'  => 'required|unique:locations',
+            'name'    => 'required|unique:locations',
+            'team_id' => 'required|unique:locations',
+            'consignment_no' => 'required|unique:locations',
+            'email'  => 'required',
+            'phone'  => 'required',
         );
         $validator = Validator::make($request->all() , $rules);
         if ($validator->fails())
@@ -87,6 +89,12 @@ class LocationController extends Controller
         if(!empty($request->consignment_no)){
             $addlocation['consignment_no'] = $request->consignment_no;
         }
+        if(!empty($request->email)){
+            $addlocation['email'] = $request->email;
+        }
+        if(!empty($request->phone)){
+            $addlocation['phone'] = $request->phone;
+        }
         $addlocation['status'] = 1;
 
         $savelocation = Location::create($addlocation);
@@ -110,6 +118,8 @@ class LocationController extends Controller
             'name'      => 'required|unique:locations,name,' . $request->id,
             'team_id' => 'required|unique:locations,team_id,' . $request->id,
             'consignment_no' => 'required|unique:locations,consignment_no,' . $request->id,
+            'email'  => 'required',
+            'phone'  => 'required',
         );
         $validator = Validator::make($request->all(),$rules);
 
@@ -132,6 +142,12 @@ class LocationController extends Controller
         }
         if(!empty($request->consignment_no)){
             $locationsave['consignment_no']  = $request->consignment_no;
+        }
+        if(!empty($request->email)){
+            $locationsave['email']  = $request->email;
+        }
+        if(!empty($request->phone)){
+            $locationsave['phone']  = $request->phone;
         }
         $locationsave['status']     = 1;
         $location = Location::where('id',$request->id)->update($locationsave);

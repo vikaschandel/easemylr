@@ -59,6 +59,8 @@ div.relative {
                                 <th>Nick Name</th>
                                 <th>Team Id</th>
                                 <th>Series No</th>
+                                <th>Email Id</th>
+                                <th>Phone</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -73,6 +75,8 @@ div.relative {
                                 <td>{{ ucwords($value->nick_name ?? '-') }}</td>
                                 <td>{{ $value->team_id ?? '-' }}</td>
                                 <td>{{ $value->consignment_no ?? '-' }}</td>
+                                <td>{{ $value->email ?? '-' }}</td>
+                                <td>{{ $value->phone ?? '-' }}</td>
                                 <td>
                                     <a class="btn btn-primary editlocation" href="javascript:void(0)" data-action = "<?php echo URL::to($prefix.'/locations/get-location'); ?>" data-id="{{ $value->id }}" data-toggle="modal" data-target="#location-updatemodal"><span><span><i class="fa fa-edit"></i></span></span></a>
                                 </td>

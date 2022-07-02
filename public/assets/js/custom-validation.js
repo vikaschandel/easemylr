@@ -584,6 +584,8 @@ jQuery(document).ready(function(){
                 jQuery('#nick_nameup').val(response.newcata.nick_name);
                 jQuery('#team_idup').val(response.newcata.team_id);
                 jQuery('#consignment_noup').val(response.newcata.consignment_no);
+                jQuery('#emailup').val(response.newcata.email);
+                jQuery('#phoneup').val(response.newcata.phone);
             }
         });
     });  
