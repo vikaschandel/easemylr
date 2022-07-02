@@ -114,7 +114,7 @@ class ConsignmentController extends Controller
 
         $locations = Location::where('status','1')->select('id','consignment_no')->get();
         $vehicles = Vehicle::where('status','1')->select('id','regn_no')->get();
-        $drivers = Driver::where('status','1')->select('id','name')->get();
+        $drivers = Driver::where('status','1')->select('id','name','phone')->get();
         $vehicletypes = VehicleType::where('status','1')->select('id','name')->get();
 
         return view('consignments.create-consignment',['prefix'=>$this->prefix,'consigners'=>$consigners, 'consignees'=>$consignees,'locations'=>$locations,'vehicles'=>$vehicles, 'vehicletypes'=>$vehicletypes, 'consignmentno'=>$consignmentno,'drivers'=>$drivers]);
@@ -236,7 +236,8 @@ class ConsignmentController extends Controller
             $getconsignment = $query->orderby('id','DESC')->get();
         }
         $branch_add = BranchAddress::first();
-        return view('consignments.view-consignment',['prefix'=>$this->prefix,'getconsignment'=>$getconsignment,'branch_add'=>$branch_add]);
+        $locations = Location::whereIn('id',$cc)->first();
+        return view('consignments.view-consignment',['prefix'=>$this->prefix,'getconsignment'=>$getconsignment,'branch_add'=>$branch_add,'locations'=>$locations]);
     }
 
     /**
@@ -330,30 +331,31 @@ class ConsignmentController extends Controller
     }
 
     public function consignPrintview(Request $request){
-        $b_add = BranchAddress::get();
-        $branch_add = json_decode(json_encode($b_add), true);
+        $query = ConsignmentNote::query();
+        $authuser = Auth::user();
+        $cc = explode(',',$authuser->branch_id);
+        $branch_add = BranchAddress::first();
+        $locations = Location::whereIn('id',$cc)->first();
         
         $cn_id = $request->id;
         $getdata = ConsignmentNote::where('id',$cn_id)->with('ConsignmentItems','ConsignerDetail','ConsigneeDetail','ShiptoDetail','VehicleDetail','DriverDetail')->first();
-       
         $data = json_decode(json_encode($getdata), true);
-        // dd($data['consignment_date']);
-        // dd($data['consigner_detail']['city']);
+
         $conr_add = '<p>'.'CONSIGNOR NAME & ADDRESS'.'</p>
-            <p><b>'.$data['consigner_detail']['nick_name'].'</b></p><p>'.$data['consigner_detail']['address_line1'].'<br>'.$data['consigner_detail']['address_line2'].'<br>'.$data['consigner_detail']['address_line3'].',</p>
+            <p><b>'.($data['consigner_detail']['nick_name'] ?? "").'</b></p><p>'. $data['consigner_detail']['address_line1'].' '.$data['consigner_detail']['address_line2'].' '.$data['consigner_detail']['address_line3'].' '.$data['consigner_detail']['address_line4'].'</p><br>
             <p>'.$data['consigner_detail']['district'].'</p>
             <p>GST No. : '.$data['consigner_detail']['gst_number'].'</p>
             <p>Phone No. : '.$data['consigner_detail']['phone'].'</p>';
         $consnee_add = '<p>'.'CONSIGNEE NAME & ADDRESS'.'</p>
             <p><b>'.$data['consignee_detail']['nick_name'].'</b></p>
-            <p>'.$data['consignee_detail']['address_line1'].' '.$data['consignee_detail']['address_line2'].'<br> '.$data['consignee_detail']['address_line3'].',</p>
+            <p>'.$data['consignee_detail']['address_line1'].' '.$data['consignee_detail']['address_line2'].' '.$data['consignee_detail']['address_line3'].' '.$data['consignee_detail']['address_line4'].'</p>
             <p>'.$data['consignee_detail']['district'].'</p>
             <p>GST No. : '.$data['consignee_detail']['gst_number'].'</p>
             <p>Phone No. : '.$data['consignee_detail']['phone'].'</p>';
 
         $shiptoadd = '<p>'.'SHIP TO NAME & ADDRESS'.'</p>
             <p><b>'.$data['consignee_detail']['nick_name'].'</b></p>
-            <p>'.$data['consignee_detail']['address_line1'].' '.$data['consignee_detail']['address_line2'].'<br> '.$data['consignee_detail']['address_line3'].',</p>
+            <p>'.$data['consignee_detail']['address_line1'].' '.$data['consignee_detail']['address_line2'].' '.$data['consignee_detail']['address_line3'].' '.$data['consignee_detail']['address_line4'].'</p>
             <p>'.$data['consignee_detail']['district'].'</p>
             <p>GST No. : '.$data['consignee_detail']['gst_number'].'</p>
             <p>Phone No. : '.$data['consignee_detail']['phone'].'</p>';
@@ -425,7 +427,7 @@ class ConsignmentController extends Controller
                                 }
                                 body {
                                     font-family: Arial, Helvetica, sans-serif;
-                                    font-size: 15px;
+                                    font-size: 14px;
                                 }
                             </style>
                         </head>
@@ -434,17 +436,15 @@ class ConsignmentController extends Controller
                         <div class="container">
                             <div class="row">';
                             
-                            foreach($branch_add as $k => $value){
-                            $html .= '<h2>'.$value['name'].'</h2>
+                            $html .= '<h2>'.$branch_add->name.'</h2>
                                 <table width="100%">
                                     <tr>
                                         <td width="50%">
-                                            <p>Plot No. '.$value['address'].'</p>
-                                            <p>Pabhat, Zirakpur</p>
-                                            <p>'.$value['district'].' - '.$value['postal_code'].', Punjab</p>
-                                            <p>GST No. : '.$value['gst_number'].'</p>
-                                            <p>Email : '.$value['email'].'</p>
-                                            <p>Phone No. : '.$value['phone'].''.'</p>
+                                            <p>Plot No. '.$branch_add->address.'</p>
+                                            <p>'.$branch_add->district.' - '.$branch_add->postal_code.',' .$branch_add->state.'</p>
+                                            <p>GST No. : '.$branch_add['gst_number'].'</p>
+                                            <p>Email : '.$locations->email.'</p>
+                                            <p>Phone No. : '.$locations->phone.''.'</p>
                                             <br>
                                             <span>
                                                 <hr id="s" style="width:100%;">
@@ -457,7 +457,6 @@ class ConsignmentController extends Controller
                                         </td>
                                     </tr>
                                 </table></div></div>';
-                            }
                             $html .= '<div class="row"><div class="col-sm-6">
                                 <table width="100%">
                                 <tr>
@@ -514,7 +513,7 @@ class ConsignmentController extends Controller
                             }
 
                             $html .='</td>
-                            <td width="50%" colspan="3">
+                            <td width="50%" colspan="3" style="text-align: center;">
                             <img src= "'.$fullpath.'" alt="barcode">
                             </td>
                         </tr>

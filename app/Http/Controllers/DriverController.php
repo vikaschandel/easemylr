@@ -57,7 +57,8 @@ class DriverController extends Controller
         $this->prefix = request()->route()->getPrefix();
         $rules = array(
             'name' => 'required',
-            'license_number' => 'required|unique:drivers',
+            'phone' => 'required|unique:drivers',
+            'license_number' => 'required',
             'license_image' => 'mimes:jpg,jpeg,png|max:4096',
         );
         $validator = Validator::make($request->all(),$rules);
@@ -72,10 +73,10 @@ class DriverController extends Controller
             return response()->json($response);
         }
 
-        $driversave['name']             = $request->name;
-        $driversave['phone']            = $request->phone;
-        $driversave['license_number']   = $request->license_number;
-        $driversave['status']           = '1';
+        $driversave['name']            = $request->name;
+        $driversave['phone']           = $request->phone;
+        $driversave['license_number']  = $request->license_number;
+        $driversave['status']          = '1';
 
         // upload license image
         if($request->license_image){
