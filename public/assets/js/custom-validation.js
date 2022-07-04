@@ -419,6 +419,7 @@ jQuery(document).ready(function(){
                 if(res.data){
                     console.log(res.data.get_branch.consignment_no);
                     $('#consigner_address').append('<strong>'+res.data.address_line1+' '+res.data.address_line2+'<br>'+res.data.address_line3+' '+res.data.address_line4+' </strong><br/><strong>GST No. : </strong>'+res.data.gst_number+'<br/><strong>Phone No. : </strong>'+res.data.phone+'');
+
                     $("#dispatch").val(res.data.city);
                 }
             }
@@ -443,7 +444,7 @@ jQuery(document).ready(function(){
             success:function(res){
                 $('#consignee_address').empty();
                 if(res.data){
-                    $('#consignee_address').append('<strong>'+res.data.address_line1 +', </strong><br/>'+res.data.address_line2+', '+res.data.address_line3+'<br/><strong>GST No. : </strong>'+res.data.gst_number+'<br/><strong>Phone No. : </strong>'+res.data.phone+'');
+                    $('#consignee_address').append('<strong>'+res.data.address_line1 +' '+res.data.address_line2+', '+res.data.address_line3+' '+res.data.address_line4+', </strong><br/><strong>GST No. : </strong>'+res.data.gst_number+'<br/><strong>Phone No. : </strong>'+res.data.phone+'');
                 }
             }
         });
