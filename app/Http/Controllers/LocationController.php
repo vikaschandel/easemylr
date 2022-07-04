@@ -117,10 +117,11 @@ class LocationController extends Controller
     public function updateLocation(Request $request){
         $rules = array(
             'name'      => 'required|unique:locations,name,' . $request->id,
-            'team_id' => 'unique:locations,team_id,' . $request->id,
+            // 'team_id' => 'unique:locations,team_id,' . $request->id,
             'consignment_no' => 'required|unique:locations,consignment_no,' . $request->id,
             'email'  => 'required',
             'phone'  => 'required',
+            'team_id' => 'required',
         );
         $validator = Validator::make($request->all(),$rules);
 
