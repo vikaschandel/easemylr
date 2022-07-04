@@ -122,7 +122,7 @@
 $('#role_id').change(function() {
     var role_id = $(this).val();
     var checkbox = $('.chkBoxClass').val();
-    if(role_id == '2') {
+    if(role_id == 2) {
         $('#ckbCheckAll').attr('checked', false);
         $('.chkBoxClass').prop('checked', true)
         $('.chkBoxClass[value="1"]').prop('checked', false)
