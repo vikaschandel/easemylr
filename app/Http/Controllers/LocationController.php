@@ -27,15 +27,14 @@ class LocationController extends Controller
     public function index(Request $request)
     {
         $this->prefix = request()->route()->getPrefix();
-        $peritem = 20;
         $query = Location::query();
         $authuser = Auth::user();
         $cc = explode(',',$authuser->branch_id);
         if($authuser->role_id == 2){
-            $locations = $query->whereIn('id',$cc)->orderBy('id','DESC')->paginate($peritem);
+            $locations = $query->whereIn('id',$cc)->orderBy('id','DESC')->get();
         }
         else{
-            $locations = $query->orderBy('id','DESC')->paginate($peritem);
+            $locations = $query->orderBy('id','DESC')->get();
         }
         return view('locations.location-list',['locations'=>$locations,'prefix'=>$this->prefix,'title'=>$this->title])->with('i', ($request->input('page', 1) - 1) * 5);
     }

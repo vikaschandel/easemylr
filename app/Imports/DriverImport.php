@@ -8,6 +8,7 @@ use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
 use App\Models\Driver;
+use DB;
 
 class DriverImport implements ToModel,WithHeadingRow
 {
@@ -16,6 +17,8 @@ class DriverImport implements ToModel,WithHeadingRow
     */
     public function model(array $row)
     {
+        $driver = DB::table('drivers')->select('license_number')->where('license_number', $row['license_number'])->first();
+        if(empty($driver)){
         return new Driver([
             'name'           => $row['name'],
             'phone'          => (float)$row['phone'],
@@ -26,6 +29,7 @@ class DriverImport implements ToModel,WithHeadingRow
 
         ]);
 
+    }
         // return new Bank([
         //     'broker_id'      => $row['broker_id'],
         //     'bank_name'      => $row['bank_name'],
