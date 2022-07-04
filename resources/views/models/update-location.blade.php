@@ -40,7 +40,7 @@
                         </div>
                     </div>
                     <div class="form-row mb-0">
-                        <span>Allow LR with vehicle no. :  </span>
+                        <span>Allow LR without vehicle no. :  </span>
                         <div class="check-box d-flex">
                             <div class="checkbox radio">
                                 <label class="check-label">Yes
