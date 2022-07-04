@@ -823,6 +823,9 @@ jQuery(document).ready(function(){
             vehicle_type : {
                 required: true,
             },
+            vehicle_id : {
+                required: true,
+            },
             'quantity[]': {
                 required: true,
                 //   lettersonly:true
@@ -866,6 +869,9 @@ jQuery(document).ready(function(){
             },
             vehicle_type : {
                 required: "Select vehicle type",
+            },
+            vehicle_id : {
+                required: "Select vehicle no.",
             },
             'quantity[]': {
                 required: "Enter quantity",
@@ -1239,6 +1245,7 @@ function formSubmitRedirect(form)
             }else{
                 $('.gstno_error').hide();
             }
+            
         },
         complete: function (response) {
             $("input[type=submit]").attr("enabled", "enabled");

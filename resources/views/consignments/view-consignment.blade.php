@@ -90,9 +90,9 @@ div#hh {
                                                         {{ $consignment->Consignee->nick_name ?? "" }}
                                                     </strong></span>
                                                 </div>
-                                                <div class="col-ms-3">
+                                                <!-- <div class="col-ms-3">
                                                     &#x20b9;  {{ $consignment->total_freight ?? "" }}
-                                                </div>
+                                                </div> -->
                                                 <div class="col-ms-6">
                                                     {{ $consignment->consignment_no ?? "" }}
                                                 </div>
@@ -253,7 +253,8 @@ div#hh {
                                                     </tfoot>
                                                 </table>
                                                 </div>
-                                                <p style="float:right" id="tot_amt_words"></p>
+                                                <!-- <p style="float:right" id="tot_amt_words"></p> -->
+                                                <br>
                                             </div>
                                             </div>
                                             <div class="row">

@@ -307,8 +307,9 @@ label.error{
                                             <div class=" col-sm-4" style="margin-top:10px;">
                                                 <label for="exampleFormControlInput2">Vehicle No.</label>
                                             </div>
+                                            <?php if($with_vehicle_no == '1'){ ?>
                                             <div class=" col-sm-8" style="margin-top:2px;">
-                                                <select class="js-states vehicle form-seteing" id="vehicle_no" name="vehicle_id" tabindex="-1">
+                                                <select class="basic js-states vehicle form-seteing" id="vehicle_no" name="req_vehicle_id" tabindex="-1">
                                                     <option value="">Select vehicle no</option>
                                                     @foreach($vehicles as $vehicle)
                                                     <option value="{{$vehicle->id}}">{{$vehicle->regn_no}}
@@ -316,6 +317,17 @@ label.error{
                                                     @endforeach
                                                 </select>
                                             </div>
+                                            <?php }else{ ?>
+                                            <div class=" col-sm-8" style="margin-top:2px;">
+                                                <select class="basic js-states vehicle form-seteing" id="vehicle_no" name="vehicle_id" tabindex="-1">
+                                                    <option value="">Select vehicle no</option>
+                                                    @foreach($vehicles as $vehicle)
+                                                    <option value="{{$vehicle->id}}">{{$vehicle->regn_no}}
+                                                    </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <?php } ?>
                                         </div>
 
 
