@@ -586,6 +586,12 @@ jQuery(document).ready(function(){
                 jQuery('#consignment_noup').val(response.newcata.consignment_no);
                 jQuery('#emailup').val(response.newcata.email);
                 jQuery('#phoneup').val(response.newcata.phone);
+                if(response.newcata.with_vehicle_no){
+                    jQuery('#with_vehicle_noup').attr('checked',true);
+                }else {
+                    jQuery('#with_vehicle_noup').attr('checked',false);
+                }
+
                 // jQuery('.radio_vehicleno').val(response.newcata.with_vehicle_no);
 
             }

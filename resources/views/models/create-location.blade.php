@@ -44,13 +44,13 @@
                         <div class="check-box d-flex">
                             <div class="checkbox radio">
                                 <label class="check-label">Yes
-                                    <input type="radio"  value='1' name="with_vehicle_no" checked>
+                                    <input type="radio"  value='1' name="with_vehicle_no">
                                     <span class="checkmark"></span>
                                 </label>
                             </div>
                             <div class="checkbox radio">
                                 <label class="check-label">No
-                                    <input type="radio" name="with_vehicle_no" value='0'>
+                                    <input type="radio" name="with_vehicle_no" value='0' checked>
                                     <span class="checkmark"></span>
                                 </label>
                             </div>
