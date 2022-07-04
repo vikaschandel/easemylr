@@ -71,7 +71,7 @@ class UserController extends Controller
         $rules = array(
             'name' => 'required',
             'login_id' => 'required|unique:users,login_id',
-            'email' => 'email|unique:users,email',
+            'email'  => 'required',
             'password' => 'required',
         );
 

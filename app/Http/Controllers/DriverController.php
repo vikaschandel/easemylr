@@ -28,9 +28,9 @@ class DriverController extends Controller
     public function index(Request $request)
     {
         $this->prefix = request()->route()->getPrefix();
-        $peritem = 20;
+        //$peritem = 20;
         $query = Driver::query();
-        $drivers = $query->orderBy('id','DESC')->paginate($peritem);
+        $drivers = $query->orderBy('id','DESC')->get();
         return view('drivers.driver-list',['drivers'=>$drivers,'prefix'=>$this->prefix])
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
