@@ -465,7 +465,7 @@ jQuery(document).ready(function(){
                 AlphabetandNumbers: true,
                 minlength: 15,
             },
-            consignee_id : {
+            consigner_id : {
                 required: true,
             },
         },
@@ -487,7 +487,7 @@ jQuery(document).ready(function(){
                 AlphabetandNumbers: "Enter only alphabets and numbers",
                 minlength: "Enter at least 15 digits",
             },
-            consignee_id: {
+            consigner_id: {
                 required: "Please select consigner",
             },
         },
