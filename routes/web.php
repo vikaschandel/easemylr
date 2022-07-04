@@ -91,6 +91,7 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth','PermissionCheck']], func
     Route::post('drivers/update-driver', [DriverController::class, 'updateDriver']);
     Route::post('drivers/delete-driver', [DriverController::class, 'deleteDriver']);
     Route::post('/drivers/delete-licenseimage', [DriverController::class, 'deletelicenseImage']);
+    Route::get('drivers/export/excel', [DriverController::class, 'exportExcel']);
 
     Route::resource('vehicles', VehicleController::class);
     Route::post('vehicles/update-vehicle', [VehicleController::class, 'updateVehicle']);
