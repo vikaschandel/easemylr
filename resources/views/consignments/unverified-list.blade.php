@@ -29,7 +29,14 @@ div.relative {
    
     font-size: 10px;
     }
-    
+    .select2-results__options {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    height: 160px;
+    /* scroll-margin: 38px; */
+    overflow: auto;
+}
     </style>
 <!-- BEGIN PAGE LEVEL CUSTOM STYLES -->
     <link rel="stylesheet" type="text/css" href="{{asset('plugins/table/datatable/datatables.css')}}">
@@ -80,8 +87,6 @@ div.relative {
                                     <td>{{ Helper::ShowFormatDate($consignment->consignment_date ?? "")}}</td>
                                     <td>{{ $consignment->invoice_no ?? "-" }}</td>
                                     <td>{{ $consignment->transporter_name ?? "-" }}</td>
-                                   
-
                                 </tr>
                                 <?php } ?>
                             </tbody>
