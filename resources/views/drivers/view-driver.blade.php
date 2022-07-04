@@ -62,7 +62,7 @@
                                                                         
                             </tbody>
                         </table>  
-                        <a href="{{url($prefix.'/drivers/'.Crypt::encrypt($getdriver->id).'/edit')}}" class="btn btn-primary my-3" href="" style="background:#fff;" title="Edit Driver"><i class="fa fa-edit m-0"></i>Edit</a>
+                        <a href="{{url($prefix.'/drivers/'.Crypt::encrypt($getdriver->id).'/edit')}}" class="btn btn-primary my-3" style="background:#fff;" title="Edit Driver"><i class="fa fa-edit m-0"></i> Edit</a>
                         <a class="btn btn-primary" href="{{url($prefix.'/drivers') }}"> Back</a>
                     </div>
                 </div>

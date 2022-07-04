@@ -39,14 +39,13 @@ div.relat {
                 <div class="mb-4 mt-4">
                     @csrf
                     <table id="vehicletable" class="table table-hover vehicle-datatable" style="width:100%">
-                    <div class="btn-group relative">
-                                <a href="{{'vehicles/create'}}" class="btn btn-primary pull-right" style="font-size: 12px; padding: 8px 0px;"><span><i class="fa fa-plus" ></i> Add New</span></a>
-                               
-                            </div>
-                            <div class="btn-group relat">
+                        <div class="btn-group relative">
+                            <a href="{{'vehicles/create'}}" class="btn btn-primary pull-right" style="font-size: 12px; padding: 8px 0px;"><span><i class="fa fa-plus" ></i> Add New</span></a>
+                        </div>
+                        <div class="btn-group relat">
                             <a style="font-size: 12px; padding: 8px 0px;" href="<?php echo URL::to($prefix.'/'.$segment.'/export/excel'); ?>" class="downloadEx btn btn-primary pull-right" data-action="<?php echo URL::to($prefix.'vehicles/export/excel'); ?>" download>
-                                <span><i class="fa fa-download"></i> Export</span></a>
-                            </div>
+                            <span><i class="fa fa-download"></i> Export</span></a>
+                        </div>
                         <thead>
                             <tr>
                                 <!-- <th>S No.</th> -->
@@ -73,7 +72,6 @@ div.relat {
 @include('models.delete-vehicle')
 @endsection
 @section('js')
-
 <script>
 var table = $('#vehicletable').DataTable({
     processing: true,
@@ -108,21 +106,5 @@ var table = $('#vehicletable').DataTable({
     ]
 });
 </script>
-<!-- <script>
-    $(function () {
-        var table = $('#vehicletable').DataTable({
-            processing: true,
-            serverSide: true,
-            columns: [
-                {data: 'regn_no', name: 'regn_no'},
-                {data: 'mfg', name: 'mfg'},
-                {data: 'make', name: 'make'},
-                {data: 'body_type', name: 'body_type'},
-                {data: 'regn_date', name: 'regn_date'},
-                {data: 'action', name: 'action', orderable: false, searchable: false}
-             
-            ]
-        });
-    });
-</script> -->
+
 @endsection
