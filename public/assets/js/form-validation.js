@@ -465,6 +465,9 @@ jQuery(document).ready(function(){
                 AlphabetandNumbers: true,
                 minlength: 15,
             },
+            consignee_id : {
+                required: true,
+            },
         },
         messages: {
             nick_name: {
@@ -483,6 +486,9 @@ jQuery(document).ready(function(){
                 required: "Enter gst number",
                 AlphabetandNumbers: "Enter only alphabets and numbers",
                 minlength: "Enter at least 15 digits",
+            },
+            consignee_id: {
+                required: "Please select consigner",
             },
         },
         submitHandler : function(form)
@@ -511,6 +517,9 @@ jQuery(document).ready(function(){
                 AlphabetandNumbers: true,
                 minlength: 15,
             },
+            consigner_id : {
+                required: true,
+            },
         },
         messages: {
             nick_name: {
@@ -528,6 +537,9 @@ jQuery(document).ready(function(){
             gst_number: {
                 AlphabetandNumbers: "Enter only alphabets and numbers",
                 minlength: "Enter at least 15 digits",
+            },
+            consigner_id: {
+                required: "Please select consigner",
             },
         },
         submitHandler : function(form)
