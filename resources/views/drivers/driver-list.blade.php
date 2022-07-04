@@ -11,11 +11,11 @@
 }
 div.relative {
     position: absolute;
-    left: 110px;
+    left: 269px;
     top: 24px;
     z-index: 1;
     width: 83px;
-    height: 38px;
+    height: 35px;
 }
 /* .table > tbody > tr > td {
     color: #4361ee;
@@ -29,11 +29,20 @@ div.relative {
     padding: 0px 0px;
     padding: 10px;
 }
+div.relat {
+    position: absolute;
+    left: 181px;
+    top: 23px;
+    z-index: 1;
+    width: 83px;
+    height: 35px;
+}
+
 .btn {
    
     font-size: 10px;
-    }
-    </style>
+}
+</style>
 <div class="layout-px-spacing">
     <div class="row layout-top-spacing">
         <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
@@ -48,13 +57,17 @@ div.relative {
             <div class="widget-content widget-content-area br-6">
                 <div class="table-responsive mb-4 mt-4">
                     @csrf
-                    <table id="drivertable" class="table table-hover get-datatable" style="width:100%">
-                    <div class="btn-group relative">
+                    <table id="drivertable" class="table table-hover" style="width:100%">
+                        <div class="btn-group relative">
                             <a class="btn-primary btn-cstm btn w-100" id="add_role" href="{{'drivers/create'}}" style="font-size: 12px; padding: 8px 0px;"><span><i class="fa fa-plus" ></i> Add New</span></a>
+                        </div>
+                        <div class="btn-group relat">
+                            <a style="font-size: 12px; padding: 8px 0px;" href="<?php echo URL::to($prefix.'/'.$segment.'/export/excel'); ?>" class="downloadEx btn btn-primary pull-right" data-action="<?php echo URL::to($prefix.'/'.$segment.'/export/excel'); ?>" download>
+                            <span><i class="fa fa-download"></i> Export</span></a>
                         </div>
                         <thead>
                             <tr>
-                                <th>S No.</th>
+                                <!-- <th>S No.</th> -->
                                 <th>Driver Name</th>
                                 <th>Driver Phone</th>
                                 <th>Driver License Number</th>
@@ -62,28 +75,7 @@ div.relative {
                             </tr>
                         </thead>
                         <tbody>
-                            <?php 
-                            if(count($drivers)>0) {
-                                foreach ($drivers as $key => $value) {  
-                            ?> 
-                            <tr>
-                                <td>{{ ++$i }}</td>
-                                <td>{{ ucwords($value->name ?? '-') }}</td>
-                                <td>{{ $value->phone ?? '-' }}</td>
-                                <td>{{ $value->license_number ?? '-' }}</td>
-                                <td>
-                                    <a class="btn btn-primary" href="{{url($prefix.'/drivers/'.Crypt::encrypt($value->id).'/edit')}}" ><span><i class="fa fa-edit"></i></span></a>
-                                    <a class="btn btn-info" href="{{url($prefix.'/drivers/'.Crypt::encrypt($value->id))}}" ><span><i class="fa fa-eye"></i></span></a>
-                                    <?php $authuser = Auth::user();
-                                    if($authuser->role_id ==1) { ?>
-                                        <a href="Javascript:void();" class="btn btn-danger delete_driver" data-id="{{ $value->id }}" data-action="<?php echo URL::to($prefix.'/drivers/delete-driver'); ?>"><span><i class="fa fa-trash"></i></span></a>
-                                    <?php } ?>
-                                </td>
-                            </tr>
-                            <?php 
-                                }
-                            }
-                            ?>
+                            
                         </tbody>
                     </table>
                 </div>
@@ -93,4 +85,35 @@ div.relative {
 </div>
 
 @include('models.delete-driver')
+@endsection
+@section('js')
+<script>
+var table = $('#drivertable').DataTable({
+    processing: true,
+    serverSide: true,
+    
+        "dom": "<'dt--top-section'<'row'<'col-12 col-sm-6 d-flex justify-content-sm-start justify-content-center'l><'col-12 col-sm-6 d-flex justify-content-sm-end justify-content-center mt-sm-0 mt-3'f>>>" +
+        "<'table-responsive'tr>" +
+        "<'dt--bottom-section d-sm-flex justify-content-sm-between text-center'<'dt--pages-count  mb-sm-0 mb-3'i><'dt--pagination'p>>",
+        "oLanguage": {
+        "oPaginate": { "sPrevious": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>', "sNext": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>' },
+        "sInfo": "Showing page _PAGE_ of _PAGES_",
+        "sSearch": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>',
+        "sSearchPlaceholder": "Search...",
+        "sLengthMenu": "Results :  _MENU_",
+        },
+
+        "stripeClasses": [],
+        "pageLength": 30,
+        drawCallback: function () { $('.dataTables_paginate > .pagination').addClass(' pagination-style-13 pagination-bordered'); },
+
+    columns: [
+        {data: 'name', name: 'name'},
+        {data: 'phone', name: 'phone'},
+        {data: 'license_number', name: 'license_number'},
+        {data: 'action', name: 'action', orderable: false, searchable: false}
+        
+    ]
+});
+</script>
 @endsection

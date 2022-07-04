@@ -16,7 +16,7 @@
                 <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
                     <!-- <div class="breadcrumb-title pe-3"><h5>Vehicle Details</h5></div> -->
                     <div class="col-md-9 text-right">
-                        <a href="{{url($prefix.'/vehicles/'.Crypt::encrypt($getvehicle->id).'/edit')}}" class="btn my-3" href="" style="background:#fff;" title="Edit Consignee"><i class="fa fa-edit m-0"></i></a>
+                        <!-- <a href="{{url($prefix.'/vehicles/'.Crypt::encrypt($getvehicle->id).'/edit')}}" class="btn my-3" href="" style="background:#fff;" title="Edit Consignee"><i class="fa fa-edit m-0"></i></a> -->
                     </div>
                 </div>
                 <div class="col-lg-12 col-12 layout-spacing">
@@ -100,6 +100,7 @@
                                     
                             </tbody>
                         </table>  
+                        <a href="{{url($prefix.'/vehicles/'.Crypt::encrypt($getvehicle->id).'/edit')}}" class="btn btn-primary my-3" style="background:#fff;" title="Edit Consignee"><i class="fa fa-edit m-0"> Edit</i></a>
                         <a class="btn btn-primary" href="{{url($prefix.'/vehicles') }}"> Back</a>
                     </div>
                 </div>

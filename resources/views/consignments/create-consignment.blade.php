@@ -318,7 +318,7 @@ label.error{
                                                 </select>
                                             </div>
                                             <?php }else{ ?>
-                                            <div class=" col-sm-8" style="margin-top:2px;">
+                                            <div class=" col-sm-8" style="margin-top:10px;">
                                                 <select class="basic js-states vehicle form-seteing" id="vehicle_no" name="vehicle_id" tabindex="-1">
                                                     <option value="">Select vehicle no</option>
                                                     @foreach($vehicles as $vehicle)

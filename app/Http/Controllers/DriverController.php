@@ -6,8 +6,11 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Models\Driver;
 use App\Models\Bank;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\DriverExport;
 use DB;
 use URL;
+use Crypt;
 use Helper;
 use Validator;
 use Image;
@@ -28,11 +31,25 @@ class DriverController extends Controller
     public function index(Request $request)
     {
         $this->prefix = request()->route()->getPrefix();
+        if ($request->ajax()) {
+            $data = Driver::orderBy('id','DESC')->get();
+            return datatables()->of($data)
+                    ->addIndexColumn()
+                    ->addColumn('action', function($row){
+                        $btn = '<a href="'.URL::to($this->prefix.'/'.$this->segment.'/'.Crypt::encrypt($row->id).'/edit').'" class="edit btn btn-sm btn-primary"><i class="fa fa-edit"></i></a>';
+                        $btn .= '&nbsp;&nbsp;';
+                        $btn .= '<a href="'.URL::to($this->prefix.'/'.$this->segment.'/'.Crypt::encrypt($row->id)).'" class="view btn btn-sm btn-primary"><i class="fa fa-eye"></i></a>';
+                        $btn .= '&nbsp;&nbsp;';
+                        $btn .= '<a class="delete btn btn-sm btn-danger delete_driver" data-id="'.$row->id.'" data-action="'.URL::to($this->prefix.'/'.$this->segment.'/delete-driver').'"><i class="fa fa-trash"></i></a>';
+                        return $btn;
+                    })
+                    ->rawColumns(['action'])
+                    ->make(true);
+        }
         //$peritem = 20;
-        $query = Driver::query();
-        $drivers = $query->orderBy('id','DESC')->get();
-        return view('drivers.driver-list',['drivers'=>$drivers,'prefix'=>$this->prefix])
-            ->with('i', ($request->input('page', 1) - 1) * 5);
+        // $query = Driver::query();
+        // $drivers = $query->orderBy('id','DESC')->get();
+        return view('drivers.driver-list',['prefix'=>$this->prefix,'segment'=>$this->segment]);
     }
 
     /**
@@ -257,6 +274,12 @@ class DriverController extends Controller
                 $response['error']           = true;
             }
             return response()->json($response);
+    }
+
+    //download excel/csv
+    public function exportExcel()
+    {
+        return Excel::download(new DriverExport, 'drivers.csv');
     }
 
 }
