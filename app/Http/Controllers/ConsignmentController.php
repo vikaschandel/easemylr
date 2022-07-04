@@ -80,7 +80,11 @@ class ConsignmentController extends Controller
         $cc = explode(',',$authuser->branch_id);
 
         $location_vehcleno = Location::whereIn('id',$cc)->first();
-        $location_withvehcleno = $location_vehcleno->with_vehicle_no;
+        if($location_vehcleno){
+            $with_vehicle_no = $location_vehcleno->with_vehicle_no;
+        }else{
+            $with_vehicle_no = 0;
+        }
         if($authuser->role_id == 2){
             $consigners = Consigner::select('id','nick_name')->whereIn('branch_id',$cc)->get();
             $consignees = Consignee::select('id','nick_name')->where('user_id',$authuser->id)->get();
@@ -120,7 +124,7 @@ class ConsignmentController extends Controller
         $drivers = Driver::where('status','1')->select('id','name','phone')->get();
         $vehicletypes = VehicleType::where('status','1')->select('id','name')->get();
 
-        return view('consignments.create-consignment',['prefix'=>$this->prefix,'consigners'=>$consigners, 'consignees'=>$consignees,'locations'=>$locations,'vehicles'=>$vehicles, 'vehicletypes'=>$vehicletypes, 'consignmentno'=>$consignmentno,'drivers'=>$drivers,'location_withvehcleno'=>$location_withvehcleno]);
+        return view('consignments.create-consignment',['prefix'=>$this->prefix,'consigners'=>$consigners, 'consignees'=>$consignees,'locations'=>$locations,'vehicles'=>$vehicles, 'vehicletypes'=>$vehicletypes, 'consignmentno'=>$consignmentno,'drivers'=>$drivers,'with_vehicle_no'=>$with_vehicle_no]);
     }
 
     /**
