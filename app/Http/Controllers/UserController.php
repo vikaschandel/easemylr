@@ -36,9 +36,8 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $this->prefix = request()->route()->getPrefix();
-        $peritem = 20;
         $query = User::query();
-        $data = $query->with('UserRole')->orderby('id','DESC')->paginate($peritem);
+        $data = $query->with('UserRole')->orderby('id','DESC')->get();
         return view('users.user-list',['data'=>$data,'prefix'=>$this->prefix,'title'=>$this->title])->with('i', ($request->input('page', 1) - 1) * 5);
     }
     
