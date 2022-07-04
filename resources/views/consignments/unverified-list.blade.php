@@ -136,6 +136,17 @@ div.relative {
                //alert('hii'); return false;
                e.preventDefault();
                var formData = new FormData(this);
+               var vehicle = $('#vehicle_no').val();
+               var driver = $('#driver_id').val();
+               if(vehicle == ''){
+                alert('Please select vehicle');
+                return false;
+               }
+                if(driver == ''){
+                 alert('Please select driver');
+                 return false;
+                }
+
 
         $.ajax({
               url: "update_unverifiedLR", 
