@@ -21,6 +21,7 @@ class CreateLocationsTable extends Migration
             $table->string('consignment_no')->nullable();
             $table->string('email')->nullable();
             $table->string('phone')->nullable();
+            $table->tinyInteger('with_vehicle_no')->default(0)->comment('0=>without vehicle no 1=>with vehicle no');
             $table->tinyInteger('status')->default(0);
             $table->timestamps();
         });

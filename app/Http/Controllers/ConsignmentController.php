@@ -79,6 +79,8 @@ class ConsignmentController extends Controller
         $authuser = Auth::user();
         $cc = explode(',',$authuser->branch_id);
 
+        $location_vehcleno = Location::whereIn('id',$cc)->first();
+        $location_withvehcleno = $location_vehcleno->with_vehicle_no;
         if($authuser->role_id == 2){
             $consigners = Consigner::select('id','nick_name')->whereIn('branch_id',$cc)->get();
             $consignees = Consignee::select('id','nick_name')->where('user_id',$authuser->id)->get();
@@ -118,7 +120,7 @@ class ConsignmentController extends Controller
         $drivers = Driver::where('status','1')->select('id','name','phone')->get();
         $vehicletypes = VehicleType::where('status','1')->select('id','name')->get();
 
-        return view('consignments.create-consignment',['prefix'=>$this->prefix,'consigners'=>$consigners, 'consignees'=>$consignees,'locations'=>$locations,'vehicles'=>$vehicles, 'vehicletypes'=>$vehicletypes, 'consignmentno'=>$consignmentno,'drivers'=>$drivers]);
+        return view('consignments.create-consignment',['prefix'=>$this->prefix,'consigners'=>$consigners, 'consignees'=>$consignees,'locations'=>$locations,'vehicles'=>$vehicles, 'vehicletypes'=>$vehicletypes, 'consignmentno'=>$consignmentno,'drivers'=>$drivers,'location_withvehcleno'=>$location_withvehcleno]);
     }
 
     /**
@@ -444,8 +446,8 @@ class ConsignmentController extends Controller
                                             <p>Plot No. '.$branch_add->address.'</p>
                                             <p>'.$branch_add->district.' - '.$branch_add->postal_code.',' .$branch_add->state.'</p>
                                             <p>GST No. : '.$branch_add['gst_number'].'</p>
-                                            <p>Email : '.$locations->email.'</p>
-                                            <p>Phone No. : '.$locations->phone.''.'</p>
+                                            <p>Email : '.@$locations->email.'</p>
+                                            <p>Phone No. : '.@$locations->phone.''.'</p>
                                             <br>
                                             <span>
                                                 <hr id="s" style="width:100%;">

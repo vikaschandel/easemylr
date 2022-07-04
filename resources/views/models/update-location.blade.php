@@ -39,6 +39,23 @@
                             <input class="form-control" id="phoneup" name="phone" value="" maxlength="10">
                         </div>
                     </div>
+                    <div class="form-row mb-0">
+                        <span>Allow LR with vehicle no. :  </span>
+                        <div class="check-box d-flex">
+                            <div class="checkbox radio">
+                                <label class="check-label">Yes
+                                    <input class="radio_vehicleno" type="radio"  value='1' name="with_vehicle_no">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            <div class="checkbox radio">
+                                <label class="check-label">No
+                                    <input class="radio_vehicleno" type="radio" name="with_vehicle_no" value='0'>
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             <!-- Modal footer -->
                 <div class="modal-footer">

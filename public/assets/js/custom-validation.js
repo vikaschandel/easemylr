@@ -418,7 +418,7 @@ jQuery(document).ready(function(){
                 });
                 if(res.data){
                     console.log(res.data.get_branch.consignment_no);
-                    $('#consigner_address').append('<strong>'+res.data.address_line1+'<br>'+res.data.address_line2+'<br>'+res.data.address_line3+' </strong><br/><strong>GST No. : </strong>'+res.data.gst_number+'<br/><strong>Phone No. : </strong>'+res.data.phone+'');
+                    $('#consigner_address').append('<strong>'+res.data.address_line1+' '+res.data.address_line2+'<br>'+res.data.address_line3+' '+res.data.address_line4+' </strong><br/><strong>GST No. : </strong>'+res.data.gst_number+'<br/><strong>Phone No. : </strong>'+res.data.phone+'');
                     $("#dispatch").val(res.data.city);
                 }
             }
@@ -586,6 +586,8 @@ jQuery(document).ready(function(){
                 jQuery('#consignment_noup').val(response.newcata.consignment_no);
                 jQuery('#emailup').val(response.newcata.email);
                 jQuery('#phoneup').val(response.newcata.phone);
+                // jQuery('.radio_vehicleno').val(response.newcata.with_vehicle_no);
+
             }
         });
     });  

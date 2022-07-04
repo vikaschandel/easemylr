@@ -55,8 +55,8 @@ div.relative {
                         <thead>
                             <tr>
                                 <th>Sr No.</th>
-                                <th>Name</th>
                                 <th>Nick Name</th>
+                                <th>Name</th>
                                 <th>Team Id</th>
                                 <th>Series No</th>
                                 <th>Email Id</th>
