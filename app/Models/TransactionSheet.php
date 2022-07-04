@@ -10,7 +10,7 @@ class TransactionSheet extends Model
     use HasFactory;
     protected $table = 'transaction_sheets';
     protected $fillable = [
-        'consignment_id','transaction_details', 'vehicle_no', 'driver_name','driver_no','status',
+        'consignment_id','transaction_details', 'vehicle_no', 'driver_name','driver_no','status','drs_no','created_at','updated_at'
     ];
 
     public function ConsignmentDetail()

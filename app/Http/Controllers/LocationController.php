@@ -61,7 +61,7 @@ class LocationController extends Controller
         $this->prefix = request()->route()->getPrefix();
         $rules = array(
             'name'    => 'required|unique:locations',
-            'team_id' => 'required|unique:locations',
+            'team_id' => 'unique:locations', 
             'consignment_no' => 'required|unique:locations',
             'email'  => 'required',
             'phone'  => 'required',
@@ -117,7 +117,7 @@ class LocationController extends Controller
     public function updateLocation(Request $request){
         $rules = array(
             'name'      => 'required|unique:locations,name,' . $request->id,
-            'team_id' => 'required|unique:locations,team_id,' . $request->id,
+            'team_id' => 'unique:locations,team_id,' . $request->id,
             'consignment_no' => 'required|unique:locations,consignment_no,' . $request->id,
             'email'  => 'required',
             'phone'  => 'required',

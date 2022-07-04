@@ -464,7 +464,7 @@ label.error{
                             </option>
                             @endforeach
                         </select>
-                    </div>
+                    </div> 
                     <div class=" col-sm-1">
                         <label for="exampleFormControlInput2">Driver Name</label>
                     </div>

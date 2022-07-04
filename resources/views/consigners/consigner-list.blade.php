@@ -73,7 +73,7 @@ div.relative {
                             </tr>
                         </thead>
                         <tbody>
-                            <?php 
+                            <?php  
                                 if(count($consigners)>0) {
                                     foreach ($consigners as $key => $value) {  
                                 ?> 

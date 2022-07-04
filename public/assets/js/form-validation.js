@@ -116,7 +116,7 @@ jQuery(document).ready(function(){
             success:function(response){
                 if(response.success){
                     var res = response.data;
-                    jQuery('#name').val(res.name);
+                    jQuery('#name').val(res.name); 
                     jQuery('#role_savebtn').text('Update');
                 }
             }
@@ -134,7 +134,7 @@ jQuery(document).ready(function(){
             },
             email: {
                 required: true,
-                email: true,
+                // email: true,
                 regex: "",
             },
             password : {
@@ -940,9 +940,6 @@ jQuery(document).ready(function(){
                 required: true,
             },
             nick_name: {
-                required: true,
-            },
-            team_id: {
                 required: true,
             },
             consignment_no: {

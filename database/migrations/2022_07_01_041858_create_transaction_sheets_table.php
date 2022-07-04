@@ -15,6 +15,7 @@ class CreateTransactionSheetsTable extends Migration
     {
         Schema::create('transaction_sheets', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('drs_no');
             $table->longText('transaction_details')->nullable();
             $table->string('vehicle_no')->nullable();
             $table->string('driver_name')->nullable();

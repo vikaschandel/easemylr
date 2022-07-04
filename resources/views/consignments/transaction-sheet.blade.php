@@ -55,16 +55,18 @@ div.relative {
                             </div>
                             <thead>
                                 <tr>
-                                    <th>ID.</th>
+                                    <th>DRS NO</th>
+                                    <th>Transaction Date</th>
                                     <th>Vehicle No</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach($transaction as $trns)
-                                
+                                <?php  $creation = date('d-m-Y',strtotime($trns['created_at']));  ?>
                               <tr>
-                                <td>{{$trns['id']}}</td>
+                                <td>DRS-{{$trns['drs_no']}}</td>
+                                <td>{{$creation}}</td>
                                 <td>{{$trns['vehicle_no']}}</td>
                                 <td><button type="button" class="btn btn-warning view-sheet" value="{{$trns['id']}}" style="margin-right:4px;">View</button><a class="btn btn-primary" href="{{url($prefix.'/print-transaction/'.$trns['id'])}}" role="button">Print</a></td>
                               </tr>
@@ -77,7 +79,7 @@ div.relative {
         </div>
     </div>
 
- @include('models.transaction-sheet')
+@include('models.transaction-sheet')
 @endsection
 @section('js')
 <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
@@ -112,6 +114,7 @@ div.relative {
                         $("#total").empty();  
                         $("#ppp").empty();  
                         $("#nnn").empty();   
+                        $("#drsdate").empty();  
                  },
                         success: function(data){
                             var re = jQuery.parseJSON(data)
@@ -121,6 +124,7 @@ div.relative {
                                  $("#sss").append(value.vehicle_no);
                                  $("#ppp").append(value.driver_name);
                                  $("#nnn").append(value.driver_no);
+                                 $("#drsdate").append("DRS-"+value.drs_no);
                                  for(i=0 ; i<alldata.length; i++){ 
                                     var tras =  alldata[i];
                                     // console.log(tras); return false;

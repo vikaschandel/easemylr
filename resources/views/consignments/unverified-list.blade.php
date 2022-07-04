@@ -1,5 +1,6 @@
 @extends('layouts.main')
 @section('content')
+
 <style>
         .dt--top-section {
     margin:none;
@@ -28,6 +29,14 @@ div.relative {
    
     font-size: 10px;
     }
+    .select2-results__options {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    height: 160px;
+    /* scroll-margin: 38px; */
+    overflow: auto;
+}
     </style>
 <!-- BEGIN PAGE LEVEL CUSTOM STYLES -->
     <link rel="stylesheet" type="text/css" href="{{asset('plugins/table/datatable/datatables.css')}}">
@@ -52,7 +61,7 @@ div.relative {
                         @csrf
                         <table id="usertable" class="table table-hover get-datatable" style="width:100%">
                             <div class="btn-group relative">
-                            <button type="button" class="btn btn-primary" id="launch_model" data-toggle="modal" data-target="#exampleModal">
+                            <button type="button" class="btn btn-primary" id="launch_model" data-toggle="modal" data-target="#exampleModal" disabled="disabled">
                             Update Vehicle Details
                             </button>
                             </div>
@@ -78,8 +87,6 @@ div.relative {
                                     <td>{{ Helper::ShowFormatDate($consignment->consignment_date ?? "")}}</td>
                                     <td>{{ $consignment->invoice_no ?? "-" }}</td>
                                     <td>{{ $consignment->transporter_name ?? "-" }}</td>
-                                   
-
                                 </tr>
                                 <?php } ?>
                             </tbody>
@@ -93,9 +100,37 @@ div.relative {
 @include('models.update-unverifiedList')
 @endsection
 @section('js')
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
     $(document).ready(function() {
+        jQuery(function() {
+
+            $('.my-select2').each(function() {
+            $(this).select2({
+                theme: "bootstrap-5",
+                dropdownParent: $(this).parent(), // fix select2 search input focus bug
+            })
+            })
+
+            // fix select2 bootstrap modal scroll bug
+            $(document).on('select2:close', '.my-select2', function(e) {
+            var evt = "scroll.select2"
+            $(e.target).parents().off(evt)
+            $(window).off(evt)
+            })
+
+            })
+        // $("select").select2();
        //alert('h');
+       var the_terms = $(".ddd");
+//////////////disable button///////
+     the_terms.click(function() {
+    if ($(this).is(":checked")) {
+        $("#launch_model").removeAttr("disabled");
+    } else {
+        $("#launch_model").attr("disabled", "disabled");
+    }
+     });
         
      $('#updt_vehicle').submit(function(e) {
                //alert('hii'); return false;
