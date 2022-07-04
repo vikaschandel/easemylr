@@ -294,7 +294,7 @@ label.error{
                                         </div>
                                         <div class="row">
                                             <div class=" col-sm-4" style="margin-top:10px;">
-                                                <label for="exampleFormControlInput2">Value</label>
+                                                <label for="exampleFormControlInput2">Value<span class="text-danger">*</span></label>
                                             </div>
                                             <div class=" col-sm-8" style="margin-top:2px;">
 
@@ -445,17 +445,41 @@ label.error{
                 </div>
 
                 <div class="row cuss fuss" style="margin-top: 15px;">
+                    <?php if($with_vehicle_no == '1'){ ?>
+                    <div class=" col-sm-1">
+                        <label for="exampleFormControlInput2">Transporter <br>Name</label>
+                    </div>
+                    <div class=" col-sm-2">
+                        <input type="text" class="sete" id="Transporter" name="req_transporter_name" value="">
+                    </div>
+                    <?php }else{ ?>
                     <div class=" col-sm-1">
                         <label for="exampleFormControlInput2">Transporter <br>Name<span class="text-danger">*</span></label>
                     </div>
                     <div class=" col-sm-2">
                         <input type="text" class="sete" id="Transporter" name="transporter_name" value="">
                     </div>
+                    <?php } ?>
+                    <?php if($with_vehicle_no == '1'){ ?>
                     <div class=" col-sm-1">
-                        <label for="exampleFormControlInput2">Vehicle Type<span class="text-danger">*</span></label>
+                        <label for="exampleFormControlInput2">Vehicle Type</label>
                     </div>
                     <div class=" col-sm-2">
                         
+                        <select class="basic sete" id="vehicle_type" name="req_vehicle_type"
+                            tabindex="-1">
+                            <option value="">Select vehicle type</option>
+                            @foreach($vehicletypes as $vehicle)
+                            <option value="{{$vehicle->id}}">{{$vehicle->name}}
+                            </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <?php }else{ ?>
+                        <div class=" col-sm-1">
+                        <label for="exampleFormControlInput2">Vehicle Type<span class="text-danger">*</span></label>
+                    </div>
+                    <div class=" col-sm-2">
                         <select class="basic sete" id="vehicle_type" name="vehicle_type"
                             tabindex="-1">
                             <option value="">Select vehicle type</option>
@@ -464,7 +488,8 @@ label.error{
                             </option>
                             @endforeach
                         </select>
-                    </div> 
+                    </div>
+                    <?php } ?>
                     <div class=" col-sm-1">
                         <label for="exampleFormControlInput2">Driver Name</label>
                     </div>

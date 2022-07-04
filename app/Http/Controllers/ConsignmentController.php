@@ -139,7 +139,6 @@ class ConsignmentController extends Controller
             DB::beginTransaction();
 
             $this->prefix = request()->route()->getPrefix();
-            $authuser = Auth::user();
             $rules = array(
                 'consigner_id' => 'required',
                 'consignee_id' => 'required',
@@ -157,6 +156,16 @@ class ConsignmentController extends Controller
                 $response['errors']     = $errors;
                 return response()->json($response);
             }
+            $authuser = Auth::user();
+            $cc = explode(',',$authuser->branch_id);
+
+            $location_vehcleno = Location::whereIn('id',$cc)->first();
+            if($location_vehcleno){
+                $with_vehicle_no = $location_vehcleno->with_vehicle_no;
+            }else{
+                $with_vehicle_no = 0;
+            }
+
             if(empty($request->vehicle_id)){
                 $status = '2';
             }else{
@@ -176,14 +185,25 @@ class ConsignmentController extends Controller
             $consignmentsave['total_weight']      = $request->total_weight;          
             $consignmentsave['total_gross_weight']= $request->total_gross_weight;          
             $consignmentsave['total_freight']     = $request->total_freight;          
-            $consignmentsave['transporter_name']  = $request->transporter_name;          
-            $consignmentsave['vehicle_type']      = $request->vehicle_type;          
+            // $consignmentsave['transporter_name']  = $request->transporter_name;          
+            // $consignmentsave['vehicle_type']      = $request->vehicle_type;          
             $consignmentsave['purchase_price']    = $request->purchase_price; 
             $consignmentsave['user_id']           = $authuser->id; 
-            $consignmentsave['vehicle_id']        = $request->vehicle_id;
+            // $consignmentsave['vehicle_id']        = $request->vehicle_id;
             $consignmentsave['driver_id']         = $request->driver_id;
             $consignmentsave['branch_id']         = $authuser->branch_id;
             $consignmentsave['status']            = $status;
+
+            if($with_vehicle_no == '1'){
+                $consignmentsave['vehicle_id'] = $request->req_vehicle_id;
+                $consignmentsave['transporter_name']  = $request->req_transporter_name;          
+                $consignmentsave['vehicle_type']      = $request->req_vehicle_type;
+            }else{
+                $consignmentsave['vehicle_id'] = $request->vehicle_id;
+                $consignmentsave['transporter_name']  = $request->transporter_name;          
+                $consignmentsave['vehicle_type']      = $request->vehicle_type;
+            }
+
 
         $saveconsignment = ConsignmentNote::create($consignmentsave);
           
