@@ -369,23 +369,23 @@ class ConsignmentController extends Controller
         $data = json_decode(json_encode($getdata), true);
 
         $conr_add = '<p>'.'CONSIGNOR NAME & ADDRESS'.'</p>
-            <p><b>'.($data['consigner_detail']['nick_name'] ?? "").'</b></p><p>'. $data['consigner_detail']['address_line1'].' '.$data['consigner_detail']['address_line2'].' '.$data['consigner_detail']['address_line3'].' '.$data['consigner_detail']['address_line4'].'</p><br>
-            <p>'.$data['consigner_detail']['district'].'</p>
-            <p>GST No. : '.$data['consigner_detail']['gst_number'].'</p>
-            <p>Phone No. : '.$data['consigner_detail']['phone'].'</p>';
+            <p><b>'.($data['consigner_detail']['nick_name'] ?? "").'</b></p><p>'. ($data['consigner_detail']['address_line1'] ?? "").' '.($data['consigner_detail']['address_line2'] ?? "").' '.($data['consigner_detail']['address_line3'] ?? "").' '.($data['consigner_detail']['address_line4'] ?? "").'</p>
+            <p>'.($data['consigner_detail']['district'] ?? "").'</p>
+            <p>GST No. : '.($data['consigner_detail']['gst_number'] ?? "").'</p>
+            <p>Phone No. : '.($data['consigner_detail']['phone'] ?? "").'</p>';
         $consnee_add = '<p>'.'CONSIGNEE NAME & ADDRESS'.'</p>
-            <p><b>'.$data['consignee_detail']['nick_name'].'</b></p>
-            <p>'.$data['consignee_detail']['address_line1'].' '.$data['consignee_detail']['address_line2'].' '.$data['consignee_detail']['address_line3'].' '.$data['consignee_detail']['address_line4'].'</p>
-            <p>'.$data['consignee_detail']['district'].'</p>
-            <p>GST No. : '.$data['consignee_detail']['gst_number'].'</p>
-            <p>Phone No. : '.$data['consignee_detail']['phone'].'</p>';
+            <p><b>'.($data['consignee_detail']['nick_name'] ?? "").'</b></p>
+            <p>'.($data['consignee_detail']['address_line1'] ?? "").' '.($data['consignee_detail']['address_line2'] ?? "").' '.($data['consignee_detail']['address_line3'] ?? "").' '.($data['consignee_detail']['address_line4'] ?? "").'</p>
+            <p>'.($data['consignee_detail']['district'] ?? "").'</p>
+            <p>GST No. : '.($data['consignee_detail']['gst_number'] ?? "").'</p>
+            <p>Phone No. : '.($data['consignee_detail']['phone'] ?? "").'</p>';
 
         $shiptoadd = '<p>'.'SHIP TO NAME & ADDRESS'.'</p>
-            <p><b>'.$data['consignee_detail']['nick_name'].'</b></p>
-            <p>'.$data['consignee_detail']['address_line1'].' '.$data['consignee_detail']['address_line2'].' '.$data['consignee_detail']['address_line3'].' '.$data['consignee_detail']['address_line4'].'</p>
-            <p>'.$data['consignee_detail']['district'].'</p>
-            <p>GST No. : '.$data['consignee_detail']['gst_number'].'</p>
-            <p>Phone No. : '.$data['consignee_detail']['phone'].'</p>';
+            <p><b>'.($data['consignee_detail']['nick_name'] ?? "").'</b></p>
+            <p>'.($data['consignee_detail']['address_line1'] ?? "").' '.($data['consignee_detail']['address_line2'] ?? "").' '.($data['consignee_detail']['address_line3'] ?? "").' '.($data['consignee_detail']['address_line4'] ?? "").'</p>
+            <p>'.($data['consignee_detail']['district'] ?? "").'</p>
+            <p>GST No. : '.($data['consignee_detail']['gst_number'] ?? "").'</p>
+            <p>Phone No. : '.($data['consignee_detail']['phone'] ?? "").'</p>';
 
         $generate_qrcode = QrCode::size(150)->generate('Eternity Forwarders Pvt. Ltd.');
         $output_file = '/qr-code/img-' . time() . '.svg';
