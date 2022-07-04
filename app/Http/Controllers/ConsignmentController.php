@@ -444,8 +444,8 @@ class ConsignmentController extends Controller
                                             <p>Plot No. '.$branch_add->address.'</p>
                                             <p>'.$branch_add->district.' - '.$branch_add->postal_code.',' .$branch_add->state.'</p>
                                             <p>GST No. : '.$branch_add['gst_number'].'</p>
-                                            <p>Email : '.$locations->email.'</p>
-                                            <p>Phone No. : '.$locations->phone.''.'</p>
+                                            <p>Email : '.@$locations->email.'</p>
+                                            <p>Phone No. : '.@$locations->phone.''.'</p>
                                             <br>
                                             <span>
                                                 <hr id="s" style="width:100%;">
