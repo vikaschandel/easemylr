@@ -7,6 +7,8 @@ use App\Models\Consignee;
 use App\Models\Branch;
 use App\Models\State;
 use App\Models\Consigner;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\ConsigneeExport;
 use DB;
 use URL;
 use Auth;
@@ -264,5 +266,11 @@ class ConsigneeController extends Controller
         $response['success_message'] = 'Consignee deleted successfully';
         $response['error']           = false;
         return response()->json($response);
+    }
+
+    //download excel/csv
+    public function exportExcel()
+    {
+        return Excel::download(new ConsigneeExport, 'consignees.csv');
     }
 }

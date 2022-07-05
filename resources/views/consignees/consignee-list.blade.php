@@ -11,11 +11,19 @@
 }
 div.relative {
     position: absolute;
-    left: 110px;
+    left: 269px;
     top: 24px;
     z-index: 1;
     width: 83px;
-    height: 38px;
+    height: 35px;
+}
+div.relat {
+    position: absolute;
+    left: 181px;
+    top: 23px;
+    z-index: 1;
+    width: 83px;
+    height: 35px;
 }
 /* .table > tbody > tr > td {
     color: #4361ee;
@@ -32,8 +40,8 @@ div.relative {
 .btn {
    
     font-size: 10px;
-    }
-    </style>
+}
+</style>
 <div class="layout-px-spacing">
     <div class="row layout-top-spacing">
         <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
@@ -55,8 +63,12 @@ div.relative {
                 <div class="mb-4 mt-4">
                     @csrf
                     <table id="consigneetable" class="table table-hover" style="width:100%">
-                    <div class="btn-group relative">
+                        <div class="btn-group relative">
                             <a class="btn-primary btn-cstm btn w-100" id="add_role" href="{{'consignees/create'}}" style="font-size: 12px; padding: 8px 0px;"><span><i class="fa fa-plus"></i> Add New</span></a>
+                        </div>
+                        <div class="btn-group relat">
+                            <a style="font-size: 12px; padding: 8px 0px;" href="<?php echo URL::to($prefix.'/'.$segment.'/export/excel'); ?>" class="downloadEx btn btn-primary pull-right" data-action="<?php echo URL::to($prefix.'/'.$segment.'/export/excel'); ?>" download>
+                            <span><i class="fa fa-download"></i> Export</span></a>
                         </div>
                         <thead>
                             <tr>

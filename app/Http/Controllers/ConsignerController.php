@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Branch;
 use App\Models\State;
 use App\Models\Location;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\ConsignerExport;
 use DB;
 use URL;
 use Auth;
@@ -249,5 +251,11 @@ class ConsignerController extends Controller
         $response['success_message'] = 'Consigner deleted successfully';
         $response['error']           = false;
         return response()->json($response);
+    }
+
+    //download excel/csv
+    public function exportExcel()
+    {
+        return Excel::download(new ConsignerExport, 'consigners.csv');
     }
 }
