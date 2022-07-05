@@ -124,13 +124,18 @@ $('#role_id').change(function() {
     var checkbox = $('.chkBoxClass').val();
     if(role_id == 2) {
         $('#ckbCheckAll').attr('checked', false);
+        $('.chkBoxClass').prop('checked', true)
         $('.chkBoxClass[value="1"]').prop('checked', false)
         $('.chkBoxClass[value="2"]').prop('checked', false)
+
+    }else if(role_id == '') {
+        $('#ckbCheckAll').attr('checked', false);
+        $('.chkBoxClass').prop('checked', false)
     }else{
         $('#ckbCheckAll').attr('checked',true);
-        $('.chkBoxClass').attr('checked','true');
         $('.chkBoxClass[value="1"]').prop('checked', true)
         $('.chkBoxClass[value="2"]').prop('checked', true)
+        $('.chkBoxClass').prop('checked', true);
     }
 });
 </script>

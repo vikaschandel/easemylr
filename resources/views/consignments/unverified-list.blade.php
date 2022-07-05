@@ -61,14 +61,15 @@ div.relative {
                         @csrf
                         <table id="usertable" class="table table-hover get-datatable" style="width:100%">
                             <div class="btn-group relative">
-                            <button type="button" class="btn btn-warning" id="launch_model" data-toggle="modal" data-target="#exampleModal" disabled="disabled" style="font-size: 11px;">
+                                <button type="button" class="btn btn-warning" id="launch_model" data-toggle="modal" data-target="#exampleModal" disabled="disabled" style="font-size: 11px;">
+
                             Update Vehicle Details
                             </button>
                             </div>
                             <thead>
                                 <tr>
                                      <th>
-                                     <input type="checkbox" name="" id="select_all">
+                                     <input type="checkbox" name="" id="ckbCheckAll">
                                     </th>
                                     <th>Consignment No.</th>
                                     <th>Consignment Date</th>
@@ -82,7 +83,7 @@ div.relative {
                                 foreach ($consignments as $key => $consignment) {  
                                 ?> 
                                 <tr>
-                                <td><input type="checkbox" name="checked_consign[]" class="ddd" value="{{$consignment->id}}" data-trp="" data-vehno="" data-vctype=""></td>
+                                <td><input type="checkbox" name="checked_consign[]" class="chkBoxClass ddd" value="{{$consignment->id}}" data-trp="" data-vehno="" data-vctype=""></td>
                                     <td>{{ $consignment->consignment_no ?? "-" }}</td>
                                     <td>{{ Helper::ShowFormatDate($consignment->consignment_date ?? "")}}</td>
                                     <td>{{ $consignment->invoice_no ?? "-" }}</td>
@@ -104,51 +105,36 @@ div.relative {
 <script>
     $(document).ready(function() {
         jQuery(function() {
-
             $('.my-select2').each(function() {
-            $(this).select2({
-                theme: "bootstrap-5",
-                dropdownParent: $(this).parent(), // fix select2 search input focus bug
-            })
+                $(this).select2({
+                    theme: "bootstrap-5",
+                    dropdownParent: $(this).parent(), // fix select2 search input focus bug
+                })
             })
 
             // fix select2 bootstrap modal scroll bug
             $(document).on('select2:close', '.my-select2', function(e) {
-            var evt = "scroll.select2"
-            $(e.target).parents().off(evt)
-            $(window).off(evt)
+                var evt = "scroll.select2"
+                $(e.target).parents().off(evt)
+                $(window).off(evt)
             })
-
-            })
-        // $("select").select2();
-       //alert('h');
-       var the_terms = $(".ddd");
-//////////////disable button///////
-     the_terms.click(function() {
-    if ($(this).is(":checked")) {
-        $("#launch_model").removeAttr("disabled");
-    } else {
-        $("#launch_model").attr("disabled", "disabled");
-    }
-     });
+        })
         
 
      $('#updt_vehicle').submit(function(e) {
-               //alert('hii'); return false;
-               e.preventDefault();
-               var formData = new FormData(this);
-               var vehicle = $('#vehicle_no').val();
-               var driver = $('#driver_id').val();
-               if(vehicle == ''){
-                alert('Please select vehicle');
-                return false;
-               }
-                if(driver == ''){
-                 alert('Please select driver');
-                 return false;
-                }
-
-
+        e.preventDefault();
+        var formData = new FormData(this);
+        var vehicle = $('#vehicle_no').val();
+        var driver = $('#driver_id').val();
+        if(vehicle == ''){
+            alert('Please select vehicle');
+            return false;
+        }
+        if(driver == ''){
+            alert('Please select driver');
+            return false;
+        }
+        
         $.ajax({
               url: "update_unverifiedLR", 
               headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
@@ -160,20 +146,52 @@ div.relative {
               
                },
               success: (data) => {
-                //alert(data.success);
-                        if(data.success == true){
-                            
-                            alert('Data Updated Successfully');
-                            location.reload();
-                        }
-                        else{
-                            alert('something wrong');
-                        }
+                    if(data.success == true){
+                        
+                        alert('Data Updated Successfully');
+                        location.reload();
+                    }
+                    else{
+                        alert('something wrong');
+                    }
                 }
                 
         }); 
     });	
 
+    ///// check box checked lead page
+    jQuery(document).on('click','#ckbCheckAll',function(){
+        if(this.checked){
+            jQuery('#launch_model').prop('disabled', false);
+            jQuery('.chkBoxClass').each(function(){
+                this.checked = true;
+            });
+        }
+        else{
+            jQuery('.chkBoxClass').each(function(){
+                this.checked = false;
+            });
+            jQuery('#launch_model').prop('disabled', true);
+        }
+    });
+
+    jQuery(document).on('click','.chkBoxClass',function(){
+        if($('.chkBoxClass:checked').length == $('.chkBoxClass').length){
+            $('#ckbCheckAll').prop('checked',true);
+            jQuery('#launch_model').prop('disabled', false);
+        }else{
+            var checklength = $('.chkBoxClass:checked').length;
+            if(checklength < 1){
+                jQuery('#launch_model').prop('disabled', true);
+            }else{
+                jQuery('#launch_model').prop('disabled', false);
+            }
+
+            $('#ckbCheckAll').prop('checked',false);
+        }
+    });
+
 });
+
 </script>
 @endsection

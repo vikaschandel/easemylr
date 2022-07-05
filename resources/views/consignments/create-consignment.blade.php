@@ -287,8 +287,7 @@ label.error{
                                             </div>
                                             <div class=" col-sm-8" style="margin-top:2px;">
 
-                                                <input type="date" class="form-seteing date-picker" id="date"
-                                                    placeholder="" value="05/12/2022" name="invoice_date">
+                                                <input type="date" class="form-seteing date-picker" id="date" placeholder="" name="invoice_date" value="<?php echo date('d-m-Y'); ?>">
 
                                             </div>
                                         </div>
@@ -535,7 +534,7 @@ label.error{
     // });
 
       // add consignment date
-    $('#consignDate').val(new Date().toJSON().slice(0, 10));
+    $('#consignDate, #date').val(new Date().toJSON().slice(0, 10));
     
     function showResult(str) {
         if (str.length==0) {
