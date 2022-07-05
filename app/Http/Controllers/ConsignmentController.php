@@ -40,7 +40,7 @@ class ConsignmentController extends Controller
     public function index(Request $request)
     {
         $this->prefix = request()->route()->getPrefix();
-        // $peritem = 20;
+        // $peritem = 20; 
         $query = ConsignmentNote::query();
         $authuser = Auth::user();
         $cc = explode(',',$authuser->branch_id);
@@ -166,7 +166,7 @@ class ConsignmentController extends Controller
                 $with_vehicle_no = 0;
             }
 
-            if(empty($request->vehicle_id)){
+            if(empty($request->vehicle_id || $request->req_vehicle_id)){
                 $status = '2';
             }else{
                 $status = '1';
@@ -616,10 +616,17 @@ class ConsignmentController extends Controller
 
     public function unverifiedList(Request $request){
         $this->prefix = request()->route()->getPrefix();
+        $authuser = Auth::user();
+        $cc = explode(',',$authuser->branch_id);
+        if($authuser->role_id == 2){
+         $consignments = ConsignmentNote::where('status', '=', '2')->whereIn('branch_id', $cc)->get();
+        }else{
         $consignments = ConsignmentNote::where('status', '=', '2')->get();
+        }
         $vehicles = Vehicle::where('status','1')->select('id','regn_no')->get();
         $drivers = Driver::where('status','1')->select('id','name','phone')->get();
-        return view('consignments.unverified-list',['consignments'=>$consignments,'prefix'=>$this->prefix,'title'=>$this->title,'vehicles'=>$vehicles ,'drivers'=>$drivers])
+        $vehicletypes = VehicleType::where('status','1')->select('id','name')->get();
+        return view('consignments.unverified-list',['consignments'=>$consignments,'prefix'=>$this->prefix,'title'=>$this->title,'vehicles'=>$vehicles ,'drivers'=>$drivers, 'vehicletypes' => $vehicletypes])
         ->with('i', ($request->input('page', 1) - 1) * 5);
     }
     
@@ -629,8 +636,10 @@ class ConsignmentController extends Controller
           $cc = explode(',', $consignerId);
           $addvechileNo = $request->vehicle_id;
           $adddriverId = $request->driver_id;
+          $vehicleType = $request->vehicle_type;
+          $transporterName = $request->transporter_name;
 
-          $consigner = DB::table('consignment_notes')->whereIn('id',$cc)->update(['vehicle_id'=>$addvechileNo,'status'=>'1', 'driver_id'=>$adddriverId]);
+          $consigner = DB::table('consignment_notes')->whereIn('id',$cc)->update(['vehicle_id'=>$addvechileNo,'status'=>'1', 'driver_id'=>$adddriverId, 'transporter_name' => $transporterName, 'vehicle_type' => $vehicleType]);
            //echo'hii';
 
            $consignees = DB::table('consignment_notes')->select('consignment_notes.*', 'consigners.nick_name as consigner_id','consignees.nick_name as consignee_id','vehicles.regn_no as vehicle_id','consignees.city as city','consignees.postal_code as pincode','drivers.name as driver_id','drivers.phone as driver_phone' )

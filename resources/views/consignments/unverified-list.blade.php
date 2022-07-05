@@ -61,7 +61,7 @@ div.relative {
                         @csrf
                         <table id="usertable" class="table table-hover get-datatable" style="width:100%">
                             <div class="btn-group relative">
-                            <button type="button" class="btn btn-primary" id="launch_model" data-toggle="modal" data-target="#exampleModal" disabled="disabled">
+                            <button type="button" class="btn btn-warning" id="launch_model" data-toggle="modal" data-target="#exampleModal" disabled="disabled" style="font-size: 11px;">
                             Update Vehicle Details
                             </button>
                             </div>
@@ -97,7 +97,7 @@ div.relative {
         </div>
     </div>
 @include('models.common-confirm')
-@include('models.update-unverifiedList')
+@include('models.update-unverifiedList') 
 @endsection
 @section('js')
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
@@ -132,6 +132,7 @@ div.relative {
     }
      });
         
+
      $('#updt_vehicle').submit(function(e) {
                //alert('hii'); return false;
                e.preventDefault();

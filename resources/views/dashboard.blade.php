@@ -314,33 +314,7 @@
                                     </div>
                                     <p>01 Mar, 2020</p>
                                 </div>
-                            </div>
-
-                            <div class="item-timeline timeline-new">
-                                <div class="t-dot">
-                                    <div class="t-warning"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg></div>
-                                </div>
-                                <div class="t-content">
-                                    <div class="t-uppercontent">
-                                        <h5>Documents Submitted from <a href="javascript:void(0);">Sara</a></h5>
-                                        <span class=""></span>
-                                    </div>
-                                    <p>10 Mar, 2020</p>
-                                </div>
-                            </div>
-
-                            <div class="item-timeline timeline-new">
-                                <div class="t-dot">
-                                    <div class="t-dark"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-server"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6" y2="6"></line><line x1="6" y1="18" x2="6" y2="18"></line></svg></div>
-                                </div>
-                                <div class="t-content">
-                                    <div class="t-uppercontent">
-                                        <h5>Server rebooted successfully</h5>
-                                        <span class=""></span>
-                                    </div>
-                                    <p>06 Apr, 2020</p>
-                                </div>
-                            </div>                                      
+                            </div>                 
                         </div>                                    
                     </div>
 
