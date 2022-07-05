@@ -10,6 +10,7 @@ use App\Models\Consigner;
 use DB;
 use URL;
 use Auth;
+use Crypt;
 use Helper;
 use Validator;
 
@@ -19,7 +20,6 @@ class ConsigneeController extends Controller
     {
       $this->title =  "Consignees";
       $this->segment = \Request::segment(2);
-
     }
 
     /**
@@ -30,21 +30,34 @@ class ConsigneeController extends Controller
     public function index(Request $request)
     {
         $this->prefix = request()->route()->getPrefix();
-        $query = Consignee::query();
-        $authuser = Auth::user();
-        $cc = explode(',',$authuser->branch_id);
-        if($authuser->role_id == 2){
-            $consignees = DB::table('consignees')->select('consignees.*', 'consigners.nick_name as consigner_id', 'states.name as state_id')
-                        ->join('consigners', 'consigners.id', '=', 'consignees.consigner_id')
-                        ->join('states', 'states.id', '=', 'consignees.state_id')
-                        ->where('consigners.branch_id', $cc)
-                        ->get();
-        //  echo "<pre>"; print_r($consignees); die;
-        }else{
-            $consignees = $query->orderBy('id','DESC')->with(['Consigner','State'])->get();
+        if ($request->ajax()) {
+            $query = Consignee::query();
+            $authuser = Auth::user();
+            $cc = explode(',',$authuser->branch_id);
+            if($authuser->role_id == 2){
+                $consignees = DB::table('consignees')->select('consignees.*', 'consigners.nick_name as consigner_id', 'states.name as state_id')
+                            ->join('consigners', 'consigners.id', '=', 'consignees.consigner_id')
+                            ->join('states', 'states.id', '=', 'consignees.state_id')
+                            ->where('consigners.branch_id', $cc)
+                            ->get();
+            }else{
+                $consignees = $query->orderBy('id','DESC')->with(['Consigner','State'])->get();
+            }
+            return datatables()->of($consignees)
+                ->addIndexColumn()
+                ->addColumn('action', function($row){
+                    $btn = '<a href="'.URL::to($this->prefix.'/'.$this->segment.'/'.Crypt::encrypt($row->id).'/edit').'" class="edit btn btn-sm btn-primary"><i class="fa fa-edit"></i></a>';
+                    $btn .= '&nbsp;&nbsp;';
+                    $btn .= '<a href="'.URL::to($this->prefix.'/'.$this->segment.'/'.Crypt::encrypt($row->id)).'" class="view btn btn-sm btn-primary"><i class="fa fa-eye"></i></a>';
+                    $btn .= '&nbsp;&nbsp;';
+                    $btn .= '<a class="delete btn btn-sm btn-danger delete_consignee" data-id="'.$row->id.'" data-action="'.URL::to($this->prefix.'/'.$this->segment.'/delete-consignee').'"><i class="fa fa-trash"></i></a>';
+
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
         }
-        return view('consignees.consignee-list',['consignees'=>$consignees,'prefix'=>$this->prefix,'title'=>$this->title])
-            ->with('i', ($request->input('page', 1) - 1) * 5);
+        return view('consignees.consignee-list',['prefix'=>$this->prefix,'segment'=>$this->segment]);
     }
 
     /**
