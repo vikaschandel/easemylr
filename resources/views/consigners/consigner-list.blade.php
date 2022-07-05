@@ -55,50 +55,24 @@ div.relative {
                 <!-- <div class="table-responsive mb-4 mt-4"> -->
                 <div class="mb-4 mt-4">
                     @csrf
-                    <table id="consignertable" class="table table-hover get-datatable" style="width:100%">
+                    <table id="consignerstable" class="table table-hover" style="width:100%">
                         <div class="btn-group relative">
                             <a class="btn-primary btn-cstm btn w-100" id="add_role" href="{{'consigners/create'}}" style="font-size: 12px; padding: 8px 0px;"><span><i class="fa fa-plus"></i> Add New</span></a>
                         </div>
                         <thead> 
                             <tr>
-                                <th>S No.</th>
                                 <th>Consigner Nick Name</th>
                                 <th>Contact Person Name</th>
                                 <th>Mobile No.</th>
                                 <th>PIN Code</th>
                                 <th>City</th>
                                 <th>District</th>
-                                <th>State</th>
+                                <!-- <th>State</th> -->
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php  
-                                if(count($consigners)>0) {
-                                    foreach ($consigners as $key => $value) {  
-                                ?> 
-                            <tr>
-                                <td>{{ ++$i }}</td>
-                                <td>{{ ucwords($value->nick_name ?? '-') }}</td>
-                                <td>{{ ucwords($value->contact_name ?? '-') }}</td>
-                                <td>{{ $value->phone ?? '-'}}</td>
-                                <td>{{ $value->postal_code ?? '-'}}</td>
-                                <td>{{ ucwords($value->city ?? '-') }}</td>
-                                <td>{{ ucwords($value->district ?? '-') }}</td>
-                                <td>{{ ucwords($value->State->name ?? '-') }}</td>
-                                <td>
-                                    <a class="btn btn-primary" href="{{url($prefix.'/consigners/'.Crypt::encrypt($value->id).'/edit')}}" ><span><i class="fa fa-edit"></i></span></a>
-                                    <a class="btn btn-info" href="{{url($prefix.'/consigners/'.Crypt::encrypt($value->id))}}" ><span><i class="fa fa-eye"></i></span></a>
-                                    <?php $authuser = Auth::user();
-                                    if($authuser->role_id ==1) { ?>
-                                        <a href="Javascript:void();" class="btn btn-danger delete_consigner" data-id="{{ $value->id }}" data-action="<?php echo URL::to($prefix.'/consigners/delete-consigner'); ?>"><span><i class="fa fa-trash"></i></span></a>
-                                    <?php } ?>
-                                </td>
-                            </tr>
-                            <?php 
-                                    }
-                                }
-                           ?>
+                            
                         </tbody>
                     </table>
                 </div>
@@ -108,4 +82,39 @@ div.relative {
 </div>
 
 @include('models.delete-consigner')
+@endsection
+@section('js')
+<script>
+var table = $('#consignerstable').DataTable({
+    processing: true,
+    serverSide: true,
+    
+        "dom": "<'dt--top-section'<'row'<'col-12 col-sm-6 d-flex justify-content-sm-start justify-content-center'l><'col-12 col-sm-6 d-flex justify-content-sm-end justify-content-center mt-sm-0 mt-3'f>>>" +
+        "<'table-responsive'tr>" +
+        "<'dt--bottom-section d-sm-flex justify-content-sm-between text-center'<'dt--pages-count  mb-sm-0 mb-3'i><'dt--pagination'p>>",
+        "oLanguage": {
+        "oPaginate": { "sPrevious": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>', "sNext": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>' },
+        "sInfo": "Showing page _PAGE_ of _PAGES_",
+        "sSearch": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>',
+        "sSearchPlaceholder": "Search...",
+        "sLengthMenu": "Results :  _MENU_",
+        },
+
+        "stripeClasses": [],
+        "pageLength": 30,
+        drawCallback: function () { $('.dataTables_paginate > .pagination').addClass(' pagination-style-13 pagination-bordered'); },
+
+    columns: [
+        {data: 'nick_name', name: 'nick_name'},
+        {data: 'contact_name', name: 'contact_name'},
+        {data: 'phone', name: 'phone'},
+        {data: 'postal_code', name: 'postal_code'},
+        {data: 'city', name: 'city'},
+        {data: 'district', name: 'district'},
+        // {data: 'state_id', name: 'State.name'},
+        {data: 'action', name: 'action', orderable: false, searchable: false}
+        
+    ]
+});
+</script>
 @endsection
