@@ -19,17 +19,17 @@ class DriverImport implements ToModel,WithHeadingRow
     {
         $driver = DB::table('drivers')->select('license_number')->where('license_number', $row['license_number'])->first();
         if(empty($driver)){
-        return new Driver([
-            'name'           => $row['name'],
-            'phone'          => (float)$row['phone'],
-            'license_number' => $row['license_number'],
-            'license_image'  => $row['license_image'],
-            'status'         => "1",
-            'created_at'     => time(),
+            return new Driver([
+                'name'           => $row['name'],
+                'phone'          => (float)$row['phone'],
+                'license_number' => $row['license_number'],
+                'license_image'  => $row['license_image'],
+                'status'         => "1",
+                'created_at'     => time(),
 
-        ]);
+            ]);
 
-    }
+        }
         // return new Bank([
         //     'broker_id'      => $row['broker_id'],
         //     'bank_name'      => $row['bank_name'],
