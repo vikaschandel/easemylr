@@ -25,18 +25,18 @@ class ConsigneeImport implements ToModel,WithHeadingRow
         $getConsigner = Consigner::where('nick_name',$row['consigner'])->first();
         $getuser = Auth::user();
 
-        if(empty($getConsigner)){
-            $consigner = '';
-        }
-        else{
+        if(!empty($getConsigner)){
             $consigner = $getConsigner->id;
         }
+        else{
+            $consigner = '';
+        }
 
-        if(empty($getState)){
-            $state = '';
+        if(!empty($getState)){
+            $state = $getState->id;
         }
         else{
-            $state = $getState->id;
+            $state = '';
         }
 
         if($row['dealer_type'] == 'Registered'){
@@ -46,27 +46,30 @@ class ConsigneeImport implements ToModel,WithHeadingRow
             $dealer_type = 0;
         }
 
-        return new Consignee([
-            'nick_name'         => $row['nick_name'],
-            'legal_name'        => $row['legal_name'],
-            'user_id'           => $getuser->id,
-            'consigner_id'      => $consigner,
-            'dealer_type'       => $dealer_type,
-            'gst_number'        => $row['gst_number'],
-            'contact_name'      => $row['contact_name'],
-            'phone'             => (float)$row['phone'],
-            'email'             => $row['email'],
-            'address_line1'     => $row['address_line1'],
-            'address_line2'     => $row['address_line2'],
-            'address_line3'     => $row['address_line3'],
-            'address_line4'     => $row['address_line4'],
-            'city'              => $row['city'],
-            'district'          => $row['district'],
-            'postal_code'       => $row['postal_code'],
-            'state_id'          => $state,
-            'status'            => "1",
-            'created_at'        => time(),
+        $consignee = Consignee::where('nick_name', $row['nick_name'])->where('consigner_id', $consigner)->first();
+        if(empty($consignee)){
+            return new Consignee([
+                'nick_name'         => $row['nick_name'],
+                'legal_name'        => $row['legal_name'],
+                'user_id'           => $getuser->id,
+                'consigner_id'      => $consigner,
+                'dealer_type'       => $dealer_type,
+                'gst_number'        => $row['gst_number'],
+                'contact_name'      => $row['contact_name'],
+                'phone'             => (float)$row['phone'],
+                'email'             => $row['email'],
+                'address_line1'     => $row['address_line1'],
+                'address_line2'     => $row['address_line2'],
+                'address_line3'     => $row['address_line3'],
+                'address_line4'     => $row['address_line4'],
+                'city'              => $row['city'],
+                'district'          => $row['district'],
+                'postal_code'       => $row['postal_code'],
+                'state_id'          => $state,
+                'status'            => "1",
+                'created_at'        => time(),
 
-        ]);
+            ]);
+        }
     }
 }
