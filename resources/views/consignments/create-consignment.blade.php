@@ -526,16 +526,11 @@ label.error{
 @endsection
 @section('js')
 <script>
-    $(".select2").append("#select_consigner-error");
-
     $(function() {
         $('.basic').selectpicker();
     });
-    // var ss = $(".basic").select2({
-    //     tags: true,
-    // });
 
-      // add consignment date
+    // add consignment date
     $('#consignDate, #date').val(new Date().toJSON().slice(0, 10));
     
     function showResult(str) {

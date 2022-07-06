@@ -117,13 +117,13 @@ var table = $('#consignerstable').DataTable({
         drawCallback: function () { $('.dataTables_paginate > .pagination').addClass(' pagination-style-13 pagination-bordered'); },
 
     columns: [
-        {data: 'nick_name', name: 'nick_name'},
-        {data: 'contact_name', name: 'contact_name'},
-        {data: 'phone', name: 'phone'},
-        {data: 'postal_code', name: 'postal_code'},
-        {data: 'city', name: 'city'},
-        {data: 'district', name: 'district'},
-        // {data: 'state_id', name: 'State.name'},
+        {data: 'nick_name', name: 'nick_name', defaultContent: '-'},
+        {data: 'contact_name', name: 'contact_name', defaultContent: '-'},
+        {data: 'phone', name: 'phone', defaultContent: '-'},
+        {data: 'postal_code', name: 'postal_code', defaultContent: '-'},
+        {data: 'city', name: 'city', defaultContent: '-'},
+        {data: 'district', name: 'district', defaultContent: '-'},
+        // {data: 'State.name', name: 'state_id', defaultContent: '-'},
         {data: 'action', name: 'action', orderable: false, searchable: false}
         
     ]
