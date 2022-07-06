@@ -618,11 +618,33 @@ class ConsignmentController extends Controller
         $this->prefix = request()->route()->getPrefix();
         $authuser = Auth::user();
         $cc = explode(',',$authuser->branch_id);
+        //echo'<pre>';print_r($cc);die;
         if($authuser->role_id == 2){
-         $consignments = ConsignmentNote::where('status', '=', '2')->whereIn('branch_id', $cc)->get();
+        $consignments = DB::table('consignment_notes')->select('consignment_notes.*', 'consigners.nick_name as consigner_id','consignees.nick_name as consignee_id','consignees.city as city','consignees.postal_code as pincode')
+        ->join('consigners', 'consigners.id', '=', 'consignment_notes.consigner_id')
+        ->join('consignees', 'consignees.id', '=', 'consignment_notes.consignee_id')
+        // ->join('vehicles', 'vehicles.id', '=', 'consignment_notes.vehicle_id')
+        // ->join('drivers', 'drivers.id', '=', 'consignment_notes.driver_id')
+        ->where('consignment_notes.status','=','2')
+        ->whereIn('consignment_notes.branch_id', $cc)
+        ->get(['consignees.city']);
+        //echo'<pre>';print_r($consignments);die;
         }else{
-        $consignments = ConsignmentNote::where('status', '=', '2')->get();
+            $consignments = DB::table('consignment_notes')->select('consignment_notes.*', 'consigners.nick_name as consigner_id','consignees.nick_name as consignee_id','consignees.city as city','consignees.postal_code as pincode')
+            ->join('consigners', 'consigners.id', '=', 'consignment_notes.consigner_id')
+            ->join('consignees', 'consignees.id', '=', 'consignment_notes.consignee_id')
+            // ->join('vehicles', 'vehicles.id', '=', 'consignment_notes.vehicle_id')
+            // ->join('drivers', 'drivers.id', '=', 'consignment_notes.driver_id')
+            ->where('consignment_notes.status','=','2')
+            ->get(['consignees.city']);
         }
+         //echo'<pre>'; print_r($consignments); die;
+
+        // if($authuser->role_id == 2){
+        //  $consignments = ConsignmentNote::where('status', '=', '2')->whereIn('branch_id', $cc)->get();
+        // }else{
+        // $consignments = ConsignmentNote::where('status', '=', '2')->get();
+        // }
         $vehicles = Vehicle::where('status','1')->select('id','regn_no')->get();
         $drivers = Driver::where('status','1')->select('id','name','phone')->get();
         $vehicletypes = VehicleType::where('status','1')->select('id','name')->get();
@@ -690,18 +712,45 @@ class ConsignmentController extends Controller
     public function transactionSheet()
     {
         $this->prefix = request()->route()->getPrefix();
+        $vehicles = Vehicle::where('status','1')->select('id','regn_no')->get();
+        $drivers = Driver::where('status','1')->select('id','name','phone')->get();
+        $vehicletypes = VehicleType::where('status','1')->select('id','name')->get();
+        $authuser = Auth::user();
+        $cc = $authuser->branch_id;
+        if($authuser->role_id == 2){
+        $transaction = TransactionSheet::select('drs_no','created_at', 'vehicle_no')->where('branch_id', '=', $cc)->distinct()->get();
+        }else{
         $transaction = TransactionSheet::all();
+        }
 
-        return view('consignments.transaction-sheet',['prefix'=>$this->prefix,'title'=>$this->title, 'transaction'=>$transaction]);
+        return view('consignments.transaction-sheet',['prefix'=>$this->prefix,'title'=>$this->title, 'transaction'=>$transaction, 'vehicles'=>$vehicles ,'drivers'=>$drivers, 'vehicletypes' => $vehicletypes]);
     }
 
     public function getTransactionDetails(Request $request)
      {
         $id = $_GET['cat_id'];
-        $transcationview = DB::table('transaction_sheets')->select('*')->where('id', $id)->get();
-        $simplyfy = json_decode(json_encode($transcationview), true);
+        
+        $transcationview = DB::table('transaction_sheets')->select('*')->where('drs_no', $id)->orderby('order_no', 'asc')->get();
+        $result = json_decode(json_encode($transcationview), true);
+         //echo'<pre>'; print_r($result); 
+        //   foreach($simplfy as $value){
+              
+        //        $result[] = $value;
+        //   }
+    
+      
+        //  $col  = 'order_no';
+        //  $sort = array();
+        //  foreach ($result as $i => $obj) {
+        //    $sort[$i] = $obj->{$col};
+        //  }
+         
+        //  $sorted_db = array_multisort($sort, SORT_ASC, $result);
+         
+        // //  echo'<pre>'; print_r($result);
+        // //  die;
 
-        $response['fetch'] = $simplyfy;
+        $response['fetch'] = $result;
         $response['success'] = true;
         $response['success_message'] = "Data Imported successfully";
         echo json_encode($response);
@@ -835,5 +884,79 @@ class ConsignmentController extends Controller
             return $pdf->stream('print.pdf');
        
 
+     }
+
+     public function updateEDD(Request $request)
+     {
+        //echo'<pre>'; print_r($_POST); die;
+        $edd = $_POST['drs_edd'];
+        $consignmentId =  $_POST['consignment_id'];
+        $consigner = DB::table('consignment_notes')->where('id',$consignmentId)->update(['edd'=> $edd]);
+        if($consigner){
+            //echo'ok';
+            return response()->json(['success'=>'EDD Updated Successfully']);
+        }else{
+            return response()->json(['error'=>'Something went wrong']);
+        }
+     }
+
+     public function CreateEdd(Request $request)
+     {
+        
+        $consignmentId =  $_POST['consignmentID'];
+        $authuser = Auth::user();
+        $cc = $authuser->branch_id;
+
+        $consigner = DB::table('consignment_notes')->whereIn('id',$consignmentId)->update(['status'=>'1']);
+        $consignment = DB::table('consignment_notes')->select('consignment_notes.*', 'consigners.nick_name as consigner_id','consignees.nick_name as consignee_id' ,'consignees.city as city','consignees.postal_code as pincode')
+        ->join('consigners', 'consigners.id', '=', 'consignment_notes.consigner_id')
+        ->join('consignees', 'consignees.id', '=', 'consignment_notes.consignee_id')
+        ->whereIn('consignment_notes.id', $consignmentId)
+        ->get(['consignees.city']);
+
+        $simplyfy = json_decode(json_encode($consignment), true);
+        //echo'<pre>'; print_r($simplyfy); die;
+       
+        $no_of_digit = 5;
+        $drs = DB::table('transaction_sheets')->select('drs_no')->latest('drs_no')->first();
+        $drs_no = json_decode(json_encode($drs), true);
+        if(empty($drs_no) || $drs_no == null){
+         $drs_no['drs_no'] = 0;
+        }
+         $number = $drs_no['drs_no'] + 1;
+         $drs_no = str_pad($number, $no_of_digit, "0", STR_PAD_LEFT);
+
+        $i = 0;
+        foreach($simplyfy as $value){
+            $i++;
+         $consignment_no = $value['consignment_no'];
+         $consignee_id = $value['consignee_id'];
+         $consignment_date = $value['consignment_date'];
+         $city = $value['city'];
+         $pincode = $value['pincode'];
+         $total_quantity = $value['total_quantity'];
+         $total_weight = $value['total_weight'];
+                  
+        //echo'<pre>'; print_r($data); die;                         
+       
+        
+        $transaction = DB::table('transaction_sheets')->insert(['drs_no'=>$drs_no, 'consignment_no' => $consignment_no, 'branch_id' => $cc, 'consignee_id' => $consignee_id, 'consignment_date' => $consignment_date, 'city' => $city, 'pincode' => $pincode, 'total_quantity' => $total_quantity, 'total_weight' => $total_weight, 'order_no' => $i]);
+        }
+    
+         $response['success'] = true;
+         $response['success_message'] = "Data Imported successfully";
+         return response()->json($response);
+
+     }
+
+     public function updateSuffle(Request $request)
+     {
+        $page_id = $request->page_id_array;
+        for($count = 0;  $count < count($page_id); $count++)
+        {
+            $drs = DB::table('transaction_sheets')->where('id',$page_id[$count])->update(['order_no' => $count+1]);
+
+        }
+        
      }
 }

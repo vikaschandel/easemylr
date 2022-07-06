@@ -1,7 +1,77 @@
 <!-- xtra Large modal -->
 
+<!-- Modal -->
+<div class="modal fade bd-example-modal-xl" id="save-draft" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      </div>
+      <div class="modal-body">
+       <form id="updt_vehicle" method="post">
 
-<div class="modal fade bd-example-modal-xl opm" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"
+                    <input type="text" class="form-control" id="transaction_id" name="transaction_id"
+                        value="">
+                    <div class="form-row mb-0">
+                        <div class="form-group col-md-6">
+                            <label for="location_name">Vehicle No.</label>
+
+                            <select class="form-control my-select2" id="vehicle_no" name="vehicle_id" tabindex="-1">
+                                <option value="">Select vehicle no</option>
+                                @foreach($vehicles as $vehicle)
+                                <option value="{{$vehicle->id}}">{{$vehicle->regn_no}}
+                                </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="exampleFormControlInput2">Vehicle Type</label>
+                            <select class="form-control my-select2" id="vehicle_type" name="vehicle_type" tabindex="-1">
+                                <option value="">Select vehicle type</option>
+                                @foreach($vehicletypes as $vehicle)
+                                <option value="{{$vehicle->id}}">{{$vehicle->name}}
+                                </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row mb-0">
+                        <div class="form-group col-md-6">
+                            <label for="exampleFormControlInput2">Driver Name</label>
+
+
+                            <select class="form-control my-select2" id="driver_id" name="driver_id" tabindex="-1">
+                                <option value="">Select driver</option>
+                                @foreach($drivers as $driver)
+                                <option value="{{$driver->id}}">{{ucfirst($driver->name) ?? '-'}}-{{$driver->phone ??
+                                    '-'}}
+                                </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="exampleFormControlInput2">Transporter Name</label>
+
+
+                            <input type="text" class="form-control" id="Transporter" name="transporter_name" value="">
+
+                        </div>
+
+      </div>
+                                </div>
+      <div class="modal-footer">
+      <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Discard</button>
+      <button type="button" class="btn btn-primary">Save</button>
+                                </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade bd-example-modal-xl" id="opm" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
@@ -75,7 +145,7 @@
                                         <th>Net Weight</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="suffle">
 
                                 </tbody>
                             </table>
@@ -90,7 +160,7 @@
                                                 <label id="total"></label>
                                             </td>
                                         </tr>
-                                    </table>
+                                    </table> 
                                 </div>
                             </div>
                            

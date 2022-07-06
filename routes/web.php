@@ -109,6 +109,8 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth','PermissionCheck']], func
     Route::get('transaction-sheet', [ConsignmentController::class, 'transactionSheet']);
     Route::any('view-transactionSheet/{id}', [ConsignmentController::class, 'getTransactionDetails']);
     Route::any('print-transaction/{id}', [ConsignmentController::class, 'printTransactionsheet']);
+    Route::any('update-edd', [ConsignmentController::class, 'updateEDD']);
+    Route::any('create-drs', [ConsignmentController::class, 'CreateEdd']);
     
     Route::resource('locations', LocationController::class);
     Route::post('/locations/update', [LocationController::class, 'updateLocation']);
@@ -171,6 +173,9 @@ Route::group(['prefix'=>'branch-manager', 'middleware'=>['auth','PermissionCheck
     Route::get('transaction-sheet', [ConsignmentController::class, 'transactionSheet']);
     Route::any('view-transactionSheet/{id}', [ConsignmentController::class, 'getTransactionDetails']);
     Route::any('print-transaction/{id}', [ConsignmentController::class, 'printTransactionsheet']);
+    Route::any('update-edd', [ConsignmentController::class, 'updateEDD']);
+    Route::any('create-drs', [ConsignmentController::class, 'CreateEdd']);
+    Route::any('update-suffle', [ConsignmentController::class, 'updateSuffle']);
     
     Route::resource('locations', LocationController::class);
     Route::post('/locations/update', [LocationController::class, 'updateLocation']);
