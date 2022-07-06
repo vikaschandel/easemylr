@@ -175,7 +175,7 @@ class DriverController extends Controller
             $this->prefix = request()->route()->getPrefix();
              $rules = array(
                 'name' => 'required',
-                'license_number' => 'required|unique:drivers,license_number,' . $request->driver_id,
+                'license_number' => 'required|unique:drivers,license_number,'.$request->driver_id,
                 'license_image'  => 'mimes:jpg,jpeg,png|max:4096',
             );
 

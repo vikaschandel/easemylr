@@ -15,7 +15,7 @@
                             <input class="form-control" id="nameup" name="name" value="">
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="location_name">Location Nick Name</label>
+                            <label for="location_name">Location City</label>
                             <input class="form-control" id="nick_nameup" name="nick_name" value="">
                         </div>
                     </div>

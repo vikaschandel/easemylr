@@ -184,7 +184,7 @@ class VehicleController extends Controller
         try { 
             $this->prefix = request()->route()->getPrefix();
              $rules = array(
-                'regn_no' => 'required|unique:vehicles,regn_no,' . $request->vehicle_id,
+                'regn_no' => 'required|unique:vehicles,regn_no,'.$request->vehicle_id,
                 'mfg' => 'required',
             );
 
