@@ -90,8 +90,7 @@ class ConsignerController extends Controller
     {
         $this->prefix = request()->route()->getPrefix();
         $rules = array(
-            'nick_name' => 'required',
-            // 'email' => 'required|unique:branches',
+            'nick_name' => 'required|unique:consigners',
         );
         $validator = Validator::make($request->all(),$rules);
     
@@ -187,8 +186,7 @@ class ConsignerController extends Controller
         try { 
             $this->prefix = request()->route()->getPrefix();
              $rules = array(
-              'nick_name' => 'required',
-            //   'email'  => 'required',
+              'nick_name' => 'required|unique:consigners,nick_name,'.$request->consigner_id,
             );
 
             $validator = Validator::make($request->all(),$rules);

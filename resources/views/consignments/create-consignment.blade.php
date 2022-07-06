@@ -526,6 +526,8 @@ label.error{
 @endsection
 @section('js')
 <script>
+    $(".select2").append("#select_consigner-error");
+
     $(function() {
         $('.basic').selectpicker();
     });
