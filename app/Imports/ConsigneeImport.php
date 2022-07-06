@@ -22,7 +22,7 @@ class ConsigneeImport implements ToModel,WithHeadingRow
     public function model(array $row)
     {
         $getState = State::where('name',$row['state'])->first();
-        $getConsigner = Consigner::where('nick_name',$row['consigner'])->first();
+        $getConsigner = Consigner::where('id',$row['consigner_id'])->first();
         $getuser = Auth::user();
 
         if(!empty($getConsigner)){
