@@ -40,35 +40,27 @@ class VehiclesImport implements ToModel, WithHeadingRow  //ToCollection
         }
         $tonnage_capacity = (int)$row['gross_vehicle_weight'] - (int)$row['unladen_weight'];
 
-
         $regn_date= \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['regn_date']);
-        
-        // dd(explode(" ",$regn_date));
-        return new Vehicle([
-            'regn_no'        => $row['regn_no'],
-            'mfg'            => $row['manufacture'],
-            'make'           => $row['make'],
-            'engine_no'      => $row['engine_no'],
-            'chassis_no'     => $row['chassis_no'], 
-            'gross_vehicle_weight' => $row['gross_vehicle_weight'],
-            'unladen_weight' => $row['unladen_weight'], 
-            'body_type'      => $row['body_type'],
-            'tonnage_capacity' => $tonnage_capacity,
-            'state_id'       => $state,
-            'regndate'       => $regn_date,
-            'hypothecation'  => $row['hypothecation'],
-            'ownership'      => $row['ownership'],
-            'status'         => $status,
-            'created_at'     => time(),
-
-        ]);
+        $vehicle = Vehicle::where('regn_no', $row['regn_no'])->first();
+        if(empty($vehicle)){
+            return new Vehicle([
+                'regn_no'        => $row['regn_no'],
+                'mfg'            => $row['manufacture'],
+                'make'           => $row['make'],
+                'engine_no'      => $row['engine_no'],
+                'chassis_no'     => $row['chassis_no'], 
+                'gross_vehicle_weight' => $row['gross_vehicle_weight'],
+                'unladen_weight' => $row['unladen_weight'], 
+                'body_type'      => $row['body_type'],
+                'tonnage_capacity' => $tonnage_capacity,
+                'state_id'       => $state,
+                'regndate'       => $regn_date,
+                'hypothecation'  => $row['hypothecation'],
+                'ownership'      => $row['ownership'],
+                'status'         => $status,
+                'created_at'     => time(),
+            ]);
+        }
     }
-
-    // public function rules(): array 
-    // {
-    //     return [
-    //         '1' => 'unique:vehicles,regn_no',
-    //     ];
-    // }
 
 }
