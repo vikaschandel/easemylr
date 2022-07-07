@@ -32,9 +32,9 @@ class VehicleExport implements FromCollection, WithHeadings,ShouldQueue
                     }else{
                       $state = '';
                     }
-                  }else{
+                }else{
                     $state = '';
-                  }          
+                }
                 $arr[] = [
                     'id' => $value->id,
                     'regn_no' => $value->regn_no,

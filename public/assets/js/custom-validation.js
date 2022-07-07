@@ -56,16 +56,8 @@ jQuery(document).ready(function(){
                 dataType : "JSON",
                 success:function(response){
                     if(response.success){
-                        jQuery("#branchtable").load(" #branchtable");
                         jQuery("#deletebranch").modal("hide");
-                    }
-                    else{
-                        jQuery("#deletebranch").modal("hide");
-                        jQuery('html,body').animate({ scrollTop: 0 }, 'slow');
-                        jQuery('.branch_error').show();
-                        setTimeout(function(){
-                         jQuery('.branch_error').fadeOut();
-                       },5000);
+                        location.reload();
                     }
                 }
             });
@@ -90,8 +82,8 @@ jQuery(document).ready(function(){
                 dataType : "JSON",
                 success:function(data){
                     if(data){
-                        jQuery("#consignertable").load(" #consignertable");
                         jQuery("#deleteconsigner").modal("hide");
+                        location.reload();
                     }
                 }
             });
@@ -116,8 +108,8 @@ jQuery(document).ready(function(){
                 dataType : "JSON",
                 success:function(data){
                     if(data){
-                        jQuery("#consigneetable").load(" #consigneetable");
                         jQuery("#deleteconsignee").modal("hide");
+                        location.reload();
                     }
                 }
             });
@@ -168,8 +160,8 @@ jQuery(document).ready(function(){
                 dataType : "JSON",
                 success:function(data){
                     if(data){
-                        jQuery("#drivertable").load(" #drivertable");
                         jQuery("#deletedriver").modal("hide");
+                        location.reload();
                     }
                 }
             });
@@ -324,8 +316,8 @@ jQuery(document).ready(function(){
                 dataType : "JSON",
                 success:function(data){
                     if(data){
-                        jQuery("#usertable").load(" #usertable");
                         jQuery("#deleteuser").modal("hide");
+                        location.reload();
                     }
                 }
             });
@@ -349,8 +341,8 @@ jQuery(document).ready(function(){
                 dataType : "JSON",
                 success:function(data){
                     if(data){
-                        jQuery("#usertable").load(" #usertable");
                         jQuery("#deletevehicle").modal("hide");
+                        location.reload();
                     }
                 }
             });
@@ -587,10 +579,12 @@ jQuery(document).ready(function(){
                 jQuery('#consignment_noup').val(response.newcata.consignment_no);
                 jQuery('#emailup').val(response.newcata.email);
                 jQuery('#phoneup').val(response.newcata.phone);
-                if(response.newcata.with_vehicle_no){
-                    jQuery('#with_vehicle_noup').attr('checked',true);
+                if(response.newcata.with_vehicle_no == 1){
+                    jQuery('.radio_vehicleno_yes').attr('checked',true);
+                    jQuery('.radio_vehicleno_no').attr('checked',false);
                 }else {
-                    jQuery('#with_vehicle_noup').attr('checked',false);
+                    jQuery('.radio_vehicleno_no').attr('checked',true);
+                    jQuery('.radio_vehicleno_yes').attr('checked',false);
                 }
 
                 // jQuery('.radio_vehicleno').val(response.newcata.with_vehicle_no);

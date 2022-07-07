@@ -7,9 +7,12 @@ use Illuminate\Http\Request;
 use App\Models\Branch;
 use App\Models\State;
 use App\Models\Location;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\ConsignerExport;
 use DB;
 use URL;
 use Auth;
+use Crypt;
 use Helper;
 use Validator;
 
@@ -29,15 +32,36 @@ class ConsignerController extends Controller
     public function index(Request $request)
     {
         $this->prefix = request()->route()->getPrefix();
-        $query = Consigner::query();
-        $authuser = Auth::user();
-        $cc = explode(',',$authuser->branch_id);
-        if($authuser->role_id == 2){
-            $consigners = $query->whereIn('branch_id',$cc)->orderBy('id','DESC')->with('State')->get();
-        }else{
-            $consigners = $query->orderBy('id','DESC')->with('State')->get();
+        if ($request->ajax()) {
+            $query = Consigner::query();
+            $authuser = Auth::user();
+            $cc = explode(',',$authuser->branch_id);
+            if($authuser->role_id == 2){
+                $consigners = $query->whereIn('branch_id',$cc)->orderBy('id','DESC')->with('State')->get();
+            }else{
+                $consigners = $query->orderBy('id','DESC')->with('State')->get();
+            }
+            return datatables()->of($consigners)
+                ->addIndexColumn()
+                // ->addColumn('State', function (Consigner $post) {
+                //     return $post->State->name;
+                // })
+                // ->addColumn('state_id', function($row){
+                //     return $row->State->name;
+                // })
+                ->addColumn('action', function($row){
+                    $btn = '<a href="'.URL::to($this->prefix.'/'.$this->segment.'/'.Crypt::encrypt($row->id).'/edit').'" class="edit btn btn-sm btn-primary"><i class="fa fa-edit"></i></a>';
+                    $btn .= '&nbsp;&nbsp;';
+                    $btn .= '<a href="'.URL::to($this->prefix.'/'.$this->segment.'/'.Crypt::encrypt($row->id)).'" class="view btn btn-sm btn-primary"><i class="fa fa-eye"></i></a>';
+                    $btn .= '&nbsp;&nbsp;';
+                    $btn .= '<a class="delete btn btn-sm btn-danger delete_consigner" data-id="'.$row->id.'" data-action="'.URL::to($this->prefix.'/'.$this->segment.'/delete-consigner').'"><i class="fa fa-trash"></i></a>';
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+
         }
-        return view('consigners.consigner-list',['consigners'=>$consigners,'prefix'=>$this->prefix,'title'=>$this->title])->with('i', ($request->input('page', 1) - 1) * 5);
+        return view('consigners.consigner-list',['prefix'=>$this->prefix,'segment'=>$this->segment]);
     }
 
     /**
@@ -69,8 +93,7 @@ class ConsignerController extends Controller
     {
         $this->prefix = request()->route()->getPrefix();
         $rules = array(
-            'nick_name' => 'required',
-            // 'email' => 'required|unique:branches',
+            'nick_name' => 'required|unique:consigners',
         );
         $validator = Validator::make($request->all(),$rules);
     
@@ -166,8 +189,7 @@ class ConsignerController extends Controller
         try { 
             $this->prefix = request()->route()->getPrefix();
              $rules = array(
-              'nick_name' => 'required',
-            //   'email'  => 'required',
+              'nick_name' => 'required|unique:consigners,nick_name,'.$request->consigner_id,
             );
 
             $validator = Validator::make($request->all(),$rules);
@@ -230,5 +252,11 @@ class ConsignerController extends Controller
         $response['success_message'] = 'Consigner deleted successfully';
         $response['error']           = false;
         return response()->json($response);
+    }
+
+    //download excel/csv
+    public function exportExcel()
+    {
+        return Excel::download(new ConsignerExport, 'consigners.csv');
     }
 }
