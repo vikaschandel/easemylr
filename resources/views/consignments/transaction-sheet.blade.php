@@ -72,7 +72,7 @@ div.relative {
                                 <td>
                                     <button type="button" class="btn btn-warning view-sheet" value="{{$trns['drs_no']}}" style="margin-right:4px;">Draft</button> 
                                    <button type="button" class="btn btn-danger draft-sheet" value="{{$trns['drs_no']}}" style="margin-right:4px;">Save</button> 
-                                    <a class="btn btn-primary" href="{{url($prefix.'/print-transaction/'.$trns['id'])}}" role="button">Print</a>
+                                    <a class="btn btn-primary" href="{{url($prefix.'/print-transaction/'.$trns['drs_no'])}}" role="button">Print</a>
                                 </td>
                               </tr>
                               @endforeach
@@ -145,28 +145,32 @@ div.relative {
                     //alert(draft_id);
                     $.ajax({
                         type: "GET",
-                        url: "view-transactionSheet/"+cat_id,
-                        data: {cat_id:cat_id},
+                        url: "view-draftSheet/"+draft_id, 
+                        data: {draft_id:draft_id},
                         // dataType: "json",
                         beforeSend:                      //reinitialize Datatables
                        function(){   
-                        $('#sheet').dataTable().fnClearTable();             
-                        $('#sheet').dataTable().fnDestroy();
-                        $("#sss").empty();          
-                        $("#total").empty();  
-                        $("#ppp").empty();  
-                        $("#nnn").empty();    
-                        $("#drsdate").empty();  
+                        $('#save-DraftSheet').dataTable().fnClearTable();             
+                        $('#save-DraftSheet').dataTable().fnDestroy();
+                        // $("#sss").empty();          
+                        // $("#total").empty();  
+                        // $("#ppp").empty();  
+                        // $("#nnn").empty();    
+                        // $("#drsdate").empty();  
                  },
                         success: function(data){
-                            var re = jQuery.parseJSON(data)
-                            //console.log(re.fetch); return false;
-                            $.each(re.fetch, function(index, value) {
+                        var re = jQuery.parseJSON(data)
+                    //console.log(re.fetch); return false;
+                    var consignmentID = [];
+                    $.each(re.fetch, function(index, value) {
 
-                                    var alldata = value;  
-                                    $('#sheet tbody').append("<tr id="+value.id+"><td>" + value.consignment_no + "</td><td>" + value.consignment_date + "</td><td>" + value.consignee_id + "</td><td>"+ value.city + "</td><td>"+ value.pincode + "</td><td>"+ value.total_quantity + "</td><td>"+ value.total_weight + "</td></tr>");              
-                        });      
-                        $('#transaction_id').val(draft_id);
+                        var alldata = value;  
+                        consignmentID.push(value.consignment_no);
+                        $('#save-DraftSheet tbody').append("<tr id="+value.id+"><td>" + value.consignment_no + "</td><td>" + value.consignment_date + "</td><td>" + value.consignee_id + "</td><td>"+ value.city + "</td><td>"+ value.pincode + "</td><td>"+ value.total_quantity + "</td><td>"+ value.total_weight + "</td></tr>");      
+                    });
+                    
+
+                    $('#transaction_id').val(consignmentID);
 				} 
 			});
 		});
@@ -209,6 +213,7 @@ div.relative {
 ////////////////////////////
 $('#updt_vehicle').submit(function(e) {
         e.preventDefault();
+        alert('hi'); 
         var formData = new FormData(this);
 
         var vehicle = $('#vehicle_no').val();

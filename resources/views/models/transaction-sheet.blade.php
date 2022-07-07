@@ -11,7 +11,7 @@
       <div class="modal-body">
        <form id="updt_vehicle" method="post">
 
-                    <input type="text" class="form-control" id="transaction_id" name="transaction_id"
+                    <input type="hidden" class="form-control" id="transaction_id" name="transaction_id"
                         value="">
                     <div class="form-row mb-0">
                         <div class="form-group col-md-6">
@@ -60,16 +60,51 @@
                         </div>
 
       </div>
+      <div class="table-responsive">
+                            <table id="save-DraftSheet" class="table table-hover" style="width:100%; text-align:left; border: 1px solid #c7c7c7;">
+                                <thead>
+                                    <tr>
+                                        <th>Consignment No</th>
+                                        <th>Consignment Date</th>
+                                        <th>Consignee Name</th>
+                                        <th>city</th>
+                                        <th>Pin Code</th>
+                                        <th>Number Of Boxes</th>
+                                        <th>Net Weight</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table>
+                                        <tr>
+                                            <td width: 131px;>
+                                                <label>Total :</label>
+                                            </td>
+                                            <td width: 131px;>
+                                                <label id="total"></label>
+                                            </td>
+                                        </tr>
+                                    </table> 
                                 </div>
+                            </div>
+                           
+                        </div>
+      
+                </div>
+
       <div class="modal-footer">
       <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Discard</button>
-      <button type="button" class="btn btn-primary">Save</button>
+      <button type="submit" class="btn btn-primary">Save</button>
                                 </form>
       </div>
     </div>
   </div>
 </div>
-
+<!-- ================================================================================== -->
 
 <div class="modal fade bd-example-modal-xl" id="opm" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"
     aria-hidden="true">
@@ -93,39 +128,7 @@
                 <div id="www">
                 <div class="row">
                     <div class="col-sm-12">
-                        <table>
-                        <tr>
-                                <td width: 131px;>
-                                    <label>DRS No :</label>
-                                </td>
-                                <td width: 131px;>
-                                    <label id="drsdate"></label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td width: 131px;>
-                                    <label>Vehicle No :</label>
-                                </td>
-                                <td width: 131px;>
-                                    <label id="sss"></label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td width: 131px;>
-                                    <label>Driver Name :</label>
-                                </td>
-                                <td width: 231px;>
-                                    <label id="ppp" style="width: 187px;"></label>
-                                </td>
-
-                                <td width: 131px;>
-                                    <label>Driver Number :</label>
-                                </td>
-                                <td width: 131px;>
-                                    <label id="nnn"></label>
-                                </td>
-                            </tr>
-                        </table>
+                        
                         <div>
 
                         </div>
