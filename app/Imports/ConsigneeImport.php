@@ -46,7 +46,7 @@ class ConsigneeImport implements ToModel,WithHeadingRow
             $dealer_type = 0;
         }
 
-        $consignee = Consignee::where('nick_name', $row['nick_name'])->first();
+        $consignee = Consignee::where('nick_name', $row['nick_name'])->where('consigner_id',$consigner)->first();
         if(empty($consignee)){
             return new Consignee([
                 'nick_name'         => $row['nick_name'],
