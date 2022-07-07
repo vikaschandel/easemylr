@@ -15,7 +15,7 @@ use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\ConsignmentController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\ImportCsvController;
-use App\Http\Controllers\SettingController;
+use App\Http\Controllers\SettingController;  
 
 /*
 |--------------------------------------------------------------------------
