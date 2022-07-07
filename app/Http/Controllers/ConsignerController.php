@@ -42,10 +42,13 @@ class ConsignerController extends Controller
                 $consigners = $query->orderBy('id','DESC')->with('State')->get();
             }
             return datatables()->of($consigners)
+                ->addIndexColumn()
                 // ->addColumn('State', function (Consigner $post) {
                 //     return $post->State->name;
                 // })
-                ->addIndexColumn()
+                // ->addColumn('state_id', function($row){
+                //     return $row->State->name;
+                // })
                 ->addColumn('action', function($row){
                     $btn = '<a href="'.URL::to($this->prefix.'/'.$this->segment.'/'.Crypt::encrypt($row->id).'/edit').'" class="edit btn btn-sm btn-primary"><i class="fa fa-edit"></i></a>';
                     $btn .= '&nbsp;&nbsp;';
