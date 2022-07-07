@@ -661,6 +661,7 @@ class ConsignmentController extends Controller
           $adddriverId = $request->driver_id;
           $vehicleType = $request->vehicle_type;
           $transporterName = $request->transporter_name;
+          
 
           $consigner = DB::table('consignment_notes')->whereIn('consignment_no',$cc)->update(['vehicle_id'=>$addvechileNo, 'driver_id'=>$adddriverId, 'transporter_name' => $transporterName, 'vehicle_type' => $vehicleType]);
            //echo'hii';
@@ -672,6 +673,7 @@ class ConsignmentController extends Controller
            ->join('drivers', 'drivers.id', '=', 'consignment_notes.driver_id')
            ->whereIn('consignment_notes.consignment_no', $cc)
            ->get(['consignees.city']);
+           //echo'<pre>'; print_r($consignees); die;
 
            $simplyfy = json_decode(json_encode($consignees), true);
            foreach($simplyfy as $value){
@@ -750,11 +752,13 @@ class ConsignmentController extends Controller
 
         $transcationview = DB::table('transaction_sheets')->select('*')->where('drs_no', $id)->orderby('order_no', 'asc')->get();
         $simplyfy = json_decode(json_encode($transcationview), true);
-       echo'<pre>'; print_r($simplyfy); die;
+        $details = $simplyfy[0];
+       //echo'<pre>'; print_r($simplyfy); die;
+       
        $pay = url('assets/img/LOGO_Frowarders.jpg');
        //echo'<pre>'; print_r($pay); die;
        //<img src="" alt="logo" alt="" width="80" height="70">
-    $drsDate = date('d-m-Y', strtotime($simplyfy['created_at']));
+    $drsDate = date('d-m-Y', strtotime($details['created_at']));
        $html = '<!DOCTYPE html>
        <html lang="en">
        <head>
@@ -774,7 +778,7 @@ class ConsignmentController extends Controller
                                    <label>DRS No :</label>
                                </td>
                                <td >
-                                   <label id="sss">DRS-'.$simplyfy['drs_no'].'</label>
+                                   <label id="sss">DRS-'.$details['drs_no'].'</label>
                                </td>
                            </tr>
                            <tr>
@@ -790,7 +794,7 @@ class ConsignmentController extends Controller
                                            <label>Vehicle No :</label>
                                        </td>
                                        <td >
-                                           <label id="sss">'.$simplyfy['vehicle_no'].'</label>
+                                           <label id="sss">'.$details['vehicle_no'].'</label>
                                        </td>
                                    </tr>
                                    <tr>
@@ -798,14 +802,14 @@ class ConsignmentController extends Controller
                                            <label>Driver Name :</label>
                                        </td>
                                        <td style="width: 157px;">
-                                           <label id="ppp" >'.@$simplyfy['driver_name'].'</label>
+                                           <label id="ppp" >'.@$details['driver_name'].'</label>
                                        </td>
        
                                        <td >
                                            <label>Driver Number :</label>
                                        </td>
                                        <td width: 131px;>
-                                           <label id="nnn">'.@$simplyfy['driver_no'].'</label>
+                                           <label id="nnn">'.@$details['driver_no'].'</label>
                                        </td>
                                    </tr>
                                </table>
@@ -826,11 +830,15 @@ class ConsignmentController extends Controller
                                            </tr>
                                        </thead>
                                        <tbody>';
-                                       $transactionDecode = json_decode($simplyfy['transaction_details'], true);
                                        //echo'<pre>'; print_r($transactionDecode); 
                                        $i = 0;
-                                       foreach($transactionDecode as $dataitem){ 
-                                        $i++ ;
+                                       $total_Boxes = 0;
+                                       $total_weight = 0;
+
+                                       foreach($simplyfy as $dataitem){ 
+                                             $i++;
+                                             $total_Boxes += $dataitem['total_quantity'];
+                                             $total_weight += $dataitem['total_weight'];
                                         //echo'<pre>'; print_r($dataitem['consignment_no']); die;
                                  $html .='      <tr  style=" border: 1px solid; border-collapse: collapse;">
                                                <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;">'.$dataitem['consignment_no'].'</td>
@@ -844,6 +852,18 @@ class ConsignmentController extends Controller
                                        }
 
                                        $html .=' </tbody>
+                                       <tfoot>
+                                             <tr  style=" border: 1px solid; border-collapse: collapse;">
+                                                  <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;">Total: '.$i.'</td>
+                                                  <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;"></td>
+                                                  <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;"></td>
+                                                  <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;"></td>
+                                                  <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;"></td>
+                                                  <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;">Total Boxes : '.$total_Boxes.'</td>
+                                                  <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;">Total Weight: '.$total_weight.'</td>
+                                             </tr>
+
+                                       </tfoot>
                                    </table>
 
                                  </div>
@@ -851,16 +871,7 @@ class ConsignmentController extends Controller
 
                                   <div class="row" style="padding: 5px;">
                                        <div class="col-sm-12">
-                                           <table>
-                                               <tr>
-                                                   <td width: 131px;>
-                                                       <label>Total :</label>
-                                                   </td>
-                                                   <td width: 131px;>
-                                                       <label id="total">'.$i.'</label>
-                                                   </td>
-                                               </tr>
-                                           </table>
+                                     
                                            <hr></hr>
                                        </div>
        </body>

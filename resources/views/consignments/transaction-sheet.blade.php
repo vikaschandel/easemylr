@@ -28,6 +28,14 @@ div.relative {
    
     font-size: 10px;
     }
+    .select2-results__options {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    height: 160px;
+    /* scroll-margin: 38px; */
+    overflow: auto;
+}
     </style>
 <!-- BEGIN PAGE LEVEL CUSTOM STYLES -->
     <link rel="stylesheet" type="text/css" href="{{asset('plugins/table/datatable/datatables.css')}}">
@@ -94,6 +102,22 @@ div.relative {
 <script>
     //////////////////////////////////////////
     $(document).ready(function() {
+
+        jQuery(function() {
+            $('.my-select2').each(function() {
+                $(this).select2({
+                    theme: "bootstrap-5",
+                    dropdownParent: $(this).parent(), // fix select2 search input focus bug
+                })
+            })
+
+            // fix select2 bootstrap modal scroll bug
+            $(document).on('select2:close', '.my-select2', function(e) {
+                var evt = "scroll.select2"
+                $(e.target).parents().off(evt)
+                $(window).off(evt)
+            })
+        })
         
             $('#sheet').DataTable( {
                 dom: 'Bfrtip',
@@ -117,7 +141,7 @@ div.relative {
                     $('#sheet').dataTable().fnClearTable();             
                     $('#sheet').dataTable().fnDestroy();
                     $("#sss").empty();          
-                    $("#total").empty();  
+                    //$("#total").empty();  
                     $("#ppp").empty();  
                     $("#nnn").empty();   
                     $("#drsdate").empty();  
@@ -125,13 +149,23 @@ div.relative {
                 success: function(data){
                     var re = jQuery.parseJSON(data)
                     //console.log(re.fetch); return false;
-                    $.each(re.fetch, function(index, value) {
-
+                   var totalBox = 0;
+                   var totalweight = 0;
+                    $.each(re.fetch, function(index, value) { 
                         var alldata = value;  
+                        totalBox += parseInt(value.total_quantity);
+                        totalweight += parseInt(value.total_weight);
+                        
                         $('#sheet tbody').append("<tr id="+value.id+"><td>" + value.consignment_no + "</td><td>" + value.consignment_date + "</td><td>" + value.consignee_id + "</td><td>"+ value.city + "</td><td>"+ value.pincode + "</td><td>"+ value.total_quantity + "</td><td>"+ value.total_weight + "</td></tr>");
                                     
                     });
-                       
+
+                    // alert(totalBox);
+                    var rowCount = $("#sheet tbody tr").length;
+                    
+                    $("#total_box").html("No Of Boxes: "+totalBox);
+                    $("#totalweight").html("Net Weight: "+totalweight);
+                    $("#total").html(rowCount);
 				}
                 
 			});
@@ -162,15 +196,27 @@ div.relative {
                         var re = jQuery.parseJSON(data)
                     //console.log(re.fetch); return false;
                     var consignmentID = [];
+                    var totalBoxes = 0;
+                   var totalweights = 0;
                     $.each(re.fetch, function(index, value) {
 
                         var alldata = value;  
                         consignmentID.push(value.consignment_no);
+                        totalBoxes += parseInt(value.total_quantity);
+                        totalweights += parseInt(value.total_weight);
+
                         $('#save-DraftSheet tbody').append("<tr id="+value.id+"><td>" + value.consignment_no + "</td><td>" + value.consignment_date + "</td><td>" + value.consignee_id + "</td><td>"+ value.city + "</td><td>"+ value.pincode + "</td><td>"+ value.total_quantity + "</td><td>"+ value.total_weight + "</td></tr>");      
                     });
+                      //alert(consignmentID);
+                      $("#transaction_id").val(consignmentID);
+                    var rowCount = $("#sheet tbody tr").length;
+                    
+                    $("#total_boxes").append("No Of Boxes: "+totalBoxes);
+                    $("#totalweights").append("Net Weight: "+totalweights);
+                    $("#totallr").append(rowCount);
+
                     
 
-                    $('#transaction_id').val(consignmentID);
 				} 
 			});
 		});
@@ -213,7 +259,7 @@ div.relative {
 ////////////////////////////
 $('#updt_vehicle').submit(function(e) {
         e.preventDefault();
-        alert('hi'); 
+        //alert('hi'); 
         var formData = new FormData(this);
 
         var vehicle = $('#vehicle_no').val();

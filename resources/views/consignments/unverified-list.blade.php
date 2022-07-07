@@ -57,7 +57,7 @@ div.relative {
                 </div> 
       
                 <div class="widget-content widget-content-area br-6">
-                    <div class="table-responsive mb-4 mt-4">
+                    <div class=" mb-4 mt-4">
                         @csrf
                         <table id="usertable" class="table table-hover get-datatable" style="width:100%">
                             <div class="btn-group relative">
@@ -114,26 +114,12 @@ div.relative {
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
     $(document).ready(function() {
-        jQuery(function() {
-            $('.my-select2').each(function() {
-                $(this).select2({
-                    theme: "bootstrap-5",
-                    dropdownParent: $(this).parent(), // fix select2 search input focus bug
-                })
-            })
-
-            // fix select2 bootstrap modal scroll bug
-            $(document).on('select2:close', '.my-select2', function(e) {
-                var evt = "scroll.select2"
-                $(e.target).parents().off(evt)
-                $(window).off(evt)
-            })
-        })
+    
 
     ///// check box checked lead page
     jQuery(document).on('click','#ckbCheckAll',function(){
         if(this.checked){
-            jQuery('#launch_model').prop('disabled', false);
+            jQuery('#create_edd').prop('disabled', false);
             jQuery('.chkBoxClass').each(function(){
                 this.checked = true;
             });
@@ -142,7 +128,7 @@ div.relative {
             jQuery('.chkBoxClass').each(function(){
                 this.checked = false;
             });
-            jQuery('#launch_model').prop('disabled', true);
+            jQuery('#create_edd').prop('disabled', true);
         }
     });
 
@@ -153,9 +139,9 @@ div.relative {
         }else{
             var checklength = $('.chkBoxClass:checked').length;
             if(checklength < 1){
-                jQuery('#launch_model').prop('disabled', true);
+                jQuery('#create_edd').prop('disabled', true);
             }else{
-                jQuery('#launch_model').prop('disabled', false);
+                jQuery('#create_edd').prop('disabled', false);
             }
 
             $('#ckbCheckAll').prop('checked',false);
