@@ -54,30 +54,36 @@ div.relative {
                             <li class="breadcrumb-item active" aria-current="page"><a href="javascript:void(0);">Unverified Lr</a></li>
                         </ol>
                     </nav>
-                </div>
+                </div> 
       
                 <div class="widget-content widget-content-area br-6">
-                    <div class="table-responsive mb-4 mt-4">
+                    <div class=" mb-4 mt-4">
                         @csrf
                         <table id="usertable" class="table table-hover get-datatable" style="width:100%">
                             <div class="btn-group relative">
-                                <button type="button" class="btn btn-warning" id="launch_model" data-toggle="modal" data-target="#exampleModal" disabled="disabled" style="font-size: 11px;">
+                            <button type="button" class="btn btn-warning" id="create_edd" style="font-size: 11px;">
+                             Create DSR
+                              </button>
+                                <!-- <button type="button" class="btn btn-warning" id="launch_model" data-toggle="modal" data-target="#exampleModal" disabled="disabled" style="font-size: 11px;">
 
-                            Update Vehicle Details
-                            </button>
+                            Create DSR
+                            </button> -->
                             </div>
                             <thead>
                                 <tr>
                                      <th>
                                      <input type="checkbox" name="" id="ckbCheckAll">
                                     </th>
-                                    <th>Consignment No.</th>
-                                    <th>Consignment Date</th>
-                                    <th>Invoice No.</th>
-                                    <th>Party Name</th>
-                                   
+                                        <th>Consignment No</th>
+                                        <th>Consignment Date</th>
+                                        <th>Consignee Name</th>
+                                        <th>city</th>
+                                        <th>Pin Code</th>
+                                        <th>Number Of Boxes</th>
+                                        <th>Net Weight</th>
+                                        <th>EDD</th>
                                 </tr>
-                            </thead>
+                             </thead>
                             <tbody>
                             <?php 
                                 foreach ($consignments as $key => $consignment) {  
@@ -85,9 +91,13 @@ div.relative {
                                 <tr>
                                 <td><input type="checkbox" name="checked_consign[]" class="chkBoxClass ddd" value="{{$consignment->id}}" data-trp="" data-vehno="" data-vctype=""></td>
                                     <td>{{ $consignment->consignment_no ?? "-" }}</td>
-                                    <td>{{ Helper::ShowFormatDate($consignment->consignment_date ?? "")}}</td>
-                                    <td>{{ $consignment->invoice_no ?? "-" }}</td>
-                                    <td>{{ $consignment->transporter_name ?? "-" }}</td>
+                                    <td>{{ $consignment->consignment_date}}</td>
+                                    <td>{{ $consignment->consignee_id}}</td>
+                                    <td>{{ $consignment->city ?? "-" }}</td>
+                                    <td>{{ $consignment->pincode ?? "-" }}</td>
+                                    <td>{{ $consignment->total_quantity ?? "-" }}</td>
+                                    <td>{{ $consignment->total_weight ?? "-" }}</td>
+                                    <td><input type="date" name="edd" data-id="{{$consignment->id}}" class="updat_edd" value="{{$consignment->edd}}" ></td>
                                 </tr>
                                 <?php } ?>
                             </tbody>
@@ -104,65 +114,12 @@ div.relative {
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
     $(document).ready(function() {
-        jQuery(function() {
-            $('.my-select2').each(function() {
-                $(this).select2({
-                    theme: "bootstrap-5",
-                    dropdownParent: $(this).parent(), // fix select2 search input focus bug
-                })
-            })
-
-            // fix select2 bootstrap modal scroll bug
-            $(document).on('select2:close', '.my-select2', function(e) {
-                var evt = "scroll.select2"
-                $(e.target).parents().off(evt)
-                $(window).off(evt)
-            })
-        })
-        
-
-     $('#updt_vehicle').submit(function(e) {
-        e.preventDefault();
-        var formData = new FormData(this);
-        var vehicle = $('#vehicle_no').val();
-        var driver = $('#driver_id').val();
-        if(vehicle == ''){
-            alert('Please select vehicle');
-            return false;
-        }
-        if(driver == ''){
-            alert('Please select driver');
-            return false;
-        }
-        
-        $.ajax({
-              url: "update_unverifiedLR", 
-              headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-              type: 'POST',  
-              data:new FormData(this),
-              processData: false,
-              contentType: false,
-              beforeSend: function(){
-              
-               },
-              success: (data) => {
-                    if(data.success == true){
-                        
-                        alert('Data Updated Successfully');
-                        location.reload();
-                    }
-                    else{
-                        alert('something wrong');
-                    }
-                }
-                
-        }); 
-    });	
+    
 
     ///// check box checked lead page
     jQuery(document).on('click','#ckbCheckAll',function(){
         if(this.checked){
-            jQuery('#launch_model').prop('disabled', false);
+            jQuery('#create_edd').prop('disabled', false);
             jQuery('.chkBoxClass').each(function(){
                 this.checked = true;
             });
@@ -171,7 +128,7 @@ div.relative {
             jQuery('.chkBoxClass').each(function(){
                 this.checked = false;
             });
-            jQuery('#launch_model').prop('disabled', true);
+            jQuery('#create_edd').prop('disabled', true);
         }
     });
 
@@ -182,16 +139,36 @@ div.relative {
         }else{
             var checklength = $('.chkBoxClass:checked').length;
             if(checklength < 1){
-                jQuery('#launch_model').prop('disabled', true);
+                jQuery('#create_edd').prop('disabled', true);
             }else{
-                jQuery('#launch_model').prop('disabled', false);
+                jQuery('#create_edd').prop('disabled', false);
             }
 
             $('#ckbCheckAll').prop('checked',false);
         }
     });
 
-});
+}); 
+/////////////////////////////////////////////////////////////////
+  $('.updat_edd').blur(function () {
 
+    var consignment_id = $(this).attr('data-id');
+    var drs_edd = $(this).val();
+    var _token = $('input[name="_token"]').val();
+    $.ajax({
+      url: "update-edd",
+      method: "POST",
+      data: { drs_edd: drs_edd,consignment_id:consignment_id, _token: _token },
+      headers   : {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+      dataType  : 'json',
+      success: function (result) {
+        
+      }
+    })
+
+  });
+  
 </script>
 @endsection

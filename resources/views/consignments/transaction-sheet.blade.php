@@ -28,12 +28,21 @@ div.relative {
    
     font-size: 10px;
     }
+    .select2-results__options {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    height: 160px;
+    /* scroll-margin: 38px; */
+    overflow: auto;
+}
     </style>
 <!-- BEGIN PAGE LEVEL CUSTOM STYLES -->
     <link rel="stylesheet" type="text/css" href="{{asset('plugins/table/datatable/datatables.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('plugins/table/datatable/custom_dt_html5.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('plugins/table/datatable/dt-global_style.css')}}">
 <!-- END PAGE LEVEL CUSTOM STYLES -->  
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css" type="text/css">
 
     <div class="layout-px-spacing">
         <div class="row layout-top-spacing">
@@ -68,7 +77,11 @@ div.relative {
                                 <td>DRS-{{$trns['drs_no']}}</td>
                                 <td>{{$creation}}</td>
                                 <td>{{$trns['vehicle_no']}}</td>
-                                <td><button type="button" class="btn btn-warning view-sheet" value="{{$trns['id']}}" style="margin-right:4px;">View</button><a class="btn btn-primary" href="{{url($prefix.'/print-transaction/'.$trns['id'])}}" role="button">Print</a></td>
+                                <td>
+                                    <button type="button" class="btn btn-warning view-sheet" value="{{$trns['drs_no']}}" style="margin-right:4px;">Draft</button> 
+                                   <button type="button" class="btn btn-danger draft-sheet" value="{{$trns['drs_no']}}" style="margin-right:4px;">Save</button> 
+                                    <a class="btn btn-primary" href="{{url($prefix.'/print-transaction/'.$trns['drs_no'])}}" role="button">Print</a>
+                                </td>
                               </tr>
                               @endforeach
                             </tbody>
@@ -85,9 +98,26 @@ div.relative {
 <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E=" crossorigin="anonymous"></script>
 <script>
     //////////////////////////////////////////
     $(document).ready(function() {
+
+        jQuery(function() {
+            $('.my-select2').each(function() {
+                $(this).select2({
+                    theme: "bootstrap-5",
+                    dropdownParent: $(this).parent(), // fix select2 search input focus bug
+                })
+            })
+
+            // fix select2 bootstrap modal scroll bug
+            $(document).on('select2:close', '.my-select2', function(e) {
+                var evt = "scroll.select2"
+                $(e.target).parents().off(evt)
+                $(window).off(evt)
+            })
+        })
         
             $('#sheet').DataTable( {
                 dom: 'Bfrtip',
@@ -97,64 +127,175 @@ div.relative {
             } );
         } );
         $(document).on('click','.view-sheet', function(){
-                    var cat_id = $(this).val();
-                    //alert(cat_id ); 
-                    $('.opm').modal('show');
-                    //   return false;
-                    $.ajax({
-                        type: "GET",
-                        url: "view-transactionSheet/"+cat_id,
-                        data: {cat_id:cat_id},
-                        // dataType: "json",
-                        beforeSend:                      //reinitialize Datatables
-                       function(){   
-                        $('#sheet').dataTable().fnClearTable();             
-                        $('#sheet').dataTable().fnDestroy();
-                        $("#sss").empty();          
-                        $("#total").empty();  
-                        $("#ppp").empty();  
-                        $("#nnn").empty();   
-                        $("#drsdate").empty();  
-                 },
-                        success: function(data){
-                            var re = jQuery.parseJSON(data)
-                            $.each(re.fetch, function(index, value) {
-                                 var alldata = jQuery.parseJSON(value.transaction_details);  
-                                console.log(value.vehicle_no);
-                                 $("#sss").append(value.vehicle_no);
-                                 $("#ppp").append(value.driver_name);
-                                 $("#nnn").append(value.driver_no);
-                                 $("#drsdate").append("DRS-"+value.drs_no);
-                                 for(i=0 ; i<alldata.length; i++){ 
-                                    var tras =  alldata[i];
-                                    // console.log(tras); return false;
-                                    $('#sheet tbody').append("<tr><td>" + tras.consignment_no + "</td><td>" + tras.consignment_date + "</td><td>" + tras.consignee_id + "</td><td>"+ tras.city + "</td><td>"+ tras.pincode + "</td><td>"+ tras.total_quantity + "</td><td>"+ tras.total_weight + "</td></tr>");
-                                    //console.log(i);
-                                 }
-                                 //console.log(i);
-                                 $("#total").append(i);
-                        });
-                       
-                
+            var cat_id = $(this).val();
+            //alert(cat_id ); 
+            $('#opm').modal('show');
+            //   return false;
+            $.ajax({
+                type: "GET",
+                url: "view-transactionSheet/"+cat_id,
+                data: {cat_id:cat_id},
+                // dataType: "json",
+                beforeSend:                      //reinitialize Datatables
+                function(){   
+                    $('#sheet').dataTable().fnClearTable();             
+                    $('#sheet').dataTable().fnDestroy();
+                    $("#sss").empty();          
+                    //$("#total").empty();  
+                    $("#ppp").empty();  
+                    $("#nnn").empty();   
+                    $("#drsdate").empty();  
+                },
+                success: function(data){
+                    var re = jQuery.parseJSON(data)
+                    //console.log(re.fetch); return false;
+                   var totalBox = 0;
+                   var totalweight = 0;
+                    $.each(re.fetch, function(index, value) { 
+                        var alldata = value;  
+                        totalBox += parseInt(value.total_quantity);
+                        totalweight += parseInt(value.total_weight);
+                        
+                        $('#sheet tbody').append("<tr id="+value.id+"><td>" + value.consignment_no + "</td><td>" + value.consignment_date + "</td><td>" + value.consignee_id + "</td><td>"+ value.city + "</td><td>"+ value.pincode + "</td><td>"+ value.total_quantity + "</td><td>"+ value.total_weight + "</td></tr>");
+                                    
+                    });
 
+                    // alert(totalBox);
+                    var rowCount = $("#sheet tbody tr").length;
+                    
+                    $("#total_box").html("No Of Boxes: "+totalBox);
+                    $("#totalweight").html("Net Weight: "+totalweight);
+                    $("#total").html(rowCount);
 				}
                 
 			});
 			
 		});
-///////////////
-function printData() {
-  var divToPrint = document.getElementById("www");
-  newWin = window.open("");
-  newWin.document.write(divToPrint.outerHTML);
-  newWin.print();
-  newWin.close();
-}
+        /////////////////////////////////Draft Sheet//////////////////////////////////////////////
+        $(document).on('click','.draft-sheet', function(){
+            
+                    var draft_id = $(this).val(); 
+                    $('#save-draft').modal('show');
+                    //alert(draft_id);
+                    $.ajax({
+                        type: "GET",
+                        url: "view-draftSheet/"+draft_id, 
+                        data: {draft_id:draft_id},
+                        // dataType: "json",
+                        beforeSend:                      //reinitialize Datatables
+                       function(){   
+                        $('#save-DraftSheet').dataTable().fnClearTable();             
+                        $('#save-DraftSheet').dataTable().fnDestroy();
+                        // $("#sss").empty();          
+                        // $("#total").empty();  
+                        // $("#ppp").empty();  
+                        // $("#nnn").empty();    
+                        // $("#drsdate").empty();  
+                 },
+                        success: function(data){
+                        var re = jQuery.parseJSON(data)
+                    //console.log(re.fetch); return false;
+                    var consignmentID = [];
+                    var totalBoxes = 0;
+                   var totalweights = 0;
+                    $.each(re.fetch, function(index, value) {
 
-$('#print').on('click', function() {
-  printData();
+                        var alldata = value;  
+                        consignmentID.push(value.consignment_no);
+                        totalBoxes += parseInt(value.total_quantity);
+                        totalweights += parseInt(value.total_weight);
+
+                        $('#save-DraftSheet tbody').append("<tr id="+value.id+"><td>" + value.consignment_no + "</td><td>" + value.consignment_date + "</td><td>" + value.consignee_id + "</td><td>"+ value.city + "</td><td>"+ value.pincode + "</td><td>"+ value.total_quantity + "</td><td>"+ value.total_weight + "</td></tr>");      
+                    });
+                      //alert(consignmentID);
+                      $("#transaction_id").val(consignmentID);
+                    var rowCount = $("#sheet tbody tr").length;
+                    
+                    $("#total_boxes").append("No Of Boxes: "+totalBoxes);
+                    $("#totalweights").append("Net Weight: "+totalweights);
+                    $("#totallr").append(rowCount);
+
+                    
+
+				} 
+			});
+		});
+
+        //////////////////////////////
+                $('#suffle').sortable({
+                placeholder : "ui-state-highlight",
+                update : function(event, ui)
+                {
+                var page_id_array = new Array();
+                $('#suffle tr').each(function(){
+                page_id_array.push($(this).attr('id'));
+                });
+               //alert(page_id_array);
+                $.ajax({
+                    headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                url:"update-suffle",
+                method:"POST",
+                data:{page_id_array:page_id_array, action:'update'},
+                success:function()
+                {
+                load_data();
+                }
+            })
+            }
+            });
+///////////////
+        function printData() {
+        var divToPrint = document.getElementById("www");
+        newWin = window.open("");
+        newWin.document.write(divToPrint.outerHTML);
+        newWin.print();
+        newWin.close();
+        }
+
+   $('#print').on('click', function() {
+   printData();
  
 })
+////////////////////////////
+$('#updt_vehicle').submit(function(e) {
+        e.preventDefault();
+        //alert('hi'); 
+        var formData = new FormData(this);
+
+        var vehicle = $('#vehicle_no').val();
+        var driver = $('#driver_id').val();
+        if(vehicle == ''){
+            alert('Please select vehicle');
+            return false;
+        }
+        if(driver == ''){
+            alert('Please select driver');
+            return false;
+        }
+        
+        $.ajax({
+              url: "update_unverifiedLR", 
+              headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+              type: 'POST',  
+              data:new FormData(this),
+              processData: false,
+              contentType: false,
+              beforeSend: function(){
+              
+               },
+              success: (data) => {
+                    if(data.success == true){
+                        
+                        alert('Data Updated Successfully');
+                        location.reload();
+                    }
+                    else{
+                        alert('something wrong');
+                    }
+                }
+                
+        }); 
+    });	
         
     </script>
 @endsection

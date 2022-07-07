@@ -39,7 +39,7 @@ jQuery(document).ready(function(){
         $(this).val(regn_no);
     });
 
-     /*===== Delete Branch =====*/
+    /*===== Delete Branch =====*/
     jQuery(document).on('click', '.delete_branch', function(){
         jQuery('#deletebranch').modal('show');
         var branchid =  jQuery(this).attr('data-id');
