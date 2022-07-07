@@ -85,7 +85,27 @@
             "pageLength": 25
         } );
 ////////////////////////////////////////////////////////
-        $("#select_all").click(function () {
+        // $("#select_all").click(function () {
+        //             if($(this).is(':checked')){
+                     
+        //                 $('.ddd').prop('checked', true);
+        //          }else{
+        //            $('.ddd').prop('checked', false);
+        //       }
+        //         });
+        //         $(function () {
+        //             $('#launch_model').click(function () {
+        //                 var selectedID = [];
+        //         $(':checkbox[name="checked_consign[]"]:checked').each (function () {
+        //             selectedID.push(this.value);
+        //         });
+
+        //                 //alert(selectedID );
+        //                 $('#consignment_id').val(selectedID);
+        //             }); 
+        //         });
+        //         ///////////////////////////
+                $("#select_all").click(function () {
                     if($(this).is(':checked')){
                      
                         $('.ddd').prop('checked', true);
@@ -94,17 +114,36 @@
               }
                 });
                 $(function () {
-                    $('#launch_model').click(function () {
-                        var selectedID = [];
+                    $('#create_edd').click(function () {
+                        var consignmentID = [];
                 $(':checkbox[name="checked_consign[]"]:checked').each (function () {
-                    selectedID.push(this.value);
+                    consignmentID.push(this.value);
                 });
 
-                        //alert(selectedID );
-                        $('#consignment_id').val(selectedID);
+                $.ajax({
+                    url: "create-drs",
+                    method: "POST",
+                    data: {consignmentID: consignmentID},
+                    headers   : {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                    dataType  : 'json',
+                    success: function (data) {
+                        if(data.success == true){
+                        
+                        alert('Data Updated Successfully');
+                        location.reload();
+                    }
+                    else{
+                        alert('something wrong');
+                    }
+                        
+                    }
+                    })
+                         
+
                     }); 
                 });
                 ///////////////////////////
-               
     </script>
     <!-- END PAGE LEVEL SCRIPTS -->
