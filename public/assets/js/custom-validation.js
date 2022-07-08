@@ -409,8 +409,39 @@ jQuery(document).ready(function(){
                     $('#select_consignee, #select_ship_to').append('<option value="'+value.id+'">'+value.nick_name+'</option>');
                 });
                 if(res.data){
-                    console.log(res.data.get_branch.consignment_no);
-                    $('#consigner_address').append('<strong>'+res.data.address_line1+' '+res.data.address_line2+'<br>'+res.data.address_line3+' '+res.data.address_line4+' </strong><br/><strong>GST No. : </strong>'+res.data.gst_number+'<br/><strong>Phone No. : </strong>'+res.data.phone+'');
+                    //console.log(res.data);
+                    if(res.data.address_line1 == null){
+                        var address_line1 = '';
+                    }else{
+                        var address_line1 = res.data.address_line1+'<br>';
+                    }
+                    if(res.data.address_line2 == null){
+                        var address_line2 = '';
+                    }else{
+                        var address_line2 = res.data.address_line2+'<br>';
+                    }
+                    if(res.data.address_line3 == null){
+                        var address_line3 = '';
+                    }else{
+                        var address_line3 = res.data.address_line3+'<br>';
+                    }
+                    if(res.data.address_line4 == null){
+                        var address_line4 = '';
+                    }else{
+                        var address_line4 = res.data.address_line4+'<br>';
+                    }
+                    if(res.data.gst_number == null){
+                        var gst_number = '';
+                    }else{
+                        var gst_number = 'GST No: '+res.data.gst_number+'<br>';
+                    }
+                    if(res.data.phone == null){
+                        var phone = '';
+                    }else{
+                        var phone = 'Phone: '+res.data.phone;
+                    }
+
+                    $('#consigner_address').append(address_line1+' '+address_line2+''+address_line3+' '+address_line4+' '+gst_number+' '+phone+'');
 
                     $("#dispatch").val(res.data.city);
                 }
@@ -436,7 +467,38 @@ jQuery(document).ready(function(){
             success:function(res){
                 $('#consignee_address').empty();
                 if(res.data){
-                    $('#consignee_address').append('<strong>'+res.data.address_line1 +' '+res.data.address_line2+', '+res.data.address_line3+' '+res.data.address_line4+', </strong><br/><strong>GST No. : </strong>'+res.data.gst_number+'<br/><strong>Phone No. : </strong>'+res.data.phone+'');
+                    if(res.data.address_line1 == null){
+                        var address_line1 = '';
+                    }else{
+                        var address_line1 = res.data.address_line1+'<br>';
+                    }
+                    if(res.data.address_line2 == null){
+                        var address_line2 = '';
+                    }else{
+                        var address_line2 = res.data.address_line2+'<br>';
+                    }
+                    if(res.data.address_line3 == null){
+                        var address_line3 = '';
+                    }else{
+                        var address_line3 = res.data.address_line3+'<br>';
+                    }
+                    if(res.data.address_line4 == null){
+                        var address_line4 = '';
+                    }else{
+                        var address_line4 = res.data.address_line4+'<br>';
+                    }
+                    if(res.data.gst_number == null){
+                        var gst_number = '';
+                    }else{
+                        var gst_number = 'GST No: '+res.data.gst_number+'<br>';
+                    }
+                    if(res.data.phone == null){
+                        var phone = '';
+                    }else{
+                        var phone = 'Phone: '+res.data.phone;
+                    }
+
+                    $('#consignee_address').append(address_line1+' '+address_line2+''+address_line3+' '+address_line4+' '+gst_number+' '+phone+'');
                 }
             }
         });
@@ -459,7 +521,38 @@ jQuery(document).ready(function(){
             success:function(res){
                 $('#ship_to_address').empty();
                 if(res.data){
-                    $('#ship_to_address').append('<strong>'+res.data.address_line1 +' </strong><br/>'+res.data.address_line2+', '+res.data.address_line3+'<br/><strong>GST No. : </strong>'+res.data.gst_number+'<br/><strong>Phone No. : </strong>'+res.data.phone+'');
+                    if(res.data.address_line1 == null){
+                        var address_line1 = '';
+                    }else{
+                        var address_line1 = res.data.address_line1+'<br>';
+                    }
+                    if(res.data.address_line2 == null){
+                        var address_line2 = '';
+                    }else{
+                        var address_line2 = res.data.address_line2+'<br>';
+                    }
+                    if(res.data.address_line3 == null){
+                        var address_line3 = '';
+                    }else{
+                        var address_line3 = res.data.address_line3+'<br>';
+                    }
+                    if(res.data.address_line4 == null){
+                        var address_line4 = '';
+                    }else{
+                        var address_line4 = res.data.address_line4+'<br>';
+                    }
+                    if(res.data.gst_number == null){
+                        var gst_number = '';
+                    }else{
+                        var gst_number = 'GST No: '+res.data.gst_number+'<br>';
+                    }
+                    if(res.data.phone == null){
+                        var phone = '';
+                    }else{
+                        var phone = 'Phone: '+res.data.phone;
+                    }
+
+                    $('#ship_to_address').append(address_line1+' '+address_line2+''+address_line3+' '+address_line4+' '+gst_number+' '+phone+'');
                 }
             }
         });
