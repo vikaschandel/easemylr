@@ -840,11 +840,12 @@ class ConsignmentController extends Controller
      {
         //echo'<pre>'; print_r(); die;
         $id = $request->id;
+        $transcationview = TransactionSheet::select('*')->with('ConsignmentDetail')->where('drs_no', $id)->orderby('order_no', 'asc')->get();
 
-        $transcationview = DB::table('transaction_sheets')->select('*')->where('drs_no', $id)->orderby('order_no', 'asc')->get();
         $simplyfy = json_decode(json_encode($transcationview), true);
+
         $details = $simplyfy[0];
-       //echo'<pre>'; print_r($simplyfy); die;
+       
        
        $pay = url('assets/img/LOGO_Frowarders.jpg');
        //echo'<pre>'; print_r($pay); die;
@@ -930,12 +931,13 @@ class ConsignmentController extends Controller
                                        $total_weight = 0;
 
                                        foreach($simplyfy as $dataitem){ 
+                                      
                                              $i++;
                                              $total_Boxes += $dataitem['total_quantity'];
                                              $total_weight += $dataitem['total_weight'];
                                             //echo'<pre>'; print_r($dataitem['consignment_no']); die;
                                  $html .='      <tr  style=" border: 1px solid; border-collapse: collapse;">
-                                 <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;"></td>
+                                 <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;">'.$dataitem['consignment_detail']['order_id'].'</td>
                                                <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;">'.$dataitem['consignment_no'].'</td>
                                                <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;">'.$dataitem['consignment_date'].'</td>
                                                <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;">'.$dataitem['consignee_id'].'</td>
@@ -943,7 +945,7 @@ class ConsignmentController extends Controller
                                                <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;">'.$dataitem['pincode'].'</td>
                                                <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;">'.$dataitem['total_quantity'].'</td>
                                                <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;">'.$dataitem['total_weight'].'</td>
-                                               <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;"></td>
+                                               <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;">'.$dataitem['consignment_detail']['edd'].'</td>
                                                <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;"></td>
                                            </tr>';
                                        }
@@ -1035,8 +1037,9 @@ class ConsignmentController extends Controller
          $pincode = $value['pincode'];
          $total_quantity = $value['total_quantity'];
          $total_weight = $value['total_weight'];
+         
                   
-        //echo'<pre>'; print_r($data); die;                         
+         //echo'<pre>'; print_r($data); die;                         
        
         
         $transaction = DB::table('transaction_sheets')->insert(['drs_no'=>$drs_no, 'consignment_no' => $consignment_no, 'branch_id' => $cc, 'consignee_id' => $consignee_id, 'consignment_date' => $consignment_date, 'city' => $city, 'pincode' => $pincode, 'total_quantity' => $total_quantity, 'total_weight' => $total_weight, 'order_no' => $i]);
