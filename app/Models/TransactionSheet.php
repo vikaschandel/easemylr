@@ -15,6 +15,6 @@ class TransactionSheet extends Model
 
     public function ConsignmentDetail()
     {
-        return $this->hasOne('App\Models\ConsignmentNote','id','consignment_id');
+        return $this->hasOne('App\Models\ConsignmentNote','consignment_no','consignment_no');
     }
 }
