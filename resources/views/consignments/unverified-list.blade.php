@@ -74,12 +74,12 @@ div.relative {
                                      <th>
                                      <input type="checkbox" name="" id="ckbCheckAll">
                                     </th>
-                                        <th>Consignment No</th>
-                                        <th>Consignment Date</th>
+                                        <th>CN No</th>
+                                        <th>CN Date</th>
                                         <th>Consignee Name</th>
-                                        <th>city</th>
+                                        <th>City</th>
                                         <th>Pin Code</th> 
-                                        <th>Number Of Boxes</th>
+                                        <th>Boxes</th>
                                         <th>Net Weight</th>
                                         <th>EDD</th>
                                 </tr>

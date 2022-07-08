@@ -60,7 +60,7 @@ class LocationController extends Controller
         $this->prefix = request()->route()->getPrefix();
         $rules = array(
             'name'    => 'required|unique:locations',
-            'team_id' => 'unique:locations', 
+            'team_id' => 'required', 
             'consignment_no' => 'required|unique:locations',
             'email'  => 'required',
             'phone'  => 'required',
