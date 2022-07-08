@@ -78,7 +78,7 @@ div.relative {
                                         <th>Consignment Date</th>
                                         <th>Consignee Name</th>
                                         <th>city</th>
-                                        <th>Pin Code</th>
+                                        <th>Pin Code</th> 
                                         <th>Number Of Boxes</th>
                                         <th>Net Weight</th>
                                         <th>EDD</th>

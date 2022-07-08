@@ -131,10 +131,10 @@
                                     </li>
                                 <?php if($with_vehicle_no == '1'){ ?>
                                     <li>
-                                        <a href="{{$prefixurl.'unverified-list'}}"> Unverified List</a>
+                                        <a href="{{$prefixurl.'unverified-list'}}"> Create DRS</a>
                                     </li>
                                     <li>
-                                        <a href="{{$prefixurl.'transaction-sheet'}}"> Transaction Sheet </a>
+                                        <a href="{{$prefixurl.'transaction-sheet'}}"> Download DRS </a>
                                     </li>
                                 <?php }else if($authuser->role_id == 1){ ?>
                                     <li>

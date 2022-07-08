@@ -45,9 +45,26 @@ class ConsignmentController extends Controller
         $authuser = Auth::user();
         $cc = explode(',',$authuser->branch_id);
         if($authuser->role_id == 2){
-            $consignments = $query->whereIn('branch_id',$cc)->orderby('id','DESC')->get();
+            $consignments = DB::table('consignment_notes')->select('consignment_notes.*', 'consigners.nick_name as consigner_id','consignees.nick_name as consignee_id','consignees.city as city','consignees.postal_code as pincode')
+            ->join('consigners', 'consigners.id', '=', 'consignment_notes.consigner_id')
+            ->join('consignees', 'consignees.id', '=', 'consignment_notes.consignee_id')
+            // ->join('vehicles', 'vehicles.id', '=', 'consignment_notes.vehicle_id')
+            // ->join('drivers', 'drivers.id', '=', 'consignment_notes.driver_id')
+            ->where('consignment_notes.status','=','2')
+            ->whereIn('consignment_notes.branch_id', $cc)
+            ->get(['consignees.city']);
+
+            // $consignments = $query->whereIn('branch_id',$cc)->orderby('id','DESC')->get();
         }else{
-            $consignments = $query->orderby('id','DESC')->get();
+            $consignments = DB::table('consignment_notes')->select('consignment_notes.*', 'consigners.nick_name as consigner_id','consignees.nick_name as consignee_id','consignees.city as city','consignees.postal_code as pincode')
+            ->join('consigners', 'consigners.id', '=', 'consignment_notes.consigner_id')
+            ->join('consignees', 'consignees.id', '=', 'consignment_notes.consignee_id')
+            // ->join('vehicles', 'vehicles.id', '=', 'consignment_notes.vehicle_id')
+            // ->join('drivers', 'drivers.id', '=', 'consignment_notes.driver_id')
+            ->where('consignment_notes.status','=','2')
+            ->get(['consignees.city']);
+
+            // $consignments = $query->orderby('id','DESC')->get();
         }
             if($request->ajax()){
                 if(isset($request->updatestatus)){
@@ -707,7 +724,8 @@ class ConsignmentController extends Controller
         $authuser = Auth::user();
         $cc = $authuser->branch_id;
         if($authuser->role_id == 2){
-        $transaction = TransactionSheet::select('drs_no','created_at', 'vehicle_no')->where('branch_id', '=', $cc)->distinct()->get();
+
+        $transaction = TransactionSheet::select('drs_no','created_at', 'vehicle_no','driver_name', 'driver_no')->where('branch_id', '=', $cc)->distinct()->get();
         }else{
         $transaction = TransactionSheet::all();
         }
@@ -801,7 +819,7 @@ class ConsignmentController extends Controller
                                        <td>
                                            <label>Driver Name :</label>
                                        </td>
-                                       <td style="width: 157px;">
+                                       <td style="width: 300px;">
                                            <label id="ppp" >'.@$details['driver_name'].'</label>
                                        </td>
        
@@ -879,7 +897,7 @@ class ConsignmentController extends Controller
 
             $pdf = \App::make('dompdf.wrapper');
             $pdf->loadHTML($html);
-            $pdf->setPaper('a4', 'portrait'); 
+            $pdf->setPaper('a4', 'landscape'); 
             return $pdf->stream('print.pdf');
        
 
