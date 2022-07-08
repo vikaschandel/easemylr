@@ -473,6 +473,47 @@ class ConsignmentController extends Controller
         '.$nick_name.' '.$address_line1.' '.$address_line2.' '.$address_line3.' '.$address_line4.'
         '.$district.' '.$gst_number.' '.$phone;
 
+        if($data['shipto_detail']['nick_name'] != null){
+            $nick_name = '<p><b>'.$data['shipto_detail']['nick_name'].'</b></p>';
+        }else{
+            $nick_name = '';
+        }
+        if($data['shipto_detail']['address_line1'] != null){
+            $address_line1 = '<p>'.$data['shipto_detail']['address_line1'].'</p>';
+        }else{
+            $address_line1 = '';
+        }
+        if($data['shipto_detail']['address_line2'] != null){
+            $address_line2 = '<p>'.$data['shipto_detail']['address_line2'].'</p>';
+        }else{
+            $address_line2 = '';
+        }
+        if($data['shipto_detail']['address_line3'] != null){
+            $address_line3 = '<p>'.$data['shipto_detail']['address_line3'].'</p>';
+        }else{
+            $address_line3 = '';
+        }
+        if($data['shipto_detail']['address_line4'] != null){
+            $address_line4 = '<p>'.$data['shipto_detail']['address_line4'].'</p>';
+        }else{
+            $address_line4 = '';
+        }
+        if($data['shipto_detail']['district'] != null){
+            $district = '<p>'.$data['shipto_detail']['district'].'</p>';
+        }else{
+            $district = '';
+        }
+        if($data['shipto_detail']['gst_number'] != null){
+            $gst_number = '<p>GST No: '.$data['shipto_detail']['gst_number'].'</p>';
+        }else{
+            $gst_number = '';
+        }
+        if($data['shipto_detail']['phone'] != null){
+            $phone = '<p>Phone No: '.$data['shipto_detail']['phone'].'</p>';
+        }else{
+            $phone = '';
+        }
+
         $shiptoadd = '<p>'.'SHIP TO NAME & ADDRESS'.'</p>
         '.$nick_name.' '.$address_line1.' '.$address_line2.' '.$address_line3.' '.$address_line4.'
         '.$district.' '.$gst_number.' '.$phone;
