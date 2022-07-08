@@ -55,15 +55,14 @@ div.relative {
                             </div>
                             <thead>
                                 <tr>
-                                        <th>CN No</th>
-                                        <th>CN Date</th>
-                                        <th>Consignee Name</th>
-                                        <th>City</th>
-                                        <th>Pin Code</th> 
-                                        <th>Boxes</th>
-                                        <th>Net Weight</th>
-                                        <th>EDD</th>
-                                        
+                                    <th>CN No</th>
+                                    <th>CN Date</th>
+                                    <th>Consignee Name</th>
+                                    <th>City</th>
+                                    <th>Pin Code</th> 
+                                    <th>Boxes</th>
+                                    <th>Net Weight</th>
+                                    <th>EDD</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
