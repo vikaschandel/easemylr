@@ -207,7 +207,7 @@ class ConsignmentController extends Controller
             // $consignmentsave['vehicle_id']        = $request->vehicle_id;
             $consignmentsave['driver_id']         = $request->driver_id;
             $consignmentsave['branch_id']         = $authuser->branch_id;
-            $consignmentsave['order_id']         = $authuser->order_id;
+            $consignmentsave['order_id']         = $request->order_id;
             $consignmentsave['status']            = $status;
 
             if($with_vehicle_no == '1'){
