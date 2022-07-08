@@ -269,8 +269,6 @@ class ConsignmentController extends Controller
     public function show($consignment)
     {
         $this->prefix = request()->route()->getPrefix();
-        // $getconsignment = ConsignmentNote::where('id',$consignment)->first();
-        // $getconsignee = Consignee::where('id',$getconsignment->ship_to_id)->first();
         $query = ConsignmentNote::query();
         $authuser = Auth::user();
         $cc = explode(',',$authuser->branch_id);
