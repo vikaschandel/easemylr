@@ -50,7 +50,6 @@ class ConsignmentController extends Controller
             ->join('consignees', 'consignees.id', '=', 'consignment_notes.consignee_id')
             // ->join('vehicles', 'vehicles.id', '=', 'consignment_notes.vehicle_id')
             // ->join('drivers', 'drivers.id', '=', 'consignment_notes.driver_id')
-            ->where('consignment_notes.status','=','2')
             ->whereIn('consignment_notes.branch_id', $cc)
             ->get(['consignees.city']);
 
@@ -61,7 +60,6 @@ class ConsignmentController extends Controller
             ->join('consignees', 'consignees.id', '=', 'consignment_notes.consignee_id')
             // ->join('vehicles', 'vehicles.id', '=', 'consignment_notes.vehicle_id')
             // ->join('drivers', 'drivers.id', '=', 'consignment_notes.driver_id')
-            ->where('consignment_notes.status','=','2')
             ->get(['consignees.city']);
 
             // $consignments = $query->orderby('id','DESC')->get();
