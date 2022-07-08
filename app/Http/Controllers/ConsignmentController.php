@@ -836,6 +836,7 @@ class ConsignmentController extends Controller
                                    <table id="sheet" class="table table-hover tb" style="width:100%;  border: 1px solid; border-collapse: collapse;">
                                        <thead>
                                            <tr  style=" border: 1px solid; border-collapse: collapse;">
+                                               <th  style=" border: 1px solid; border-collapse: collapse;">Order ID</th>
                                                <th  style=" border: 1px solid; border-collapse: collapse;">Consignment No</th>
                                                <th  style=" border: 1px solid; border-collapse: collapse;">Consignment Date</th>
                                                <th  style=" border: 1px solid; border-collapse: collapse;">Consignee Name</th>
@@ -843,6 +844,8 @@ class ConsignmentController extends Controller
                                                <th  style=" border: 1px solid; border-collapse: collapse;">Pin Code</th>
                                                <th  style=" border: 1px solid; border-collapse: collapse;">Number Of Boxes</th>
                                                <th  style=" border: 1px solid; border-collapse: collapse;">Net Weight</th>
+                                               <th  style=" border: 1px solid; border-collapse: collapse;">EDD</th>
+                                               <th  style=" border: 1px solid; border-collapse: collapse;">Status</th>
                                            </tr>
                                        </thead>
                                        <tbody>';
@@ -855,8 +858,9 @@ class ConsignmentController extends Controller
                                              $i++;
                                              $total_Boxes += $dataitem['total_quantity'];
                                              $total_weight += $dataitem['total_weight'];
-                                        //echo'<pre>'; print_r($dataitem['consignment_no']); die;
+                                            //echo'<pre>'; print_r($dataitem['consignment_no']); die;
                                  $html .='      <tr  style=" border: 1px solid; border-collapse: collapse;">
+                                 <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;"></td>
                                                <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;">'.$dataitem['consignment_no'].'</td>
                                                <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;">'.$dataitem['consignment_date'].'</td>
                                                <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;">'.$dataitem['consignee_id'].'</td>
@@ -864,6 +868,8 @@ class ConsignmentController extends Controller
                                                <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;">'.$dataitem['pincode'].'</td>
                                                <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;">'.$dataitem['total_quantity'].'</td>
                                                <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;">'.$dataitem['total_weight'].'</td>
+                                               <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;"></td>
+                                               <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;"></td>
                                            </tr>';
                                        }
 
@@ -875,8 +881,11 @@ class ConsignmentController extends Controller
                                                   <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;"></td>
                                                   <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;"></td>
                                                   <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;"></td>
+                                                  <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;"></td>
                                                   <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;">Total Boxes : '.$total_Boxes.'</td>
                                                   <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;">Total Weight: '.$total_weight.'</td>
+                                                  <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;"></td>
+                                                  <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;"></td>
                                              </tr>
 
                                        </tfoot>
