@@ -724,17 +724,8 @@ class ConsignmentController extends Controller
         $authuser = Auth::user();
         $cc = $authuser->branch_id;
         if($authuser->role_id == 2){
+
         $transaction = TransactionSheet::select('drs_no','created_at', 'vehicle_no','driver_name', 'driver_no')->where('branch_id', '=', $cc)->distinct()->get();
-    //      $simpl = json_decode(json_encode($transaction), true);
-    //      foreach($simpl as $rslt){
-    //         //echo'<pre>'; print_r($rslt['drs_no']); die;
-    //         $countLr = TransactionSheet::select('drs_no')->where('drs_no', '=', $rslt['drs_no'])->count();
-    //         echo'<pre>'; print_r($countLr); 
-
-    //      }
-
-    //    die;
-       
         }else{
         $transaction = TransactionSheet::all();
         }
