@@ -55,12 +55,12 @@ div.relative {
                             </div>
                             <thead>
                                 <tr>
-                                        <th>Consignment No</th>
-                                        <th>Consignment Date</th>
+                                        <th>CN No</th>
+                                        <th>CN Date</th>
                                         <th>Consignee Name</th>
-                                        <th>city</th>
+                                        <th>City</th>
                                         <th>Pin Code</th> 
-                                        <th>Number Of Boxes</th>
+                                        <th>Boxes</th>
                                         <th>Net Weight</th>
                                         <th>EDD</th>
                                         
@@ -96,7 +96,7 @@ div.relative {
                                     <td>@if($consignment->status == 1)
                                         <a class="inactivestatus btn {{$class}}" data-id = "{{$consignment->id}}" data-text="consignment" data-status = "0" data-action = "<?php echo URL::current();?>"><span><i class="fa fa-check-circle-o"></i> {{ $status }}</span></a>
                                         @else
-                                        <a class="btn {{$class}}" data-id = "{{$consignment->id}}" data-text="consignment" data-status = "1" data-action = ""><span><i class="fa fa-ban"></i>  {{ $status }}</span></a>
+                                        <a class="btn {{$class}}" data-id = "{{$consignment->id}}" data-text="consignment" data-status = "1" data-action = ""><span>  {{ $status }}</span></a>
                                         @endif
                                     </td>
                                     <td>

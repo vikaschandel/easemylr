@@ -33,6 +33,7 @@ class ConsignmentNote extends Model
         'bar_code',
         'reason_to_cancel',
         'edd',
+        'order_id',
         'status',
         'created_at',
         'updated_at'
