@@ -665,7 +665,7 @@ class ConsignmentController extends Controller
           $consigner = DB::table('consignment_notes')->whereIn('consignment_no',$cc)->update(['vehicle_id'=>$addvechileNo, 'driver_id'=>$adddriverId, 'transporter_name' => $transporterName, 'vehicle_type' => $vehicleType]);
            //echo'hii';
 
-           $consignees = DB::table('consignment_notes')->select('consignment_notes.*', 'consigners.nick_name as consigner_id','consignees.nick_name as consignee_id','vehicles.regn_no as vehicle_id','consignees.city as city','consignees.postal_code as pincode','drivers.name as driver_id','drivers.phone as driver_phone' )
+           $consignees = DB::table('consignment_notes')->select('consignment_notes.*', 'consigners.nick_name as consigner_id','consignees.nick_name as consignee_name','vehicles.regn_no as vehicle_id','consignees.city as city','consignees.postal_code as pincode','consignees.phone as phone','consignees.email as email','drivers.name as driver_id','drivers.phone as driver_phone' )
            ->join('consigners', 'consigners.id', '=', 'consignment_notes.consigner_id')
            ->join('consignees', 'consignees.id', '=', 'consignment_notes.consignee_id')
            ->join('vehicles', 'vehicles.id', '=', 'consignment_notes.vehicle_id')
@@ -673,11 +673,14 @@ class ConsignmentController extends Controller
            ->whereIn('consignment_notes.consignment_no', $cc)
            ->get(['consignees.city']);
 
+           //echo "<pre>";print_r($consignees);die;
+
            $simplyfy = json_decode(json_encode($consignees), true);
            foreach($simplyfy as $value){
             $consignment_no = $value['consignment_no'];
             $vehicle_no = $value['vehicle_id'];
-            $consignee_id = $value['consignee_id'];
+            $consignee_id = $value['consignee_name'];
+            
             $consignment_date = $value['consignment_date'];
             $city = $value['city'];
             $pincode = $value['pincode'];
@@ -687,13 +690,93 @@ class ConsignmentController extends Controller
             $driverPhone = $value['driver_phone'];
           
            }
+
+           //echo "<pre>";print_r($taskDetails);die;
            
            $transaction = DB::table('transaction_sheets')->whereIn('consignment_no',$cc)->update(['vehicle_no' => $vehicle_no ,'driver_name' => $driverName,'driver_no' => $driverPhone]);
+
+            $createTask = $this->createTookanTasks($simplyfy);
+
+            echo "<pre>";print_r($createTask);die;
 
             $response['success'] = true;
             $response['success_message'] = "Data Imported successfully";
             return response()->json($response);
 
+    }
+
+    public function createTookanTasks($taskDetails) {
+       
+        
+
+        foreach ($taskDetails as $task){
+
+            $td = '{
+                "api_key": "50666282f31751191c4f723c1410224319e5cdfb2fd5723e5a19",
+                "order_id": "'.$task['id'].'",
+                "job_description": "DSR-'.$task['id'].'",
+                "customer_email": "'.$task['email'].'",
+                "customer_username": "'.$task['consignee_name'].'",
+                "customer_phone": "'.$task['phone'].'",
+                "customer_address": "'.$task['pincode'].','.$task['city'].',India",
+                "latitude": "",
+                "longitude": "",
+                "job_delivery_datetime": "'.$task['edd'].'16:00:00",
+                "custom_field_template": "Template_1",
+                "meta_data": [
+                    {
+                        "label": "Invoice Amount",
+                        "data": "'.$task['invoice_amount'].'"
+                    },
+                    {
+                        "label": "Quantity",
+                        "data": "'.$task['total_weight'].'"
+                    }
+                ],
+                "team_id": "1314606",
+                "auto_assignment": "0",
+                "has_pickup": "0",
+                "has_delivery": "1",
+                "layout_type": "0",
+                "tracking_link": 1,
+                "timezone": "-330",
+                "fleet_id": "636",
+                "ref_images": [
+                    "http://tookanapp.com/wp-content/uploads/2015/11/logo_dark.png",
+                    "http://tookanapp.com/wp-content/uploads/2015/11/logo_dark.png"
+                ],
+                "notify": 1,
+                "tags": "",
+                "geofence": 0
+            }';
+
+            //die;
+
+            $curl = curl_init();
+
+            curl_setopt_array($curl, array(
+              CURLOPT_URL => 'https://api.tookanapp.com/v2/create_task',
+              CURLOPT_RETURNTRANSFER => true,
+              CURLOPT_ENCODING => '',
+              CURLOPT_MAXREDIRS => 10,
+              CURLOPT_TIMEOUT => 0,
+              CURLOPT_FOLLOWLOCATION => true,
+              CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+              CURLOPT_CUSTOMREQUEST => 'POST',
+              CURLOPT_POSTFIELDS =>$td,
+              CURLOPT_HTTPHEADER => array(
+                'Content-Type: application/json'
+              ),
+            ));
+            
+            $response[] = curl_exec($curl);
+            
+            curl_close($curl);
+
+        }
+
+        return $response;
+        
     }
 
     public function transactionSheet()
