@@ -65,22 +65,30 @@ div.relative {
                             <thead>
                                 <tr>
                                     <th>DRS NO</th>
-                                    <th>Transaction Date</th>
+                                    <th>DRS Date</th>
                                     <th>Vehicle No</th>
+                                    <th>Driver Name</th>
+                                    <th>Driver Number</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach($transaction as $trns)
-                                <?php  $creation = date('d-m-Y',strtotime($trns['created_at']));  ?>
+                                <?php  $creation = date('d-m-Y',strtotime($trns['created_at']));  
+                               //echo'<pre>'; print_r($trns); die;?>
                               <tr>
                                 <td>DRS-{{$trns['drs_no']}}</td>
                                 <td>{{$creation}}</td>
                                 <td>{{$trns['vehicle_no']}}</td>
+                                <td>{{$trns['driver_name']}}</td>
+                                <td>{{$trns['driver_no']}}</td>
                                 <td>
                                     <button type="button" class="btn btn-warning view-sheet" value="{{$trns['drs_no']}}" style="margin-right:4px;">Draft</button> 
                                    <button type="button" class="btn btn-danger draft-sheet" value="{{$trns['drs_no']}}" style="margin-right:4px;">Save</button> 
-                                    <a class="btn btn-primary" href="{{url($prefix.'/print-transaction/'.$trns['drs_no'])}}" role="button">Print</a>
+                                   <?php if(!empty($trns['vehicle_no'])){?>
+                                    <a class="btn btn-primary" href="{{url($prefix.'/print-transaction/'.$trns['drs_no'])}}" role="button" >Print</a>
+                                   
+                                    <?php } ?>
                                 </td>
                               </tr>
                               @endforeach
