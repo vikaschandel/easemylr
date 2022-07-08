@@ -45,9 +45,24 @@ class ConsignmentController extends Controller
         $authuser = Auth::user();
         $cc = explode(',',$authuser->branch_id);
         if($authuser->role_id == 2){
-            $consignments = $query->whereIn('branch_id',$cc)->orderby('id','DESC')->get();
+            $consignments = DB::table('consignment_notes')->select('consignment_notes.*', 'consigners.nick_name as consigner_id','consignees.nick_name as consignee_id','consignees.city as city','consignees.postal_code as pincode')
+            ->join('consigners', 'consigners.id', '=', 'consignment_notes.consigner_id')
+            ->join('consignees', 'consignees.id', '=', 'consignment_notes.consignee_id')
+            // ->join('vehicles', 'vehicles.id', '=', 'consignment_notes.vehicle_id')
+            // ->join('drivers', 'drivers.id', '=', 'consignment_notes.driver_id')
+            ->whereIn('consignment_notes.branch_id', $cc)
+            ->get(['consignees.city']);
+
+            // $consignments = $query->whereIn('branch_id',$cc)->orderby('id','DESC')->get();
         }else{
-            $consignments = $query->orderby('id','DESC')->get();
+            $consignments = DB::table('consignment_notes')->select('consignment_notes.*', 'consigners.nick_name as consigner_id','consignees.nick_name as consignee_id','consignees.city as city','consignees.postal_code as pincode')
+            ->join('consigners', 'consigners.id', '=', 'consignment_notes.consigner_id')
+            ->join('consignees', 'consignees.id', '=', 'consignment_notes.consignee_id')
+            // ->join('vehicles', 'vehicles.id', '=', 'consignment_notes.vehicle_id')
+            // ->join('drivers', 'drivers.id', '=', 'consignment_notes.driver_id')
+            ->get(['consignees.city']);
+
+            // $consignments = $query->orderby('id','DESC')->get();
         }
             if($request->ajax()){
                 if(isset($request->updatestatus)){
@@ -192,6 +207,7 @@ class ConsignmentController extends Controller
             // $consignmentsave['vehicle_id']        = $request->vehicle_id;
             $consignmentsave['driver_id']         = $request->driver_id;
             $consignmentsave['branch_id']         = $authuser->branch_id;
+            $consignmentsave['order_id']         = $request->order_id;
             $consignmentsave['status']            = $status;
 
             if($with_vehicle_no == '1'){
@@ -303,7 +319,7 @@ class ConsignmentController extends Controller
 
     // get consigner address on change
     public function getConsigners(Request $request){
-        $getconsigners = Consigner::select('address_line1','address_line2','address_line3','gst_number','phone','city','branch_id')->with('GetBranch')->where(['id'=>$request->consigner_id,'status'=>'1'] )->first();
+        $getconsigners = Consigner::select('address_line1','address_line2','address_line3','address_line4','gst_number','phone','city','branch_id')->with('GetBranch')->where(['id'=>$request->consigner_id,'status'=>'1'] )->first();
 
         $getConsignees = Consignee::select('id','nick_name')->where(['consigner_id'=>$request->consigner_id])->get();
         if($getconsigners)
@@ -323,7 +339,7 @@ class ConsignmentController extends Controller
 
     // get consigner address on change
     public function getConsignees(Request $request){
-        $getconsignees = Consignee::select('address_line1','address_line2','address_line3','gst_number','phone')->where(['id'=>$request->consignee_id,'status'=>'1'] )->first();
+        $getconsignees = Consignee::select('address_line1','address_line2','address_line3','address_line4','gst_number','phone')->where(['id'=>$request->consignee_id,'status'=>'1'] )->first();
         
        if($getconsignees)
         {
@@ -661,6 +677,7 @@ class ConsignmentController extends Controller
           $adddriverId = $request->driver_id;
           $vehicleType = $request->vehicle_type;
           $transporterName = $request->transporter_name;
+          
 
           $consigner = DB::table('consignment_notes')->whereIn('consignment_no',$cc)->update(['vehicle_id'=>$addvechileNo, 'driver_id'=>$adddriverId, 'transporter_name' => $transporterName, 'vehicle_type' => $vehicleType]);
            //echo'hii';
@@ -672,6 +689,7 @@ class ConsignmentController extends Controller
            ->join('drivers', 'drivers.id', '=', 'consignment_notes.driver_id')
            ->whereIn('consignment_notes.consignment_no', $cc)
            ->get(['consignees.city']);
+           //echo'<pre>'; print_r($consignees); die;
 
            //echo "<pre>";print_r($consignees);die;
 
@@ -788,7 +806,8 @@ class ConsignmentController extends Controller
         $authuser = Auth::user();
         $cc = $authuser->branch_id;
         if($authuser->role_id == 2){
-        $transaction = TransactionSheet::select('drs_no','created_at', 'vehicle_no')->where('branch_id', '=', $cc)->distinct()->get();
+
+        $transaction = TransactionSheet::select('drs_no','created_at', 'vehicle_no','driver_name', 'driver_no')->where('branch_id', '=', $cc)->distinct()->get();
         }else{
         $transaction = TransactionSheet::all();
         }
@@ -833,11 +852,13 @@ class ConsignmentController extends Controller
 
         $transcationview = DB::table('transaction_sheets')->select('*')->where('drs_no', $id)->orderby('order_no', 'asc')->get();
         $simplyfy = json_decode(json_encode($transcationview), true);
-       echo'<pre>'; print_r($simplyfy); die;
+        $details = $simplyfy[0];
+       //echo'<pre>'; print_r($simplyfy); die;
+       
        $pay = url('assets/img/LOGO_Frowarders.jpg');
        //echo'<pre>'; print_r($pay); die;
        //<img src="" alt="logo" alt="" width="80" height="70">
-    $drsDate = date('d-m-Y', strtotime($simplyfy['created_at']));
+    $drsDate = date('d-m-Y', strtotime($details['created_at']));
        $html = '<!DOCTYPE html>
        <html lang="en">
        <head>
@@ -857,7 +878,7 @@ class ConsignmentController extends Controller
                                    <label>DRS No :</label>
                                </td>
                                <td >
-                                   <label id="sss">DRS-'.$simplyfy['drs_no'].'</label>
+                                   <label id="sss">DRS-'.$details['drs_no'].'</label>
                                </td>
                            </tr>
                            <tr>
@@ -873,22 +894,22 @@ class ConsignmentController extends Controller
                                            <label>Vehicle No :</label>
                                        </td>
                                        <td >
-                                           <label id="sss">'.$simplyfy['vehicle_no'].'</label>
+                                           <label id="sss">'.$details['vehicle_no'].'</label>
                                        </td>
                                    </tr>
                                    <tr>
                                        <td>
                                            <label>Driver Name :</label>
                                        </td>
-                                       <td style="width: 157px;">
-                                           <label id="ppp" >'.@$simplyfy['driver_name'].'</label>
+                                       <td style="width: 300px;">
+                                           <label id="ppp" >'.@$details['driver_name'].'</label>
                                        </td>
        
                                        <td >
                                            <label>Driver Number :</label>
                                        </td>
                                        <td width: 131px;>
-                                           <label id="nnn">'.@$simplyfy['driver_no'].'</label>
+                                           <label id="nnn">'.@$details['driver_no'].'</label>
                                        </td>
                                    </tr>
                                </table>
@@ -899,6 +920,7 @@ class ConsignmentController extends Controller
                                    <table id="sheet" class="table table-hover tb" style="width:100%;  border: 1px solid; border-collapse: collapse;">
                                        <thead>
                                            <tr  style=" border: 1px solid; border-collapse: collapse;">
+                                               <th  style=" border: 1px solid; border-collapse: collapse;">Order ID</th>
                                                <th  style=" border: 1px solid; border-collapse: collapse;">Consignment No</th>
                                                <th  style=" border: 1px solid; border-collapse: collapse;">Consignment Date</th>
                                                <th  style=" border: 1px solid; border-collapse: collapse;">Consignee Name</th>
@@ -906,16 +928,23 @@ class ConsignmentController extends Controller
                                                <th  style=" border: 1px solid; border-collapse: collapse;">Pin Code</th>
                                                <th  style=" border: 1px solid; border-collapse: collapse;">Number Of Boxes</th>
                                                <th  style=" border: 1px solid; border-collapse: collapse;">Net Weight</th>
+                                               <th  style=" border: 1px solid; border-collapse: collapse;">EDD</th>
+                                               <th  style=" border: 1px solid; border-collapse: collapse;">Status</th>
                                            </tr>
                                        </thead>
                                        <tbody>';
-                                       $transactionDecode = json_decode($simplyfy['transaction_details'], true);
                                        //echo'<pre>'; print_r($transactionDecode); 
                                        $i = 0;
-                                       foreach($transactionDecode as $dataitem){ 
-                                        $i++ ;
-                                        //echo'<pre>'; print_r($dataitem['consignment_no']); die;
+                                       $total_Boxes = 0;
+                                       $total_weight = 0;
+
+                                       foreach($simplyfy as $dataitem){ 
+                                             $i++;
+                                             $total_Boxes += $dataitem['total_quantity'];
+                                             $total_weight += $dataitem['total_weight'];
+                                            //echo'<pre>'; print_r($dataitem['consignment_no']); die;
                                  $html .='      <tr  style=" border: 1px solid; border-collapse: collapse;">
+                                 <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;"></td>
                                                <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;">'.$dataitem['consignment_no'].'</td>
                                                <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;">'.$dataitem['consignment_date'].'</td>
                                                <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;">'.$dataitem['consignee_id'].'</td>
@@ -923,10 +952,27 @@ class ConsignmentController extends Controller
                                                <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;">'.$dataitem['pincode'].'</td>
                                                <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;">'.$dataitem['total_quantity'].'</td>
                                                <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;">'.$dataitem['total_weight'].'</td>
+                                               <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;"></td>
+                                               <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;"></td>
                                            </tr>';
                                        }
 
                                        $html .=' </tbody>
+                                       <tfoot>
+                                             <tr  style=" border: 1px solid; border-collapse: collapse;">
+                                                  <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;">Total: '.$i.'</td>
+                                                  <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;"></td>
+                                                  <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;"></td>
+                                                  <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;"></td>
+                                                  <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;"></td>
+                                                  <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;"></td>
+                                                  <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;">Total Boxes : '.$total_Boxes.'</td>
+                                                  <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;">Total Weight: '.$total_weight.'</td>
+                                                  <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;"></td>
+                                                  <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;"></td>
+                                             </tr>
+
+                                       </tfoot>
                                    </table>
 
                                  </div>
@@ -934,16 +980,7 @@ class ConsignmentController extends Controller
 
                                   <div class="row" style="padding: 5px;">
                                        <div class="col-sm-12">
-                                           <table>
-                                               <tr>
-                                                   <td width: 131px;>
-                                                       <label>Total :</label>
-                                                   </td>
-                                                   <td width: 131px;>
-                                                       <label id="total">'.$i.'</label>
-                                                   </td>
-                                               </tr>
-                                           </table>
+                                     
                                            <hr></hr>
                                        </div>
        </body>
@@ -951,7 +988,7 @@ class ConsignmentController extends Controller
 
             $pdf = \App::make('dompdf.wrapper');
             $pdf->loadHTML($html);
-            $pdf->setPaper('a4', 'portrait'); 
+            $pdf->setPaper('a4', 'landscape'); 
             return $pdf->stream('print.pdf');
        
 

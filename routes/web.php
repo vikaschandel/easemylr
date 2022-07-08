@@ -77,10 +77,12 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth','PermissionCheck']], func
     Route::resource('consigners', ConsignerController::class);
     Route::post('consigners/update-consigner', [ConsignerController::class, 'updateConsigner']);
     Route::post('consigners/delete-consigner', [ConsignerController::class, 'deleteConsigner']);
+    Route::get('consigners/export/excel', [ConsignerController::class, 'exportExcel']);
 
     Route::resource('consignees', ConsigneeController::class);
     Route::post('consignees/update-consignee', [ConsigneeController::class, 'updateConsignee']);
     Route::post('consignees/delete-consignee', [ConsigneeController::class, 'deleteConsignee']);
+    Route::get('consignees/export/excel', [ConsigneeController::class, 'exportExcel']);
 
     // Route::resource('brokers', BrokerController::class);
     // Route::post('brokers/update-broker', [BrokerController::class, 'updateBroker']);

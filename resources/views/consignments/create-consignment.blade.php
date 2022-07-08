@@ -252,6 +252,14 @@ label.error{
                                                 <input type="text" class="form-seteing" id="dispatch" name="dispatch_form" value="" placeholder="" readonly
                                                     style="border:none;">
                                             </div>
+                                            <div class=" col-sm-4" style="margin-top:10px;">
+                                                <label for="exampleFormControlInput2">Order ID</label>
+                                            </div>
+                                            <div class=" col-sm-8" style="margin-top:2px;">
+
+                                                <input type="text" class="form-seteing" id="order_id" name="order_id" value="" placeholder=""
+                                                    style="border:none;">
+                                            </div>
                                         </div>
 
                                     </div>
@@ -529,11 +537,8 @@ label.error{
     $(function() {
         $('.basic').selectpicker();
     });
-    // var ss = $(".basic").select2({
-    //     tags: true,
-    // });
 
-      // add consignment date
+    // add consignment date
     $('#consignDate, #date').val(new Date().toJSON().slice(0, 10));
     
     function showResult(str) {

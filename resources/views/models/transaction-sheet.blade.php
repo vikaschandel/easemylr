@@ -5,7 +5,7 @@
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Save DRS</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Save Draft</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
       </div>
       <div class="modal-body">
@@ -76,19 +76,22 @@
                                 <tbody>
 
                                 </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td>Total</td>
+                                        <td id="totallr"></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td id="total_boxes"></td>
+                                        <td id="totalweights"></td>
+                                    </tr>
+
+                                </tfoot>
                             </table>
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <table>
-                                        <tr>
-                                            <td width: 131px;>
-                                                <label>Total :</label>
-                                            </td>
-                                            <td width: 131px;>
-                                                <label id="total"></label>
-                                            </td>
-                                        </tr>
-                                    </table> 
+                                   
                                 </div>
                             </div>
                            
@@ -151,10 +154,23 @@
                                 <tbody id="suffle">
 
                                 </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td>Total</td>
+                                        <td id="total"></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td id="total_box"></td>
+                                        <td id="totalweight"></td>
+                                    </tr>
+
+                                </tfoot>
+
                             </table>
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <table>
+                                    <!-- <table>
                                         <tr>
                                             <td width: 131px;>
                                                 <label>Total :</label>
@@ -163,7 +179,7 @@
                                                 <label id="total"></label>
                                             </td>
                                         </tr>
-                                    </table> 
+                                    </table>  -->
                                 </div>
                             </div>
                            

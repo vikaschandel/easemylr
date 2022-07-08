@@ -47,7 +47,7 @@ div.relative {
                     </nav>
                 </div>
                 <div class="widget-content widget-content-area br-6">
-                    <div class="table-responsive mb-4 mt-4">
+                    <div class="mb-4 mt-4">
                         @csrf
                         <table id="usertable" class="table table-hover get-datatable" style="width:100%">
                             <div class="btn-group relative">
@@ -55,10 +55,15 @@ div.relative {
                             </div>
                             <thead>
                                 <tr>
-                                    <th>Consignment No.</th>
-                                    <th>Consignment Date</th>
-                                    <th>Invoice No.</th>
-                                    <th>Party Name</th>
+                                        <th>CN No</th>
+                                        <th>CN Date</th>
+                                        <th>Consignee Name</th>
+                                        <th>City</th>
+                                        <th>Pin Code</th> 
+                                        <th>Boxes</th>
+                                        <th>Net Weight</th>
+                                        <th>EDD</th>
+                                        
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
@@ -68,23 +73,30 @@ div.relative {
                                     foreach ($consignments as $key => $consignment) {  
                                 ?> 
                                 <tr>
-                                    <td>{{ $consignment->consignment_no ?? "-" }}</td>
-                                    <td>{{ Helper::ShowFormatDate($consignment->consignment_date ?? "")}}</td>
-                                    <td>{{ $consignment->invoice_no ?? "-" }}</td>
-                                    <td>{{ $consignment->transporter_name ?? "-" }}</td>
+                                <td>{{ $consignment->consignment_no ?? "-" }}</td>
+                                    <td>{{ $consignment->consignment_date}}</td>
+                                    <td>{{ $consignment->consignee_id}}</td>
+                                    <td>{{ $consignment->city ?? "-" }}</td>
+                                    <td>{{ $consignment->pincode ?? "-" }}</td>
+                                    <td>{{ $consignment->total_quantity ?? "-" }}</td>
+                                    <td>{{ $consignment->total_weight ?? "-" }}</td>
+                                    <td>{{ $consignment->edd ?? "-" }}</td>
                                     <?php
-                                    if($consignment->status==1 || $consignment->status==2){
+                                    if($consignment->status==1){
                                         $status = 'Active';
                                         $class = "btn-success";
+                                    }elseif($consignment->status==2){
+                                        $status = 'Unverified';
+                                        $class = "btn-warning";
                                     }else{
-                                        $status = 'InActive';
+                                        $status = 'Cancel';
                                         $class = "btn-danger";
                                     }
                                     ?>
                                     <td>@if($consignment->status == 1)
                                         <a class="inactivestatus btn {{$class}}" data-id = "{{$consignment->id}}" data-text="consignment" data-status = "0" data-action = "<?php echo URL::current();?>"><span><i class="fa fa-check-circle-o"></i> {{ $status }}</span></a>
                                         @else
-                                        <a class="btn {{$class}}" data-id = "{{$consignment->id}}" data-text="consignment" data-status = "1" data-action = ""><span><i class="fa fa-ban"></i>  {{ $status }}</span></a>
+                                        <a class="btn {{$class}}" data-id = "{{$consignment->id}}" data-text="consignment" data-status = "1" data-action = ""><span>  {{ $status }}</span></a>
                                         @endif
                                     </td>
                                     <td>
