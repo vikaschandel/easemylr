@@ -115,10 +115,12 @@
                 });
                 $(function () {
                     $('#create_edd').click(function () {
+
                         var consignmentID = [];
                 $(':checkbox[name="checked_consign[]"]:checked').each (function () {
                     consignmentID.push(this.value);
                 });
+                
 
                 $.ajax({
                     url: "create-drs",
@@ -145,5 +147,25 @@
                     }); 
                 });
                 ///////////////////////////
+                $('.updat_edd').blur(function () {
+                    //alert('h');
+                    var consignment_id = $(this).attr('data-id');
+                    var drs_edd = $(this).val();
+                    var _token = $('input[name="_token"]').val();
+                    $.ajax({
+                    url: "update-edd",
+                    method: "POST",
+                    data: { drs_edd: drs_edd,consignment_id:consignment_id, _token: _token },
+                    headers   : {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                    dataType  : 'json',
+                    success: function (result) {
+                        
+                    }
+                    })
+
+});
+
     </script>
     <!-- END PAGE LEVEL SCRIPTS -->
