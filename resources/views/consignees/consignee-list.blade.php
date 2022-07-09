@@ -72,7 +72,7 @@ div.relat {
                         </div>
                         <thead>
                             <tr>
-                                <!-- <th>S No.</th> -->
+                                <th>Id</th>
                                 <th>Consignee Nick Name</th>
                                 <!-- <th>Consigner</th> -->
                                 <th>Contact Person Name</th>
@@ -118,6 +118,7 @@ var table = $('#consigneetable').DataTable({
         drawCallback: function () { $('.dataTables_paginate > .pagination').addClass(' pagination-style-13 pagination-bordered'); },
 
     columns: [
+        {data: 'id', name: 'id', defaultContent: '-'},
         {data: 'nick_name', name: 'nick_name', defaultContent: '-'},
         {data: 'contact_name', name: 'contact_name', defaultContent: '-'},
         {data: 'phone', name: 'phone', defaultContent: '-'},
