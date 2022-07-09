@@ -37,7 +37,7 @@ class ConsignerImport implements ToModel,WithHeadingRow
             $state = 'N/A';
         }
 
-        $consigner = Consigner::where('nick_name', $row['nick_name'])->first();
+        $consigner = Consigner::where('nick_name', $row['nick_name'])->where('branch_id', $location)->first();
         if(empty($consigner)){
             
             return new Consigner([
