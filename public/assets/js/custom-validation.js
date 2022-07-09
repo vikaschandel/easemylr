@@ -477,7 +477,7 @@ jQuery(document).ready(function(){
                     }else{
                         var address_line2 = res.data.address_line2+'<br>';
                     }
-                    if(res.data.address_line3 == null){
+                    if(res.data.address_line3 == null){ 
                         var address_line3 = '';
                     }else{
                         var address_line3 = res.data.address_line3+'<br>';

@@ -71,6 +71,7 @@
                                         <th>Pin Code</th>
                                         <th>Number Of Boxes</th>
                                         <th>Net Weight</th>
+                                        <th>EDD</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -107,7 +108,7 @@
     </div>
   </div>
 </div>
-<!-- ================================================================================== -->
+<!-- =====================================================================================-->
 
 <div class="modal fade bd-example-modal-xl" id="opm" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"
     aria-hidden="true">
@@ -149,6 +150,7 @@
                                         <th>Pin Code</th>
                                         <th>Number Of Boxes</th>
                                         <th>Net Weight</th>
+                                        
                                     </tr>
                                 </thead>
                                 <tbody id="suffle">

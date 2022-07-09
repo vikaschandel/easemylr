@@ -61,6 +61,7 @@ class ConsignmentController extends Controller
             // ->join('vehicles', 'vehicles.id', '=', 'consignment_notes.vehicle_id')
             // ->join('drivers', 'drivers.id', '=', 'consignment_notes.driver_id')
             ->get(['consignees.city']);
+            
 
             // $consignments = $query->orderby('id','DESC')->get();
         }
@@ -670,8 +671,10 @@ class ConsignmentController extends Controller
     
     public function updateUnverifiedLr(Request $request)
     {
+       
 
           $consignerId = $request->transaction_id;
+          //echo'<pre>';print_r($consignerId);die;
           $cc = explode(',', $consignerId);
           $addvechileNo = $request->vehicle_id;
           $adddriverId = $request->driver_id;
@@ -918,7 +921,7 @@ class ConsignmentController extends Controller
         //echo'<pre>'; print_r($_POST); die;
         $edd = $_POST['drs_edd'];
         $consignmentId =  $_POST['consignment_id'];
-        $consigner = DB::table('consignment_notes')->where('id',$consignmentId)->update(['edd'=> $edd]);
+        $consigner = DB::table('consignment_notes')->where('consignment_no',$consignmentId)->update(['edd'=> $edd]);
         if($consigner){
             //echo'ok';
             return response()->json(['success'=>'EDD Updated Successfully']);
@@ -991,9 +994,9 @@ class ConsignmentController extends Controller
       {
         //echo'hi';
         $id = $_GET['draft_id'];
-
-        $transcationview = DB::table('transaction_sheets')->select('*')->where('drs_no', $id)->orderby('order_no', 'asc')->get();
+        $transcationview = TransactionSheet::select('*')->with('ConsignmentDetail')->where('drs_no', $id)->orderby('order_no', 'asc')->get();
         $result = json_decode(json_encode($transcationview), true);
+        //dd($result);
 
         $response['fetch'] = $result;
         $response['success'] = true;

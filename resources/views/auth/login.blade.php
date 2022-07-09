@@ -112,7 +112,7 @@
                                     <input type="password" name="password" class="form-control" id="pwd" value="{{ old('password') }}" autocomplete="password" autofocus>
                                 </div>
                                 <div class="form-group">
-                                <button type="submit" class="jj">Submit</button>
+                                <button type="submit" class="jj">Login</button>
                                 </div>
 
                             </form>
