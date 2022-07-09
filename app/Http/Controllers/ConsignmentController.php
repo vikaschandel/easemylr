@@ -269,7 +269,6 @@ class ConsignmentController extends Controller
      */
     public function show($consignment)
     {
-        // $id = $consignment;
         $this->prefix = request()->route()->getPrefix();
         $query = ConsignmentNote::query();
         $authuser = Auth::user();
@@ -385,24 +384,140 @@ class ConsignmentController extends Controller
         $getdata = ConsignmentNote::where('id',$cn_id)->with('ConsignmentItems','ConsignerDetail','ConsigneeDetail','ShiptoDetail','VehicleDetail','DriverDetail')->first();
         $data = json_decode(json_encode($getdata), true);
 
+        if($data['consigner_detail']['nick_name'] != null){
+            $nick_name = '<p><b>'.$data['consigner_detail']['nick_name'].'</b></p>';
+        }else{
+            $nick_name = '';
+        }
+        if($data['consigner_detail']['address_line1'] != null){
+            $address_line1 = '<p>'.$data['consigner_detail']['address_line1'].'</p>';
+        }else{
+            $address_line1 = '';
+        }
+        if($data['consigner_detail']['address_line2'] != null){
+            $address_line2 = '<p>'.$data['consigner_detail']['address_line2'].'</p>';
+        }else{
+            $address_line2 = '';
+        }
+        if($data['consigner_detail']['address_line3'] != null){
+            $address_line3 = '<p>'.$data['consigner_detail']['address_line3'].'</p>';
+        }else{
+            $address_line3 = '';
+        }
+        if($data['consigner_detail']['address_line4'] != null){
+            $address_line4 = '<p>'.$data['consigner_detail']['address_line4'].'</p>';
+        }else{
+            $address_line4 = '';
+        }
+        if($data['consigner_detail']['district'] != null){
+            $district = '<p>'.$data['consigner_detail']['district'].'</p>';
+        }else{
+            $district = '';
+        }
+        if($data['consigner_detail']['gst_number'] != null){
+            $gst_number = '<p>GST No: '.$data['consigner_detail']['gst_number'].'</p>';
+        }else{
+            $gst_number = '';
+        }
+        if($data['consigner_detail']['phone'] != null){
+            $phone = '<p>Phone No: '.$data['consigner_detail']['phone'].'</p>';
+        }else{
+            $phone = '';
+        }
+
         $conr_add = '<p>'.'CONSIGNOR NAME & ADDRESS'.'</p>
-            <p><b>'.($data['consigner_detail']['nick_name'] ?? "").'</b></p><p>'. ($data['consigner_detail']['address_line1'] ?? "").' '.($data['consigner_detail']['address_line2'] ?? "").' '.($data['consigner_detail']['address_line3'] ?? "").' '.($data['consigner_detail']['address_line4'] ?? "").'</p>
-            <p>'.($data['consigner_detail']['district'] ?? "").'</p>
-            <p>GST No. : '.($data['consigner_detail']['gst_number'] ?? "").'</p>
-            <p>Phone No. : '.($data['consigner_detail']['phone'] ?? "").'</p>';
+            '.$nick_name.' '.$address_line1.' '.$address_line2.' '.$address_line3.' '.$address_line4.'
+            '.$district.' '.$gst_number.' '.$phone;
+        
+        if($data['consignee_detail']['nick_name'] != null){
+            $nick_name = '<p><b>'.$data['consignee_detail']['nick_name'].'</b></p>';
+        }else{
+            $nick_name = '';
+        }
+        if($data['consignee_detail']['address_line1'] != null){
+            $address_line1 = '<p>'.$data['consignee_detail']['address_line1'].'</p>';
+        }else{
+            $address_line1 = '';
+        }
+        if($data['consignee_detail']['address_line2'] != null){
+            $address_line2 = '<p>'.$data['consignee_detail']['address_line2'].'</p>';
+        }else{
+            $address_line2 = '';
+        }
+        if($data['consignee_detail']['address_line3'] != null){
+            $address_line3 = '<p>'.$data['consignee_detail']['address_line3'].'</p>';
+        }else{
+            $address_line3 = '';
+        }
+        if($data['consignee_detail']['address_line4'] != null){
+            $address_line4 = '<p>'.$data['consignee_detail']['address_line4'].'</p>';
+        }else{
+            $address_line4 = '';
+        }
+        if($data['consignee_detail']['district'] != null){
+            $district = '<p>'.$data['consignee_detail']['district'].'</p>';
+        }else{
+            $district = '';
+        }
+        if($data['consignee_detail']['gst_number'] != null){
+            $gst_number = '<p>GST No: '.$data['consignee_detail']['gst_number'].'</p>';
+        }else{
+            $gst_number = '';
+        }
+        if($data['consignee_detail']['phone'] != null){
+            $phone = '<p>Phone No: '.$data['consignee_detail']['phone'].'</p>';
+        }else{
+            $phone = '';
+        }
+
         $consnee_add = '<p>'.'CONSIGNEE NAME & ADDRESS'.'</p>
-            <p><b>'.($data['consignee_detail']['nick_name'] ?? "").'</b></p>
-            <p>'.($data['consignee_detail']['address_line1'] ?? "").' '.($data['consignee_detail']['address_line2'] ?? "").' '.($data['consignee_detail']['address_line3'] ?? "").' '.($data['consignee_detail']['address_line4'] ?? "").'</p>
-            <p>'.($data['consignee_detail']['district'] ?? "").'</p>
-            <p>GST No. : '.($data['consignee_detail']['gst_number'] ?? "").'</p>
-            <p>Phone No. : '.($data['consignee_detail']['phone'] ?? "").'</p>';
+        '.$nick_name.' '.$address_line1.' '.$address_line2.' '.$address_line3.' '.$address_line4.'
+        '.$district.' '.$gst_number.' '.$phone;
+
+        if($data['shipto_detail']['nick_name'] != null){
+            $nick_name = '<p><b>'.$data['shipto_detail']['nick_name'].'</b></p>';
+        }else{
+            $nick_name = '';
+        }
+        if($data['shipto_detail']['address_line1'] != null){
+            $address_line1 = '<p>'.$data['shipto_detail']['address_line1'].'</p>';
+        }else{
+            $address_line1 = '';
+        }
+        if($data['shipto_detail']['address_line2'] != null){
+            $address_line2 = '<p>'.$data['shipto_detail']['address_line2'].'</p>';
+        }else{
+            $address_line2 = '';
+        }
+        if($data['shipto_detail']['address_line3'] != null){
+            $address_line3 = '<p>'.$data['shipto_detail']['address_line3'].'</p>';
+        }else{
+            $address_line3 = '';
+        }
+        if($data['shipto_detail']['address_line4'] != null){
+            $address_line4 = '<p>'.$data['shipto_detail']['address_line4'].'</p>';
+        }else{
+            $address_line4 = '';
+        }
+        if($data['shipto_detail']['district'] != null){
+            $district = '<p>'.$data['shipto_detail']['district'].'</p>';
+        }else{
+            $district = '';
+        }
+        if($data['shipto_detail']['gst_number'] != null){
+            $gst_number = '<p>GST No: '.$data['shipto_detail']['gst_number'].'</p>';
+        }else{
+            $gst_number = '';
+        }
+        if($data['shipto_detail']['phone'] != null){
+            $phone = '<p>Phone No: '.$data['shipto_detail']['phone'].'</p>';
+        }else{
+            $phone = '';
+        }
 
         $shiptoadd = '<p>'.'SHIP TO NAME & ADDRESS'.'</p>
-            <p><b>'.($data['consignee_detail']['nick_name'] ?? "").'</b></p>
-            <p>'.($data['consignee_detail']['address_line1'] ?? "").' '.($data['consignee_detail']['address_line2'] ?? "").' '.($data['consignee_detail']['address_line3'] ?? "").' '.($data['consignee_detail']['address_line4'] ?? "").'</p>
-            <p>'.($data['consignee_detail']['district'] ?? "").'</p>
-            <p>GST No. : '.($data['consignee_detail']['gst_number'] ?? "").'</p>
-            <p>Phone No. : '.($data['consignee_detail']['phone'] ?? "").'</p>';
+        '.$nick_name.' '.$address_line1.' '.$address_line2.' '.$address_line3.' '.$address_line4.'
+        '.$district.' '.$gst_number.' '.$phone;
 
         $generate_qrcode = QrCode::size(150)->generate('Eternity Forwarders Pvt. Ltd.');
         $output_file = '/qr-code/img-' . time() . '.svg';
