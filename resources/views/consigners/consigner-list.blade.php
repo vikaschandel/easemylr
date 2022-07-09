@@ -73,6 +73,7 @@ div.relat {
                         </div>
                         <thead>
                             <tr>
+                                <th>Id</th>
                                 <th>Consigner Nick Name</th>
                                 <th>Contact Person Name</th>
                                 <th>Mobile No.</th>
@@ -117,6 +118,7 @@ var table = $('#consignerstable').DataTable({
         drawCallback: function () { $('.dataTables_paginate > .pagination').addClass(' pagination-style-13 pagination-bordered'); },
 
     columns: [
+        {data: 'id', name: 'id', defaultContent: '-'},
         {data: 'nick_name', name: 'nick_name', defaultContent: '-'},
         {data: 'contact_name', name: 'contact_name', defaultContent: '-'},
         {data: 'phone', name: 'phone', defaultContent: '-'},
