@@ -709,13 +709,13 @@ class ConsignmentController extends Controller
           
            }
 
-           //echo "<pre>";print_r($taskDetails);die;
+           //echo "<pre>";print_r($simplyfy);die;
            
            $transaction = DB::table('transaction_sheets')->whereIn('consignment_no',$cc)->update(['vehicle_no' => $vehicle_no ,'driver_name' => $driverName,'driver_no' => $driverPhone]);
 
             $createTask = $this->createTookanTasks($simplyfy);
 
-            echo "<pre>";print_r($createTask);die;
+            //echo "<pre>";print_r($createTask);die;
 
             $response['success'] = true;
             $response['success_message'] = "Data Imported successfully";
@@ -725,13 +725,16 @@ class ConsignmentController extends Controller
 
     public function createTookanTasks($taskDetails) {
        
-        
+        $authuser = Auth::user();
+        $cc = explode(',',$authuser->branch_id);
+        $teamIDarr= Location::select('team_id')->whereIn('id',$cc)->first();
+        $tid = json_decode(json_encode($teamIDarr), true);
 
         foreach ($taskDetails as $task){
 
             $td = '{
                 "api_key": "50666282f31751191c4f723c1410224319e5cdfb2fd5723e5a19",
-                "order_id": "'.$task['id'].'",
+                "order_id": "'.$task['order_id'].'",
                 "job_description": "DSR-'.$task['id'].'",
                 "customer_email": "'.$task['email'].'",
                 "customer_username": "'.$task['consignee_name'].'",
@@ -751,7 +754,7 @@ class ConsignmentController extends Controller
                         "data": "'.$task['total_weight'].'"
                     }
                 ],
-                "team_id": "1314606",
+                "team_id": "'.$tid['team_id'].'",
                 "auto_assignment": "0",
                 "has_pickup": "0",
                 "has_delivery": "1",
