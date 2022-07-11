@@ -74,8 +74,7 @@ div.relative {
                             </thead>
                             <tbody>
                                 @foreach($transaction as $trns)
-                                <?php  $creation = date('d-m-Y',strtotime($trns['created_at']));  
-                               //echo'<pre>'; print_r($trns); die;?>
+                                <?php  $creation = date('d-m-Y',strtotime($trns['created_at']));    ?>
                               <tr>
                                 <td>DRS-{{$trns['drs_no']}}</td>
                                 <td>{{$creation}}</td>
@@ -194,9 +193,9 @@ div.relative {
                        function(){   
                         $('#save-DraftSheet').dataTable().fnClearTable();             
                         $('#save-DraftSheet').dataTable().fnDestroy();
-                        // $("#sss").empty();          
-                        // $("#total").empty();  
-                        // $("#ppp").empty();  
+                        $("#total_boxes").empty();          
+                         $("#totalweights").empty();  
+                         $("#totallr").empty();  
                         // $("#nnn").empty();    
                         // $("#drsdate").empty();  
                  },
@@ -205,15 +204,15 @@ div.relative {
                     //console.log(re.fetch); return false;
                     var consignmentID = [];
                     var totalBoxes = 0;
-                   var totalweights = 0;
+                    var totalweights = 0;
                     $.each(re.fetch, function(index, value) {
 
                         var alldata = value;  
-                        consignmentID.push(value.consignment_no);
+                        consignmentID.push(alldata.consignment_no);
                         totalBoxes += parseInt(value.total_quantity);
                         totalweights += parseInt(value.total_weight);
 
-                        $('#save-DraftSheet tbody').append("<tr id="+value.id+"><td>" + value.consignment_no + "</td><td>" + value.consignment_date + "</td><td>" + value.consignee_id + "</td><td>"+ value.city + "</td><td>"+ value.pincode + "</td><td>"+ value.total_quantity + "</td><td>"+ value.total_weight + "</td></tr>");      
+                        $('#save-DraftSheet tbody').append("<tr id="+value.id+"><td>" + value.consignment_no + "</td><td>" + value.consignment_date + "</td><td>" + value.consignee_id + "</td><td>"+ value.city + "</td><td>"+ value.pincode + "</td><td>"+ value.total_quantity + "</td><td>"+ value.total_weight + "</td><td><input type='date' name='edd[]' data-id="+ value.consignment_no +" class='new_edd' value='"+ alldata.consignment_detail.edd+ "'></td></tr>");      
                     });
                       //alert(consignmentID);
                       $("#transaction_id").val(consignmentID);
@@ -223,7 +222,7 @@ div.relative {
                     $("#totalweights").append("Net Weight: "+totalweights);
                     $("#totallr").append(rowCount);
 
-                    
+                    showLibrary();
 
 				} 
 			});
@@ -267,8 +266,18 @@ div.relative {
 ////////////////////////////
 $('#updt_vehicle').submit(function(e) {
         e.preventDefault();
-        //alert('hi'); 
-        var formData = new FormData(this);
+
+        var consignmentID = [];
+        $('input[name="edd[]"]').each(function() {
+          if(this.value == '') {
+           alert('Please enter EDD');
+           exit;
+          }
+            consignmentID.push(this.value);
+        });
+        
+        var ct = consignmentID.length; 
+        var rowCount = $("#save-DraftSheet tbody tr").length;
 
         var vehicle = $('#vehicle_no').val();
         var driver = $('#driver_id').val();
@@ -304,6 +313,27 @@ $('#updt_vehicle').submit(function(e) {
                 
         }); 
     });	
-        
+////////////////////////////
+function showLibrary()
+{
+                 $('.new_edd').blur(function () {
+                    
+                    var consignment_id = $(this).attr('data-id');
+                    var drs_edd = $(this).val();
+                    var _token = $('input[name="_token"]').val();
+                    $.ajax({
+                    url: "update-edd",
+                    method: "POST",
+                    data: { drs_edd: drs_edd,consignment_id:consignment_id, _token: _token },
+                    headers   : {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                    dataType  : 'json',
+                    success: function (result) {
+                        
+                    }
+                    })
+           });
+    }
     </script>
 @endsection

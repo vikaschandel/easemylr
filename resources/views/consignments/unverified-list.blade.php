@@ -81,14 +81,17 @@ div.relative {
                                         <th>Pin Code</th> 
                                         <th>Boxes</th>
                                         <th>Net Weight</th>
-                                        <th>EDD</th>
+                                       
                                 </tr>
                              </thead>
                             <tbody>
                             <?php 
+                            $i = 1;
                                 foreach ($consignments as $key => $consignment) {  
+                                    
                                 ?> 
                                 <tr>
+
                                 <td><input type="checkbox" name="checked_consign[]" class="chkBoxClass ddd" value="{{$consignment->id}}" data-trp="" data-vehno="" data-vctype=""></td>
                                     <td>{{ $consignment->consignment_no ?? "-" }}</td>
                                     <td>{{ $consignment->consignment_date}}</td>
@@ -97,9 +100,10 @@ div.relative {
                                     <td>{{ $consignment->pincode ?? "-" }}</td>
                                     <td>{{ $consignment->total_quantity ?? "-" }}</td>
                                     <td>{{ $consignment->total_weight ?? "-" }}</td>
-                                    <td><input type="date" name="edd" data-id="{{$consignment->id}}" class="updat_edd" value="{{$consignment->edd}}" ></td>
+                                   
                                 </tr>
-                                <?php } ?>
+                               
+                                <?php  $i++; } ?>
                             </tbody>
                         </table>
                     </div>
@@ -150,25 +154,6 @@ div.relative {
 
 }); 
 /////////////////////////////////////////////////////////////////
-  $('.updat_edd').blur(function () {
-
-    var consignment_id = $(this).attr('data-id');
-    var drs_edd = $(this).val();
-    var _token = $('input[name="_token"]').val();
-    $.ajax({
-      url: "update-edd",
-      method: "POST",
-      data: { drs_edd: drs_edd,consignment_id:consignment_id, _token: _token },
-      headers   : {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-      dataType  : 'json',
-      success: function (result) {
-        
-      }
-    })
-
-  });
   
 </script>
 @endsection
