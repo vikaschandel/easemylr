@@ -41,6 +41,9 @@ class CreateConsignmentNotesTable extends Migration
             $table->string('order_id')->nullable();
             $table->string('edd')->nullable();
             $table->string('status')->nullable();
+            $table->string('delivery_status')->nullable();
+            $table->string('delivery_date')->nullable();
+            $table->string('signed_drs')->nullable();
             $table->timestamps();
         });
     }

@@ -115,6 +115,9 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth','PermissionCheck']], func
     Route::any('create-drs', [ConsignmentController::class, 'CreateEdd']);
     Route::any('update-suffle', [ConsignmentController::class, 'updateSuffle']);
     Route::any('view-draftSheet/{id}', [ConsignmentController::class, 'view_saveDraft']);
+    Route::any('update-delivery/{id}', [ConsignmentController::class, 'updateDeliveryStatus']);
+    Route::any('update-delivery-status', [ConsignmentController::class, 'updateDeliveryStatus']);
+
     
     Route::resource('locations', LocationController::class);
     Route::post('/locations/update', [LocationController::class, 'updateLocation']);
@@ -181,6 +184,9 @@ Route::group(['prefix'=>'branch-manager', 'middleware'=>['auth','PermissionCheck
     Route::any('create-drs', [ConsignmentController::class, 'CreateEdd']);
     Route::any('update-suffle', [ConsignmentController::class, 'updateSuffle']);
     Route::any('view-draftSheet/{id}', [ConsignmentController::class, 'view_saveDraft']);
+    Route::any('update-delivery/{id}', [ConsignmentController::class, 'updateDelivery']);
+    Route::any('update-delivery-status', [ConsignmentController::class, 'updateDeliveryStatus']);
+
     
     Route::resource('locations', LocationController::class);
     Route::post('/locations/update', [LocationController::class, 'updateLocation']);
