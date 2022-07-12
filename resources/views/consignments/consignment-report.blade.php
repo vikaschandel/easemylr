@@ -95,7 +95,7 @@ div.relative {
                                     <td>{{ $consignment->invoice_no ?? "-" }}</td>
                                     <td>{{ $consignment->invoice_date ?? "-" }}</td>
                                     <td>{{ $consignment->invoice_amount ?? "-" }}</td>
-                                    <td>{{ $consignment->vechile_number ?? "-" }}</td>
+                                    <td>{{ $consignment->vechile_number ?? "Pending" }}</td>
                                     <td>{{ $consignment->total_quantity ?? "-" }}</td>
                                     <td>{{ $consignment->total_weight ?? "-" }}</td>
                                     <td>{{ $consignment->total_gross_weight ?? "-" }}</td>
