@@ -58,8 +58,8 @@ div.relative {
                             <thead>
                                 <tr>
                                     <!-- <th> </th> -->
-                                    <th>CN No</th>
-                                    <th>CN Date</th>
+                                    <th>LR No</th>
+                                    <th>LR Date</th>
                                     <th>Order No</th>
                                     <th>Consignee Name</th>
                                     <th>City</th>
