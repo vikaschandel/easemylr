@@ -1137,8 +1137,39 @@ class ConsignmentController extends Controller
         return response()->json($response);
 
     }
-    
+    ////////////////////////////////////////////////////
+    public function consignmentReports()
+    {
+        $this->prefix = request()->route()->getPrefix();
 
+        $query = ConsignmentNote::query();
+        $authuser = Auth::user();
+        $cc = explode(',', $authuser->branch_id);
+        if ($authuser->role_id == 2) {
+            $consignments = DB::table('consignment_notes')->select('consignment_notes.*', 'consigners.nick_name as consigner_nickname', 'consignees.nick_name as consignee_nickname', 'consignees.city as city', 'consignees.postal_code as pincode',  'consignees.district as district', 'states.name as state')
+                ->join('consigners', 'consigners.id', '=', 'consignment_notes.consigner_id')
+                ->join('consignees', 'consignees.id', '=', 'consignment_notes.consignee_id')
+                ->join('states', 'states.id', '=', 'consignees.state_id')
+                ->whereIn('consignment_notes.branch_id', $cc)
+                ->get(['consignees.city']);
+
+        } else {
+            $consignments = DB::table('consignment_notes')->select('consignment_notes.*', 'consigners.nick_name as consigner_nickname', 'consignees.nick_name as consignee_nickname', 'consignees.city as city', 'consignees.postal_code as pincode',  'consignees.district as district', 'states.name as state')
+            ->join('consigners', 'consigners.id', '=', 'consignment_notes.consigner_id')
+            ->join('consignees', 'consignees.id', '=', 'consignment_notes.consignee_id')
+            ->join('states', 'states.id', '=', 'consignees.state_id')
+            ->get(['consignees.city']);
+
+        }
+          //echo'<pre>'; print_r($consignments); die;
+        
+
+           return view ('consignments.consignment-report', ['consignments' => $consignments, 'prefix' => $this->prefix]);
+        
+
+    }
+
+/////////////////Web Hooks/////////////////////////////
     public function agent_webhooks(Request $data)
     {
         if (!empty($data)) {

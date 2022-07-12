@@ -77,7 +77,7 @@ div.relative {
                                 ?> 
                                 <tr>
                                   <!-- <td class="dt-control">+</td> -->
-                                <td>{{ $consignment->consignment_no ?? "-" }}</td>
+                                    <td>{{ $consignment->consignment_no ?? "-" }}</td>
                                     <td>{{ $consignment->consignment_date}}</td>
                                     <td>{{ $consignment->consignee_id}}</td>
                                     <td>{{ $consignment->city ?? "-" }}</td>
