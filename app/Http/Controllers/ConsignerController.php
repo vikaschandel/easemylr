@@ -59,7 +59,7 @@ class ConsignerController extends Controller
                 })
                 ->rawColumns(['action'])
                 ->make(true);
-
+ 
         }
         return view('consigners.consigner-list',['prefix'=>$this->prefix,'segment'=>$this->segment]);
     }

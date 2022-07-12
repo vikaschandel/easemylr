@@ -117,6 +117,8 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth','PermissionCheck']], func
     Route::any('view-draftSheet/{id}', [ConsignmentController::class, 'view_saveDraft']);
     Route::any('update-delivery/{id}', [ConsignmentController::class, 'updateDeliveryStatus']);
     Route::any('update-delivery-status', [ConsignmentController::class, 'updateDeliveryStatus']);
+    Route::any('webhook/agent', [ConsignmentController::class, 'agent_webhooks']);
+
 
     
     Route::resource('locations', LocationController::class);
@@ -186,6 +188,8 @@ Route::group(['prefix'=>'branch-manager', 'middleware'=>['auth','PermissionCheck
     Route::any('view-draftSheet/{id}', [ConsignmentController::class, 'view_saveDraft']);
     Route::any('update-delivery/{id}', [ConsignmentController::class, 'updateDelivery']);
     Route::any('update-delivery-status', [ConsignmentController::class, 'updateDeliveryStatus']);
+    Route::any('webhook/agent', [ConsignmentController::class, 'agent_webhooks']);
+
 
     
     Route::resource('locations', LocationController::class);
