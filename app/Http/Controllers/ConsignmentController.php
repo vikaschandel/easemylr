@@ -182,11 +182,32 @@ class ConsignmentController extends Controller
                 $status = '1';
             }
 
+
+            $getconsignment = Location::select('id', 'name', 'consignment_no')->whereIn('id', $cc)->latest('id')->first();
+            if (!empty($getconsignment->consignment_no)) {
+                $con_series = $getconsignment->consignment_no;
+            } else {
+                $con_series = '';
+            }
+            // $con_series = $getconsignment->consignment_no;
+            $cn = ConsignmentNote::select('id', 'consignment_no', 'branch_id')->whereIn('branch_id', $cc)->latest('id')->first();
+            if ($cn) {
+                if (!empty($cn->consignment_no)) {
+                    $cc = explode('-', $cn->consignment_no);
+                    $getconsignmentno = @$cc[1] + 1;
+                    $consignmentno = $cc[0] . '-' . $getconsignmentno;
+                } else {
+                    $consignmentno = $con_series . '-1';
+                }
+            } else {
+                $consignmentno = $con_series . '-1';
+            }
+
             $consignmentsave['consigner_id'] = $request->consigner_id;
             $consignmentsave['consignee_id'] = $request->consignee_id;
             $consignmentsave['ship_to_id'] = $request->ship_to_id;
             $consignmentsave['consignment_date'] = $request->consignment_date;
-            $consignmentsave['consignment_no'] = $request->consignment_no;
+            $consignmentsave['consignment_no'] = $consignmentno;
             $consignmentsave['dispatch'] = $request->dispatch;
             $consignmentsave['invoice_no'] = $request->invoice_no;
             $consignmentsave['invoice_date'] = $request->invoice_date;
@@ -1146,17 +1167,19 @@ class ConsignmentController extends Controller
         $authuser = Auth::user();
         $cc = explode(',', $authuser->branch_id);
         if ($authuser->role_id == 2) {
-            $consignments = DB::table('consignment_notes')->select('consignment_notes.*', 'consigners.nick_name as consigner_nickname', 'consignees.nick_name as consignee_nickname', 'consignees.city as city', 'consignees.postal_code as pincode',  'consignees.district as district', 'states.name as state')
+            $consignments = DB::table('consignment_notes')->select('consignment_notes.*', 'consigners.nick_name as consigner_nickname', 'consignees.nick_name as consignee_nickname', 'consignees.city as city', 'consignees.postal_code as pincode',  'consignees.district as district', 'states.name as state', 'vehicles.regn_no as vechile_number')
                 ->join('consigners', 'consigners.id', '=', 'consignment_notes.consigner_id')
                 ->join('consignees', 'consignees.id', '=', 'consignment_notes.consignee_id')
+                ->join('vehicles', 'vehicles.id', '=', 'consignment_notes.vehicle_id')
                 ->join('states', 'states.id', '=', 'consignees.state_id')
                 ->whereIn('consignment_notes.branch_id', $cc)
                 ->get(['consignees.city']);
 
         } else {
-            $consignments = DB::table('consignment_notes')->select('consignment_notes.*', 'consigners.nick_name as consigner_nickname', 'consignees.nick_name as consignee_nickname', 'consignees.city as city', 'consignees.postal_code as pincode',  'consignees.district as district', 'states.name as state')
+            $consignments = DB::table('consignment_notes')->select('consignment_notes.*', 'consigners.nick_name as consigner_nickname', 'consignees.nick_name as consignee_nickname', 'consignees.city as city', 'consignees.postal_code as pincode',  'consignees.district as district', 'states.name as state','vehicles.regn_no as vechile_number')
             ->join('consigners', 'consigners.id', '=', 'consignment_notes.consigner_id')
             ->join('consignees', 'consignees.id', '=', 'consignment_notes.consignee_id')
+            ->join('vehicles', 'vehicles.id', '=', 'consignment_notes.vehicle_id')
             ->join('states', 'states.id', '=', 'consignees.state_id')
             ->get(['consignees.city']);
 
