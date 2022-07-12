@@ -210,6 +210,7 @@ class ConsignmentController extends Controller
             $consignmentsave['branch_id']         = $authuser->branch_id;
             $consignmentsave['order_id']         = $request->order_id;
             $consignmentsave['status']            = $status;
+            $consignmentsave['delivery_status']   = 1;
 
             if($with_vehicle_no == '1'){
                 $consignmentsave['vehicle_id'] = $request->req_vehicle_id;
@@ -741,7 +742,7 @@ class ConsignmentController extends Controller
                 $pdfMerger->addPDF(public_path().'/consignment-pdf/'.$pdf);
             }
             $pdfMerger->merge();
-            $pdfMerger->save("all.pdf", "download");
+            $pdfMerger->save("all.pdf", "browser");
             $file = new Filesystem;
             $file->cleanDirectory('pdf');
     }
@@ -786,7 +787,7 @@ class ConsignmentController extends Controller
     
     public function updateUnverifiedLr(Request $request)
     {
-       
+
 
           $consignerId = $request->transaction_id;
           //echo'<pre>';print_r($consignerId);die;
@@ -797,7 +798,7 @@ class ConsignmentController extends Controller
           $transporterName = $request->transporter_name;
           
 
-          $consigner = DB::table('consignment_notes')->whereIn('consignment_no',$cc)->update(['vehicle_id'=>$addvechileNo, 'driver_id'=>$adddriverId, 'transporter_name' => $transporterName, 'vehicle_type' => $vehicleType]);
+          $consigner = DB::table('consignment_notes')->whereIn('consignment_no',$cc)->update(['vehicle_id'=>$addvechileNo, 'driver_id'=>$adddriverId, 'transporter_name' => $transporterName, 'vehicle_type' => $vehicleType, 'delivery_status' => '2']);
            //echo'hii';
 
            $consignees = DB::table('consignment_notes')->select('consignment_notes.*', 'consigners.nick_name as consigner_id','consignees.nick_name as consignee_id','vehicles.regn_no as vehicle_id','consignees.city as city','consignees.postal_code as pincode','drivers.name as driver_id','drivers.phone as driver_phone' )
@@ -824,7 +825,7 @@ class ConsignmentController extends Controller
           
            }
            
-           $transaction = DB::table('transaction_sheets')->whereIn('consignment_no',$cc)->update(['vehicle_no' => $vehicle_no ,'driver_name' => $driverName,'driver_no' => $driverPhone]);
+           $transaction = DB::table('transaction_sheets')->whereIn('consignment_no',$cc)->update(['vehicle_no' => $vehicle_no ,'driver_name' => $driverName,'driver_no' => $driverPhone, 'status' => '2']);
 
             $response['success'] = true;
             $response['success_message'] = "Data Imported successfully";
@@ -842,7 +843,7 @@ class ConsignmentController extends Controller
         $cc = $authuser->branch_id;
         if($authuser->role_id == 2){
 
-        $transaction = TransactionSheet::select('drs_no','created_at', 'vehicle_no','driver_name', 'driver_no')->where('branch_id', '=', $cc)->distinct()->get();
+        $transaction = TransactionSheet::select('drs_no','created_at', 'vehicle_no','driver_name', 'driver_no','status')->where('branch_id', '=', $cc)->distinct()->get();
         }else{
         $transaction = TransactionSheet::all();
         }
@@ -884,6 +885,8 @@ class ConsignmentController extends Controller
      {
         //echo'<pre>'; print_r(); die;
         $id = $request->id;
+        //$drs = DB::table('transaction_sheets')->where('drs_no',$id)->update(['status' => '2']);
+
         $transcationview = TransactionSheet::select('*')->with('ConsignmentDetail')->where('drs_no', $id)->orderby('order_no', 'asc')->get();
 
         $simplyfy = json_decode(json_encode($transcationview), true);
@@ -1086,7 +1089,7 @@ class ConsignmentController extends Controller
          //echo'<pre>'; print_r($data); die;                         
        
         
-        $transaction = DB::table('transaction_sheets')->insert(['drs_no'=>$drs_no, 'consignment_no' => $consignment_no, 'branch_id' => $cc, 'consignee_id' => $consignee_id, 'consignment_date' => $consignment_date, 'city' => $city, 'pincode' => $pincode, 'total_quantity' => $total_quantity, 'total_weight' => $total_weight, 'order_no' => $i]);
+        $transaction = DB::table('transaction_sheets')->insert(['drs_no'=>$drs_no, 'consignment_no' => $consignment_no, 'branch_id' => $cc, 'consignee_id' => $consignee_id, 'consignment_date' => $consignment_date, 'city' => $city, 'pincode' => $pincode, 'total_quantity' => $total_quantity, 'total_weight' => $total_weight, 'order_no' => $i ,'status' => '1']);
         }
     
          $response['success'] = true;
@@ -1120,4 +1123,38 @@ class ConsignmentController extends Controller
 
       }
 
+      public function updateDelivery(Request $request)
+      {
+        $id = $_GET['draft_id'];
+        $transcationview = TransactionSheet::select('*')->with('ConsignmentDetail')->where('drs_no', $id)->get();
+        $result = json_decode(json_encode($transcationview), true);
+       
+        $response['fetch'] = $result;
+        $response['success'] = true;
+        $response['success_message'] = "Data Imported successfully";
+        echo json_encode($response);       
+
+      }
+      
+      public function updateDeliveryStatus(Request $request)
+      {
+        //echo'<pre>'; print_r($_POST); die;
+        $consignmentId =  $_POST['consignment_no'];
+        $cc = explode(',', $consignmentId);
+        $deliveryDate =  $_POST['delivery_date'];
+
+        $consigner = DB::table('consignment_notes')->whereIn('consignment_no',$cc)->update(['delivery_status'=>'3', 'delivery_date'=>$deliveryDate]);
+
+        $drs = DB::table('transaction_sheets')->whereIn('consignment_no',$cc)->update(['status' => '3']);
+         
+        $response['success'] = true;
+        $response['success_message'] = "Data Imported successfully";
+        return response()->json($response);
+        
+
+
+
+      }
+
 }
+ 

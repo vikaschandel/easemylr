@@ -256,9 +256,8 @@ label.error{
                                                 <label for="exampleFormControlInput2">Order ID</label>
                                             </div>
                                             <div class=" col-sm-8" style="margin-top:2px;">
-
                                                 <input type="text" class="form-seteing" id="order_id" name="order_id" value="" placeholder=""
-                                                    style="border:none;">
+                                                    style="border:none;" Required>
                                             </div>
                                         </div>
 

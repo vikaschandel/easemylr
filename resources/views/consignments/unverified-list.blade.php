@@ -100,7 +100,7 @@ div.relative {
                                     <td>{{ $consignment->pincode ?? "-" }}</td>
                                     <td>{{ $consignment->total_quantity ?? "-" }}</td>
                                     <td>{{ $consignment->total_weight ?? "-" }}</td>
-                                   
+                                  
                                 </tr>
                                
                                 <?php  $i++; } ?>

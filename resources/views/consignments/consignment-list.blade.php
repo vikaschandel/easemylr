@@ -28,6 +28,8 @@ div.relative {
    
     font-size: 10px;
     }
+
+
     </style>
 <!-- BEGIN PAGE LEVEL CUSTOM STYLES -->
     <link rel="stylesheet" type="text/css" href="{{asset('plugins/table/datatable/datatables.css')}}">
@@ -55,6 +57,7 @@ div.relative {
                             </div>
                             <thead>
                                 <tr>
+                                    <!-- <th> </th> -->
                                     <th>CN No</th>
                                     <th>CN Date</th>
                                     <th>Consignee Name</th>
@@ -63,8 +66,9 @@ div.relative {
                                     <th>Boxes</th>
                                     <th>Net Weight</th>
                                     <th>EDD</th>
-                                    <th>Status</th>
+                                    <th>LR Status</th>
                                     <th>Action</th>
+                                    <th>Delivery Status</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -72,6 +76,7 @@ div.relative {
                                     foreach ($consignments as $key => $consignment) {  
                                 ?> 
                                 <tr>
+                                  <!-- <td class="dt-control">+</td> -->
                                 <td>{{ $consignment->consignment_no ?? "-" }}</td>
                                     <td>{{ $consignment->consignment_date}}</td>
                                     <td>{{ $consignment->consignee_id}}</td>
@@ -103,6 +108,14 @@ div.relative {
                                         <!-- <a class="btn btn-primary" href="{{url($prefix.'/consignments/'.Crypt::encrypt($consignment->id).'/edit')}}" ><span><i class="fa fa-edit"></i></span></a>
                                         <a href="Javascript:void();" class="btn btn-danger delete_consignment" data-id="{{ $consignment->id }}" data-action="<?php// echo URL::to($prefix.'/consignments/delete-consignment'); ?>"><span><i class="fa fa-trash"></i></span></a> -->
                                     </td>
+                                    <?php 
+                                    if($consignment->delivery_status==1){ ?>
+                                        <td><button class="btn btn-danger">UnDelivered</button></td>
+                                    <?php }elseif($consignment->delivery_status==2){ ?>
+                                        <td><button class="btn btn-warning">Out For Delivery</button></td>
+                                    <?php }else{ ?>
+                                        <td><button class="btn btn-success">Delivered</button></td>
+                                    <?php } ?>
                                 </tr>
                                 <?php 
                                     }

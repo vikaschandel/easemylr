@@ -81,13 +81,25 @@ div.relative {
                                 <td>{{$trns['vehicle_no']}}</td>
                                 <td>{{$trns['driver_name']}}</td>
                                 <td>{{$trns['driver_no']}}</td>
+                               
+                                   
                                 <td>
+                                <?php 
+                                if($trns['status'] == 1 || $trns['status'] == 2){ ?>
                                     <button type="button" class="btn btn-warning view-sheet" value="{{$trns['drs_no']}}" style="margin-right:4px;">Draft</button> 
                                    <button type="button" class="btn btn-danger draft-sheet" value="{{$trns['drs_no']}}" style="margin-right:4px;">Save</button> 
+                                   <?php } ?>
                                    <?php if(!empty($trns['vehicle_no'])){?>
                                     <a class="btn btn-primary" href="{{url($prefix.'/print-transaction/'.$trns['drs_no'])}}" role="button" >Print</a>
-                                   
                                     <?php } ?>
+                                    <?php 
+                                    if($trns['status'] == 1){?>
+                                    <button type="button" class="btn btn-danger" value="{{$trns['drs_no']}}" style="margin-right:4px;">undelivered</button>
+                                    <?php }elseif($trns['status'] == 2){ ?>
+                                        <button type="button" class="btn btn-warning delivery_status" value="{{$trns['drs_no']}}" style="margin-right:4px;">Out For  Delivery</button>
+                                    <?php }else{ ?>
+                                        <button type="button" class="btn btn-success" value="{{$trns['drs_no']}}" style="margin-right:4px;"> Delivered</button>
+                                        <?php } ?>
                                 </td>
                               </tr>
                               @endforeach
@@ -168,8 +180,7 @@ div.relative {
                     });
 
                     // alert(totalBox);
-                    var rowCount = $("#sheet tbody tr").length;
-                    
+                    var rowCount = $("#sheet tbody tr").length; 
                     $("#total_box").html("No Of Boxes: "+totalBox);
                     $("#totalweight").html("Net Weight: "+totalweight);
                     $("#total").html(rowCount);
@@ -335,5 +346,68 @@ function showLibrary()
                     })
            });
     }
+
+    ///////////////////////////////delivery status////////////////////////////////////////
+    $(document).on('click','.delivery_status', function(){
+            
+            var draft_id = $(this).val(); 
+            $('#delivery').modal('show');
+           // alert(draft_id);
+          
+            $.ajax({
+                type: "GET",
+                url: "update-delivery/"+draft_id, 
+                data: {draft_id:draft_id},
+                //dataType: "json",
+                beforeSend:                      //reinitialize Datatables
+               function(){   
+             
+              },
+                success: function(data){
+                    var re = jQuery.parseJSON(data)
+                    //console.log(re.fetch); return false;
+                    var consignmentID = [];
+                    $.each(re.fetch, function(index, value) {
+
+                        var alldata = value;  
+                        consignmentID.push(alldata.consignment_no);
+
+                    });
+                      //alert(consignmentID);
+                      $("#drs_status").val(consignmentID);
+        } 
+    });
+});
+///////////////////////////Update Delivery Status/////////////////////////////////////////////
+$('#update_delivery_status').submit(function(e) {
+        e.preventDefault();
+
+    //   alert('hi'); return false; 
+        
+        $.ajax({
+              url: "update-delivery-status",
+              headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+              type: 'POST',  
+              data:new FormData(this),
+              processData: false,
+              contentType: false,
+              beforeSend: function(){
+              
+               },
+              success: (data) => {
+                    if(data.success == true){
+                
+                        alert('Data Updated Successfully');
+                        location.reload();
+                    }
+                    else{
+                        alert('something wrong');
+                    }
+                }
+                
+        }); 
+    });	
+
+
     </script>
 @endsection

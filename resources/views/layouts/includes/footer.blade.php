@@ -59,6 +59,8 @@
     <script src="{{asset('plugins/table/datatable/button-ext/buttons.html5.min.js')}}"></script>
     <script src="{{asset('plugins/table/datatable/button-ext/buttons.print.min.js')}}"></script>
      <script>
+
+        
         $('.get-datatable').DataTable( {
             "dom": "<'dt--top-section'<'row'<'col-sm-12 col-md-6 d-flex justify-content-md-start justify-content-center'B><'col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3'f>>>" +
         "<'table-responsive'tr>" +
@@ -166,6 +168,24 @@
                     })
 
 });
+  
+//   // Add event listener for opening and closing details
+//   $('#usertable tbody').on('click', 'td.dt-control', function () {
+//         var tr = $(this).closest('tr');
+//         var row = table.row(tr);
+ 
+//         if (row.child.isShown()) {
+//             // This row is already open - close it
+//             row.child.hide();
+//             tr.removeClass('shown');
+//         } else {
+//             // Open this row
+//             row.child(format(row.data())).show();
+//             tr.addClass('shown');
+//         }
+//     });
+
+ 
 
     </script>
     <!-- END PAGE LEVEL SCRIPTS -->
