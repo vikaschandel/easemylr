@@ -129,6 +129,9 @@
                                     <li>
                                         <a href="{{$prefixurl.'consignments'}}"> Consignments List </a>
                                     </li>
+                                    <li>
+                                        <a href="{{$prefixurl.'consignment-report'}}"> Consignments Report </a>
+                                    </li>
                                 <?php if($with_vehicle_no == '1'){ ?>
                                     <li>
                                         <a href="{{$prefixurl.'unverified-list'}}"> Create DRS</a>
@@ -144,6 +147,7 @@
                                         <a href="{{$prefixurl.'transaction-sheet'}}"> Transaction Sheet </a>
                                     </li>
                                 <?php } ?>
+
                                 </ul>
                 </li>
                 <?php }
