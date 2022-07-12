@@ -58,17 +58,22 @@ div.relative {
                             <thead>
                                 <tr>
                                     <!-- <th> </th> -->
-                                    <th>CN No</th>
-                                    <th>CN Date</th>
+                                    <th>LR No</th>
+                                    <th>LR Date</th>
                                     <th>Order No</th>
+                                    <th>Consigner</th>
                                     <th>Consignee Name</th>
                                     <th>City</th>
                                     <th>Pin Code</th> 
                                     <th>District</th>
                                     <th>State</th>
                                     <th>Invoice No</th>
+                                    <th>Invoice Date</th>
+                                    <th>Invoice Amount</th>
+                                    <th>Vehicle No</th>
                                     <th>Boxes</th>
                                     <th>Net Weight</th>
+                                    <th>Gross Weight</th>
                                     <th>Dispatch Date</th>
                                     <th>Delivery Date</th>
                                     <th>Delivery Status</th>
@@ -81,14 +86,19 @@ div.relative {
                                     <td>{{ $consignment->consignment_no ?? "-" }}</td>
                                     <td>{{ $consignment->consignment_date ?? "-" }}</td>
                                     <td>{{ $consignment->order_id ?? "-" }}</td>
+                                    <td>{{ $consignment->consigner_nickname ?? "-" }}</td>
                                     <td>{{ $consignment->consignee_nickname ?? "-" }}</td>
                                     <td>{{ $consignment->city ?? "-" }}</td>
                                     <td>{{ $consignment->pincode ?? "-" }}</td>
                                     <td>{{ $consignment->district ?? "-" }}</td>
                                     <td>{{ $consignment->state ?? "-" }}</td>
                                     <td>{{ $consignment->invoice_no ?? "-" }}</td>
+                                    <td>{{ $consignment->invoice_date ?? "-" }}</td>
+                                    <td>{{ $consignment->invoice_amount ?? "-" }}</td>
+                                    <td>{{ $consignment->vechile_number ?? "-" }}</td>
                                     <td>{{ $consignment->total_quantity ?? "-" }}</td>
                                     <td>{{ $consignment->total_weight ?? "-" }}</td>
+                                    <td>{{ $consignment->total_gross_weight ?? "-" }}</td>
                                     <td>{{ $consignment->consignment_date ?? "-" }}</td>
                                     <td>{{ $consignment->delivery_date ?? "-" }}</td>
                                     <?php 
