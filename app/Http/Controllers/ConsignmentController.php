@@ -1170,7 +1170,7 @@ class ConsignmentController extends Controller
             $consignments = DB::table('consignment_notes')->select('consignment_notes.*', 'consigners.nick_name as consigner_nickname', 'consignees.nick_name as consignee_nickname', 'consignees.city as city', 'consignees.postal_code as pincode',  'consignees.district as district', 'states.name as state', 'vehicles.regn_no as vechile_number')
                 ->join('consigners', 'consigners.id', '=', 'consignment_notes.consigner_id')
                 ->join('consignees', 'consignees.id', '=', 'consignment_notes.consignee_id')
-                ->join('vehicles', 'vehicles.id', '=', 'consignment_notes.vehicle_id')
+                ->leftjoin('vehicles', 'vehicles.id', '=', 'consignment_notes.vehicle_id')
                 ->join('states', 'states.id', '=', 'consignees.state_id')
                 ->whereIn('consignment_notes.branch_id', $cc)
                 ->get(['consignees.city']);
@@ -1179,7 +1179,7 @@ class ConsignmentController extends Controller
             $consignments = DB::table('consignment_notes')->select('consignment_notes.*', 'consigners.nick_name as consigner_nickname', 'consignees.nick_name as consignee_nickname', 'consignees.city as city', 'consignees.postal_code as pincode',  'consignees.district as district', 'states.name as state','vehicles.regn_no as vechile_number')
             ->join('consigners', 'consigners.id', '=', 'consignment_notes.consigner_id')
             ->join('consignees', 'consignees.id', '=', 'consignment_notes.consignee_id')
-            ->join('vehicles', 'vehicles.id', '=', 'consignment_notes.vehicle_id')
+            ->leftjoin('vehicles', 'vehicles.id', '=', 'consignment_notes.vehicle_id')
             ->join('states', 'states.id', '=', 'consignees.state_id')
             ->get(['consignees.city']);
 
