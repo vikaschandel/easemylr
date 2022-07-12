@@ -51,7 +51,7 @@ div.relative {
                 <div class="widget-content widget-content-area br-6">
                     <div class="mb-4 mt-4">
                         @csrf
-                        <table id="" class="table table-hover get-datatable" style="width:100%">
+                        <table id="consignment_report" class="table table-hover" style="width:100%">
                             <div class="btn-group relative">
                                 <!-- <a href="{{'consignments/create'}}" class="btn btn-primary pull-right" style="font-size: 13px; padding: 6px 0px;">Create Consignment</a> -->
                             </div>
