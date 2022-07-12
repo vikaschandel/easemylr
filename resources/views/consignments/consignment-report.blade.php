@@ -62,6 +62,7 @@ div.relative {
                                     <th>LR Date</th>
                                     <th>Order No</th>
                                     <th>Consigner</th>
+                                    <th>Consigner City</th>
                                     <th>Consignee Name</th>
                                     <th>City</th>
                                     <th>Pin Code</th> 
@@ -87,6 +88,7 @@ div.relative {
                                     <td>{{ $consignment->consignment_date ?? "-" }}</td>
                                     <td>{{ $consignment->order_id ?? "-" }}</td>
                                     <td>{{ $consignment->consigner_nickname ?? "-" }}</td>
+                                    <td>{{ $consignment->consigners_city ?? "-" }}</td>
                                     <td>{{ $consignment->consignee_nickname ?? "-" }}</td>
                                     <td>{{ $consignment->city ?? "-" }}</td>
                                     <td>{{ $consignment->pincode ?? "-" }}</td>
