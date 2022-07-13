@@ -79,7 +79,7 @@ div.relative {
                                         <th>Consignee Name</th>
                                         <th>City</th>
                                         <th>Pin Code</th> 
-                                        <th>Boxes</th>
+                                        <th>Boxes</th> 
                                         <th>Net Weight</th>
                                        
                                 </tr>

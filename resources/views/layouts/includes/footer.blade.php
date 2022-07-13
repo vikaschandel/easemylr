@@ -110,7 +110,7 @@
                     if($(this).is(':checked')){
                      
                         $('.ddd').prop('checked', true);
-                 }else{
+                 }else{ 
                    $('.ddd').prop('checked', false);
               }
                 });
@@ -121,7 +121,7 @@
                 $(':checkbox[name="checked_consign[]"]:checked').each (function () {
                     consignmentID.push(this.value);
                 });
-                
+                //alert(consignmentID);
 
                 $.ajax({
                     url: "create-drs",

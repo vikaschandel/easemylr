@@ -1134,7 +1134,7 @@ class ConsignmentController extends Controller
         $id = $_GET['draft_id'];
         $transcationview = TransactionSheet::select('*')->with('ConsignmentDetail')->where('drs_no', $id)->get();
         $result = json_decode(json_encode($transcationview), true);
-
+       // echo'<pre>'; print_r($result); die;
         $response['fetch'] = $result;
         $response['success'] = true;
         $response['success_message'] = "Data Imported successfully";
@@ -1147,9 +1147,8 @@ class ConsignmentController extends Controller
         //echo'<pre>'; print_r($_POST); die;
         $consignmentId = $_POST['consignment_no'];
         $cc = explode(',', $consignmentId);
-        $deliveryDate = $_POST['delivery_date'];
-
-        $consigner = DB::table('consignment_notes')->whereIn('consignment_no', $cc)->update(['delivery_status' => '3', 'delivery_date' => $deliveryDate]);
+    
+        $consigner = DB::table('consignment_notes')->whereIn('consignment_no', $cc)->update(['delivery_status' => '3']);
 
         $drs = DB::table('transaction_sheets')->whereIn('consignment_no', $cc)->update(['status' => '3']);
 
@@ -1190,6 +1189,20 @@ class ConsignmentController extends Controller
            return view ('consignments.consignment-report', ['consignments' => $consignments, 'prefix' => $this->prefix]);
         
 
+    }
+
+    public function updateDeliveryDateOneBy(Request $request)
+    {
+       
+        $delivery_date = $_POST['delivery_date'];
+        $consignmentId = $_POST['consignment_id'];
+        $consigner = DB::table('consignment_notes')->where('consignment_no', $consignmentId)->update(['delivery_date' => $delivery_date]);
+        if ($consigner) {
+            //echo'ok';
+            return response()->json(['success' => 'Delivery Date Updated Successfully']);
+        } else {
+            return response()->json(['error' => 'Something went wrong']);
+        }
     }
 
 /////////////////Web Hooks/////////////////////////////

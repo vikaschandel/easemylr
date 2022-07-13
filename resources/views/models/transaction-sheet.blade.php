@@ -15,22 +15,29 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="update_delivery_status">
-                    <input type="hidden" name="consignment_no" id="drs_status">
-                <div class="form-row mb-0">
-                    <div class="form-group col-md-12">
-                        <label for="exampleFormControlInput2">Delivery Date</label>
-                        <input type="date" class="form-control" id="delivery_date" name="delivery_date" value="">
+                <form id="update_delivery_status" >
+            <input type="hidden" name="consignment_no" id="drs_status">
+            <div class="table-responsive">
+                        <table id="delivery_status" class="table table-hover"
+                            style="width:100%; text-align:left; border: 1px solid #c7c7c7;">
+                            <thead>
+                                <tr>
+                                    <th>Consignment No</th>
+                                    <th>Delivery Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+
                     </div>
-                    <div class="form-row mb-0">
-                       
-                    </div>
-                </div>
+                
             </div>
             <div class="modal-footer">
                 <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Discard</button>
-                <button type="submit" class="btn btn-primary">Save</button>
-                </form>
+                <button type="submit" class="btn btn-primary">Update Delivery Status</button>
+</form>
             </div>
         </div>
     </div>
@@ -40,7 +47,7 @@
 </div>
 </div>
 <!-- xtra Large modal -->
-
+<!-- ================================================================================================== -->
 <!-- Modal -->
 <div class="modal fade bd-example-modal-xl" id="save-draft" tabindex="-1" role="dialog"
     aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
@@ -155,7 +162,7 @@
 <div class="modal fade bd-example-modal-xl" id="opm" tabindex="-1" role="dialog"
     aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
-        <div class="modal-content">
+        <div class="modal-content"> 
             <div class="modal-header">
                 <h5 class="modal-title" id="myExtraLargeModalLabel">Delivery Run Sheet</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
