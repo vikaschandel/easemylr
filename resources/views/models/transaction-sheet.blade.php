@@ -22,7 +22,7 @@
                             style="width:100%; text-align:left; border: 1px solid #c7c7c7;">
                             <thead>
                                 <tr>
-                                    <th>Consignment No</th>
+                                    <th>LR No</th>
                                     <th>Delivery Date</th>
                                 </tr>
                             </thead>
@@ -113,7 +113,7 @@
                             style="width:100%; text-align:left; border: 1px solid #c7c7c7;">
                             <thead>
                                 <tr>
-                                    <th>Consignment No</th>
+                                    <th>LR No</th>
                                     <th>Consignment Date</th>
                                     <th>Consignee Name</th>
                                     <th>city</th>
@@ -193,7 +193,7 @@
                                     style="width:100%; text-align:left; border: 1px solid #c7c7c7;">
                                     <thead>
                                         <tr>
-                                            <th>Consignment No</th>
+                                            <th>LR No</th>
                                             <th>Consignment Date</th>
                                             <th>Consignee Name</th>
                                             <th>city</th>
