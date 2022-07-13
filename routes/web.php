@@ -118,17 +118,15 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth','PermissionCheck']], func
     Route::any('update-delivery/{id}', [ConsignmentController::class, 'updateDeliveryStatus']);
     Route::any('update-delivery-status', [ConsignmentController::class, 'updateDeliveryStatus']);
     Route::any('consignment-report', [ConsignmentController::class, 'consignmentReports']);
+    Route::any('update-delivery-date', [ConsignmentController::class, 'updateDeliveryDateOneBy']);
 
-   
-
-    
     Route::resource('locations', LocationController::class);
     Route::post('/locations/update', [LocationController::class, 'updateLocation']);
     Route::any('locations/get-location', [LocationController::class, 'getLocation']);
     // Route::any('locations/delete-location', [LocationController::class, 'deleteLocation']);
 
     Route::get('bulk-import', [ImportCsvController::class, 'getBulkImport']);
-    Route::post('consignees/upload_csv', [ImportCsvController::class, 'uploadCsv']);
+    Route::post('consignees/upload_csv', [ImportCsvController::class, 'uploadCsv']); 
 
     // Route::get('settings/branch-address', [SettingController::class, 'getbranchAddress']);
     Route::any('settings/branch-address', [SettingController::class, 'updateBranchadd']);
@@ -190,10 +188,9 @@ Route::group(['prefix'=>'branch-manager', 'middleware'=>['auth','PermissionCheck
     Route::any('update-delivery/{id}', [ConsignmentController::class, 'updateDelivery']);
     Route::any('update-delivery-status', [ConsignmentController::class, 'updateDeliveryStatus']);
     Route::any('consignment-report', [ConsignmentController::class, 'consignmentReports']);
+    Route::any('update-delivery-date', [ConsignmentController::class, 'updateDeliveryDateOneBy']);
 
 
-
-    
     Route::resource('locations', LocationController::class);
     Route::post('/locations/update', [LocationController::class, 'updateLocation']);
     Route::any('locations/get-location', [LocationController::class, 'getLocation']);

@@ -77,12 +77,11 @@ div.relative {
                                 <?php  $creation = date('d-m-Y',strtotime($trns['created_at']));    ?>
                               <tr>
                                 <td>DRS-{{$trns['drs_no']}}</td>
-                                <td>{{$creation}}</td>
+                                <td>{{$creation}}</td> 
                                 <td>{{$trns['vehicle_no']}}</td>
                                 <td>{{$trns['driver_name']}}</td>
                                 <td>{{$trns['driver_no']}}</td>
-                               
-                                   
+                            
                                 <td>
                                 <?php 
                                 if($trns['status'] == 1 || $trns['status'] == 2){ ?>
@@ -352,7 +351,7 @@ function showLibrary()
             
             var draft_id = $(this).val(); 
             $('#delivery').modal('show');
-           // alert(draft_id);
+          //alert(draft_id);
           
             $.ajax({
                 type: "GET",
@@ -361,28 +360,44 @@ function showLibrary()
                 //dataType: "json",
                 beforeSend:                      //reinitialize Datatables
                function(){   
+                $('#delivery_status').dataTable().fnClearTable();             
+                $('#delivery_status').dataTable().fnDestroy();
              
               },
                 success: function(data){
                     var re = jQuery.parseJSON(data)
-                    //console.log(re.fetch); return false;
+                    // console.log(re.fetch); return false;
                     var consignmentID = [];
                     $.each(re.fetch, function(index, value) {
 
                         var alldata = value;  
                         consignmentID.push(alldata.consignment_no);
+                        
+                        $('#delivery_status tbody').append("<tr><td>" + value.consignment_no + "</td><td><input type='date' name='delivery_date[]' data-id="+ value.consignment_no +" class='delivery_d' value='"+ alldata.consignment_detail.delivery_date+ "'></td></tr>");      
+
 
                     });
                       //alert(consignmentID);
                       $("#drs_status").val(consignmentID);
+
+                      get_delivery_date();
         } 
+        
     });
 });
 ///////////////////////////Update Delivery Status/////////////////////////////////////////////
 $('#update_delivery_status').submit(function(e) {
         e.preventDefault();
-
-    //   alert('hi'); return false; 
+//alert('hello'); return false;
+       var consignmentID = [];
+        $('input[name="delivery_date[]"]').each(function() {
+          if(this.value == '') {
+           alert('Please enter Delivery Date');
+           exit;
+          }
+            consignmentID.push(this.value);
+        });
+        //alert(consignmentID);
         
         $.ajax({
               url: "update-delivery-status",
@@ -408,6 +423,29 @@ $('#update_delivery_status').submit(function(e) {
         }); 
     });	
 
+    ////////////////////////////////////////////
+    function get_delivery_date()
+{
+    $('.delivery_d').blur(function () {
+                    // alert('hello');
+                    var consignment_id = $(this).attr('data-id');
+                    var delivery_date = $(this).val();
 
+                    var _token = $('input[name="_token"]').val();
+                    $.ajax({
+                    url: "update-delivery-date",
+                    method: "POST",
+                    data: { delivery_date: delivery_date,consignment_id:consignment_id, _token: _token },
+                    headers   : {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                    dataType  : 'json',
+                    success: function (result) {
+                        
+                    }
+                    })
+           });
+    }
     </script>
+
 @endsection
