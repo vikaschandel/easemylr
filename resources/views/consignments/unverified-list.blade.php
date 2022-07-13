@@ -74,7 +74,7 @@ div.relative {
                                      <th>
                                      <input type="checkbox" name="" id="ckbCheckAll">
                                     </th>
-                                        <th>CN No</th>
+                                        <th>LR No</th>
                                         <th>CN Date</th>
                                         <th>Consignee Name</th>
                                         <th>City</th>
@@ -93,7 +93,7 @@ div.relative {
                                 <tr>
 
                                 <td><input type="checkbox" name="checked_consign[]" class="chkBoxClass ddd" value="{{$consignment->id}}" data-trp="" data-vehno="" data-vctype=""></td>
-                                    <td>{{ $consignment->consignment_no ?? "-" }}</td>
+                                    <td>{{ $consignment->id ?? "-" }}</td>
                                     <td>{{ $consignment->consignment_date}}</td>
                                     <td>{{ $consignment->consignee_id}}</td>
                                     <td>{{ $consignment->city ?? "-" }}</td>

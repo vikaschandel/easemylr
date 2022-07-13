@@ -645,7 +645,7 @@ class ConsignmentController extends Controller
                             </td>
                             <td width="30%">';
             if (@$data['consignment_no'] != '') {
-                $html .= '<p>' . $data['consignment_no'] . '</p>';
+                $html .= '<p>' . $data['id'] . '</p>';
             } else {
                 $html .= '<p>N/A</p>';
             }
@@ -810,7 +810,7 @@ class ConsignmentController extends Controller
         $vehicleType = $request->vehicle_type;
         $transporterName = $request->transporter_name;
 
-        $consigner = DB::table('consignment_notes')->whereIn('consignment_no', $cc)->update(['vehicle_id' => $addvechileNo, 'driver_id' => $adddriverId, 'transporter_name' => $transporterName, 'vehicle_type' => $vehicleType, 'delivery_status' => '2']);
+        $consigner = DB::table('consignment_notes')->whereIn('id', $cc)->update(['vehicle_id' => $addvechileNo, 'driver_id' => $adddriverId, 'transporter_name' => $transporterName, 'vehicle_type' => $vehicleType, 'delivery_status' => '2']);
         //echo'hii';
 
         $consignees = DB::table('consignment_notes')->select('consignment_notes.*', 'consigners.nick_name as consigner_id', 'consignees.nick_name as consignee_id', 'vehicles.regn_no as vehicle_id', 'consignees.city as city', 'consignees.postal_code as pincode', 'drivers.name as driver_id', 'drivers.phone as driver_phone')
@@ -818,7 +818,7 @@ class ConsignmentController extends Controller
             ->join('consignees', 'consignees.id', '=', 'consignment_notes.consignee_id')
             ->join('vehicles', 'vehicles.id', '=', 'consignment_notes.vehicle_id')
             ->join('drivers', 'drivers.id', '=', 'consignment_notes.driver_id')
-            ->whereIn('consignment_notes.consignment_no', $cc)
+            ->whereIn('consignment_notes.id', $cc)
             ->get(['consignees.city']);
         //echo'<pre>'; print_r($consignees); die;
 
@@ -896,8 +896,6 @@ class ConsignmentController extends Controller
     {
         //echo'<pre>'; print_r(); die;
         $id = $request->id;
-        //$drs = DB::table('transaction_sheets')->where('drs_no',$id)->update(['status' => '2']);
-
         $transcationview = TransactionSheet::select('*')->with('ConsignmentDetail')->where('drs_no', $id)->orderby('order_no', 'asc')->get();
 
         $simplyfy = json_decode(json_encode($transcationview), true);
@@ -970,7 +968,7 @@ class ConsignmentController extends Controller
                                        <thead>
                                            <tr  style=" border: 1px solid; border-collapse: collapse;">
                                                <th  style=" border: 1px solid; border-collapse: collapse;">Order ID</th>
-                                               <th  style=" border: 1px solid; border-collapse: collapse;">Consignment No</th>
+                                               <th  style=" border: 1px solid; border-collapse: collapse;">LR No</th>
                                                <th  style=" border: 1px solid; border-collapse: collapse;">Consignment Date</th>
                                                <th  style=" border: 1px solid; border-collapse: collapse;">Consignee Name</th>
                                                <th  style=" border: 1px solid; border-collapse: collapse;">City</th>
@@ -1016,8 +1014,8 @@ class ConsignmentController extends Controller
                                                   <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;"></td>
                                                   <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;"></td>
                                                   <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;"></td>
-                                                  <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;">Total Boxes : ' . $total_Boxes . '</td>
-                                                  <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;">Total Weight: ' . $total_weight . '</td>
+                                                  <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;">' . $total_Boxes . '</td>
+                                                  <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;">' . $total_weight . '</td>
                                                   <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;"></td>
                                                   <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;"></td>
                                              </tr>
@@ -1048,7 +1046,8 @@ class ConsignmentController extends Controller
         //echo'<pre>'; print_r($_POST); die;
         $edd = $_POST['drs_edd'];
         $consignmentId = $_POST['consignment_id'];
-        $consigner = DB::table('consignment_notes')->where('consignment_no', $consignmentId)->update(['edd' => $edd]);
+
+        $consigner = DB::table('consignment_notes')->where('id', $consignmentId)->update(['edd' => $edd]);
         if ($consigner) {
             //echo'ok';
             return response()->json(['success' => 'EDD Updated Successfully']);
@@ -1086,6 +1085,7 @@ class ConsignmentController extends Controller
         $i = 0;
         foreach ($simplyfy as $value) {
             $i++;
+            $unique_id = $value['id'];
             $consignment_no = $value['consignment_no'];
             $consignee_id = $value['consignee_id'];
             $consignment_date = $value['consignment_date'];
@@ -1096,7 +1096,7 @@ class ConsignmentController extends Controller
 
             //echo'<pre>'; print_r($data); die;
 
-            $transaction = DB::table('transaction_sheets')->insert(['drs_no' => $drs_no, 'consignment_no' => $consignment_no, 'branch_id' => $cc, 'consignee_id' => $consignee_id, 'consignment_date' => $consignment_date, 'city' => $city, 'pincode' => $pincode, 'total_quantity' => $total_quantity, 'total_weight' => $total_weight, 'order_no' => $i, 'status' => '1']);
+            $transaction = DB::table('transaction_sheets')->insert(['drs_no' => $drs_no, 'consignment_no' => $unique_id, 'branch_id' => $cc, 'consignee_id' => $consignee_id, 'consignment_date' => $consignment_date, 'city' => $city, 'pincode' => $pincode, 'total_quantity' => $total_quantity, 'total_weight' => $total_weight, 'order_no' => $i, 'status' => '1']);
         }
 
         $response['success'] = true;
@@ -1110,7 +1110,6 @@ class ConsignmentController extends Controller
         $page_id = $request->page_id_array;
         for ($count = 0; $count < count($page_id); $count++) {
             $drs = DB::table('transaction_sheets')->where('id', $page_id[$count])->update(['order_no' => $count + 1]);
-
         }
 
     }
@@ -1120,7 +1119,7 @@ class ConsignmentController extends Controller
         $id = $_GET['draft_id'];
         $transcationview = TransactionSheet::select('*')->with('ConsignmentDetail')->where('drs_no', $id)->orderby('order_no', 'asc')->get();
         $result = json_decode(json_encode($transcationview), true);
-        //dd($result);
+        //echo'<pre>'; print_r($result); die;
 
         $response['fetch'] = $result;
         $response['success'] = true;
@@ -1148,7 +1147,7 @@ class ConsignmentController extends Controller
         $consignmentId = $_POST['consignment_no'];
         $cc = explode(',', $consignmentId);
     
-        $consigner = DB::table('consignment_notes')->whereIn('consignment_no', $cc)->update(['delivery_status' => '3']);
+        $consigner = DB::table('consignment_notes')->whereIn('id', $cc)->update(['delivery_status' => '3']);
 
         $drs = DB::table('transaction_sheets')->whereIn('consignment_no', $cc)->update(['status' => '3']);
 
@@ -1196,7 +1195,7 @@ class ConsignmentController extends Controller
        
         $delivery_date = $_POST['delivery_date'];
         $consignmentId = $_POST['consignment_id'];
-        $consigner = DB::table('consignment_notes')->where('consignment_no', $consignmentId)->update(['delivery_date' => $delivery_date]);
+        $consigner = DB::table('consignment_notes')->where('id', $consignmentId)->update(['delivery_date' => $delivery_date]);
         if ($consigner) {
             //echo'ok';
             return response()->json(['success' => 'Delivery Date Updated Successfully']);

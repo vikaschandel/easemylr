@@ -94,7 +94,7 @@ div#hh {
                                                     &#x20b9;  {{ $consignment->total_freight ?? "" }}
                                                 </div> -->
                                                 <div class="col-ms-6">
-                                                    {{ $consignment->consignment_no ?? "" }}
+                                                    {{ $consignment->id ?? "" }}
                                                 </div>
                                                 <div class="col-ms-6"> 
                                                     {{ Helper::ShowFormatDate($consignment->consignment_date) ?? "" }}
@@ -501,7 +501,7 @@ div#hh {
 
                     var shiptoadd = nick_name+' '+conr_addl1+' '+conr_addl2+' '+conr_addl3+' '+conr_addl4+' '+conr_district+' '+conr_city+' '+postal_code+' '+gst_number;
 
-                    $('#cons_no').html(data.consignment_no);
+                    $('#cons_no').html(data.id);
                     
                     if(data.consignment_date != null){
                         var dateAr = data.consignment_date.split('-');
@@ -790,7 +790,7 @@ div#hh {
 
                     var shiptoadd = nick_name+' '+conr_addl1+' '+conr_addl2+' '+conr_addl3+' '+conr_addl4+' '+conr_district+' '+conr_city+' '+postal_code+' '+gst_number;
 
-                $('#cons_no').html(data.consignment_no);
+                $('#cons_no').html(data.id);
 
                 if(data.consignment_date != null){
                     var dateAr = data.consignment_date.split('-');

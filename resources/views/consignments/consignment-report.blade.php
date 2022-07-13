@@ -75,6 +75,7 @@ div.relative {
                                     <th>Boxes</th>
                                     <th>Net Weight</th>
                                     <th>Gross Weight</th>
+                                    <th>LR Status</th>
                                     <th>Dispatch Date</th>
                                     <th>Delivery Date</th>
                                     <th>Delivery Status</th>
@@ -84,7 +85,7 @@ div.relative {
                             <tbody>
                                 @foreach($consignments as $consignment)
                                 <tr>
-                                    <td>{{ $consignment->consignment_no ?? "-" }}</td>
+                                    <td>{{ $consignment->id ?? "-" }}</td>
                                     <td>{{ $consignment->consignment_date ?? "-" }}</td>
                                     <td>{{ $consignment->order_id ?? "-" }}</td>
                                     <td>{{ $consignment->consigner_nickname ?? "-" }}</td>
@@ -101,6 +102,14 @@ div.relative {
                                     <td>{{ $consignment->total_quantity ?? "-" }}</td>
                                     <td>{{ $consignment->total_weight ?? "-" }}</td>
                                     <td>{{ $consignment->total_gross_weight ?? "-" }}</td>
+                                    <?php 
+                                    if($consignment->status == 0){ ?>
+                                        <td>Cancel</td>
+                                    <?php }elseif($consignment->status == 1){ ?>
+                                        <td>Active</td>
+                                        <?php }elseif($consignment->status == 2){ ?>
+                                        <td>Unverified</td>
+                                        <?php } ?>
                                     <td>{{ $consignment->consignment_date ?? "-" }}</td>
                                     <td>{{ $consignment->delivery_date ?? "-" }}</td>
                                     <?php 

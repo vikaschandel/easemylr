@@ -223,7 +223,7 @@ label.error{
                                         </div>
                                         <?php } ?>
                                         <div class="row">
-                                            <div class=" col-sm-4" style="margin-top:10px;">
+                                            <!-- <div class=" col-sm-4" style="margin-top:10px;">
                                                 <label for="exampleFormControlInput2">Consignment No.</label>
                                             </div>
                                             <div class=" col-sm-8" style="margin-top:2px;">
@@ -231,7 +231,7 @@ label.error{
                                                 <input type="text" class="form-seteing" id="consignment_no"
                                                     name="consignment_no" value="{{$consignmentno ?? ''}}" placeholder="C-94MHRG" readonly style="border:none;">
 
-                                            </div>
+                                            </div> -->
                                         </div>
                                         <div class="row">
                                             <div class=" col-sm-4" style="margin-top:10px;">
