@@ -77,17 +77,28 @@ div.relative {
                                 <?php  $creation = date('d-m-Y',strtotime($trns['created_at']));    ?>
                               <tr>
                                 <td>DRS-{{$trns['drs_no']}}</td>
-                                <td>{{$creation}}</td>
+                                <td>{{$creation}}</td> 
                                 <td>{{$trns['vehicle_no']}}</td>
                                 <td>{{$trns['driver_name']}}</td>
                                 <td>{{$trns['driver_no']}}</td>
+                            
                                 <td>
+                                <?php 
+                                if($trns['status'] == 1 || $trns['status'] == 2){ ?>
                                     <button type="button" class="btn btn-warning view-sheet" value="{{$trns['drs_no']}}" style="margin-right:4px;">Draft</button> 
                                    <button type="button" class="btn btn-danger draft-sheet" value="{{$trns['drs_no']}}" style="margin-right:4px;">Save</button> 
+                                   <?php } ?>
                                    <?php if(!empty($trns['vehicle_no'])){?>
                                     <a class="btn btn-primary" href="{{url($prefix.'/print-transaction/'.$trns['drs_no'])}}" role="button" >Print</a>
-                                   
                                     <?php } ?>
+                                    <?php 
+                                    if($trns['status'] == 1){?>
+                                    <button type="button" class="btn btn-danger" value="{{$trns['drs_no']}}" style="margin-right:4px;">undelivered</button>
+                                    <?php }elseif($trns['status'] == 2){ ?>
+                                        <button type="button" class="btn btn-warning delivery_status" value="{{$trns['drs_no']}}" style="margin-right:4px;">Out For  Delivery</button>
+                                    <?php }else{ ?>
+                                        <button type="button" class="btn btn-success" value="{{$trns['drs_no']}}" style="margin-right:4px;"> Delivered</button>
+                                        <?php } ?>
                                 </td>
                               </tr>
                               @endforeach
@@ -168,8 +179,7 @@ div.relative {
                     });
 
                     // alert(totalBox);
-                    var rowCount = $("#sheet tbody tr").length;
-                    
+                    var rowCount = $("#sheet tbody tr").length; 
                     $("#total_box").html("No Of Boxes: "+totalBox);
                     $("#totalweight").html("Net Weight: "+totalweight);
                     $("#total").html(rowCount);
@@ -208,13 +218,17 @@ div.relative {
                     $.each(re.fetch, function(index, value) {
 
                         var alldata = value;  
+                        //console.log(alldata);
+
                         consignmentID.push(alldata.consignment_no);
                         totalBoxes += parseInt(value.total_quantity);
                         totalweights += parseInt(value.total_weight);
+                        //alert(alldata.consignment_detail.edd); return false;
+
 
                         $('#save-DraftSheet tbody').append("<tr id="+value.id+"><td>" + value.consignment_no + "</td><td>" + value.consignment_date + "</td><td>" + value.consignee_id + "</td><td>"+ value.city + "</td><td>"+ value.pincode + "</td><td>"+ value.total_quantity + "</td><td>"+ value.total_weight + "</td><td><input type='date' name='edd[]' data-id="+ value.consignment_no +" class='new_edd' value='"+ alldata.consignment_detail.edd+ "'></td></tr>");      
                     });
-                      //alert(consignmentID);
+                      alert(consignmentID);
                       $("#transaction_id").val(consignmentID);
                     var rowCount = $("#sheet tbody tr").length;
                     
@@ -335,5 +349,107 @@ function showLibrary()
                     })
            });
     }
+
+    ///////////////////////////////delivery status////////////////////////////////////////
+    $(document).on('click','.delivery_status', function(){
+            
+            var draft_id = $(this).val(); 
+            $('#delivery').modal('show');
+          //alert(draft_id);
+          
+            $.ajax({
+                type: "GET",
+                url: "update-delivery/"+draft_id, 
+                data: {draft_id:draft_id},
+                //dataType: "json",
+                beforeSend:                      //reinitialize Datatables
+               function(){   
+                $('#delivery_status').dataTable().fnClearTable();             
+                $('#delivery_status').dataTable().fnDestroy();
+             
+              },
+                success: function(data){
+                    var re = jQuery.parseJSON(data)
+                    // console.log(re.fetch); return false;
+                    var consignmentID = [];
+                    $.each(re.fetch, function(index, value) {
+
+                        var alldata = value;  
+                        consignmentID.push(alldata.consignment_no);
+                        
+                        $('#delivery_status tbody').append("<tr><td>" + value.consignment_no + "</td><td><input type='date' name='delivery_date[]' data-id="+ value.consignment_no +" class='delivery_d' value='"+ alldata.consignment_detail.delivery_date+ "'></td></tr>");      
+
+
+                    });
+                      //alert(consignmentID);
+                      $("#drs_status").val(consignmentID);
+
+                      get_delivery_date();
+        } 
+        
+    });
+});
+///////////////////////////Update Delivery Status/////////////////////////////////////////////
+$('#update_delivery_status').submit(function(e) {
+        e.preventDefault();
+//alert('hello'); return false;
+       var consignmentID = [];
+        $('input[name="delivery_date[]"]').each(function() {
+          if(this.value == '') {
+           alert('Please enter Delivery Date');
+           exit;
+          }
+            consignmentID.push(this.value);
+        });
+        //alert(consignmentID);
+        
+        $.ajax({
+              url: "update-delivery-status",
+              headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+              type: 'POST',  
+              data:new FormData(this),
+              processData: false,
+              contentType: false,
+              beforeSend: function(){
+              
+               },
+              success: (data) => {
+                    if(data.success == true){
+                
+                        alert('Data Updated Successfully');
+                        location.reload();
+                    }
+                    else{
+                        alert('something wrong');
+                    }
+                }
+                
+        }); 
+    });	
+
+    ////////////////////////////////////////////
+    function get_delivery_date()
+{
+    $('.delivery_d').blur(function () {
+                    // alert('hello');
+                    var consignment_id = $(this).attr('data-id');
+                    var delivery_date = $(this).val();
+
+                    var _token = $('input[name="_token"]').val();
+                    $.ajax({
+                    url: "update-delivery-date",
+                    method: "POST",
+                    data: { delivery_date: delivery_date,consignment_id:consignment_id, _token: _token },
+                    headers   : {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                    dataType  : 'json',
+                    success: function (result) {
+                        
+                    }
+                    })
+           });
+    }
     </script>
+
 @endsection

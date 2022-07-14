@@ -1,18 +1,66 @@
-<!-- xtra Large modal -->
-
 <!-- Modal -->
-<div class="modal fade bd-example-modal-xl" id="save-draft" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-xl">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Save Draft</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-      </div>
-      <div class="modal-body">
-       <form id="updt_vehicle" method="post">
+<div class="modal fade" id="delivery" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Update Delivery Status</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" class="feather feather-x">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="update_delivery_status" >
+            <input type="hidden" name="consignment_no" id="drs_status">
+            <div class="table-responsive">
+                        <table id="delivery_status" class="table table-hover"
+                            style="width:100%; text-align:left; border: 1px solid #c7c7c7;">
+                            <thead>
+                                <tr>
+                                    <th>LR No</th>
+                                    <th>Delivery Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
 
-                    <input type="hidden" class="form-control" id="transaction_id" name="transaction_id"
-                        value="">
+                            </tbody>
+                        </table>
+
+                    </div>
+                
+            </div>
+            <div class="modal-footer">
+                <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Discard</button>
+                <button type="submit" class="btn btn-primary">Update Delivery Status</button>
+</form>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+</div>
+</div>
+<!-- xtra Large modal -->
+<!-- ================================================================================================== -->
+<!-- Modal -->
+<div class="modal fade bd-example-modal-xl" id="save-draft" tabindex="-1" role="dialog"
+    aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Save Draft</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            </div>
+            <div class="modal-body">
+                <form id="updt_vehicle" method="post">
+
+                    <input type="text" class="form-control" id="transaction_id" name="transaction_id" value="">
                     <div class="form-row mb-0">
                         <div class="form-group col-md-6">
                             <label for="location_name">Vehicle No.</label>
@@ -59,61 +107,62 @@
 
                         </div>
 
-      </div>
-      <div class="table-responsive">
-                            <table id="save-DraftSheet" class="table table-hover" style="width:100%; text-align:left; border: 1px solid #c7c7c7;">
-                                <thead>
-                                    <tr>
-                                        <th>Consignment No</th>
-                                        <th>Consignment Date</th>
-                                        <th>Consignee Name</th>
-                                        <th>city</th>
-                                        <th>Pin Code</th>
-                                        <th>Number Of Boxes</th>
-                                        <th>Net Weight</th>
-                                        <th>EDD</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
+                    </div>
+                    <div class="table-responsive">
+                        <table id="save-DraftSheet" class="table table-hover"
+                            style="width:100%; text-align:left; border: 1px solid #c7c7c7;">
+                            <thead>
+                                <tr>
+                                    <th>LR No</th>
+                                    <th>Consignment Date</th>
+                                    <th>Consignee Name</th>
+                                    <th>city</th>
+                                    <th>Pin Code</th>
+                                    <th>Number Of Boxes</th>
+                                    <th>Net Weight</th>
+                                    <th>EDD</th>
+                                </tr>
+                            </thead>
+                            <tbody>
 
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <td>Total</td>
-                                        <td id="totallr"></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td id="total_boxes"></td>
-                                        <td id="totalweights"></td>
-                                    </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td>Total</td>
+                                    <td id="totallr"></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td id="total_boxes"></td>
+                                    <td id="totalweights"></td>
+                                </tr>
 
-                                </tfoot>
-                            </table>
-                            <div class="row">
-                                <div class="col-sm-12">
-                                   
-                                </div>
+                            </tfoot>
+                        </table>
+                        <div class="row">
+                            <div class="col-sm-12">
+
                             </div>
-                           
                         </div>
-      
-                </div>
 
-      <div class="modal-footer">
-      <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Discard</button>
-      <button type="submit" class="btn btn-primary">Save</button>
-                                </form>
-      </div>
+                    </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Discard</button>
+                <button type="submit" class="btn btn-primary">Save</button>
+                </form>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 <!-- =====================================================================================-->
 
-<div class="modal fade bd-example-modal-xl" id="opm" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"
-    aria-hidden="true">
+<div class="modal fade bd-example-modal-xl" id="opm" tabindex="-1" role="dialog"
+    aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
-        <div class="modal-content">
+        <div class="modal-content"> 
             <div class="modal-header">
                 <h5 class="modal-title" id="myExtraLargeModalLabel">Delivery Run Sheet</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -130,49 +179,50 @@
                     <i class="fas fa-save"></i>&nbsp;Print
                 </button> -->
                 <div id="www">
-                <div class="row">
-                    <div class="col-sm-12">
-                        
-                        <div>
+                    <div class="row">
+                        <div class="col-sm-12">
 
-                        </div>
+                            <div>
+
+                            </div>
 
 
 
-                        <div class="table-responsive">
-                            <table id="sheet" class="table table-hover" style="width:100%; text-align:left; border: 1px solid #c7c7c7;">
-                                <thead>
-                                    <tr>
-                                        <th>Consignment No</th>
-                                        <th>Consignment Date</th>
-                                        <th>Consignee Name</th>
-                                        <th>city</th>
-                                        <th>Pin Code</th>
-                                        <th>Number Of Boxes</th>
-                                        <th>Net Weight</th>
-                                        
-                                    </tr>
-                                </thead>
-                                <tbody id="suffle">
+                            <div class="table-responsive">
+                                <table id="sheet" class="table table-hover"
+                                    style="width:100%; text-align:left; border: 1px solid #c7c7c7;">
+                                    <thead>
+                                        <tr>
+                                            <th>LR No</th>
+                                            <th>Consignment Date</th>
+                                            <th>Consignee Name</th>
+                                            <th>city</th>
+                                            <th>Pin Code</th>
+                                            <th>Number Of Boxes</th>
+                                            <th>Net Weight</th>
 
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <td>Total</td>
-                                        <td id="total"></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td id="total_box"></td>
-                                        <td id="totalweight"></td>
-                                    </tr>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="suffle">
 
-                                </tfoot>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td>Total</td>
+                                            <td id="total"></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td id="total_box"></td>
+                                            <td id="totalweight"></td>
+                                        </tr>
 
-                            </table>
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <!-- <table>
+                                    </tfoot>
+
+                                </table>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <!-- <table>
                                         <tr>
                                             <td width: 131px;>
                                                 <label>Total :</label>
@@ -182,13 +232,14 @@
                                             </td>
                                         </tr>
                                     </table>  -->
+                                    </div>
                                 </div>
+
                             </div>
-                           
                         </div>
                     </div>
                 </div>
-                </div>
-     </div>
+            </div>
 
-</div>
+        </div>
+        <!--===========================Delevery Status ========================================== -->

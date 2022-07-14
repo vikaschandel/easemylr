@@ -35,6 +35,9 @@ class ConsignmentNote extends Model
         'edd',
         'order_id',
         'status',
+        'delivery_status',
+        'delivery_date',
+        'signed_drs',
         'created_at',
         'updated_at'
     ];

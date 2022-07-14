@@ -361,7 +361,7 @@ jQuery(document).ready(function(){
 
     function getDrivers(driver_id){
         $.ajax({
-            type      : 'get',
+            type      : 'get', 
             url       : APP_URL+'/get_drivers',
             data      : {driver_id:driver_id},
             headers   : {
