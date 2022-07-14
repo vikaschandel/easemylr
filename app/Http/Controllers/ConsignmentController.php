@@ -833,7 +833,7 @@ class ConsignmentController extends Controller
 
             $createTask = $this->createTookanTasks($simplyfy);
 
-            //echo "<pre>";print_r($createTask);die;
+            echo "<pre>";print_r($createTask);die;
 
             $response['success'] = true;
             $response['success_message'] = "Data Imported successfully";
@@ -860,7 +860,7 @@ class ConsignmentController extends Controller
                 "customer_address": "'.$task['pincode'].','.$task['city'].',India",
                 "latitude": "",
                 "longitude": "",
-                "job_delivery_datetime": "'.$task['edd'].'16:00:00",
+                "job_delivery_datetime": "'.$task['edd'].' 21:00:00",
                 "custom_field_template": "Template_1",
                 "meta_data": [
                     {
@@ -873,21 +873,19 @@ class ConsignmentController extends Controller
                     }
                 ],
                 "team_id": "'.$tid['team_id'].'",
-                "auto_assignment": "0",
+                "auto_assignment": "1",
                 "has_pickup": "0",
                 "has_delivery": "1",
                 "layout_type": "0",
                 "tracking_link": 1,
                 "timezone": "-330",
-                "fleet_id": "636",
-                "ref_images": [
-                    "http://tookanapp.com/wp-content/uploads/2015/11/logo_dark.png",
-                    "http://tookanapp.com/wp-content/uploads/2015/11/logo_dark.png"
-                ],
+                "fleet_id": "1428606",
                 "notify": 1,
                 "tags": "",
                 "geofence": 0
             }';
+
+           //echo "<pre>";print_r($td);echo "</pre>";die;
 
             //die;
 
