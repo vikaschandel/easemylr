@@ -13,7 +13,7 @@ use DB;
 use URL;
 use Auth;
 use Crypt;
-use Helper;
+use Helper; 
 use Validator;
 
 class ConsignerController extends Controller
