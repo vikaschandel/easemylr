@@ -60,7 +60,7 @@
             <div class="modal-body">
                 <form id="updt_vehicle" method="post">
 
-                    <input type="text" class="form-control" id="transaction_id" name="transaction_id" value="">
+                    <input type="hidden" class="form-control" id="transaction_id" name="transaction_id" value="">
                     <div class="form-row mb-0">
                         <div class="form-group col-md-6">
                             <label for="location_name">Vehicle No.</label>
