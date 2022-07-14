@@ -228,7 +228,7 @@ div.relative {
 
                         $('#save-DraftSheet tbody').append("<tr id="+value.id+"><td>" + value.consignment_no + "</td><td>" + value.consignment_date + "</td><td>" + value.consignee_id + "</td><td>"+ value.city + "</td><td>"+ value.pincode + "</td><td>"+ value.total_quantity + "</td><td>"+ value.total_weight + "</td><td><input type='date' name='edd[]' data-id="+ value.consignment_no +" class='new_edd' value='"+ alldata.consignment_detail.edd+ "'></td></tr>");      
                     });
-                      alert(consignmentID);
+                     // alert(consignmentID);
                       $("#transaction_id").val(consignmentID);
                     var rowCount = $("#sheet tbody tr").length;
                     
