@@ -96,9 +96,11 @@ div.relative {
                                     <button type="button" class="btn btn-danger" value="{{$trns['drs_no']}}" style="margin-right:4px;">undelivered</button>
                                     <?php }elseif($trns['status'] == 2){ ?>
                                         <button type="button" class="btn btn-warning delivery_status" value="{{$trns['drs_no']}}" style="margin-right:4px;">Out For  Delivery</button>
-                                    <?php }else{ ?>
+                                    <?php }elseif($trns['status'] == 3){ ?>
                                         <button type="button" class="btn btn-success" value="{{$trns['drs_no']}}" style="margin-right:4px;"> Delivered</button>
-                                        <?php } ?>
+                                        <?php }else{ ?>
+                                            <button type="button" class="btn btn-success" value="{{$trns['drs_no']}}" style="margin-right:4px;"> Cancel</button>
+                                            <?php } ?>
                                 </td>
                               </tr>
                               @endforeach
