@@ -1263,8 +1263,8 @@ function formSubmitRedirect(form)
         complete: function (response) {
             $('.disableme').prop('disabled', true);
 
-            // $("input[type=submit]").attr("enabled", "enabled");
-        	// $("button[type=submit]").attr("enabled", "enabled");
+             $("input[type=submit]").attr("enabled", "enabled");
+        	 $("button[type=submit]").attr("enabled", "enabled");
             $(".loader").hide();
         },
         success: function (response)
