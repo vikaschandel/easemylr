@@ -99,7 +99,7 @@ div.relative {
                                     <?php }elseif($trns['status'] == 3){ ?>
                                         <button type="button" class="btn btn-success" value="{{$trns['drs_no']}}" style="margin-right:4px;"> Delivered</button>
                                         <?php }else{ ?>
-                                            <button type="button" class="btn btn-success" value="{{$trns['drs_no']}}" style="margin-right:4px;"> Cancel</button>
+                                            <button type="button" class="btn btn-danger" value="{{$trns['drs_no']}}" style="margin-right:4px;"> Cancelled</button>
                                             <?php } ?>
                                 </td>
                               </tr>
