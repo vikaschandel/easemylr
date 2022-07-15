@@ -1000,7 +1000,7 @@ class ConsignmentController extends Controller
                                                 <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;">' . $dataitem['pincode'] . '</td>
                                                 <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;">' . $dataitem['total_quantity'] . '</td>
                                                 <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;">' . $dataitem['total_weight'] . '</td>
-                                                <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;">' . $dataitem['consignment_detail']['edd'] . '</td>
+                                                <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;">' . @$dataitem['consignment_detail']['edd'] . '</td>
                                                 <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;"></td>
                                             </tr>';
          }
