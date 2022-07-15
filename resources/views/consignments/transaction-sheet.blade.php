@@ -230,7 +230,7 @@ div.relative {
                     });
                      // alert(consignmentID);
                       $("#transaction_id").val(consignmentID);
-                    var rowCount = $("#sheet tbody tr").length;
+                    var rowCount = $("#save-DraftSheet tbody tr").length;
                     
                     $("#total_boxes").append("No Of Boxes: "+totalBoxes);
                     $("#totalweights").append("Net Weight: "+totalweights);

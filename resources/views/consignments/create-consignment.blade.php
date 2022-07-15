@@ -517,7 +517,8 @@ label.error{
                     </div>
                     
                     <div class=" col-sm-3">
-                        <button type="submit" class="mt-2 btn btn-primary">Submit</button>
+                         <button type="submit" class="mt-2 btn btn-primary disableme">Submit</button>
+                           
                         <a class="mt-2 btn btn-primary" href="{{url($prefix.'/consignments') }}"> Back</a>
                     </div>
                 </div><!-- Row -->
