@@ -992,7 +992,7 @@ class ConsignmentController extends Controller
              $total_weight += $dataitem['total_weight'];
              //echo'<pre>'; print_r($dataitem['consignment_no']); die;
              $html .= '      <tr  style=" border: 1px solid; border-collapse: collapse;">
-                                  <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;">' . $dataitem['consignment_detail']['order_id'] . '</td>
+                                  <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;">' . @$dataitem['consignment_detail']['order_id'] . '</td>
                                                 <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;">' . $dataitem['consignment_no'] . '</td>
                                                 <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;">' . $dataitem['consignment_date'] . '</td>
                                                 <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;">' . $dataitem['consignee_id'] . '</td>
