@@ -423,10 +423,20 @@ class ConsignmentController extends Controller
         } else {
             $address_line4 = '';
         }
+        if ($data['consigner_detail']['city'] != null) {
+            $city = $data['consigner_detail']['city'].',';
+        } else {
+            $city = '';
+        }
         if ($data['consigner_detail']['district'] != null) {
-            $district = '<p>' . $data['consigner_detail']['district'] . '</p>';
+            $district = $data['consigner_detail']['district'].',';
         } else {
             $district = '';
+        }
+        if ($data['consigner_detail']['postal_code'] != null) {
+            $postal_code = $data['consigner_detail']['postal_code'];
+        } else {
+            $postal_code = '';
         }
         if ($data['consigner_detail']['gst_number'] != null) {
             $gst_number = '<p>GST No: ' . $data['consigner_detail']['gst_number'] . '</p>';
@@ -440,8 +450,7 @@ class ConsignmentController extends Controller
         }
 
         $conr_add = '<p>' . 'CONSIGNOR NAME & ADDRESS' . '</p>
-            ' . $nick_name . ' ' . $address_line1 . ' ' . $address_line2 . ' ' . $address_line3 . ' ' . $address_line4 . '
-            ' . $district . ' ' . $gst_number . ' ' . $phone;
+            ' . $nick_name . ' ' . $address_line1 . ' ' . $address_line2 . ' ' . $address_line3 . ' ' . $address_line4 . '<p>' . $city . ' ' . $district . ' ' . $postal_code . '</p>' . $gst_number . ' ' . $phone;
 
         if ($data['consignee_detail']['nick_name'] != null) {
             $nick_name = '<p><b>' . $data['consignee_detail']['nick_name'] . '</b></p>';
@@ -468,11 +477,22 @@ class ConsignmentController extends Controller
         } else {
             $address_line4 = '';
         }
+        if ($data['consignee_detail']['city'] != null) {
+            $city = $data['consignee_detail']['city'] .',';
+        } else {
+            $city = '';
+        }
         if ($data['consignee_detail']['district'] != null) {
-            $district = '<p>' . $data['consignee_detail']['district'] . '</p>';
+            $district = $data['consignee_detail']['district'] .',';
         } else {
             $district = '';
         }
+        if ($data['consignee_detail']['postal_code'] != null) {
+            $postal_code = $data['consignee_detail']['postal_code'];
+        } else {
+            $postal_code = '';
+        }
+        
         if ($data['consignee_detail']['gst_number'] != null) {
             $gst_number = '<p>GST No: ' . $data['consignee_detail']['gst_number'] . '</p>';
         } else {
@@ -485,8 +505,7 @@ class ConsignmentController extends Controller
         }
 
         $consnee_add = '<p>' . 'CONSIGNEE NAME & ADDRESS' . '</p>
-        ' . $nick_name . ' ' . $address_line1 . ' ' . $address_line2 . ' ' . $address_line3 . ' ' . $address_line4 . '
-        ' . $district . ' ' . $gst_number . ' ' . $phone;
+        ' . $nick_name . ' ' . $address_line1 . ' ' . $address_line2 . ' ' . $address_line3 . ' ' . $address_line4 . '<p>'.$city .' ' . $district . ' '.$postal_code.'</p>' . $gst_number . ' ' . $phone;
 
         if ($data['shipto_detail']['nick_name'] != null) {
             $nick_name = '<p><b>' . $data['shipto_detail']['nick_name'] . '</b></p>';
@@ -513,10 +532,20 @@ class ConsignmentController extends Controller
         } else {
             $address_line4 = '';
         }
+        if ($data['shipto_detail']['city'] != null) {
+            $city = $data['shipto_detail']['city'] . ',';
+        } else {
+            $city = '';
+        }
         if ($data['shipto_detail']['district'] != null) {
-            $district = '<p>' . $data['shipto_detail']['district'] . '</p>';
+            $district = $data['shipto_detail']['district'] . ',';
         } else {
             $district = '';
+        }
+        if ($data['shipto_detail']['postal_code'] != null) {
+            $postal_code = $data['shipto_detail']['postal_code'];
+        } else {
+            $postal_code = '';
         }
         if ($data['shipto_detail']['gst_number'] != null) {
             $gst_number = '<p>GST No: ' . $data['shipto_detail']['gst_number'] . '</p>';
@@ -530,8 +559,7 @@ class ConsignmentController extends Controller
         }
 
         $shiptoadd = '<p>' . 'SHIP TO NAME & ADDRESS' . '</p>
-        ' . $nick_name . ' ' . $address_line1 . ' ' . $address_line2 . ' ' . $address_line3 . ' ' . $address_line4 . '
-        ' . $district . ' ' . $gst_number . ' ' . $phone;
+        ' . $nick_name . ' ' . $address_line1 . ' ' . $address_line2 . ' ' . $address_line3 . ' ' . $address_line4 . '<p>'.$city.' ' . $district . ' '.$postal_code.'</p>' . $gst_number . ' ' . $phone;
 
         $generate_qrcode = QrCode::size(150)->generate('Eternity Forwarders Pvt. Ltd.');
         $output_file = '/qr-code/img-' . time() . '.svg';
@@ -637,6 +665,7 @@ class ConsignmentController extends Controller
                                 <p><b>Consignment No.</b></p>
                                 <p><b>Consignment Date</b></p>
                                 <p><b>Dispatch From</b></p>
+                                <p><b>Order Id</b></p>
                                 <p><b>Invoice No.</b></p>
                                 <p><b>Invoice Date</b></p>
                                 <p><b>Value INR</b></p>
@@ -659,6 +688,11 @@ class ConsignmentController extends Controller
             } else {
                 $html .= '<p> N/A </p>';
             }
+            if (@$data['order_id'] != '') {
+                $html .= '<p>' . $data['order_id'] . '</p>';
+            } else {
+                $html .= '<p>  </p>';
+            }
             if (@$data['invoice_no'] != '') {
                 $html .= '<p>' . $data['invoice_no'] . '</p>';
             } else {
@@ -669,6 +703,7 @@ class ConsignmentController extends Controller
             } else {
                 $html .= '<p> N/A </p>';
             }
+            
             if (@$data['invoice_amount'] != '') {
                 $html .= '<p>' . $data['invoice_amount'] . '</p>';
             } else {
@@ -677,12 +712,12 @@ class ConsignmentController extends Controller
             if (@$data['vehicle_detail']['regn_no'] != '') {
                 $html .= '<p>' . $data['vehicle_detail']['regn_no'] . '</p>';
             } else {
-                $html .= '<p> N/A </p>';
+                $html .= '<p>  </p>';
             }
             if (@$data['driver_detail']['name'] != '') {
                 $html .= '<p>' . ucwords($data['driver_detail']['name']) . '</p>';
             } else {
-                $html .= '<p> N/A </p>';
+                $html .= '<p>  </p>';
             }
 
             $html .= '</td>
@@ -708,9 +743,11 @@ class ConsignmentController extends Controller
                         <th class="cc">Payment Terms</th>
                     </tr>';
             ///
+            $counter=0;
             foreach ($data['consignment_items'] as $k => $dataitem) {
+                $counter=$counter+1;
                 $html .= '<tr>' .
-                    '<td class="cc">' . $i . '</td>' .
+                    '<td class="cc">' . $counter . '</td>' .
                     '<td class="cc">' . $dataitem['description'] . '</td>' .
                     '<td class="cc">' . $dataitem['packing_type'] . ' ' . $dataitem['quantity'] . '</td>' .
                     '<td class="cc">' . $dataitem['weight'] . ' Kgs.</td>' .
