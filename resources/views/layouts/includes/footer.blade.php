@@ -64,26 +64,48 @@
         /* Formatting function for row details - modify as you need */
         function format(d) {
             // `d` is the original data object for the row
-            return (
-                '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
-                '<tr>' +
-                '<td>Full name:</td>' +
-                '<td>' +
-                d.consignment_date +
-                '</td>' +
-                '</tr>' +
-                '<tr>' +
-                '<td>Extension number:</td>' +
-                '<td>' +
-                d.city +
-                '</td>' +
-                '</tr>' +
-                '<tr>' +
-                '<td>Extra info:</td>' +
-                '<td>And any further details here (images etc)...</td>' +
-                '</tr>' +
-                '</table>'
-            );
+            return '<div class="card">'+
+				'<div class="card-body">'+
+								'<ul class="nav nav-tabs nav-primary" role="tablist">'+
+									'<li class="nav-item" role="presentation">'+
+										'<a class="nav-link active" data-bs-toggle="tab" href="#primaryhome" role="tab" aria-selected="true">'+
+											'<div class="d-flex align-items-center">'+
+												'<div class="tab-icon"><i class="bx bx-home font-18 me-1"></i>'+
+												'</div>'+
+												'<div class="tab-title">TXN Details</div>'+
+											'</div>'+
+										'</a>'+
+									'</li>'+
+								'</ul>'+
+								'<div class="tab-content py-3">'+
+									'<div class="tab-pane active" id="primaryhome" role="tabpanel">'+
+                                    '<div class="row">'+
+                                    '<div class="col-md-3">'+
+                                    '<strong class="labels">Job Id:</strong> '+d.job_id+'<br/>'+
+                                    '<strong class="labels">Oder No:</strong> '+d.order_id+'<br/>'+
+                                    '<strong class="labels">Lr No:</strong> '+d.id+'<br/>'+
+                                    '<strong class="labels">Consigner:</strong> '+d.consigner_id+'<br/>'+
+                                    '<strong class="labels">Consigner City:</strong> '+d.consignee_id+'<br/>'+
+                                    '<strong class="labels">Consignee :</strong> '+d.consignee_id+'<br/>'+
+                                    '<strong class="labels">Consignee Address:</strong> '+d.city+'<br/>'+
+                                    '<strong class="labels">Invoice No:</strong> '+d.invoice_no+'<br/>'+
+                                    '<strong class="labels">Invoice Date :</strong> '+d.invoice_date+'<br/>'+
+                                    '<strong class="labels">Invoice Amount:</strong> '+d.invoice_amount+'<br/>'+
+                                    '<strong class="labels">Vehicle No:</strong> '+d.consignee_id+'<br/>'+
+                                    '<strong class="labels">Boxes:</strong> '+d.total_quantity+'<br/>'+
+                                    '<strong class="labels">Net Weight:</strong> '+d.total_weight+'<br/><br/>'+
+                                    ''+d.route+'<br/>'+
+                                    '</div>'+
+                                    '<div class="col-md-9">'+
+                                    '<div id="map-'+d.id+'"><iframe id="iGmap" width="100%" height="400px" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://shadow.express/tracking/index.html?jobID=285621a8c3a46657815eb4ce38c731b9" ></iframe></div>'+
+                                    '</div>'+
+                                    '</div>'+
+									'</div>'+
+								'</div>'+
+							'</div>'+
+						'</div>';
+               
+
         }
         
         $(document).ready(function () {
@@ -96,19 +118,16 @@
                         data: null,
                         defaultContent: '',
                     },
-                    { data: 'id' },
-                    { data: 'consignment_date' },
-                    { data: 'consignee_id' },
-                    { data: 'city' },
-                    { data: 'pincode' },
-                    { data: 'total_quantity' },
-                    { data: 'total_weight' },
+                    { data: 'lrdetails' },
+                    { data: 'route' },
                     { data: 'edd' },
+                    { data: 'status' },
+                    { data: 'delivery_status' },
                 ],
                 order: [[1, 'asc']],
                 "dom": "<'dt--top-section'<'row'<'col-sm-12 col-md-6 d-flex justify-content-md-start justify-content-center'B><'col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3'f>>>" +
-        "<'table-responsive'tr>" +
-        "<'dt--bottom-section d-sm-flex justify-content-sm-between text-center'<'dt--pages-count  mb-sm-0 mb-3'i><'dt--pagination'p>>",
+                "<'table-responsive'tr>" +
+                "<'dt--bottom-section d-sm-flex justify-content-sm-between text-center'<'dt--pages-count  mb-sm-0 mb-3'i><'dt--pagination'p>>",
             buttons: {
                 buttons: [
                     // { extend: 'copy', className: 'btn btn-sm' },

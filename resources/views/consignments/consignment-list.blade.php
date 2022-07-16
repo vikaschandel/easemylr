@@ -29,7 +29,88 @@ div.relative {
     font-size: 10px;
     }
 
+tr.shown td.dt-control {
+    background: url('/assets/img/details_close.png') no-repeat center center !important;
+}
+td.dt-control {
+    background: url('/assets/img/details_open.png') no-repeat center center !important;
+    cursor: pointer;
+}
+.theads {
+    text-align: center;
+    padding: 5px 0;
+    color: #279dff;
+}
+.ant-timeline {
+    box-sizing: border-box;
+    font-size: 14px;
+    font-variant: tabular-nums;
+    line-height: 1.5;
+    font-feature-settings: "tnum","tnum";
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.css-b03s4t {
+    color: rgb(0, 0, 0);
+    padding: 6px 0px 2px;
+}
+.css-16pld72 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-transform: capitalize;
+}
+.ant-timeline-item-tail {
+    position: absolute;
+    top: 10px;
+    left: 4px;
+    height: calc(100% - 10px);
+    border-left: 2px solid #e8e8e8;
+}
+.ant-timeline-item-last>.ant-timeline-item-tail {
+    display: none;
+}
 
+.ant-timeline-item-head-red {
+    background-color: #f5222d;
+    border-color: #f5222d;
+}
+.ant-timeline-item-head-green {
+    background-color: #52c41a;
+    border-color: #52c41a;
+}
+.ant-timeline-item-content {
+    position: relative;
+    top: -6px;
+    margin: 0 0 0 18px;
+    word-break: break-word;
+}
+.css-phvyqn {
+    color: rgb(0, 0, 0);
+    padding: 0px;
+    height: 34px !important;
+}
+.ant-timeline-item {
+    position: relative;
+    margin: 0;
+    padding: 0 0 5px;
+    font-size: 14px;
+    list-style: none;
+}
+.ant-timeline-item-head {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 100px;
+}
+.css-ccw3oz .ant-timeline-item-head {
+    padding: 0px;
+    border-radius: 0px !important;
+}
+.labels{
+    color:#4361ee;
+}
     </style>
 <!-- BEGIN PAGE LEVEL CUSTOM STYLES -->
     <link rel="stylesheet" type="text/css" href="{{asset('plugins/table/datatable/datatables.css')}}">
@@ -57,17 +138,11 @@ div.relative {
                             </div>
                             <thead>
                                 <tr>
-                                    <!-- <th> </th> -->
-                                    <th>LR No</th>
-                                    <th>CN Date</th>
-                                    <th>Consignee Name</th>
-                                    <th>City</th>
-                                    <th>Pin Code</th> 
-                                    <th>Boxes</th>
-                                    <th>Net Weight</th>
+                                    <th> </th>
+                                    <th>LR Details</th>
+                                    <th>Route</th>
                                     <th>EDD</th>
                                     <th>LR Status</th>
-                                    <th>Action</th>
                                     <th>Delivery Status</th>
                                 </tr>
                             </thead>

@@ -98,7 +98,74 @@ class ConsignmentController extends Controller
                 ->get(['consignees.city']);
         }
 
-        return Datatables::of($data)->make(true);
+        return Datatables::of($data)
+        ->addColumn('lrdetails', function($data){
+                     
+            $trps = '<ul class="ant-timeline">
+                       <li class="ant-timeline-item"><span style="color:#4361ee;">LR No: </span>'.$data->id.'<li>
+                       <li class="ant-timeline-item"><span style="color:#4361ee;">LR Date: </span>'.$data->consignment_date.'<li>
+                     </ul>'; 
+
+            return $trps;
+        })
+        ->addColumn('route', function($data){
+            //echo "<pre>";print_r($data);die;
+            $troute = '<ul class="ant-timeline">
+            <li class="ant-timeline-item  css-b03s4t">
+                <div class="ant-timeline-item-tail"></div>
+                <div class="ant-timeline-item-head ant-timeline-item-head-green"></div>
+                <div class="ant-timeline-item-content">
+                    <div class="css-16pld72">174029,Bilaspur India</div>
+                </div>
+            </li>
+            <li class="ant-timeline-item ant-timeline-item-last css-phvyqn">
+                <div class="ant-timeline-item-tail"></div>
+                <div class="ant-timeline-item-head ant-timeline-item-head-red"></div>
+                <div class="ant-timeline-item-content">
+                <div class="css-16pld72">'.$data->city.', India</div>
+                <div class="css-16pld72" style="font-size: 12px; color: rgb(102, 102, 102);">     
+                    <span>160062,Bestech Business Tower, </span>
+                    <span>'.$data->city.'</span>
+                </div>
+                </div>
+            </li>
+            </ul>';
+                return $troute;
+            })
+            ->addColumn('status', function($data){
+                if($data->status == 0){
+                 $st = '<span class="badge alert bg-secondary shadow-sm">Unknown</span>';
+                } 
+                elseif($data->status == 1){
+                    $st = '<span class="badge bg-info shadow-sm">Active</span>';    
+                }
+                elseif($data->status == 2){
+                    $st = '<span class="badge bg-success">Unverified</span>';    
+                }
+                elseif($data->status == 3){
+                    $st = '<span class="badge bg-gradient-bloody text-white shadow-sm ">Cancel</span>';  
+                }
+
+                return $st;
+            })   
+            ->addColumn('delivery_status', function($data){
+                if($data->delivery_status == 0){
+                 $st = '<span class="badge alert bg-secondary shadow-sm">Unknown</span>';
+                } 
+                elseif($data->delivery_status == 1){
+                    $st = '<span class="badge bg-info shadow-sm">UnDelivered</span>';    
+                }
+                elseif($data->delivery_status == 2){
+                    $st = '<span class="badge bg-success">Out For Delivery</span>';    
+                }
+                else{
+                    $st = '<span class="badge success text-white shadow-sm ">Delivered</span>';  
+                }
+
+                return $st;
+            })                      
+        ->rawColumns(['lrdetails','route','status', 'delivery_status'])    
+        ->make(true);
      
     }
 
@@ -274,12 +341,12 @@ class ConsignmentController extends Controller
              ->get();
                $simplyfy = json_decode(json_encode($lrdata), true);
                $createTask = $this->createTookanTasks($simplyfy);
-               $json = json_decode($createTask, true);
+               $json = json_decode($createTask[0], true);
                $job_id= $json['data']['job_id'];
                $tracking_link= $json['data']['tracking_link'];
                //echo "<pre>"; print_r($createTask[0]);die;
 
-               $update = DB::table('consignment_notes')->where('consignment_no', $lid)->update(['job_id' => $job_id, 'tracking_link' => $tracking_link]);
+               $update = DB::table('consignment_notes')->where('id', $lid)->update(['job_id' => $job_id, 'tracking_link' => $tracking_link]);
 
                 // insert consignment items
                 if (!empty($request->data)) {
