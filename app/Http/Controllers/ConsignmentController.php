@@ -79,6 +79,12 @@ class ConsignmentController extends Controller
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
+    public function consignment_list(){
+        
+        
+     
+    }
+
     /**
      * Show the form for creating a new resource.
      *

@@ -102,6 +102,7 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth','PermissionCheck']], func
     Route::get('vehicles/export/excel', [VehicleController::class, 'exportExcel']);
 
     Route::resource('consignments', ConsignmentController::class);
+    Route::any('clist', [ConsignmentController::class, 'consignment_list']);
     Route::get('unverified-list', [ConsignmentController::class, 'unverifiedList']);
     Route::any('update_unverifiedLR', [ConsignmentController::class, 'updateUnverifiedLr']);
     Route::post('consignments/update-consignment', [ConsignmentController::class, 'updateConsignment']);
@@ -189,7 +190,6 @@ Route::group(['prefix'=>'branch-manager', 'middleware'=>['auth','PermissionCheck
     Route::any('update-delivery-status', [ConsignmentController::class, 'updateDeliveryStatus']);
     Route::any('consignment-report', [ConsignmentController::class, 'consignmentReports']);
     Route::any('update-delivery-date', [ConsignmentController::class, 'updateDeliveryDateOneBy']);
-
 
     Route::resource('locations', LocationController::class);
     Route::post('/locations/update', [LocationController::class, 'updateLocation']);
