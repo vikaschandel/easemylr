@@ -66,7 +66,7 @@ jQuery(document).ready(function(){
              },
             password: {
               required: "Password is required",
-             },
+             }, 
         },
         submitHandler : function(form)
         {
@@ -1251,6 +1251,7 @@ function formSubmitRedirect(form)
         dataType    : "json",
         beforeSend  : function () {
             $(".loader").show();
+            $('.disableme').prop('disabled', true);
             if ($('#dealer_type').val() == 1 && $("#gst_number").val() == '') {
                 $('.gstno_error').show();
                 return false;
@@ -1260,12 +1261,15 @@ function formSubmitRedirect(form)
             
         },
         complete: function (response) {
-            $("input[type=submit]").attr("enabled", "enabled");
-        	$("button[type=submit]").attr("enabled", "enabled");
+            $('.disableme').prop('disabled', true);
+
+             $("input[type=submit]").attr("enabled", "enabled");
+        	 $("button[type=submit]").attr("enabled", "enabled");
             $(".loader").hide();
         },
         success: function (response)
         {
+            
           	$.toast().reset('all');
       		var delayTime = 3000;
 	        if(response.success){

@@ -13,7 +13,7 @@ use DB;
 use URL;
 use Auth;
 use Crypt;
-use Helper;
+use Helper; 
 use Validator;
 
 class ConsignerController extends Controller
@@ -259,4 +259,5 @@ class ConsignerController extends Controller
     {
         return Excel::download(new ConsignerExport, 'consigners.csv');
     }
+
 }

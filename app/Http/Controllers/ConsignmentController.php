@@ -991,132 +991,132 @@ class ConsignmentController extends Controller
         //<img src="" alt="logo" alt="" width="80" height="70">
         $drsDate = date('d-m-Y', strtotime($details['created_at']));
         $html = '<!DOCTYPE html>
-       <html lang="en">
-       <head>
-           <meta charset="UTF-8">
-           <meta http-equiv="X-UA-Compatible" content="IE=edge">
-           <meta name="viewport" content="width=device-width, initial-scale=1.0">
-           <title>Document</title>
-       </head>
-       <body>
-       <div class="row">
-                           <div class="col-sm-12">
-
-                               <h1 style="text-align:center;">Delivery Run Sheet</h1>
-                               <table>
-                               <tr>
-                               <td>
-                                   <label>DRS No :</label>
-                               </td>
-                               <td >
-                                   <label id="sss">DRS-' . $details['drs_no'] . '</label>
-                               </td>
-                           </tr>
-                           <tr>
-                           <td>
-                               <label>Date:</label>
-                           </td>
-                           <td >
-                               <label id="sss">' . $drsDate . '</label>
-                           </td>
-                       </tr>
-                                   <tr>
-                                       <td>
-                                           <label>Vehicle No :</label>
-                                       </td>
-                                       <td >
-                                           <label id="sss">' . $details['vehicle_no'] . '</label>
-                                       </td>
-                                   </tr>
-                                   <tr>
-                                       <td>
-                                           <label>Driver Name :</label>
-                                       </td>
-                                       <td style="width: 300px;">
-                                           <label id="ppp" >' . @$details['driver_name'] . '</label>
-                                       </td>
-
-                                       <td >
-                                           <label>Driver Number :</label>
-                                       </td>
-                                       <td width: 131px;>
-                                           <label id="nnn">' . @$details['driver_no'] . '</label>
-                                       </td>
-                                   </tr>
-                               </table>
-                               <div>
-
-                               </div>
-                                     <div class="table-responsive " style="margin-top:10px;">
-                                   <table id="sheet" class="table table-hover tb" style="width:100%;  border: 1px solid; border-collapse: collapse;">
-                                       <thead>
-                                           <tr  style=" border: 1px solid; border-collapse: collapse;">
-                                               <th  style=" border: 1px solid; border-collapse: collapse;">Order ID</th>
-                                               <th  style=" border: 1px solid; border-collapse: collapse;">LR No</th>
-                                               <th  style=" border: 1px solid; border-collapse: collapse;">Consignment Date</th>
-                                               <th  style=" border: 1px solid; border-collapse: collapse;">Consignee Name</th>
-                                               <th  style=" border: 1px solid; border-collapse: collapse;">City</th>
-                                               <th  style=" border: 1px solid; border-collapse: collapse;">Pin Code</th>
-                                               <th  style=" border: 1px solid; border-collapse: collapse;">Number Of Boxes</th>
-                                               <th  style=" border: 1px solid; border-collapse: collapse;">Net Weight</th>
-                                               <th  style=" border: 1px solid; border-collapse: collapse;">EDD</th>
-                                               <th  style=" border: 1px solid; border-collapse: collapse;">Status</th>
-                                           </tr>
-                                       </thead>
-                                       <tbody>';
-        //echo'<pre>'; print_r($transactionDecode);
-        $i = 0;
-        $total_Boxes = 0;
-        $total_weight = 0;
-
-        foreach ($simplyfy as $dataitem) {
-
-            $i++;
-            $total_Boxes += $dataitem['total_quantity'];
-            $total_weight += $dataitem['total_weight'];
-            //echo'<pre>'; print_r($dataitem['consignment_no']); die;
-            $html .= '      <tr  style=" border: 1px solid; border-collapse: collapse;">
-                                 <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;">' . $dataitem['consignment_detail']['order_id'] . '</td>
-                                               <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;">' . $dataitem['consignment_no'] . '</td>
-                                               <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;">' . $dataitem['consignment_date'] . '</td>
-                                               <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;">' . $dataitem['consignee_id'] . '</td>
-                                               <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;">' . $dataitem['city'] . '</td>
-                                               <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;">' . $dataitem['pincode'] . '</td>
-                                               <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;">' . $dataitem['total_quantity'] . '</td>
-                                               <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;">' . $dataitem['total_weight'] . '</td>
-                                               <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;">' . $dataitem['consignment_detail']['edd'] . '</td>
-                                               <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;"></td>
-                                           </tr>';
-        }
-
-        $html .= ' </tbody>
-                                       <tfoot>
-                                             <tr  style=" border: 1px solid; border-collapse: collapse;">
-                                                  <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;">Total: ' . $i . '</td>
-                                                  <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;"></td>
-                                                  <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;"></td>
-                                                  <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;"></td>
-                                                  <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;"></td>
-                                                  <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;"></td>
-                                                  <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;">' . $total_Boxes . '</td>
-                                                  <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;">' . $total_weight . '</td>
-                                                  <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;"></td>
-                                                  <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;"></td>
-                                             </tr>
-
-                                       </tfoot>
-                                   </table>
-
-                                 </div>
-
-
-                                  <div class="row" style="padding: 5px;">
-                                       <div class="col-sm-12">
-
-                                           <hr></hr>
-                                       </div>
-       </body>
-       </html>';
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Document</title>
+        </head>
+        <body>
+        <div class="row">
+                            <div class="col-sm-12">
+ 
+                                <h1 style="text-align:center;">Delivery Run Sheet</h1>
+                                <table>
+                                <tr>
+                                <td>
+                                    <label>DRS No :</label>
+                                </td>
+                                <td >
+                                    <label id="sss">DRS-' . $details['drs_no'] . '</label>
+                                </td>
+                            </tr>
+                            <tr>
+                            <td>
+                                <label>Date:</label>
+                            </td>
+                            <td >
+                                <label id="sss">' . $drsDate . '</label>
+                            </td>
+                        </tr>
+                                    <tr>
+                                        <td>
+                                            <label>Vehicle No :</label>
+                                        </td>
+                                        <td >
+                                            <label id="sss">' . $details['vehicle_no'] . '</label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <label>Driver Name :</label>
+                                        </td>
+                                        <td style="width: 300px;">
+                                            <label id="ppp" >' . @$details['driver_name'] . '</label>
+                                        </td>
+ 
+                                        <td >
+                                            <label>Driver Number :</label>
+                                        </td>
+                                        <td width: 131px;>
+                                            <label id="nnn">' . @$details['driver_no'] . '</label>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <div>
+ 
+                                </div>
+                                      <div class="table-responsive " style="margin-top:10px;">
+                                    <table id="sheet" class="table table-hover tb" style="width:100%;  border: 1px solid; border-collapse: collapse;">
+                                        <thead>
+                                            <tr  style=" border: 1px solid; border-collapse: collapse;">
+                                                <th  style=" border: 1px solid; border-collapse: collapse;">Order ID</th>
+                                                <th  style=" border: 1px solid; border-collapse: collapse;">LR No</th>
+                                                <th  style=" border: 1px solid; border-collapse: collapse;">Consignment Date</th>
+                                                <th  style=" border: 1px solid; border-collapse: collapse;">Consignee Name</th>
+                                                <th  style=" border: 1px solid; border-collapse: collapse;">City</th>
+                                                <th  style=" border: 1px solid; border-collapse: collapse;">Pin Code</th>
+                                                <th  style=" border: 1px solid; border-collapse: collapse;">Number Of Boxes</th>
+                                                <th  style=" border: 1px solid; border-collapse: collapse;">Net Weight</th>
+                                                <th  style=" border: 1px solid; border-collapse: collapse;">EDD</th>
+                                                <th  style=" border: 1px solid; border-collapse: collapse;">Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>';
+         //echo'<pre>'; print_r($transactionDecode);
+         $i = 0;
+         $total_Boxes = 0;
+         $total_weight = 0;
+ 
+         foreach ($simplyfy as $dataitem) {
+ 
+             $i++;
+             $total_Boxes += $dataitem['total_quantity'];
+             $total_weight += $dataitem['total_weight'];
+             //echo'<pre>'; print_r($dataitem['consignment_no']); die;
+             $html .= '      <tr  style=" border: 1px solid; border-collapse: collapse;">
+                                  <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;">' . @$dataitem['consignment_detail']['order_id'] . '</td>
+                                                <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;">' . $dataitem['consignment_no'] . '</td>
+                                                <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;">' . $dataitem['consignment_date'] . '</td>
+                                                <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;">' . $dataitem['consignee_id'] . '</td>
+                                                <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;">' . $dataitem['city'] . '</td>
+                                                <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;">' . $dataitem['pincode'] . '</td>
+                                                <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;">' . $dataitem['total_quantity'] . '</td>
+                                                <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;">' . $dataitem['total_weight'] . '</td>
+                                                <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;">' . @$dataitem['consignment_detail']['edd'] . '</td>
+                                                <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;"></td>
+                                            </tr>';
+         }
+ 
+         $html .= ' </tbody>
+                                        <tfoot>
+                                              <tr  style=" border: 1px solid; border-collapse: collapse;">
+                                                   <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;">Total: ' . $i . '</td>
+                                                   <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;"></td>
+                                                   <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;"></td>
+                                                   <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;"></td>
+                                                   <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;"></td>
+                                                   <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;"></td>
+                                                   <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;">' . $total_Boxes . '</td>
+                                                   <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;">' . $total_weight . '</td>
+                                                   <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;"></td>
+                                                   <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;"></td>
+                                              </tr>
+ 
+                                        </tfoot>
+                                    </table>
+ 
+                                  </div>
+ 
+ 
+                                   <div class="row" style="padding: 5px;">
+                                        <div class="col-sm-12">
+ 
+                                            <hr></hr>
+                                        </div>
+        </body>
+        </html>';
 
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($html);
