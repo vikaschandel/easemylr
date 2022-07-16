@@ -922,8 +922,8 @@ div#hh {
                             var gross_weight = '';
                         }
                         tds += '<td class="line_items" style="border:solid 1px #A9A9A9;border-style:solid; padding:5px; font-family:Open Sans,sans-serif">'+gross_weight+' Kgs.</td>';
-                        if(items_array[i]['gross_weight'] != null){
-                            var freight = items_array[i]['gross_weight'];
+                        if(items_array[i]['freight'] != null){
+                            var freight = items_array[i]['freight'];
                         }else{
                             var freight = '';
                         }
