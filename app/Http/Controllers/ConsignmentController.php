@@ -19,6 +19,7 @@ use LynX39\LaraPdfMerger\Facades\PdfMerger;
 use QrCode;
 use Storage;
 use Validator;
+use DataTables;
 
 class ConsignmentController extends Controller
 {
@@ -44,8 +45,8 @@ class ConsignmentController extends Controller
             $consignments = DB::table('consignment_notes')->select('consignment_notes.*', 'consigners.nick_name as consigner_id', 'consignees.nick_name as consignee_id', 'consignees.city as city', 'consignees.postal_code as pincode')
                 ->join('consigners', 'consigners.id', '=', 'consignment_notes.consigner_id')
                 ->join('consignees', 'consignees.id', '=', 'consignment_notes.consignee_id')
-            // ->join('vehicles', 'vehicles.id', '=', 'consignment_notes.vehicle_id')
-            // ->join('drivers', 'drivers.id', '=', 'consignment_notes.driver_id')
+             // ->join('vehicles', 'vehicles.id', '=', 'consignment_notes.vehicle_id')
+             // ->join('drivers', 'drivers.id', '=', 'consignment_notes.driver_id')
                 ->whereIn('consignment_notes.branch_id', $cc)
                 ->get(['consignees.city']);
 
@@ -81,7 +82,23 @@ class ConsignmentController extends Controller
 
     public function consignment_list(){
         
-        
+        $query = ConsignmentNote::query();
+        $authuser = Auth::user();
+        $cc = explode(',', $authuser->branch_id);
+        if ($authuser->role_id == 2) {
+            $data = DB::table('consignment_notes')->select('consignment_notes.*', 'consigners.nick_name as consigner_id', 'consignees.nick_name as consignee_id', 'consignees.city as city', 'consignees.postal_code as pincode')
+                ->join('consigners', 'consigners.id', '=', 'consignment_notes.consigner_id')
+                ->join('consignees', 'consignees.id', '=', 'consignment_notes.consignee_id')
+                ->whereIn('consignment_notes.branch_id', $cc)
+                ->get(['consignees.city']);
+        } else {
+            $data = DB::table('consignment_notes')->select('consignment_notes.*', 'consigners.nick_name as consigner_id', 'consignees.nick_name as consignee_id', 'consignees.city as city', 'consignees.postal_code as pincode')
+                ->join('consigners', 'consigners.id', '=', 'consignment_notes.consigner_id')
+                ->join('consignees', 'consignees.id', '=', 'consignment_notes.consignee_id')
+                ->get(['consignees.city']);
+        }
+
+        return Datatables::of($data)->make(true);
      
     }
 
@@ -246,8 +263,23 @@ class ConsignmentController extends Controller
             $saveconsignment = ConsignmentNote::create($consignmentsave);
 
             if ($saveconsignment) {
-                // $consignment_no = str_pad($saveconsignment->id,8,"0", STR_PAD_LEFT);
-                // ConsignmentNote::where('id',$saveconsignment->id)->update(['consignment_no'=>$consignment_no]);
+
+             $lid = $saveconsignment->id;
+             $lrdata = DB::table('consignment_notes')->select('consignment_notes.*', 'consigners.nick_name as consigner_id', 'consignees.nick_name as consignee_name','consignees.phone as phone', 'consignees.email as email', 'vehicles.regn_no as vehicle_id', 'consignees.city as city', 'consignees.postal_code as pincode', 'drivers.name as driver_id', 'drivers.phone as driver_phone')
+             ->join('consigners', 'consigners.id', '=', 'consignment_notes.consigner_id')
+             ->join('consignees', 'consignees.id', '=', 'consignment_notes.consignee_id')
+             ->join('vehicles', 'vehicles.id', '=', 'consignment_notes.vehicle_id')
+             ->join('drivers', 'drivers.id', '=', 'consignment_notes.driver_id')
+             ->where('consignment_notes.id', $lid)
+             ->get();
+               $simplyfy = json_decode(json_encode($lrdata), true);
+               $createTask = $this->createTookanTasks($simplyfy);
+               $json = json_decode($createTask, true);
+               $job_id= $json['data']['job_id'];
+               $tracking_link= $json['data']['tracking_link'];
+               //echo "<pre>"; print_r($createTask[0]);die;
+
+               $update = DB::table('consignment_notes')->where('consignment_no', $lid)->update(['job_id' => $job_id, 'tracking_link' => $tracking_link]);
 
                 // insert consignment items
                 if (!empty($request->data)) {
@@ -820,7 +852,7 @@ class ConsignmentController extends Controller
         $consigner = DB::table('consignment_notes')->whereIn('id', $cc)->update(['vehicle_id' => $addvechileNo, 'driver_id' => $adddriverId, 'transporter_name' => $transporterName, 'vehicle_type' => $vehicleType, 'delivery_status' => '2']);
         //echo'hii';
 
-        $consignees = DB::table('consignment_notes')->select('consignment_notes.*', 'consigners.nick_name as consigner_id', 'consignees.nick_name as consignee_id', 'vehicles.regn_no as vehicle_id', 'consignees.city as city', 'consignees.postal_code as pincode', 'drivers.name as driver_id', 'drivers.phone as driver_phone')
+        $consignees = DB::table('consignment_notes')->select('consignment_notes.*', 'consigners.nick_name as consigner_id', 'consignees.nick_name as consignee_name','consignees.phone as phone', 'consignees.email as email', 'vehicles.regn_no as vehicle_id', 'consignees.city as city', 'consignees.postal_code as pincode', 'drivers.name as driver_id', 'drivers.phone as driver_phone')
             ->join('consigners', 'consigners.id', '=', 'consignment_notes.consigner_id')
             ->join('consignees', 'consignees.id', '=', 'consignment_notes.consignee_id')
             ->join('vehicles', 'vehicles.id', '=', 'consignment_notes.vehicle_id')
@@ -833,7 +865,7 @@ class ConsignmentController extends Controller
         foreach ($simplyfy as $value) {
             $consignment_no = $value['consignment_no'];
             $vehicle_no = $value['vehicle_id'];
-            $consignee_id = $value['consignee_id'];
+            $consignee_name = $value['consignee_name'];
             $consignment_date = $value['consignment_date'];
             $city = $value['city'];
             $pincode = $value['pincode'];

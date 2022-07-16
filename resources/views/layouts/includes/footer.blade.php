@@ -61,8 +61,52 @@
      <script>
 
         
-        $('.get-datatable').DataTable( {
-            "dom": "<'dt--top-section'<'row'<'col-sm-12 col-md-6 d-flex justify-content-md-start justify-content-center'B><'col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3'f>>>" +
+        /* Formatting function for row details - modify as you need */
+        function format(d) {
+            // `d` is the original data object for the row
+            return (
+                '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
+                '<tr>' +
+                '<td>Full name:</td>' +
+                '<td>' +
+                d.consignment_date +
+                '</td>' +
+                '</tr>' +
+                '<tr>' +
+                '<td>Extension number:</td>' +
+                '<td>' +
+                d.city +
+                '</td>' +
+                '</tr>' +
+                '<tr>' +
+                '<td>Extra info:</td>' +
+                '<td>And any further details here (images etc)...</td>' +
+                '</tr>' +
+                '</table>'
+            );
+        }
+        
+        $(document).ready(function () {
+            var table = $('#usertable').DataTable({
+                ajax: '/admin/clist',
+                columns: [
+                    {
+                        className: 'dt-control',
+                        orderable: false,
+                        data: null,
+                        defaultContent: '',
+                    },
+                    { data: 'id' },
+                    { data: 'consignment_date' },
+                    { data: 'consignee_id' },
+                    { data: 'city' },
+                    { data: 'pincode' },
+                    { data: 'total_quantity' },
+                    { data: 'total_weight' },
+                    { data: 'edd' },
+                ],
+                order: [[1, 'asc']],
+                "dom": "<'dt--top-section'<'row'<'col-sm-12 col-md-6 d-flex justify-content-md-start justify-content-center'B><'col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3'f>>>" +
         "<'table-responsive'tr>" +
         "<'dt--bottom-section d-sm-flex justify-content-sm-between text-center'<'dt--pages-count  mb-sm-0 mb-3'i><'dt--pagination'p>>",
             buttons: {
@@ -84,8 +128,24 @@
             "ordering": true,
             "paging": true,
             "pageLength": 100,
-
-        } );
+            });
+        
+            // Add event listener for opening and closing details
+            $('#usertable tbody').on('click', 'td.dt-control', function () {
+                var tr = $(this).closest('tr');
+                var row = table.row(tr);
+        
+                if (row.child.isShown()) {
+                    // This row is already open - close it
+                    row.child.hide();
+                    tr.removeClass('shown');
+                } else {
+                    // Open this row
+                    row.child(format(row.data())).show();
+                    tr.addClass('shown');
+                }
+            });
+        });
 ////////////////////////////////////////////////////////
         // $("#select_all").click(function () {
         //             if($(this).is(':checked')){
