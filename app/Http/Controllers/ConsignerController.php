@@ -259,4 +259,5 @@ class ConsignerController extends Controller
     {
         return Excel::download(new ConsignerExport, 'consigners.csv');
     }
+
 }
