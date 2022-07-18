@@ -158,7 +158,6 @@ Route::group(['prefix'=>'branch-manager', 'middleware'=>['auth','PermissionCheck
     Route::post('consigners/delete-consigner', [ConsignerController::class, 'deleteConsigner']);
 
     Route::resource('consignees', ConsigneeController::class);
-    Route::get('unverified-list', [ConsignmentController::class, 'unverifiedList']);
     Route::post('consignees/update-consignee', [ConsigneeController::class, 'updateConsignee']);
     Route::post('consignees/delete-consignee', [ConsigneeController::class, 'deleteConsignee']);
 
