@@ -84,7 +84,7 @@ div.relative {
                             
                                 <td>
                                 <?php 
-                                if($trns['status'] == 1 || $trns['status'] == 2){ ?>
+                                if(empty($trns['vehicle_no'])){ ?>
                                     <button type="button" class="btn btn-warning view-sheet" value="{{$trns['drs_no']}}" style="margin-right:4px;">Draft</button> 
                                    <button type="button" class="btn btn-danger draft-sheet" value="{{$trns['drs_no']}}" style="margin-right:4px;">Save</button> 
                                    <?php } ?>

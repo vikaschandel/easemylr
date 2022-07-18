@@ -207,6 +207,7 @@ $('#consignment_report').DataTable( {
             
             "ordering": true,
             "paging": true,
+            "pageLength": 80,
             
         } );
 
