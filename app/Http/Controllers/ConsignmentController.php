@@ -1022,10 +1022,7 @@ class ConsignmentController extends Controller
  
                                         </tfoot>
                                     </table>
- 
                                   </div>
- 
- 
                                    <div class="row" style="padding: 5px;">
                                         <div class="col-sm-12">
  
