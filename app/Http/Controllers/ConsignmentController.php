@@ -330,24 +330,25 @@ class ConsignmentController extends Controller
             $saveconsignment = ConsignmentNote::create($consignmentsave);
 
             if ($saveconsignment) {
+                    /***************** PUSH LR to Shadow if vehicle available   ***********************/
+                    if ($with_vehicle_no == '0') {
+                        $lid = $saveconsignment->id;
+                        $lrdata = DB::table('consignment_notes')->select('consignment_notes.*', 'consigners.nick_name as consigner_id', 'consignees.nick_name as consignee_name','consignees.phone as phone', 'consignees.email as email', 'vehicles.regn_no as vehicle_id', 'consignees.city as city', 'consignees.postal_code as pincode', 'drivers.name as driver_id', 'drivers.phone as driver_phone')
+                        ->join('consigners', 'consigners.id', '=', 'consignment_notes.consigner_id')
+                        ->join('consignees', 'consignees.id', '=', 'consignment_notes.consignee_id')
+                        ->join('vehicles', 'vehicles.id', '=', 'consignment_notes.vehicle_id')
+                        ->join('drivers', 'drivers.id', '=', 'consignment_notes.driver_id')
+                        ->where('consignment_notes.id', $lid)
+                        ->get();
+                        $simplyfy = json_decode(json_encode($lrdata), true);
+                        $createTask = $this->createTookanTasks($simplyfy);
+                        $json = json_decode($createTask[0], true);
+                        $job_id= $json['data']['job_id'];
+                        $tracking_link= $json['data']['tracking_link'];
+                        //echo "<pre>"; print_r($createTask[0]);die;
 
-             $lid = $saveconsignment->id;
-             $lrdata = DB::table('consignment_notes')->select('consignment_notes.*', 'consigners.nick_name as consigner_id', 'consignees.nick_name as consignee_name','consignees.phone as phone', 'consignees.email as email', 'vehicles.regn_no as vehicle_id', 'consignees.city as city', 'consignees.postal_code as pincode', 'drivers.name as driver_id', 'drivers.phone as driver_phone')
-             ->join('consigners', 'consigners.id', '=', 'consignment_notes.consigner_id')
-             ->join('consignees', 'consignees.id', '=', 'consignment_notes.consignee_id')
-             ->join('vehicles', 'vehicles.id', '=', 'consignment_notes.vehicle_id')
-             ->join('drivers', 'drivers.id', '=', 'consignment_notes.driver_id')
-             ->where('consignment_notes.id', $lid)
-             ->get();
-               $simplyfy = json_decode(json_encode($lrdata), true);
-               $createTask = $this->createTookanTasks($simplyfy);
-               $json = json_decode($createTask[0], true);
-               $job_id= $json['data']['job_id'];
-               $tracking_link= $json['data']['tracking_link'];
-               //echo "<pre>"; print_r($createTask[0]);die;
-
-               $update = DB::table('consignment_notes')->where('id', $lid)->update(['job_id' => $job_id, 'tracking_link' => $tracking_link]);
-
+                        $update = DB::table('consignment_notes')->where('id', $lid)->update(['job_id' => $job_id, 'tracking_link' => $tracking_link]);
+                    }
                 // insert consignment items
                 if (!empty($request->data)) {
                     $get_data = $request->data;
@@ -946,6 +947,13 @@ class ConsignmentController extends Controller
         $transaction = DB::table('transaction_sheets')->whereIn('consignment_no', $cc)->update(['vehicle_no' => $vehicle_no, 'driver_name' => $driverName, 'driver_no' => $driverPhone, 'status' => '2']);
 
         $createTask = $this->createTookanTasks($simplyfy);
+
+        $json = json_decode($createTask[0], true);
+        $job_id= $json['data']['job_id'];
+        $tracking_link= $json['data']['tracking_link'];
+        //echo "<pre>"; print_r($createTask[0]);die;
+
+        $update = DB::table('consignment_notes')->whereIn('id', $cc)->update(['job_id' => $job_id, 'tracking_link' => $tracking_link]);
 
         $response['success'] = true;
         $response['success_message'] = "Data Imported successfully";
