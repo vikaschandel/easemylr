@@ -29,7 +29,88 @@ div.relative {
     font-size: 10px;
     }
 
+tr.shown td.dt-control {
+    background: url('/assets/img/details_close.png') no-repeat center center !important;
+}
+td.dt-control {
+    background: url('/assets/img/details_open.png') no-repeat center center !important;
+    cursor: pointer;
+}
+.theads {
+    text-align: center;
+    padding: 5px 0;
+    color: #279dff;
+}
+.ant-timeline {
+    box-sizing: border-box;
+    font-size: 14px;
+    font-variant: tabular-nums;
+    line-height: 1.5;
+    font-feature-settings: "tnum","tnum";
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.css-b03s4t {
+    color: rgb(0, 0, 0);
+    padding: 6px 0px 2px;
+}
+.css-16pld72 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-transform: capitalize;
+}
+.ant-timeline-item-tail {
+    position: absolute;
+    top: 10px;
+    left: 4px;
+    height: calc(100% - 10px);
+    border-left: 2px solid #e8e8e8;
+}
+.ant-timeline-item-last>.ant-timeline-item-tail {
+    display: none;
+}
 
+.ant-timeline-item-head-red {
+    background-color: #f5222d;
+    border-color: #f5222d;
+}
+.ant-timeline-item-head-green {
+    background-color: #52c41a;
+    border-color: #52c41a;
+}
+.ant-timeline-item-content {
+    position: relative;
+    top: -6px;
+    margin: 0 0 0 18px;
+    word-break: break-word;
+}
+.css-phvyqn {
+    color: rgb(0, 0, 0);
+    padding: 0px;
+    height: 34px !important;
+}
+.ant-timeline-item {
+    position: relative;
+    margin: 0;
+    padding: 0 0 5px;
+    font-size: 14px;
+    list-style: none;
+}
+.ant-timeline-item-head {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 100px;
+}
+.css-ccw3oz .ant-timeline-item-head {
+    padding: 0px;
+    border-radius: 0px !important;
+}
+.labels{
+    color:#4361ee;
+}
     </style>
 <!-- BEGIN PAGE LEVEL CUSTOM STYLES -->
     <link rel="stylesheet" type="text/css" href="{{asset('plugins/table/datatable/datatables.css')}}">
@@ -51,75 +132,22 @@ div.relative {
                 <div class="widget-content widget-content-area br-6">
                     <div class="mb-4 mt-4">
                         @csrf
-                        <table id="usertable" class="table table-hover get-datatable" style="width:100%">
+                        <table id="lrlist" class="table table-hover" style="width:100%">
                             <div class="btn-group relative">
                                 <a href="{{'consignments/create'}}" class="btn btn-primary pull-right" style="font-size: 13px; padding: 6px 0px;">Create Consignment</a>
                             </div>
                             <thead>
                                 <tr>
-                                    <!-- <th> </th> -->
-                                    <th>LR No</th>
-                                    <th>CN Date</th>
-                                    <th>Consignee Name</th>
-                                    <th>City</th>
-                                    <th>Pin Code</th> 
-                                    <th>Boxes</th>
-                                    <th>Net Weight</th>
+                                    <th> </th>
+                                    <th>LR Details</th>
+                                    <th>Route</th>
                                     <th>EDD</th>
                                     <th>LR Status</th>
-                                    <th>Action</th>
                                     <th>Delivery Status</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php 
-                                    foreach ($consignments as $key => $consignment) {  
-                                ?> 
-                                <tr>
-                                  <!-- <td class="dt-control">+</td> -->
-                                    <td>{{ $consignment->id ?? "-" }}</td>
-                                    <td>{{ $consignment->consignment_date}}</td>
-                                    <td>{{ $consignment->consignee_id}}</td>
-                                    <td>{{ $consignment->city ?? "-" }}</td>
-                                    <td>{{ $consignment->pincode ?? "-" }}</td>
-                                    <td>{{ $consignment->total_quantity ?? "-" }}</td>
-                                    <td>{{ $consignment->total_weight ?? "-" }}</td>
-                                    <td>{{ $consignment->edd ?? "-" }}</td>
-                                    <?php
-                                    if($consignment->status==1){
-                                        $status = 'Active';
-                                        $class = "btn-success";
-                                    }elseif($consignment->status==2){
-                                        $status = 'Unverified';
-                                        $class = "btn-warning";
-                                    }else{
-                                        $status = 'Cancel';
-                                        $class = "btn-danger";
-                                    }
-                                    ?>
-                                    <td>@if($consignment->status == 1)
-                                        <a class="inactivestatus btn {{$class}}" data-id = "{{$consignment->id}}" data-text="consignment" data-status = "0" data-action = "<?php echo URL::current();?>"><span><i class="fa fa-check-circle-o"></i> {{ $status }}</span></a>
-                                        @else
-                                        <a class="btn {{$class}}" data-id = "{{$consignment->id}}" data-text="consignment" data-status = "1" data-action = ""><span>  {{ $status }}</span></a>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        <a class="btn btn-primary" href="{{url($prefix.'/consignments/'.$consignment->id)}}" ><span><i class="fa fa-eye"></i></span></a>
-                                        <!-- <a class="btn btn-primary" href="{{url($prefix.'/consignments/'.Crypt::encrypt($consignment->id).'/edit')}}" ><span><i class="fa fa-edit"></i></span></a>
-                                        <a href="Javascript:void();" class="btn btn-danger delete_consignment" data-id="{{ $consignment->id }}" data-action="<?php// echo URL::to($prefix.'/consignments/delete-consignment'); ?>"><span><i class="fa fa-trash"></i></span></a> -->
-                                    </td>
-                                    <?php 
-                                    if($consignment->delivery_status==1){ ?>
-                                        <td><button class="btn btn-danger">UnDelivered</button></td>
-                                    <?php }elseif($consignment->delivery_status==2){ ?>
-                                        <td><button class="btn btn-warning">Out For Delivery</button></td>
-                                    <?php }else{ ?>
-                                        <td><button class="btn btn-success">Delivered</button></td>
-                                    <?php } ?>
-                                </tr>
-                                <?php 
-                                    }
-                                ?>
+                                
                             </tbody>
                         </table>
                     </div>
