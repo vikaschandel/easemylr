@@ -782,6 +782,32 @@ jQuery(document).ready(function(){
         }
     });
 
+///////////////////////////////////////
+$('#vehicle_no').change(function (e) {
+    e.preventDefault();
+    var valueSelected = this.value;
+    var edd = $("#edd").val();
+    if(valueSelected != '' && edd != null){
+        $("#edd").attr("disabled", false);
+        $(".edd_error").css("display", "block");
+        //$('.edd_error').();
+        return false;
+    }else{
+        $(".edd_error").css("display", "none");
+    }
+});
+
+$(document).on('blur', "#edd",function () {
+        
+    var edd = $(this).val();
+     
+     const edd_len = edd.length;
+     if(edd_len > 0){
+         $('.edd_error').css("display", "none");
+     }else{
+         $('.edd_error').css("display", "block");
+     }
+ });
     // for vehicle tonnage capacity calculation
     $('#gross_vehicle_weight').keyup(function(){
         var gross_vehicle_weight = $('#gross_vehicle_weight').val();
