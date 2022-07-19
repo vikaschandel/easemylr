@@ -83,8 +83,17 @@ class LoginController extends Controller
                 $url = URL::to('/branch-manager/dashboard');  
             }
             else if($getauthuser->role_id == 3) {
+                $url = URL::to('/regional-manager/dashboard');  
+            }
+            else if($getauthuser->role_id == 4) {
+                $url = URL::to('/branch-user/dashboard');  
+            } 
+            else if($getauthuser->role_id == 5) {
                 $url = URL::to('/account-manager/dashboard');  
-            }          
+            }
+            else if($getauthuser->role_id == 6) {
+                $url = URL::to('/client-account/dashboard');  
+            } 
             // Log::channel('customlog')->info('Activity: User Logged In, Name: '.Auth::user()->name);
             $response['success'] = true;
             $response['page'] = "login";

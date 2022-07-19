@@ -53,8 +53,9 @@ class UserController extends Controller
         $getpermissions = Permission::all();
         $getroles = Role::all();
         $branches = Helper::getLocations();
+        $regionalclients = Helper::getRegionalClients();
 
-        return view('users.create-user',['getroles'=>$getroles, 'getpermissions'=>$getpermissions, 'branches'=>$branches, 'prefix'=>$this->prefix, 'title'=>$this->title, 'pagetitle'=>$this->pagetitle]);
+        return view('users.create-user',['getroles'=>$getroles, 'getpermissions'=>$getpermissions, 'branches'=>$branches, 'regionalclients'=>$regionalclients, 'prefix'=>$this->prefix, 'title'=>$this->title, 'pagetitle'=>$this->pagetitle]);
     }
     
     /**

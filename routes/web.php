@@ -16,6 +16,7 @@ use App\Http\Controllers\ConsignmentController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\ImportCsvController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\ClientController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,7 +45,16 @@ Route::get('/', function () {
             return redirect('/branch-manager/dashboard');
         }
         else if($userrole == 3) {
+            return redirect('/regional-manager/dashboard');
+        }
+        else if($userrole == 4) {
+            return redirect('/branch-user/dashboard');
+        }
+        else if($userrole == 5) {
             return redirect('/account-manager/dashboard');
+        }
+        else if($userrole == 6) {
+            return redirect('/client-account/dashboard');
         }
     }
    else
@@ -135,6 +145,8 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth','PermissionCheck']], func
     Route::get('/sample-consigner',[ImportCsvController::class, 'consignerSampleDownload']);
     Route::get('/sample-vehicle',[ImportCsvController::class, 'vehicleSampleDownload']);
     Route::get('/sample-driver',[ImportCsvController::class, 'driverSampleDownload']);
+
+    Route::resource('clients', ClientController::class);
 
     
 });

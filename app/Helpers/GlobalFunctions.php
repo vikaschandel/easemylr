@@ -12,6 +12,7 @@ use App\Models\Location;
 use App\Models\State;
 use App\Models\Consigner;
 use App\Models\ConsignmentNote;
+use App\Models\RegionalClient;
 use URL;
 use Crypt;
 use Storage;
@@ -32,6 +33,11 @@ class GlobalFunctions {
     public static function getLocations(){
         $locations = Location::where('status',1)->orderby('name','ASC')->pluck('name','id');
         return $locations;
+    }
+
+    public static function getRegionalClients(){
+        $regclients = RegionalClient::where('status',1)->orderby('name','ASC')->pluck('name','id');
+        return $regclients;
     }
 
     public static function getStates(){

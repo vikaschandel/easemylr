@@ -1155,6 +1155,48 @@ jQuery(document).ready(function(){
         }
     });
 
+    /*===== Create Client =====*/
+    $('#createclient').validate({ 
+        rules: {
+            client_name: {
+                required: true
+            },
+            name: {
+                required: true
+            },
+            'location_id[]' : {
+                required: true,
+            },      
+        },
+        messages: {
+            client_name: {
+                required: "Enter client name",
+            },
+            name: {
+                required: "Enter name",
+            },
+            'location_id[]' : {
+                required: "Please select location",
+            },
+        },
+        submitHandler : function(form)
+        {
+            formSubmitRedirect(form);
+        }
+    });
+
+    $(".location_id").each(function()
+        {
+
+            $(this).rules('add', {
+                 required: true,
+                 // lettersonly:true,
+                  messages: {
+                    required: "Please select location",
+                  },
+             });
+        });
+
     
 
 
@@ -1313,6 +1355,8 @@ function formSubmitRedirect(form)
                 setTimeout(() => {window.location.href = response.redirect_url},2000);
             }else if(response.page == 'settings-branch-address'){
                 setTimeout(function(){ location.reload(); }, 50);
+            }else if(response.page == 'client-create' || response.page == 'client-update'){
+                setTimeout(() => {window.location.href = response.redirect_url},2000);
             }
             
             if(response.formErrors)

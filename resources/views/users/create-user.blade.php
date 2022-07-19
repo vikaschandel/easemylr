@@ -77,6 +77,21 @@
                                 </select>
                             </div>
                             <div class="form-group mb-4">
+                                <label for="exampleFormControlSelect1">Select Regional Clients<span class="text-danger">*</span></label>
+                                <select class="form-control" name="regionalclient_id[]">
+                                    <option value="">Select</option>
+                                    <?php 
+                                    if(count($regionalclients)>0) {
+                                        foreach ($regionalclients as $key => $client) {
+                                    ?>
+                                        <option value="{{ $key }}">{{ucwords($client)}}</option>
+                                        <?php 
+                                        }
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                            <div class="form-group mb-4">
                                 <hr class="brown-border">
                                 <h4 class="mt-3 mb-3">Permissions</h4>
                                 <div class="checkbox selectAll">
