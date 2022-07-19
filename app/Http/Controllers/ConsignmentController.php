@@ -314,6 +314,7 @@ class ConsignmentController extends Controller
             $consignmentsave['driver_id'] = $request->driver_id;
             $consignmentsave['branch_id'] = $authuser->branch_id;
             $consignmentsave['order_id'] = $request->order_id;
+            $consignmentsave['edd'] = $request->edd;
             $consignmentsave['status'] = $status;
             $consignmentsave['delivery_status'] = 1;
 
