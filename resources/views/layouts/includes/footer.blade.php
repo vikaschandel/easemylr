@@ -85,7 +85,7 @@
                                     '<strong class="labels">Oder No:</strong> '+d.order_id+'<br/>'+
                                     '<strong class="labels">Lr No:</strong> '+d.id+'<br/>'+
                                     '<strong class="labels">Consigner:</strong> '+d.consigner_id+'<br/>'+
-                                    '<strong class="labels">Consigner City:</strong> '+d.consignee_id+'<br/>'+
+                                    '<strong class="labels">Consigner City:</strong> '+d.con_city+'<br/>'+
                                     '<strong class="labels">Consignee :</strong> '+d.consignee_id+'<br/>'+
                                     '<strong class="labels">Consignee Address:</strong> '+d.city+'<br/>'+
                                     '<strong class="labels">Invoice No:</strong> '+d.invoice_no+'<br/>'+
@@ -97,7 +97,7 @@
                                     ''+d.route+'<br/>'+
                                     '</div>'+
                                     '<div class="col-md-9">'+
-                                    '<div id="map-'+d.id+'"><iframe id="iGmap" width="100%" height="400px" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://shadow.express/tracking/index.html?jobID=285621a8c3a46657815eb4ce38c731b9" ></iframe></div>'+
+                                    '<div id="map-'+d.id+'"><iframe id="iGmap" width="100%" height="400px" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="'+d.tracking_link+'" ></iframe></div>'+
                                     '</div>'+
                                     '</div>'+
 									'</div>'+
