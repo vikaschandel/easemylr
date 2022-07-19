@@ -146,6 +146,11 @@ div#hh {
                                                         <td><strong>Dispatch From</strong></td>
                                                         <td><span id="dispatch">Jaipur</span></td>
                                                     </tr>
+                                                    <tr>
+                                                        <td><strong>Order Id</strong></td>
+                                                        <td><span id="order_id">12345</span></td>
+                                                    </tr>
+                                                    <tr>
                                                         <td><strong>Invoice No.</strong></td>
                                                         <td><span id="cons_invoice_no">123456789</span></td>
                                                     </tr>
@@ -294,6 +299,7 @@ div#hh {
                                 <input type="hidden" id="form_vehicle_no" name="vehicle_no" value="">
                                 <input type="hidden" id="form_driver_name" name="driver_name" value="">
                                 <!-- <input type="hidden" id="form_driver_no" name="driver_no" value=""> -->
+                                <input type="hidden" id="form_order_id" name="order_id" value="">
                                 <input type="hidden" id="form_invoice_amount" name="invoice_amount" value="">
                                 <input type="hidden" id="form_invoice_date" name="invoice_date" value="">
                                 <input type="hidden" id="form_bar_code" name="bar_code" value="">
@@ -356,6 +362,7 @@ div#hh {
                 success: function(response){
                     var data = response.data;
                     console.log(data);
+                    /////// consigner address ///////
                     if(data.consigner_detail.nick_name != null){
                         var nick_name = '<strong>'+data.consigner_detail.nick_name+'</strong><br>';
                     }else{
@@ -381,64 +388,71 @@ div#hh {
                     }else{
                         var conr_addl4 = '';
                     }
-                    
-                    if(data.consigner_detail.district != null){
-                        var conr_district = data.consigner_detail.district+'<br>';
-                    }else{
-                        var conr_district = '';
-                    }
+
                     if(data.consigner_detail.city != null){
-                        var conr_city = data.consigner_detail.city+'<br>';
+                        var conr_city = data.consigner_detail.city+',';
                     }else{
                         var conr_city = '';
+                    }
+                    if(data.consigner_detail.district != null){
+                        var conr_district = data.consigner_detail.district+',';
+                    }else{
+                        var conr_district = '';
                     }
                     if(data.consigner_detail.postal_code != null){
                         var postal_code = data.consigner_detail.postal_code+'<br>';
                     }else{
                         var postal_code = '';
                     }
+
                     if(data.consigner_detail.gst_number != null){
-                        var gst_number = '<strong>GST No: </strong>'+data.consigner_detail.gst_number;
+                        var gst_number = '<strong>GST No: </strong>'+data.consigner_detail.gst_number+'<br>';
                     }else{
                         var gst_number = '';
                     }
-                    var consigneradd = nick_name+' '+conr_addl1+' '+conr_addl2+' '+conr_addl3+' '+conr_addl4+' '+conr_district+' '+conr_city+' '+postal_code+' '+gst_number;
+                    if(data.consigner_detail.phone != null){
+                        var phone = '<strong>Phone: </strong>'+data.consigner_detail.phone;
+                    }else{
+                        var phone = '';
+                    }
+                    var consigneradd = nick_name+' '+conr_addl1+' '+conr_addl2+' '+conr_addl3+' '+conr_addl4+' '+conr_city+' '+conr_district+' '+postal_code+' '+gst_number+' '+phone;
 
+                    /////// consignee address ///////
                     if(data.consignee_detail.nick_name != null){
                         var nick_name = '<strong>'+data.consignee_detail.nick_name+'</strong><br>';
                     }else{
                         var nick_name = '';
                     }
                     if(data.consignee_detail.address_line1 != null){
-                        var conr_addl1 = data.consignee_detail.address_line1+'<br>';
+                        var conee_addl1 = data.consignee_detail.address_line1+'<br>';
                     }else{
-                        var conr_addl1 = '';
+                        var conee_addl1 = '';
                     }
                     if(data.consignee_detail.address_line2 != null){
-                        var conr_addl2 = data.consignee_detail.address_line2+'<br>';
+                        var conee_addl2 = data.consignee_detail.address_line2+'<br>';
                     }else{
-                        var conr_addl2 = '';
+                        var conee_addl2 = '';
                     }
                     if(data.consignee_detail.address_line3 != null){
-                        var conr_addl3 = data.consignee_detail.address_line3+'<br>';
+                        var conee_addl3 = data.consignee_detail.address_line3+'<br>';
                     }else{
-                        var conr_addl3 = '';
+                        var conee_addl3 = '';
                     }
                     if(data.consignee_detail.address_line4 != null){
-                        var conr_addl4 = data.consignee_detail.address_line4+'<br>';
+                        var conee_addl4 = data.consignee_detail.address_line4+'<br>';
                     }else{
-                        var conr_addl4 = '';
+                        var conee_addl4 = '';
                     }
                     
-                    if(data.consignee_detail.district != null){
-                        var conr_district = data.consignee_detail.district+'<br>';
-                    }else{
-                        var conr_district = '';
-                    }
                     if(data.consignee_detail.city != null){
-                        var conr_city = data.consignee_detail.city+'<br>';
+                        var conee_city = data.consignee_detail.city+',';
                     }else{
-                        var conr_city = '';
+                        var conee_city = '';
+                    }
+                    if(data.consignee_detail.district != null){
+                        var conee_district = data.consignee_detail.district+',';
+                    }else{
+                        var conee_district = '';
                     }
                     if(data.consignee_detail.postal_code != null){
                         var postal_code = data.consignee_detail.postal_code+'<br>';
@@ -446,60 +460,72 @@ div#hh {
                         var postal_code = '';
                     }
                     if(data.consignee_detail.gst_number != null){
-                        var gst_number = '<strong>GST No: </strong>'+data.consignee_detail.gst_number;
+                        var gst_number = '<strong>GST No: </strong>'+data.consignee_detail.gst_number+'<br>';
                     }else{
                         var gst_number = '';
                     }
-                    var consigneeadd = nick_name+' '+conr_addl1+' '+conr_addl2+' '+conr_addl3+' '+conr_addl4+' '+conr_district+' '+conr_city+' '+postal_code+' '+gst_number;
+                    if(data.consignee_detail.phone != null){
+                        var phone = '<strong>Phone No: </strong>'+data.consignee_detail.phone;
+                    }else{
+                        var phone = '';
+                    }
+                    var consigneeadd = nick_name+' '+conee_addl1+' '+conee_addl2+' '+conee_addl3+' '+conee_addl4+' '+conee_district+' '+conee_city+' '+postal_code+' '+gst_number+' '+phone;
 
+                    /////// shipper address ///////
                     if(data.shipto_detail.nick_name != null){
                         var nick_name = '<strong>'+data.shipto_detail.nick_name+'</strong><br>';
                     }else{
                         var nick_name = '';
                     }
                     if(data.shipto_detail.address_line1 != null){
-                        var conr_addl1 = data.shipto_detail.address_line1+'<br>';
+                        var shipcone_addl1 = data.shipto_detail.address_line1+'<br>';
                     }else{
-                        var conr_addl1 = '';
+                        var shipcone_addl1 = '';
                     }
                     if(data.shipto_detail.address_line2 != null){
-                        var conr_addl2 = data.shipto_detail.address_line2+'<br>';
+                        var shipcone_addl2 = data.shipto_detail.address_line2+'<br>';
                     }else{
-                        var conr_addl2 = '';
+                        var shipcone_addl2 = '';
                     }
                     if(data.shipto_detail.address_line3 != null){
-                        var conr_addl3 = data.shipto_detail.address_line3+'<br>';
+                        var shipcone_addl3 = data.shipto_detail.address_line3+'<br>';
                     }else{
-                        var conr_addl3 = '';
+                        var shipcone_addl3 = '';
                     }
                     if(data.shipto_detail.address_line4 != null){
-                        var conr_addl4 = data.shipto_detail.address_line4+'<br>';
+                        var shipcone_addl4 = data.shipto_detail.address_line4+'<br>';
                     }else{
-                        var conr_addl4 = '';
+                        var shipcone_addl4 = '';
                     }
                     
-                    if(data.shipto_detail.district != null){
-                        var conr_district = data.shipto_detail.district+'<br>';
-                    }else{
-                        var conr_district = '';
-                    }
                     if(data.shipto_detail.city != null){
-                        var conr_city = data.shipto_detail.city+'<br>';
+                        var shipcone_city = data.shipto_detail.city+',';
                     }else{
-                        var conr_city = '';
+                        var shipcone_city = '';
                     }
+                    if(data.shipto_detail.district != null){
+                        var shipcone_district = data.shipto_detail.district+',';
+                    }else{
+                        var shipcone_district = '';
+                    }
+                    
                     if(data.shipto_detail.postal_code != null){
                         var postal_code = data.shipto_detail.postal_code+'<br>';
                     }else{
                         var postal_code = '';
                     }
                     if(data.shipto_detail.gst_number != null){
-                        var gst_number = '<strong>GST No: </strong>'+data.shipto_detail.gst_number;
+                        var gst_number = '<strong>GST No: </strong>'+data.shipto_detail.gst_number+'<br>';
                     }else{
                         var gst_number = '';
                     }
+                    if(data.shipto_detail.phone != null){
+                        var phone = '<strong>Phone No: </strong>'+data.shipto_detail.phone;
+                    }else{
+                        var phone = '';
+                    }
 
-                    var shiptoadd = nick_name+' '+conr_addl1+' '+conr_addl2+' '+conr_addl3+' '+conr_addl4+' '+conr_district+' '+conr_city+' '+postal_code+' '+gst_number;
+                    var shiptoadd = nick_name+' '+shipcone_addl1+' '+shipcone_addl2+' '+shipcone_addl3+' '+shipcone_addl4+' '+shipcone_district+' '+shipcone_city+' '+postal_code+' '+gst_number+' '+phone;
 
                     $('#cons_no').html(data.id);
                     
@@ -523,6 +549,12 @@ div#hh {
                     
                     // $('#driver_no').html(data.driver_mobile_no);
                     $('#invoice_amount').html(data.invoice_amount);
+                    if(data.order_id != null){
+                        var order_id = data.order_id;
+                    }else{
+                        var order_id = '';
+                    }
+                    $('#order_id').html(order_id);
 
                     if(data.invoice_date != null){
                         var dateInvc = data.invoice_date.split('-');
@@ -575,8 +607,8 @@ div#hh {
                             var gross_weight = '';
                         }
                         tds += '<td class="line_items" style="border:solid 1px #A9A9A9;border-style:solid; padding:5px; font-family:Open Sans,sans-serif">'+gross_weight+' Kgs.</td>';
-                        if(items_array[i]['gross_weight'] != null){
-                            var freight = items_array[i]['gross_weight'];
+                        if(items_array[i]['freight'] != null){
+                            var freight = items_array[i]['freight'];
                         }else{
                             var freight = '';
                         }
@@ -645,6 +677,7 @@ div#hh {
             success: function(response){
                 var data = response.data;
                 console.log(data);
+                /////// consigner address ///////
                 if(data.consigner_detail.nick_name != null){
                         var nick_name = '<strong>'+data.consigner_detail.nick_name+'</strong><br>';
                     }else{
@@ -670,64 +703,71 @@ div#hh {
                     }else{
                         var conr_addl4 = '';
                     }
-                    
-                    if(data.consigner_detail.district != null){
-                        var conr_district = data.consigner_detail.district+'<br>';
-                    }else{
-                        var conr_district = '';
-                    }
+
                     if(data.consigner_detail.city != null){
-                        var conr_city = data.consigner_detail.city+'<br>';
+                        var conr_city = data.consigner_detail.city+',';
                     }else{
                         var conr_city = '';
+                    }
+                    if(data.consigner_detail.district != null){
+                        var conr_district = data.consigner_detail.district+',';
+                    }else{
+                        var conr_district = '';
                     }
                     if(data.consigner_detail.postal_code != null){
                         var postal_code = data.consigner_detail.postal_code+'<br>';
                     }else{
                         var postal_code = '';
                     }
+
                     if(data.consigner_detail.gst_number != null){
-                        var gst_number = '<strong>GST No: </strong>'+data.consigner_detail.gst_number;
+                        var gst_number = '<strong>GST No: </strong>'+data.consigner_detail.gst_number+'<br>';
                     }else{
                         var gst_number = '';
                     }
-                    var consigneradd = nick_name+' '+conr_addl1+' '+conr_addl2+' '+conr_addl3+' '+conr_addl4+' '+conr_district+' '+conr_city+' '+postal_code+' '+gst_number;
+                    if(data.consigner_detail.phone != null){
+                        var phone = '<strong>Phone: </strong>'+data.consigner_detail.phone;
+                    }else{
+                        var phone = '';
+                    }
+                    var consigneradd = nick_name+' '+conr_addl1+' '+conr_addl2+' '+conr_addl3+' '+conr_addl4+' '+conr_city+' '+conr_district+' '+postal_code+' '+gst_number+' '+phone;
 
+                    /////// consignee address ///////
                     if(data.consignee_detail.nick_name != null){
                         var nick_name = '<strong>'+data.consignee_detail.nick_name+'</strong><br>';
                     }else{
                         var nick_name = '';
                     }
                     if(data.consignee_detail.address_line1 != null){
-                        var conr_addl1 = data.consignee_detail.address_line1+'<br>';
+                        var conee_addl1 = data.consignee_detail.address_line1+'<br>';
                     }else{
-                        var conr_addl1 = '';
+                        var conee_addl1 = '';
                     }
                     if(data.consignee_detail.address_line2 != null){
-                        var conr_addl2 = data.consignee_detail.address_line2+'<br>';
+                        var conee_addl2 = data.consignee_detail.address_line2+'<br>';
                     }else{
-                        var conr_addl2 = '';
+                        var conee_addl2 = '';
                     }
                     if(data.consignee_detail.address_line3 != null){
-                        var conr_addl3 = data.consignee_detail.address_line3+'<br>';
+                        var conee_addl3 = data.consignee_detail.address_line3+'<br>';
                     }else{
-                        var conr_addl3 = '';
+                        var conee_addl3 = '';
                     }
                     if(data.consignee_detail.address_line4 != null){
-                        var conr_addl4 = data.consignee_detail.address_line4+'<br>';
+                        var conee_addl4 = data.consignee_detail.address_line4+'<br>';
                     }else{
-                        var conr_addl4 = '';
+                        var conee_addl4 = '';
                     }
                     
-                    if(data.consignee_detail.district != null){
-                        var conr_district = data.consignee_detail.district+'<br>';
-                    }else{
-                        var conr_district = '';
-                    }
                     if(data.consignee_detail.city != null){
-                        var conr_city = data.consignee_detail.city+'<br>';
+                        var conee_city = data.consignee_detail.city+',';
                     }else{
-                        var conr_city = '';
+                        var conee_city = '';
+                    }
+                    if(data.consignee_detail.district != null){
+                        var conee_district = data.consignee_detail.district+',';
+                    }else{
+                        var conee_district = '';
                     }
                     if(data.consignee_detail.postal_code != null){
                         var postal_code = data.consignee_detail.postal_code+'<br>';
@@ -735,60 +775,72 @@ div#hh {
                         var postal_code = '';
                     }
                     if(data.consignee_detail.gst_number != null){
-                        var gst_number = '<strong>GST No: </strong>'+data.consignee_detail.gst_number;
+                        var gst_number = '<strong>GST No: </strong>'+data.consignee_detail.gst_number+'<br>';
                     }else{
                         var gst_number = '';
                     }
-                    var consigneeadd = nick_name+' '+conr_addl1+' '+conr_addl2+' '+conr_addl3+' '+conr_addl4+' '+conr_district+' '+conr_city+' '+postal_code+' '+gst_number;
+                    if(data.consignee_detail.phone != null){
+                        var phone = '<strong>Phone No: </strong>'+data.consignee_detail.phone;
+                    }else{
+                        var phone = '';
+                    }
+                    var consigneeadd = nick_name+' '+conee_addl1+' '+conee_addl2+' '+conee_addl3+' '+conee_addl4+' '+conee_district+' '+conee_city+' '+postal_code+' '+gst_number+' '+phone;
 
+                    /////// shipper address ///////
                     if(data.shipto_detail.nick_name != null){
                         var nick_name = '<strong>'+data.shipto_detail.nick_name+'</strong><br>';
                     }else{
                         var nick_name = '';
                     }
                     if(data.shipto_detail.address_line1 != null){
-                        var conr_addl1 = data.shipto_detail.address_line1+'<br>';
+                        var shipcone_addl1 = data.shipto_detail.address_line1+'<br>';
                     }else{
-                        var conr_addl1 = '';
+                        var shipcone_addl1 = '';
                     }
                     if(data.shipto_detail.address_line2 != null){
-                        var conr_addl2 = data.shipto_detail.address_line2+'<br>';
+                        var shipcone_addl2 = data.shipto_detail.address_line2+'<br>';
                     }else{
-                        var conr_addl2 = '';
+                        var shipcone_addl2 = '';
                     }
                     if(data.shipto_detail.address_line3 != null){
-                        var conr_addl3 = data.shipto_detail.address_line3+'<br>';
+                        var shipcone_addl3 = data.shipto_detail.address_line3+'<br>';
                     }else{
-                        var conr_addl3 = '';
+                        var shipcone_addl3 = '';
                     }
                     if(data.shipto_detail.address_line4 != null){
-                        var conr_addl4 = data.shipto_detail.address_line4+'<br>';
+                        var shipcone_addl4 = data.shipto_detail.address_line4+'<br>';
                     }else{
-                        var conr_addl4 = '';
+                        var shipcone_addl4 = '';
                     }
                     
-                    if(data.shipto_detail.district != null){
-                        var conr_district = data.shipto_detail.district+'<br>';
-                    }else{
-                        var conr_district = '';
-                    }
                     if(data.shipto_detail.city != null){
-                        var conr_city = data.shipto_detail.city+'<br>';
+                        var shipcone_city = data.shipto_detail.city+',';
                     }else{
-                        var conr_city = '';
+                        var shipcone_city = '';
                     }
+                    if(data.shipto_detail.district != null){
+                        var shipcone_district = data.shipto_detail.district+',';
+                    }else{
+                        var shipcone_district = '';
+                    }
+                    
                     if(data.shipto_detail.postal_code != null){
                         var postal_code = data.shipto_detail.postal_code+'<br>';
                     }else{
                         var postal_code = '';
                     }
                     if(data.shipto_detail.gst_number != null){
-                        var gst_number = '<strong>GST No: </strong>'+data.shipto_detail.gst_number;
+                        var gst_number = '<strong>GST No: </strong>'+data.shipto_detail.gst_number+'<br>';
                     }else{
                         var gst_number = '';
                     }
+                    if(data.shipto_detail.phone != null){
+                        var phone = '<strong>Phone No: </strong>'+data.shipto_detail.phone;
+                    }else{
+                        var phone = '';
+                    }
 
-                    var shiptoadd = nick_name+' '+conr_addl1+' '+conr_addl2+' '+conr_addl3+' '+conr_addl4+' '+conr_district+' '+conr_city+' '+postal_code+' '+gst_number;
+                    var shiptoadd = nick_name+' '+shipcone_addl1+' '+shipcone_addl2+' '+shipcone_addl3+' '+shipcone_addl4+' '+shipcone_district+' '+shipcone_city+' '+postal_code+' '+gst_number+' '+phone;
 
                 $('#cons_no').html(data.id);
 
@@ -805,6 +857,13 @@ div#hh {
                 $('#driver_name').html(data.driver_detail?data.driver_detail.name:'');
                 // $('#driver_no').html(data.driver_mobile_no);
                 $('#invoice_amount').html(data.invoice_amount);
+
+                if(data.order_id != null){
+                    var order_id = data.order_id;
+                }else{
+                    var order_id = '';
+                }
+                $('#order_id').html(order_id);
 
                 if(data.invoice_date != null){
                     var dateInvc = data.invoice_date.split('-');
@@ -863,8 +922,8 @@ div#hh {
                             var gross_weight = '';
                         }
                         tds += '<td class="line_items" style="border:solid 1px #A9A9A9;border-style:solid; padding:5px; font-family:Open Sans,sans-serif">'+gross_weight+' Kgs.</td>';
-                        if(items_array[i]['gross_weight'] != null){
-                            var freight = items_array[i]['gross_weight'];
+                        if(items_array[i]['freight'] != null){
+                            var freight = items_array[i]['freight'];
                         }else{
                             var freight = '';
                         }
