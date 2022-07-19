@@ -1238,6 +1238,7 @@ function formSubmit(form)
 /*======= submit redirect fuction =======*/
 function formSubmitRedirect(form)
 {
+   
     jQuery.ajax({
         url         : form.action,
         type        : form.method,
@@ -1251,14 +1252,24 @@ function formSubmitRedirect(form)
         dataType    : "json",
         beforeSend  : function () {
             $(".loader").show();
-            $('.disableme').prop('disabled', true);
+            
             if ($('#dealer_type').val() == 1 && $("#gst_number").val() == '') {
                 $('.gstno_error').show();
                 return false;
             }else{
                 $('.gstno_error').hide();
             }
-            
+            if($('.edd_error').css('display') == 'block'){
+                //alert('Please select a valid alert message');
+                return false;
+           }
+           $('.disableme').prop('disabled', true);
+            // if ($('#vehicle_no').val() != '' && $("#edd").val() == null) {
+            //     $('.edd_error').show();
+            //     return false;
+            // }else{
+            //     $('.edd_error').hide();
+            // }
         },
         complete: function (response) {
             $('.disableme').prop('disabled', true);
