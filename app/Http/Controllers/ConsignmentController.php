@@ -86,13 +86,13 @@ class ConsignmentController extends Controller
         $authuser = Auth::user();
         $cc = explode(',', $authuser->branch_id);
         if ($authuser->role_id == 2) {
-            $data = DB::table('consignment_notes')->select('consignment_notes.*', 'consigners.nick_name as consigner_id', 'consignees.nick_name as consignee_id', 'consignees.city as city', 'consignees.postal_code as pincode')
+            $data = DB::table('consignment_notes')->select('consignment_notes.*', 'consigners.nick_name as consigner_id', 'consigners.city as con_city', 'consigners.postal_code as con_pincode', 'consignees.nick_name as consignee_id', 'consignees.city as city', 'consignees.postal_code as pincode', 'consignees.address_line1 as con_add1', 'consignees.address_line2 as con_add2', 'consignees.address_line3 as con_add3')
                 ->join('consigners', 'consigners.id', '=', 'consignment_notes.consigner_id')
                 ->join('consignees', 'consignees.id', '=', 'consignment_notes.consignee_id')
                 ->whereIn('consignment_notes.branch_id', $cc)
                 ->get(['consignees.city']);
         } else {
-            $data = DB::table('consignment_notes')->select('consignment_notes.*', 'consigners.nick_name as consigner_id', 'consignees.nick_name as consignee_id', 'consignees.city as city', 'consignees.postal_code as pincode')
+            $data = DB::table('consignment_notes')->select('consignment_notes.*', 'consigners.nick_name as consigner_id', 'consigners.city as con_city', 'consigners.postal_code as con_pincode', 'consignees.nick_name as consignee_id', 'consignees.city as city', 'consignees.postal_code as pincode','consignees.address_line1 as con_add1', 'consignees.address_line2 as con_add2', 'consignees.address_line3 as con_add3' )
                 ->join('consigners', 'consigners.id', '=', 'consignment_notes.consigner_id')
                 ->join('consignees', 'consignees.id', '=', 'consignment_notes.consignee_id')
                 ->get(['consignees.city']);
@@ -109,23 +109,23 @@ class ConsignmentController extends Controller
             return $trps;
         })
         ->addColumn('route', function($data){
-            //echo "<pre>";print_r($data);die;
+           // echo "<pre>";print_r($data);die;
             $troute = '<ul class="ant-timeline">
             <li class="ant-timeline-item  css-b03s4t">
                 <div class="ant-timeline-item-tail"></div>
                 <div class="ant-timeline-item-head ant-timeline-item-head-green"></div>
                 <div class="ant-timeline-item-content">
-                    <div class="css-16pld72">174029,Bilaspur India</div>
+                    <div class="css-16pld72">'.$data->con_pincode.', '.$data->con_city.'</div>
                 </div>
             </li>
             <li class="ant-timeline-item ant-timeline-item-last css-phvyqn">
                 <div class="ant-timeline-item-tail"></div>
                 <div class="ant-timeline-item-head ant-timeline-item-head-red"></div>
                 <div class="ant-timeline-item-content">
-                <div class="css-16pld72">'.$data->city.', India</div>
+                <div class="css-16pld72">'.$data->pincode.', '.$data->city.'</div>
                 <div class="css-16pld72" style="font-size: 12px; color: rgb(102, 102, 102);">     
-                    <span>160062,Bestech Business Tower, </span>
-                    <span>'.$data->city.'</span>
+                    <span>'.$data->con_add1.',</span>
+                    <span>'.$data->con_add2.', <span>'.$data->con_add3.'</span></span>
                 </div>
                 </div>
             </li>
@@ -315,9 +315,9 @@ class ConsignmentController extends Controller
             $consignmentsave['branch_id'] = $authuser->branch_id;
             $consignmentsave['order_id'] = $request->order_id;
             $consignmentsave['status'] = $status;
-            $consignmentsave['delivery_status'] = 1;
 
             if ($with_vehicle_no == '1') {
+                $consignmentsave['delivery_status'] = 2;
                 $consignmentsave['vehicle_id'] = $request->req_vehicle_id;
                 $consignmentsave['transporter_name'] = $request->req_transporter_name;
                 $consignmentsave['vehicle_type'] = $request->req_vehicle_type;
@@ -325,6 +325,7 @@ class ConsignmentController extends Controller
                 $consignmentsave['vehicle_id'] = $request->vehicle_id;
                 $consignmentsave['transporter_name'] = $request->transporter_name;
                 $consignmentsave['vehicle_type'] = $request->vehicle_type;
+                $consignmentsave['delivery_status'] = 2;
             }
 
             $saveconsignment = ConsignmentNote::create($consignmentsave);
