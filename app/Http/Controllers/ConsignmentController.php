@@ -332,8 +332,10 @@ class ConsignmentController extends Controller
             $saveconsignment = ConsignmentNote::create($consignmentsave);
 
             if ($saveconsignment) {
+
+                    $vn =  $consignmentsave['vehicle_id'];
                     /***************** PUSH LR to Shadow if vehicle available   ***********************/
-                    if ($with_vehicle_no == '0') {
+                    if (!empty($vn)) {
                         $lid = $saveconsignment->id;
                         $lrdata = DB::table('consignment_notes')->select('consignment_notes.*', 'consigners.nick_name as consigner_id', 'consignees.nick_name as consignee_name','consignees.phone as phone', 'consignees.email as email', 'vehicles.regn_no as vehicle_id', 'consignees.city as city', 'consignees.postal_code as pincode', 'drivers.name as driver_id', 'drivers.phone as driver_phone')
                         ->join('consigners', 'consigners.id', '=', 'consignment_notes.consigner_id')
