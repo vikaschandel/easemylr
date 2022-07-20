@@ -147,6 +147,9 @@ jQuery(document).ready(function(){
             },
             "branch_id[]" : {
                 required: true,
+            },
+            "regionalclient_id[]" : {
+                required: true,
             },      
         },
         messages: {
@@ -171,6 +174,9 @@ jQuery(document).ready(function(){
             },
             "branch_id[]" : {
                 required: "Please select location",
+            },
+            "regionalclient_id[]" : {
+                required: "Please select regional client",
             },
         },
         submitHandler : function(form)

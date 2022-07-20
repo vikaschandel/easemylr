@@ -256,6 +256,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/get_consigners', [ConsignmentController::class, 'getConsigners']);
     Route::get('/get_consignees', [ConsignmentController::class, 'getConsignees']);
 
+    Route::get('/get_regclients', [UserController::class, 'regClients']);
+
 });
 
 Route::get('/forbidden-error', [DashboardController::class, 'ForbiddenPage']);

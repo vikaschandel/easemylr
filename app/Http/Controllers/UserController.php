@@ -9,6 +9,7 @@ use App\Models\Role;
 use App\Models\UserPermission;
 use App\Models\Permission;
 use App\Models\Location;
+use App\Models\RegionalClient;
 use DB;
 use URL;
 use Helper;
@@ -105,14 +106,19 @@ class UserController extends Controller
         $usersave['user_password'] = $request->password;
         // $usersave['branch_id']     = $request->branch_id;
         $usersave['phone']         = $request->phone;
-
-        $branch = $request->branch_id;
-        $usersave['branch_id']  = implode(',',$branch);  
-
-        $news = $request->permisssion_id;
-        $news = implode(',', $news);
-        $usersave['assign_permission'] = $news;
-        $usersave['status']        = "1";
+        if(!empty($request->branch_id)){
+            $branch = $request->branch_id;
+            $usersave['branch_id']  = implode(',',$branch);
+        }
+        if(!empty($request->regionalclient_id)){
+            $regclients = $request->regionalclient_id;
+            $usersave['regionalclient_id'] = implode(',', $regclients);
+        }
+        if(!empty($request->permisssion_id)){
+            $news = $request->permisssion_id;
+            $usersave['assign_permission'] = implode(',', $news);
+        }
+        $usersave['status']  = "1";
 
         $saveuser = User::create($usersave); 
         if($saveuser)
@@ -284,6 +290,24 @@ class UserController extends Controller
         $response['success']         = true;
         $response['success_message'] = 'User deleted successfully';
         $response['error']           = false;
+        return response()->json($response);
+    }
+
+    // get regional clients on location change
+    public function regClients(Request $request)
+    {
+        $getclients = RegionalClient::select('id', 'name', 'baseclient_id', 'location_id')->where(['location_id' => $request->branch_id, 'status' => '1'])->get();
+        
+        if ($getclients) {
+            $response['success'] = true;
+            $response['success_message'] = "Client list fetch successfully";
+            $response['error'] = false;
+            $response['data'] = $getclients;
+        } else {
+            $response['success'] = false;
+            $response['error_message'] = "Can not fetch client list please try again";
+            $response['error'] = true;
+        }
         return response()->json($response);
     }
     
