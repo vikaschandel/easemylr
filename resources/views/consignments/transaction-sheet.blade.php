@@ -84,14 +84,14 @@ div.relative {
                             
                                 <td>
                                 <?php 
-                                if($trns['status'] == 1 || $trns['status'] == 2){ ?>
+                                if(empty($trns['vehicle_no'])){ ?>
                                     <button type="button" class="btn btn-warning view-sheet" value="{{$trns['drs_no']}}" style="margin-right:4px;">Draft</button> 
                                    <button type="button" class="btn btn-danger draft-sheet" value="{{$trns['drs_no']}}" style="margin-right:4px;">Save</button> 
                                    <?php } ?>
                                    <?php if(!empty($trns['vehicle_no'])){?>
                                     <a class="btn btn-primary" href="{{url($prefix.'/print-transaction/'.$trns['drs_no'])}}" role="button" >Print</a>
                                     <?php } ?>
-                                    <?php 
+                                    <?php  
                                     if($trns['status'] == 1){?>
                                     <button type="button" class="btn btn-danger" value="{{$trns['drs_no']}}" style="margin-right:4px;">undelivered</button>
                                     <?php }elseif($trns['status'] == 2){ ?>
