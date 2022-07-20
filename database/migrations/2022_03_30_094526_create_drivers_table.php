@@ -20,6 +20,8 @@ class CreateDriversTable extends Migration
             $table->string('phone')->nullable();
             $table->string('license_number')->nullable();
             $table->string('license_image')->nullable();
+            $table->string('team_id')->nullable();
+            $table->string('fleet_id')->nullable();
             $table->tinyinteger('status')->nullable();
             $table->timestamps();
         });
