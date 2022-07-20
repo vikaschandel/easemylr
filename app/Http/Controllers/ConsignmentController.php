@@ -132,6 +132,11 @@ class ConsignmentController extends Controller
             </ul>';
                 return $troute;
             })
+            ->addColumn('poptions', function($data){
+                $st = '<a href="/'.$data->id.'" class="badge alert bg-secondary shadow-sm">Print Sticker</a> || <a href="consignments/'.$data->id.'/print-view/1/" target="_blank" class="badge alert bg-secondary shadow-sm">Print LR</a> || <a href="consignments/'.$data->id.'/print-view/2/" target="_blank" class="badge alert bg-secondary shadow-sm">Print with Ship to</a>';
+
+                return $st;
+            }) 
             ->addColumn('status', function($data){
                 if($data->status == 0){
                  $st = '<span class="badge alert bg-secondary shadow-sm">Unknown</span>';
@@ -164,7 +169,7 @@ class ConsignmentController extends Controller
 
                 return $st;
             })                      
-        ->rawColumns(['lrdetails','route','status', 'delivery_status'])    
+        ->rawColumns(['lrdetails','route','poptions','status', 'delivery_status'])    
         ->make(true);
      
     }
