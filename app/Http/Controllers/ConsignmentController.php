@@ -931,7 +931,7 @@ class ConsignmentController extends Controller
 
         //echo $barcode; die;
 
-        return view('consignments.consignment-sticker', $data);
+        return view('consignments.consignment-sticker', ['data' => $data]);
 
     }
 

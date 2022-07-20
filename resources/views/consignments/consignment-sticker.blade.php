@@ -1,3 +1,6 @@
+<?php
+//echo'<pre>'; print_r($data['']); die;
+?>
 <!DOCTYPE html>
         <html lang="en">
             <head>
@@ -67,37 +70,37 @@
                         </tr>
                         <tr>
                             <td width="30%" ><b style="margin-left: 8px; ">LR No.</b></td>
-                            <td colspan ="2" style="text-align:center;"><h3 class="ff">2345345678</h3></td>
+                            <td colspan ="2" style="text-align:center;"><h3 class="ff"><?php echo $data['id'] ?></h3></td>
                         </tr>
                         <tr>
                             <td width="30%"><b style="margin-left: 8px;">Order ID:</b></td>
-                            <td colspan ="2" style="text-align:center;"><b>2345345-678647</b></td>
+                            <td colspan ="2" style="text-align:center;"><b><?php echo $data['order_id'] ?></b></td>
                         </tr>
                         <tr>
-                            <td width="30%"><b style="margin-left: 8px;">Client:-</b></td>
-                            <td colspan ="2" style="text-align:center;"><b>Nurture AG Farm </b></td>
+                            <td width="30%"><b style="margin-left: 8px;">Client:</b></td>
+                            <td colspan ="2" style="text-align:center;"><b>Nurture AG Farm</b></td>
                         </tr>
                         <tr>
                             <td width="30%"><b style="margin-left: 8px;">NO Of Boxes:</b></td>
-                            <td colspan ="2" style="text-align:center;"><p style="font-size: 36px;margin: 1px;font-weight:bold;position: relative;top: 8px;">11<p></td>
+                            <td colspan ="2" style="text-align:center;"><p style="font-size: 36px;margin: 1px;font-weight:bold;position: relative;top: 8px;"><?php echo $data['total_quantity'] ?><p></td>
                         </tr>
                         <tr>
                             <td width="30%" style="text-align:center;"><img src="/assets/img/barcode.png" style="width: 80px;"></td>
                             <td colspan ="2">
                                 <div class="row" style="margin-left: 8px;">
-                                <p  style="font-weight:bold">Ship to: <br/>Dharma Agro Chemicals Iffco center,Kamelpur Road,Dhanaura,XYZ Dummy Address</p>
+                                <p  style="font-weight:bold">Ship to: <br/><?php echo $data['shipto_detail']['nick_name'].','. $data['shipto_detail']['address_line1'].','. $data['shipto_detail']['address_line2']; ?></p>
                                 </div>
                             </td>
                         </tr>
                         <tr>
-                           <th>Delivery Station</th>
-                           <th>Zone</th>
                            <th>PIN Code</th>
+                           <th>Zone</th>
+                           <th>Delivery Station</th>
                         </tr>
                         <tr>
-                            <td style="text-align:center;"><h3 class="kk">Amroha, Punjab India</h3></td>
-                            <td style="text-align:center;"><h3 class="kk">UP-03</h3></td>
-                            <td style="text-align:center;"><h3 class="kk">204101</h3></td>
+                            <td style="text-align:center;"><h3 class="kk"><?php echo $data['shipto_detail']['postal_code'] ?></h3></td>
+                            <td style="text-align:center;"><h3 class="kk"></h3></td>
+                            <td style="text-align:center;"><h3 class="kk"><?php echo $data['shipto_detail']['city'] ?></h3></td>
                         </tr>
                         
                     </table>
