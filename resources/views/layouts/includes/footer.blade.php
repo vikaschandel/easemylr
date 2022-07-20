@@ -120,6 +120,7 @@
                     },
                     { data: 'lrdetails' },
                     { data: 'route' },
+                    { data: 'poptions' },
                     { data: 'edd' },
                     { data: 'status' },
                     { data: 'delivery_status' },
