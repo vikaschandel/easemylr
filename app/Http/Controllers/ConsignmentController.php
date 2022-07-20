@@ -932,8 +932,8 @@ class ConsignmentController extends Controller
     {
         //echo'<pre>'; print_r(); die;
         $id = $request->id;
+        
         $transcationview = TransactionSheet::select('*')->with('ConsignmentDetail')->where('drs_no', $id)->orderby('order_no', 'asc')->get();
-
         $simplyfy = json_decode(json_encode($transcationview), true);
         $details = $simplyfy[0];
 
@@ -984,73 +984,75 @@ class ConsignmentController extends Controller
           </style>
         </head>
         <body style="font-size:14px;">
-          <header><div class="row" style="display:flex;">
-          <div class="col"  style="width: 493px;">
-              <h1 class="dd">Delivery Run Sheet</h1>
-              <div  class="dd">
-              <table style="width:100%">
-                  <tr>
-                      <th>DRS No.</th>
-                      <th>DRS-' . $details['drs_no'] . '</th>
-                      <th>Vehicle No.</th>
-                      <th>' . $details['vehicle_no'] . '</th>
-                  </tr>
-                  <tr>
-                      <td>DRS Date</td>
-                      <td>' . $drsDate . '</td>
-                      <td>Driver Name</td>
-                      <td>' . @$details['driver_name'] . '</td>
-                  </tr>
-                  <tr>
-                      <td>No. of Deliveries</td>
-                      <td></td>
-                      <td>Driver No.</td>
-                      <td>' . @$details['driver_no'] . '</td>
-                  </tr>
-              </table>
-         </div>
+                    <header><div class="row" style="display:flex;">
+                    <div class="col"  style="width: 493px;">
+                        <h1 class="dd">Delivery Run Sheet</h1>
+                        <div  class="dd">
+                        <table style="width:100%">
+                            <tr>
+                                <th>DRS No.</th>
+                                <th>DRS-' . $details['drs_no'] . '</th>
+                                <th>Vehicle No.</th>
+                                <th>' . $details['vehicle_no'] . '</th>
+                            </tr>
+                            <tr>
+                                <td>DRS Date</td>
+                                <td>' . $drsDate . '</td>
+                                <td>Driver Name</td>
+                                <td>' . @$details['driver_name'] . '</td>
+                            </tr>
+                            <tr>
+                                <td>No. of Deliveries</td>
+                                <td></td>
+                                <td>Driver No.</td>
+                                <td>' . @$details['driver_no'] . '</td>
+                            </tr>
+                        </table>
+                    </div>
 
-          </div>
-          <!-- <div class="col" style="margin-left: 26px;">
-              <img src="logo.png" class="imga">
-           </div> -->
-      </div>
-      <br>
-      <div id="content"><div class="row" style="border: 1px solid black;">
-      <div class="column" style="width:85px;">
-        <h4 style="margin: 0px;">Order Id</h4>
-      </div>
-      <div class="column" style="width:85px;">
-          <h4 style="margin: 0px;">LR No. & Date</h4>
-      </div>
-      <div class="column" style="width:190px;">
-          <h4 style="margin: 0px;">Consignee Name & Mobile Number</h4>
-      </div>
-      <div class="column">
-          <h4 style="margin: 0px;">Delivery City & PIN</h4>
-        </div>
-        <div class="column">
-          <h4 style="margin: 0px;">Shipment Details</h4>
-        </div>
-        <div class="column">
-          <h4 style="margin: 0px;">Stamp & Signature of Receiver</h4>
-        </div>
-    </div>
-    </div>
-      </header>
-          <footer><div class="row">
-          <div class="col-sm-12" style="margin-left: 37px;">
-             <h4>Head Office:Forwarders private Limited</h4>
-             <h4>Add:Plot No.B-014/03712,prabhat,Zirakpur-140603</h4>
-             <h4>Phone:07126645510 email:contact@eternityforwarders.com</h4>
-          </div>
-      </div></footer>
-          <main style="margin-top:160px;">';
-        $i = 0;
-        $total_Boxes = 0;
-        $total_weight = 0;
+                    </div>
+                    <!-- <div class="col" style="margin-left: 26px;">
+                        <img src="logo.png" class="imga">
+                    </div> -->
+                </div>
+                <br>
+                <div id="content"><div class="row" style="border: 1px solid black;">
+                <div class="column" style="width:85px;">
+                    <h4 style="margin: 0px;">Order Id</h4>
+                </div>
+                <div class="column" style="width:85px;">
+                    <h4 style="margin: 0px;">LR No. & Date</h4>
+                </div>
+                <div class="column" style="width:190px;">
+                    <h4 style="margin: 0px;">Consignee Name & Mobile Number</h4>
+                </div>
+                <div class="column">
+                    <h4 style="margin: 0px;">Delivery City & PIN</h4>
+                    </div>
+                    <div class="column">
+                    <h4 style="margin: 0px;">Shipment Details</h4>
+                    </div>
+                    <div class="column">
+                    <h4 style="margin: 0px;">Stamp & Signature of Receiver</h4>
+                    </div>
+                </div>
+                </div>
+                </header>
+                    <footer><div class="row">
+                    <div class="col-sm-12" style="margin-left: 37px;">
+                        <h4>Head Office:Forwarders private Limited</h4>
+                        <h4>Add:Plot No.B-014/03712,prabhat,Zirakpur-140603</h4>
+                        <h4>Phone:07126645510 email:contact@eternityforwarders.com</h4>
+                    </div>
+                </div></footer>
+                    <main style="margin-top:160px;">';
+                    $i = 0;
+                    $total_Boxes = 0;
+                    $total_weight = 0;
 
-        foreach ($simplyfy as $dataitem) {
+                    foreach ($simplyfy as $dataitem) {
+                    
+
 
             $i++;
             if ($i % 6 == 0) {
