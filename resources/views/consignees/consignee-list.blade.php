@@ -72,6 +72,7 @@ div.relat {
                         </div>
                         <thead>
                             <tr>
+                                
                                 <th>Id</th>
                                 <th>Consignee Nick Name</th>
                                 <!-- <th>Consigner</th> -->
@@ -129,6 +130,7 @@ var table = $('#consigneetable').DataTable({
         {data: 'action', name: 'action', orderable: false, searchable: false}
         
     ]
+ 
 });
 </script>
 @endsection

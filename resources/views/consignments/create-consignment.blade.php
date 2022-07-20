@@ -515,7 +515,20 @@ label.error{
                         
                         <input type="text" class="sete" id="purchase_price" name="purchase_price" value="" maxlength="9">
                     </div>
-                    
+                    <div class=" col-sm-1">
+                        <label for="exampleFormControlInput2">E way Bill</label>
+                    </div>
+                    <div class=" col-sm-2">
+                        
+                        <input type="text" class="sete" id="e_way_bill" name="e_way_bill" value="">
+                    </div>
+                    <div class=" col-sm-1">
+                        <label for="exampleFormControlInput2">E way Bill Date</label>
+                    </div>
+                    <div class=" col-sm-2">
+                        
+                        <input type="date" class="sete" id="e_way_bill_date" name="e_way_bill_date" value="">
+                    </div>
                     <div class=" col-sm-3">
                          <button type="submit" class="mt-2 btn btn-primary disableme">Submit</button>
                            
