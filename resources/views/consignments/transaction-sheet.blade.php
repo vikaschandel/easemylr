@@ -76,6 +76,7 @@ div.relative {
                                 @foreach($transaction as $trns)
                                 <?php  $creation = date('d-m-Y',strtotime($trns['created_at']));    ?>
                               <tr>
+                                
                                 <td>DRS-{{$trns['drs_no']}}</td>
                                 <td>{{$creation}}</td> 
                                 <td>{{$trns['vehicle_no']}}</td>

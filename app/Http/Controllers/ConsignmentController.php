@@ -933,12 +933,14 @@ class ConsignmentController extends Controller
         //echo'<pre>'; print_r(); die;
         $id = $request->id;
         
-        $transcationview = TransactionSheet::select('*')->with('ConsignmentDetail')->where('drs_no', $id)->orderby('order_no', 'asc')->get();
+        $transcationview = TransactionSheet::select('*')->with('ConsignmentDetail','consigneeDetail')->where('drs_no', $id)->orderby('order_no', 'asc')->get();
+        //dd($transcationview);
         $simplyfy = json_decode(json_encode($transcationview), true);
+        $no_of_deliveries =  count($simplyfy);
         $details = $simplyfy[0];
 
-        $pay = url('assets/img/LOGO_Frowarders.jpg');
-        //echo'<pre>'; print_r($pay); die;
+        $pay = public_path('assets/img/LOGO_Frowarders.jpg');
+
         //<img src="" alt="logo" alt="" width="80" height="70">
         $drsDate = date('d-m-Y', strtotime($details['created_at']));
         $html = '<html>
@@ -948,6 +950,7 @@ class ConsignmentController extends Controller
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>-->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
           <style>
+         
           table,
           th,
           td {
@@ -981,9 +984,12 @@ class ConsignmentController extends Controller
               .dd{
                 margin-left: 0px;
               }
+              .imga {
+                width: 150px;
+              }
           </style>
         </head>
-        <body style="font-size:14px;">
+        <body style="font-size:14px; font-family:Arial, Helvetica, sans-serif;">
                     <header><div class="row" style="display:flex;">
                     <div class="col"  style="width: 493px;">
                         <h1 class="dd">Delivery Run Sheet</h1>
@@ -1003,24 +1009,23 @@ class ConsignmentController extends Controller
                             </tr>
                             <tr>
                                 <td>No. of Deliveries</td>
-                                <td></td>
+                                <td>'.$no_of_deliveries.'</td>
                                 <td>Driver No.</td>
                                 <td>' . @$details['driver_no'] . '</td>
                             </tr>
                         </table>
                     </div>
-
                     </div>
-                    <!-- <div class="col" style="margin-left: 26px;">
-                        <img src="logo.png" class="imga">
+                   <!-- <div class="col" style="margin-left: 26px;">
+                        <img src="'.$pay.'" class="imga">
                     </div> -->
                 </div>
                 <br>
                 <div id="content"><div class="row" style="border: 1px solid black;">
-                <div class="column" style="width:85px;">
+                <div class="column" style="width:82px;">
                     <h4 style="margin: 0px;">Order Id</h4>
                 </div>
-                <div class="column" style="width:85px;">
+                <div class="column" style="width:81px;">
                     <h4 style="margin: 0px;">LR No. & Date</h4>
                 </div>
                 <div class="column" style="width:190px;">
@@ -1029,7 +1034,7 @@ class ConsignmentController extends Controller
                 <div class="column">
                     <h4 style="margin: 0px;">Delivery City & PIN</h4>
                     </div>
-                    <div class="column">
+                    <div class="column" style="width:143px;">
                     <h4 style="margin: 0px;">Shipment Details</h4>
                     </div>
                     <div class="column">
@@ -1040,9 +1045,9 @@ class ConsignmentController extends Controller
                 </header>
                     <footer><div class="row">
                     <div class="col-sm-12" style="margin-left: 37px;">
-                        <h4>Head Office:Forwarders private Limited</h4>
-                        <h4>Add:Plot No.B-014/03712,prabhat,Zirakpur-140603</h4>
-                        <h4>Phone:07126645510 email:contact@eternityforwarders.com</h4>
+                        <p>Head Office:Forwarders private Limited</p>
+                        <p>Add:Plot No.B-014/03712,prabhat,Zirakpur-140603</p>
+                        <p>Phone:07126645510 email:contact@eternityforwarders.com</p>
                     </div>
                 </div></footer>
                     <main style="margin-top:160px;">';
@@ -1051,29 +1056,29 @@ class ConsignmentController extends Controller
                     $total_weight = 0;
 
                     foreach ($simplyfy as $dataitem) {
-                    
+                    //echo'<pre>'; print_r($dataitem['consignee_detail']['phone']); die;
 
 
-            $i++;
-            if ($i % 6 == 0) {
-                $html .= '<div style="page-break-before: always; margin-top:160px;"></div>';
-            }
+                $i++;
+                if ($i % 5 == 0) {
+                    $html .= '<div style="page-break-before: always; margin-top:160px;"></div>';
+                }
             $total_Boxes += $dataitem['total_quantity'];
             $total_weight += $dataitem['total_weight'];
             //echo'<pre>'; print_r($dataitem['consignment_no']); die;
             $html .= '   <br>
                 <div class="row" style="border: 1px solid black;">
-                    <div class="column" style="width:85px;">
+                    <div class="column" style="width:82px;">
                       <p style="margin-top:0px;">' . $dataitem['consignment_detail']['order_id'] . '</p>
                       <p></p>
                     </div>
-                    <div class="column" style="width:85px;">
+                    <div class="column" style="width:81px;">
                         <p style="margin-top:0px;">' . $dataitem['consignment_no'] . '</p>
                         <p>' . $dataitem['consignment_date'] . '</p>
                     </div>
                     <div class="column" style="width:190px;">
                         <p style="margin-top:0px;">' . $dataitem['consignee_id'] . '</p>
-                        <p></p>
+                        <p>'.$dataitem['consignee_detail']['phone'].'</p>
 
                     </div>
                     <div class="column">
@@ -1081,7 +1086,7 @@ class ConsignmentController extends Controller
                         <p>' . $dataitem['pincode'] . '</p>
 
                       </div>
-                      <div class="column">
+                      <div class="column"  style="width:143px;">
                         <p style="margin-top:0px;">Boxes:' . $dataitem['total_quantity'] . '</p>
                         <p style="margin-top:0px;">Wt:' . $dataitem['total_weight'] . '</p>
                         <p style="margin-top:0px;">EDD: ' . $dataitem['consignment_detail']['edd'] . '</p>
