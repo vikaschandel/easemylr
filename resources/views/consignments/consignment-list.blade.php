@@ -74,7 +74,7 @@ div.relative {
                             <tbody>
                                 <?php 
                                     foreach ($consignments as $key => $consignment) {  
-                                ?> 
+                                ?>  
                                 <tr>
                                   <!-- <td class="dt-control">+</td> -->
                                     <td>{{ $consignment->id ?? "-" }}</td>
