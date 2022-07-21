@@ -13,7 +13,7 @@ class VerifyCsrfToken extends Middleware
      */
     protected $except = [
 
-        'shadow-task-response',
+        'webhook',
         //
     ];
 }
