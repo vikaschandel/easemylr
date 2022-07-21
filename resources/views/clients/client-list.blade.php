@@ -64,7 +64,7 @@ div.relative {
                                 <tr>
                                     <th>Sr No.</th>
                                     <th>Name</th>
-                                    <!-- <th>Action</th> -->
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -75,9 +75,9 @@ div.relative {
                                 <tr>
                                     <td>{{ ++$i }}</td>
                                     <td>{{ ucwords($value->client_name ?? "-")}}</td>
-                                    <!-- <td>
+                                    <td>
                                         <a class="btn btn-primary" href="{{url($prefix.'/clients/'.Crypt::encrypt($value->id).'/edit')}}" ><span><i class="fa fa-edit"></i></span></a>
-                                        <a class="btn btn-primary" href="{{url($prefix.'/clients/'.Crypt::encrypt($value->id))}}" ><span><i class="fa fa-eye"></i></span></a>
+                                    <!--     <a class="btn btn-primary" href="{{url($prefix.'/clients/'.Crypt::encrypt($value->id))}}" ><span><i class="fa fa-eye"></i></span></a>
                                         <?php $authuser = Auth::user();
                                         if($authuser->role_id ==1) { ?>
                                             <button type="button" class="btn btn-danger delete_client" data-id="{{ $value->id }}" data-action="<?php echo URL::to($prefix.'/clients/delete-client'); ?>">

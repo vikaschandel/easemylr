@@ -60,9 +60,8 @@ class ClientController extends Controller
     {
         $this->prefix = request()->route()->getPrefix();
         $rules = array(
-            'client_name' => 'required',
-            // 'name' => 'required',
-            // 'login_id' => 'required|unique:users,login_id',
+            'client_name' => 'required|unique:base_clients,client_name',
+            'name' => 'required|unique:regional_clients,name',
         );
 
         $validator = Validator::make($request->all(),$rules);
@@ -139,7 +138,16 @@ class ClientController extends Controller
      */
     public function edit($id)
     {
-        //
+        $this->prefix = request()->route()->getPrefix();
+        $this->pagetitle =  "Update";
+        $id = decrypt($id); 
+        $locations = Helper::getLocations();
+        
+        $getRegclients = RegionalClient::where('baseclient_id',$id)->get();
+        
+        $getClient = BaseClient::where('id',$id)->with('RegClients')->first();
+        // dd($getClient);
+        return view('clients.update-client')->with(['prefix'=>$this->prefix,'title'=>$this->title, 'pagetitle'=>$this->pagetitle,'getClient'=>$getClient,'getRegclients'=>$getRegclients,'locations'=>$locations]);
     }
 
     /**

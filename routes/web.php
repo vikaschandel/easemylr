@@ -503,5 +503,5 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::get('/forbidden-error', [DashboardController::class, 'ForbiddenPage']);
-Route::webhooks('shadow-task-response');
-Route::post('webhook', [ConsignmentController::class, 'handle']);
+// Route::webhooks('shadow-task-response');
+// Route::post('webhook', [ConsignmentController::class, 'handle']);
