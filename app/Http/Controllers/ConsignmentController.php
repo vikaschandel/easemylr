@@ -1461,6 +1461,8 @@ class ConsignmentController extends Controller
     public function handle(Request $request)
     {
         $data = json_decode($request);
+
+        echo "<pre>"; print_r($data);die;
         //Do something with the event
          logger($data);
     }
