@@ -248,6 +248,5 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::get('/forbidden-error', [DashboardController::class, 'ForbiddenPage']);
-Route::any('webhook/agent', [ConsignmentController::class, 'agent_webhooks']);
-
 Route::webhooks('shadow-task-response');
+Route::post('webhook', 'ConsignmentController@handle');

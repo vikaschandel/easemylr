@@ -1458,14 +1458,12 @@ class ConsignmentController extends Controller
     }
 
 /////////////////Web Hooks/////////////////////////////
-    public function agent_webhooks(Request $data)
+    public function handle(Request $request)
     {
-        if (!empty($data)) {
-            echo 'no data found';
-        } else {
-            echo '<pre>';
-            print_r($data);die;
-        }
+        $data = json_decode($request);
+        //Do something with the event
+         logger($data);
     }
+
 
 }
