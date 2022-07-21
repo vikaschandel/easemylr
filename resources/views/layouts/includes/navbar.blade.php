@@ -191,8 +191,11 @@
                             <a href="{{url($prefix.'/settings/branch-address')}}"> Branch Address </a>
                         </li>
                         <li>
-                            <a href="{{url('roles')}}"> Roles</a>
+                            <a href="{{$prefixurl.'clients'}}"> Clients</a>
                         </li>
+                        <!-- <li>
+                            <a href="{{url('roles')}}"> Roles</a>
+                        </li> -->
                     </ul>
                 </li>
             </ul>
