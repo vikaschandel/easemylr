@@ -6,8 +6,7 @@
     <link rel="stylesheet" type="text/css" href="{{asset('plugins/table/datatable/dt-global_style.css')}}">
 <!-- END PAGE LEVEL CUSTOM STYLES -->
 <style>
-<style>
-        .dt--top-section {
+.dt--top-section {
     margin:none;
 }
 div.relative {
@@ -33,8 +32,7 @@ div.relative {
 .btn {
     font-size: 10px;
     }
-    </style>
-    </style>
+</style>
 
     <div class="layout-px-spacing">
         <div class="row layout-top-spacing">
