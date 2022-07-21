@@ -1466,10 +1466,10 @@ class ConsignmentController extends Controller
         //$fp = file_put_contents( 'request.log', $req_dump );
         
         // Updated Answer
-        if($json = json_decode(file_get_contents("php://input"), true)){
+        /*if($json = json_decode(file_get_contents("php://input"), true)){
            $data = $json;
-        }
-        echo "<pre>"; print_r($data);
+        }*/
+        echo "<pre>"; print_r($request);
         //Do something with the event
          logger($data);
     }
