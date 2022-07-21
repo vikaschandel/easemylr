@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Branch;
 use App\Models\State;
 use App\Models\Location;
+use App\Models\Role;
+use App\Models\RegionalClient;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\ConsignerExport;
 use DB;
@@ -74,13 +76,20 @@ class ConsignerController extends Controller
         $this->prefix = request()->route()->getPrefix();
         $states = Helper::getStates();
         $authuser = Auth::user();
+        $role_id = Role::where('id','=',$authuser->role_id)->first();
+        
         $cc = explode(',',$authuser->branch_id);
-        if($authuser->role_id == 2){
-            $branches = Location::whereIn('id',$cc)->orderby('name','ASC')->pluck('name','id');
+        if($authuser->role_id == $role_id->id){
+            $regclients = RegionalClient::whereIn('location_id',$cc)->orderby('name','ASC')->get();
         }else{
-            $branches = Location::where('status',1)->orderby('name','ASC')->pluck('name','id');
+            $regclients = RegionalClient::where('status',1)->orderby('name','ASC')->get();
         }
-        return view('consigners.create-consigner',['states'=>$states, 'branches'=>$branches, 'prefix'=>$this->prefix, 'title'=>$this->title, 'pagetitle'=>'Create']);
+        // if($authuser->role_id == 2){
+        //     $branches = Location::whereIn('id',$cc)->orderby('name','ASC')->pluck('name','id');
+        // }else{
+        //     $branches = Location::where('status',1)->orderby('name','ASC')->pluck('name','id');
+        // }
+        return view('consigners.create-consigner',['states'=>$states,'regclients'=>$regclients, 'prefix'=>$this->prefix, 'title'=>$this->title, 'pagetitle'=>'Create']);
     }
 
     /**
@@ -111,19 +120,20 @@ class ConsignerController extends Controller
         $consignersave['gst_number']   = $request->gst_number;
         $consignersave['contact_name'] = $request->contact_name;
         $consignersave['phone']        = $request->phone;
-        $consignersave['branch_id']    = $request->branch_id;
-        $consignersave['email']        = $request->email;
+        $consignersave['regionalclient_id'] = $request->regionalclient_id;
+        $consignersave['branch_id']     = $request->branch_id;
+        $consignersave['email']         = $request->email;
         $consignersave['address_line1'] = $request->address_line1;
         $consignersave['address_line2'] = $request->address_line2;
         $consignersave['address_line3'] = $request->address_line3;
         $consignersave['address_line4'] = $request->address_line4;
-        $consignersave['city']         = $request->city;
-        $consignersave['district']     = $request->district;
-        $consignersave['postal_code']  = $request->postal_code;
-        $consignersave['state_id']     = $request->state_id;
+        $consignersave['city']          = $request->city;
+        $consignersave['district']      = $request->district;
+        $consignersave['postal_code']   = $request->postal_code;
+        $consignersave['state_id']      = $request->state_id;
         // $consignersave['status']       = $request->status;
 
-        $saveconsigner = Consigner::create($consignersave); 
+        $saveconsigner = Consigner::create($consignersave);
         if($saveconsigner)
         {
             $response['success'] = true;
@@ -258,6 +268,23 @@ class ConsignerController extends Controller
     public function exportExcel()
     {
         return Excel::download(new ConsignerExport, 'consigners.csv');
+    }
+
+    // get locations on client change in create consigner
+    public function regLocations(Request $request)
+    {
+        $getlocation = Location::select('id', 'name')->where(['id' => $request->location_id, 'status' => '1'])->first();
+        if ($getlocation) {
+            $response['success'] = true;
+            $response['success_message'] = "Location list fetch successfully";
+            $response['error'] = false;
+            $response['data'] = $getlocation;
+        } else {
+            $response['success'] = false;
+            $response['error_message'] = "Can not fetch location list please try again";
+            $response['error'] = true;
+        }
+        return response()->json($response);
     }
 
 }

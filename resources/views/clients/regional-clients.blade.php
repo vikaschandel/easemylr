@@ -31,7 +31,6 @@ div.relative {
     padding: 10px;
 }
 .btn {
-   
     font-size: 10px;
     }
     </style>
@@ -43,8 +42,8 @@ div.relative {
                 <div class="page-header">
                     <nav class="breadcrumb-one" aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="javascript:void(0);">Clients</a></li>
-                            <li class="breadcrumb-item active" aria-current="page"><a href="javascript:void(0);">Client List</a></li>
+                            <li class="breadcrumb-item"><a href="{{'clients'}}">Clients</a></li>
+                            <li class="breadcrumb-item active" aria-current="page"><a href="javascript:void(0);">Regional Client List</a></li>
                         </ol>
                     </nav>
                 </div>
@@ -57,8 +56,7 @@ div.relative {
                         @csrf
                         <table id="clienttable" class="table table-hover get-datatable" style="width:100%">
                         <div class="btn-group relative">
-                        <a href="{{'clients/create'}}" class="btn btn-primary pull-right" >Create Client</a> ||
-                        <a href="{{'reginal-clients'}}" class="btn btn-primary pull-right" >Regional Client List</a>
+                        
                         </div>
                             <thead>
                                 <tr>
@@ -69,12 +67,12 @@ div.relative {
                             </thead>
                             <tbody>
                                 <?php 
-                                if(count($clients)>0) {
-                                    foreach ($clients as $key => $value) {  
+                                if(count($regclients)>0) {
+                                    foreach ($regclients as $key => $value) {  
                                 ?> 
                                 <tr>
                                     <td>{{ ++$i }}</td>
-                                    <td>{{ ucwords($value->client_name ?? "-")}}</td>
+                                    <td>{{ ucwords($value->name ?? "-")}}</td>
                                     <!-- <td>
                                         <a class="btn btn-primary" href="{{url($prefix.'/clients/'.Crypt::encrypt($value->id).'/edit')}}" ><span><i class="fa fa-edit"></i></span></a>
                                         <a class="btn btn-primary" href="{{url($prefix.'/clients/'.Crypt::encrypt($value->id))}}" ><span><i class="fa fa-eye"></i></span></a>

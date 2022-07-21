@@ -112,6 +112,14 @@ class ClientController extends Controller
         return response()->json($response);
     }
 
+    public function regionalClients(Request $request)
+    {
+        $this->prefix = request()->route()->getPrefix();
+        $query = RegionalClient::query();
+        $regclients = $query->orderby('id','DESC')->get();
+        return view('clients.regional-clients',['regclients'=>$regclients,'prefix'=>$this->prefix,'title'=>$this->title])->with('i', ($request->input('page', 1) - 1) * 5);
+    }
+
     /**
      * Display the specified resource.
      *
