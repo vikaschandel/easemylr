@@ -10,6 +10,7 @@ use Maatwebsite\Excel\Concerns\WithValidation;
 use App\Models\Consigner;
 use App\Models\State;
 use App\Models\Location;
+use App\Models\RegionalClient;
 
 class ConsignerImport implements ToModel,WithHeadingRow
 {
@@ -21,14 +22,29 @@ class ConsignerImport implements ToModel,WithHeadingRow
     public function model(array $row)
     {
         $getState = State::where('name',$row['state'])->first();
-        $getLocation = Location::where('name',$row['location'])->first();
+        // $getLocation = Location::where('name',$row['location'])->first();
+        $getregClient = RegionalClient::where('id',$row['regional_client_id'])->first();
 
-        if(!empty($getLocation)){
-            $location = $getLocation->id;
+        if(!empty($getregClient)){
+            $regclient = $getregClient->id;
+        }
+        else{
+            $regclient = 'N/A';
+        }
+
+        if(!empty($row['location_id'])){
+            $location = $row['location_id'];
         }
         else{
             $location = 'N/A';
         }
+
+        // if(!empty($getLocation)){
+        //     $location = $getLocation->id;
+        // }
+        // else{
+        //     $location = 'N/A';
+        // }
         
         if(!empty($getState)){
             $state = $getState->id;
@@ -46,6 +62,7 @@ class ConsignerImport implements ToModel,WithHeadingRow
                 'gst_number'   => $row['gst_number'],
                 'contact_name' => $row['contact_name'],
                 'phone'        => (float)$row['phone'],
+                'regionalclient_id' => $regclient,
                 'branch_id'    => $location,
                 'email'        => $row['email'],
                 'address_line1'=> $row['address_line1'],

@@ -58,8 +58,9 @@ div.relative {
                         </div>
                             <thead>
                                 <tr>
-                                    <th>Sr No.</th>
+                                    <th>Id</th>
                                     <th>Name</th>
+                                    <th>Location Id</th>
                                     <!-- <th>Action</th> -->
                                 </tr>
                             </thead>
@@ -69,8 +70,9 @@ div.relative {
                                     foreach ($regclients as $key => $value) {  
                                 ?> 
                                 <tr>
-                                    <td>{{ ++$i }}</td>
+                                    <td>{{ $value->id ?? "-" }}</td>
                                     <td>{{ ucwords($value->name ?? "-")}}</td>
+                                    <td>{{$value->location_id ?? "-"}}</td>
                                     <!-- <td>
                                         <a class="btn btn-primary" href="{{url($prefix.'/clients/'.Crypt::encrypt($value->id).'/edit')}}" ><span><i class="fa fa-edit"></i></span></a>
                                         <a class="btn btn-primary" href="{{url($prefix.'/clients/'.Crypt::encrypt($value->id))}}" ><span><i class="fa fa-eye"></i></span></a>
