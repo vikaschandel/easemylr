@@ -1460,9 +1460,16 @@ class ConsignmentController extends Controller
 /////////////////Web Hooks/////////////////////////////
     public function handle(Request $request)
     {
-        $data = json_decode($request);
-
-        echo "<pre>"; print_r($data);die;
+        header('Content-Type: application/json');
+        $request = file_get_contents('php://input');
+        //$req_dump = print_r( $request, true );
+        //$fp = file_put_contents( 'request.log', $req_dump );
+        
+        // Updated Answer
+        if($json = json_decode(file_get_contents("php://input"), true)){
+           $data = $json;
+        }
+        echo "<pre>"; print_r($data);
         //Do something with the event
          logger($data);
     }
