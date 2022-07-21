@@ -8,9 +8,11 @@ class ProcessWebhookJob extends SpatieProcessWebhookJob
     public function handle()
     {
 
-        logger('hi this is demo');
 
         logger($this->webhookCall);
+        $data = json_decode($this->webhookCall, true);
+        //Do something with the event
+         logger($data);
         // $this->webhookCall // contains an instance of `WebhookCall`
 
         // perform the work here
