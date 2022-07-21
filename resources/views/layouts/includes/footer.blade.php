@@ -61,10 +61,74 @@
      <script>
 
         
-        $('.get-datatable').DataTable( {
-            "dom": "<'dt--top-section'<'row'<'col-sm-12 col-md-6 d-flex justify-content-md-start justify-content-center'B><'col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3'f>>>" +
-        "<'table-responsive'tr>" +
-        "<'dt--bottom-section d-sm-flex justify-content-sm-between text-center'<'dt--pages-count  mb-sm-0 mb-3'i><'dt--pagination'p>>",
+        /* Formatting function for row details - modify as you need */
+        function format(d) {
+            // `d` is the original data object for the row
+            return '<div class="card">'+
+				'<div class="card-body">'+
+								'<ul class="nav nav-tabs nav-primary" role="tablist">'+
+									'<li class="nav-item" role="presentation">'+
+										'<a class="nav-link active" data-bs-toggle="tab" href="#primaryhome" role="tab" aria-selected="true">'+
+											'<div class="d-flex align-items-center">'+
+												'<div class="tab-icon"><i class="bx bx-home font-18 me-1"></i>'+
+												'</div>'+
+												'<div class="tab-title">TXN Details</div>'+
+											'</div>'+
+										'</a>'+
+									'</li>'+
+								'</ul>'+
+								'<div class="tab-content py-3">'+
+									'<div class="tab-pane active" id="primaryhome" role="tabpanel">'+
+                                    '<div class="row">'+
+                                    '<div class="col-md-3">'+
+                                    '<strong class="labels">Job Id:</strong> '+d.job_id+'<br/>'+
+                                    '<strong class="labels">Oder No:</strong> '+d.order_id+'<br/>'+
+                                    '<strong class="labels">Lr No:</strong> '+d.id+'<br/>'+
+                                    '<strong class="labels">Consigner:</strong> '+d.consigner_id+'<br/>'+
+                                    '<strong class="labels">Consigner City:</strong> '+d.con_city+'<br/>'+
+                                    '<strong class="labels">Consignee :</strong> '+d.consignee_id+'<br/>'+
+                                    '<strong class="labels">Consignee Address:</strong> '+d.city+'<br/>'+
+                                    '<strong class="labels">Invoice No:</strong> '+d.invoice_no+'<br/>'+
+                                    '<strong class="labels">Invoice Date :</strong> '+d.invoice_date+'<br/>'+
+                                    '<strong class="labels">Invoice Amount:</strong> '+d.invoice_amount+'<br/>'+
+                                    '<strong class="labels">Vehicle No:</strong> '+d.consignee_id+'<br/>'+
+                                    '<strong class="labels">Boxes:</strong> '+d.total_quantity+'<br/>'+
+                                    '<strong class="labels">Net Weight:</strong> '+d.total_weight+'<br/><br/>'+
+                                    ''+d.route+'<br/>'+
+                                    '</div>'+
+                                    '<div class="col-md-9">'+
+                                    '<div id="map-'+d.id+'"><iframe id="iGmap" width="100%" height="400px" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="'+d.tracking_link+'" ></iframe></div>'+
+                                    '</div>'+
+                                    '</div>'+
+									'</div>'+
+								'</div>'+
+							'</div>'+
+						'</div>';
+               
+
+        }
+        
+        $(document).ready(function () {
+            var table = $('#lrlist').DataTable({
+                ajax: '/admin/clist',
+                columns: [
+                    {
+                        className: 'dt-control',
+                        orderable: false,
+                        data: null,
+                        defaultContent: '',
+                    },
+                    { data: 'lrdetails' },
+                    { data: 'route' },
+                    { data: 'poptions' },
+                    { data: 'edd' },
+                    { data: 'status' },
+                    { data: 'delivery_status' },
+                ],
+                order: [[1, 'asc']],
+                "dom": "<'dt--top-section'<'row'<'col-sm-12 col-md-6 d-flex justify-content-md-start justify-content-center'B><'col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3'f>>>" +
+                "<'table-responsive'tr>" +
+                "<'dt--bottom-section d-sm-flex justify-content-sm-between text-center'<'dt--pages-count  mb-sm-0 mb-3'i><'dt--pagination'p>>",
             buttons: {
                 buttons: [
                     // { extend: 'copy', className: 'btn btn-sm' },
@@ -84,8 +148,51 @@
             "ordering": true,
             "paging": true,
             "pageLength": 100,
+            });
+        
+            // Add event listener for opening and closing details
+            $('#lrlist tbody').on('click', 'td.dt-control', function () {
+                var tr = $(this).closest('tr');
+                var row = table.row(tr);
+        
+                if (row.child.isShown()) {
+                    // This row is already open - close it
+                    row.child.hide();
+                    tr.removeClass('shown');
+                } else {
+                    // Open this row
+                    row.child(format(row.data())).show();
+                    tr.addClass('shown');
+                }
+            });
+        });
+
+        $('.get-datatable').DataTable( {
+            "dom": "<'dt--top-section'<'row'<'col-sm-12 col-md-6 d-flex justify-content-md-start justify-content-center'B><'col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3'f>>>" +
+        "<'table-responsive'tr>" +
+        "<'dt--bottom-section d-sm-flex justify-content-sm-between text-center'<'dt--pages-count  mb-sm-0 mb-3'i><'dt--pagination'p>>",
+            buttons: {
+                buttons: [
+                    // { extend: 'copy', className: 'btn btn-sm' },
+                    // { extend: 'csv', className: 'btn btn-sm' },
+                    { extend: 'excel', className: 'btn btn-sm' },
+                    // { extend: 'print', className: 'btn btn-sm' }
+                ]
+            },
+            "oLanguage": {
+                "oPaginate": { "sPrevious": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>', "sNext": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>' },
+                "sInfo": "Showing page PAGE of _PAGES_",
+                "sSearch": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>',
+                "sSearchPlaceholder": "Search...",
+               "sLengthMenu": "Results :  _MENU_",
+            },
+            
+            "ordering": true,
+            "paging": true,
+            "pageLength": 100,
 
         } );
+
 ////////////////////////////////////////////////////////
         // $("#select_all").click(function () {
         //             if($(this).is(':checked')){
