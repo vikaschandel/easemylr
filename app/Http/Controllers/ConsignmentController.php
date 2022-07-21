@@ -1462,14 +1462,14 @@ class ConsignmentController extends Controller
     {
         header('Content-Type: application/json');
         $request = file_get_contents('php://input');
-        //$req_dump = print_r( $request, true );
-        //$fp = file_put_contents( 'request.log', $req_dump );
+        $req_dump = print_r( $request, true );
+        $fp = file_put_contents( 'request.log', $req_dump );
         
-        // Updated Answer
-        /*if($json = json_decode(file_get_contents("php://input"), true)){
+        //Updated Answer
+        if($json = json_decode(file_get_contents("php://input"), true)){
            $data = $json;
-        }*/
-        echo "<pre>"; print_r($request);
+        }
+        echo "<pre>"; print_r($data);
         //Do something with the event
          logger($data);
     }
