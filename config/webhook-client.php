@@ -13,7 +13,7 @@ return [
              * We expect that every webhook call will be signed using a secret. This secret
              * is used to verify that the payload has not been tampered with.
              */
-            'signing_secret' => '4Y4b4JA5rZZ6vc6J',
+            'signing_secret' => env('TOOKAN_SECRET_KEY'),
 
             /*
              * The name of the header containing the signature.
