@@ -1012,6 +1012,7 @@ class ConsignmentController extends Controller
             $transaction = DB::table('transaction_sheets')->whereIn('consignment_no', $cc)->update(['vehicle_no' => $vehicle_no, 'driver_name' => $driverName, 'driver_no' => $driverPhone, 'status' => 'Assigned']);
             $createTask = $this->createTookanTasks($simplyfy);
             $json = json_decode($createTask[0], true);
+            echo "<pre>";print_r($json);die;
             $job_id= $json['data']['job_id'];
             $tracking_link= $json['data']['tracking_link'];
             $update = DB::table('consignment_notes')->whereIn('id', $cc)->update(['job_id' => $job_id, 'tracking_link' => $tracking_link]);
@@ -1054,7 +1055,7 @@ class ConsignmentController extends Controller
                 ],
                 "team_id": "'.$task['team_id'].'",
                 "auto_assignment": "1",
-                "has_pickup": "1",
+                "has_pickup": "0",
                 "has_delivery": "1",
                 "layout_type": "0",
                 "tracking_link": 1,
