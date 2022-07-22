@@ -12,6 +12,7 @@ use App\Models\Location;
 use App\Models\TransactionSheet;
 use App\Models\Vehicle;
 use App\Models\VehicleType;
+use App\Models\Role;
 use Auth;
 use DB;
 use Illuminate\Http\Request;
@@ -183,7 +184,9 @@ class ConsignmentController extends Controller
     {
         $this->prefix = request()->route()->getPrefix();
         $authuser = Auth::user();
-        $cc = explode(',', $authuser->branch_id);
+        $role_id = Role::where('id','=',$authuser->role_id)->first();
+        $cc = explode(',',$authuser->branch_id);
+        // $cc = explode(',', $authuser->branch_id);
 
         $location_vehcleno = Location::whereIn('id', $cc)->first();
         if ($location_vehcleno) {
@@ -191,7 +194,9 @@ class ConsignmentController extends Controller
         } else {
             $with_vehicle_no = 0;
         }
-        if ($authuser->role_id == 2) {
+        
+        if($authuser->role_id == $role_id->id){
+        // if ($authuser->role_id == 2) {
             $consigners = Consigner::select('id', 'nick_name')->whereIn('branch_id', $cc)->get();
             $consignees = Consignee::select('id', 'nick_name')->where('user_id', $authuser->id)->get();
             // $consignees = Consignee::select('id','nick_name')->whereIn('branch_id',$cc)->get();

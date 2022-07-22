@@ -208,6 +208,8 @@ Route::group(['prefix'=>'branch-manager', 'middleware'=>['auth','PermissionCheck
     Route::post('/locations/update', [LocationController::class, 'updateLocation']);
     Route::any('locations/get-location', [LocationController::class, 'getLocation']);
 
+    Route::resource('clients', ClientController::class);
+
 });
 Route::group(['prefix'=>'regional-manager', 'middleware'=>['auth','PermissionCheck']], function()
 {

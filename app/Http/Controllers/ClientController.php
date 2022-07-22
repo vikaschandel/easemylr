@@ -147,6 +147,7 @@ class ClientController extends Controller
         
         $getClient = BaseClient::where('id',$id)->with('RegClients')->first();
         // dd($getClient);
+        // dd($getClient->RegClients);
         return view('clients.update-client')->with(['prefix'=>$this->prefix,'title'=>$this->title, 'pagetitle'=>$this->pagetitle,'getClient'=>$getClient,'getRegclients'=>$getRegclients,'locations'=>$locations]);
     }
 

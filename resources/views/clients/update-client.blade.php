@@ -50,16 +50,18 @@
                                         ?>
                                     <tr class="rowcls">
                                         <td>
-                                            <input type="text" class="form-control name" name="data[1][name]" value="{{old('name',isset($regclientdata->name)?$regclientdata->name:'')}}">
+                                            <input type="text" class="form-control name" name="data[{{$i}}][name]" value="{{old('name',isset($regclientdata->name)?$regclientdata->name:'')}}">
                                         </td>
                                         <td>
-                                            <select class="form-control location_id" name="data[1][location_id]">
+                                            <select class="form-control location_id" name="data[{{$i}}][location_id]">
                                                 <option value="">Select</option>
                                                 <?php 
+                                                // print_r($locations); die;
                                                 if(count($locations)>0) {
+                                                    
                                                     foreach ($locations as $key => $location) {
                                                 ?>
-                                                    <option value="{{ $key }}">{{ucwords($location)}}</option>
+                                                    <option value="{{ $key }}" {{$getClient->RegClients->location_id == $key ? 'selected' : ''}}>{{ucwords($location)}}</option>
                                                     <?php 
                                                     }
                                                 }
