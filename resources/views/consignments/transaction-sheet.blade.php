@@ -76,15 +76,21 @@ div.relative {
                                 @foreach($transaction as $trns)
                                 <?php  $creation = date('d-m-Y',strtotime($trns['created_at']));    ?>
                               <tr>
+                                
                                 <td>DRS-{{$trns['drs_no']}}</td>
                                 <td>{{$creation}}</td> 
                                 <td>{{$trns['vehicle_no']}}</td>
                                 <td>{{$trns['driver_name']}}</td>
                                 <td>{{$trns['driver_no']}}</td>
-                            
-                                <td>
                                 <?php 
+
                                 if(empty($trns['vehicle_no'])){ ?>
+                                if($trns['status'] == 0){?>
+                                 <td><label class="badge badge-dark">Cancelled</label></td>
+                                 <?php }else{?>
+                                <td>
+                               
+                              <?php  if(empty($trns['vehicle_no'])){ ?>
                                     <button type="button" class="btn btn-warning view-sheet" value="{{$trns['drs_no']}}" style="margin-right:4px;">Draft</button> 
                                    <button type="button" class="btn btn-danger draft-sheet" value="{{$trns['drs_no']}}" style="margin-right:4px;">Save</button> 
                                    <?php } ?>
@@ -101,7 +107,9 @@ div.relative {
                                         <?php }else{ ?>
                                             <button type="button" class="btn btn-danger" value="{{$trns['drs_no']}}" style="margin-right:4px;"> Cancelled</button>
                                             <?php } ?>
+                                            <a class="drs_cancel btn btn-danger" drs-no = "{{$trns['drs_no']}}" data-text="consignment" data-status = "0" data-action = "<?php echo URL::current();?>"><span><i class="fa fa-check-circle-o"></i> Cancel</span></a>
                                 </td>
+                                <?php } ?>
                               </tr>
                               @endforeach
                             </tbody>

@@ -40,6 +40,8 @@ class ConsignmentNote extends Model
         'delivery_status',
         'delivery_date',
         'signed_drs',
+        'e_way_bill',
+        'e_way_bill_date',
         'created_at',
         'updated_at'
     ];

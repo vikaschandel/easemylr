@@ -151,7 +151,7 @@ a.badge.alert.bg-secondary.shadow-sm {
                                 </tr>
                             </thead>
                             <tbody>
-                                
+
                             </tbody>
                         </table>
                     </div>

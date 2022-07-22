@@ -61,7 +61,7 @@ div.relative {
                         @csrf
                         <table id="usertable" class="table table-hover get-datatable" style="width:100%">
                             <div class="btn-group relative">
-                            <button type="button" class="btn btn-warning" id="create_edd" style="font-size: 11px;">
+                            <button type="button" class="btn btn-warning disableDrs" id="create_edd" style="font-size: 11px;">
                              Create DSR
                               </button>
                                 <!-- <button type="button" class="btn btn-warning" id="launch_model" data-toggle="modal" data-target="#exampleModal" disabled="disabled" style="font-size: 11px;">

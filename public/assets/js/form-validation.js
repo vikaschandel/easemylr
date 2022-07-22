@@ -844,6 +844,12 @@ jQuery(document).ready(function(){
             vehicle_id : {
                 required: true,
             },
+            e_way_bill: {
+                required: true,
+            },
+            e_way_bill_date: {
+                required: true,
+            },
             'quantity[]': {
                 required: true,
                 //   lettersonly:true
@@ -890,6 +896,12 @@ jQuery(document).ready(function(){
             },
             vehicle_id : {
                 required: "Select vehicle no.",
+            },
+            e_way_bill : {
+                required: "Enter E Way Bill Number",
+            },
+            e_way_bill_date : {
+                required: "Enter E Way Bill Date",
             },
             'quantity[]': {
                 required: "Enter quantity",

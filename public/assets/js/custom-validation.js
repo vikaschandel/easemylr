@@ -766,6 +766,50 @@ jQuery(document).ready(function(){
 
 
     });
+//    Drs Cncel status update+++++++++++++++++++++++++++++++++++++
+jQuery(document).on('click','.drs_cancel',function(event){
+    event.stopPropagation();
+    let drs_no   = jQuery(this).attr('drs-no');
+    var dataaction = jQuery(this).attr('data-action');
+    var datastatus = jQuery(this).attr('data-status');
+    var updatestatus = 'updatestatus';
+
+    jQuery('#commonconfirm').modal('show');
+    // jQuery('.confirmtext').text('Are you sure you want to '+statustext+' this '+datatext+'?');
+    jQuery( ".commonconfirmclick").one( "click", function() {
+
+        var data =  {drs_no:drs_no,status:datastatus,updatestatus:updatestatus};
+        
+        jQuery.ajax({
+            url         : dataaction,
+            type        : 'get',
+            cache       : false,
+            data        :  data,
+            dataType    :  'json',
+            headers     : {
+                'X-CSRF-TOKEN': jQuery('meta[name="_token"]').attr('content')
+            },
+            processData: true,
+            beforeSend  : function () {
+                // jQuery("input[type=submit]").attr("disabled", "disabled");
+            },
+            complete: function () {
+                //jQuery("#loader-section").css('display','none');
+            },
+
+            success:function(response){
+                if(response.success){
+                    jQuery('#commonconfirm').modal('hide');
+                    if(response.page == 'dsr-cancel-update'){
+                        setTimeout(() => {window.location.href = response.redirect_url},10);
+                    }
+                }
+            }
+        });
+    });
+
+
+});
 
     //for setting branch address edit
     jQuery(document).on('click','.editBranchadd',function(){
