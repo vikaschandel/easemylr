@@ -194,11 +194,24 @@ class ConsignmentController extends Controller
         } else {
             $with_vehicle_no = 0;
         }
-        
-        if($authuser->role_id == $role_id->id){
-        // if ($authuser->role_id == 2) {
-            $consigners = Consigner::select('id', 'nick_name')->whereIn('branch_id', $cc)->get();
+        /////
+        if($authuser->role_id == 2 || $authuser->role_id == 3){
+            if($authuser->role_id == $role_id->id){
+                $consigners = Consigner::select('id', 'nick_name')->whereIn('branch_id', $cc)->get();
+            }else{
+                $consigners = Consigner::select('id', 'nick_name')->get();
+            }
+        }else if($authuser->role_id != 2 || $authuser->role_id != 3){
+            $consigners = Consigner::select('id', 'nick_name')->whereIn('regionalclient_id',$regclient)->get();
+           
+        }else{
+            $consigners = Consigner::select('id', 'nick_name')->get();
+        }
+        ////
             $consignees = Consignee::select('id', 'nick_name')->where('user_id', $authuser->id)->get();
+            if (empty($consignees)) {
+                $consignees = Consignee::select('id', 'nick_name')->get();
+            }
             // $consignees = Consignee::select('id','nick_name')->whereIn('branch_id',$cc)->get();
             $getconsignment = Location::select('id', 'name', 'consignment_no')->whereIn('id', $cc)->latest('id')->first();
             if (!empty($getconsignment->consignment_no)) {
@@ -219,14 +232,11 @@ class ConsignmentController extends Controller
             } else {
                 $consignmentno = $con_series . '-1';
             }
-        }
 
         // $cc = explode('-',$cn->consignment_no);
         // $getconsignmentno = $cc[1] + 1;
         // $consignmentno = $cc[0].'-'.$getconsignmentno;
-        else {
-            $consigners = Consigner::select('id', 'nick_name')->get();
-            $consignees = Consignee::select('id', 'nick_name')->get();
+        if(empty($consignmentno)) {
             $consignmentno = "";
         }
 
