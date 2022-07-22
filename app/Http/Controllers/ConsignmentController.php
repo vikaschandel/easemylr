@@ -314,7 +314,7 @@ class ConsignmentController extends Controller
             $consignmentsave['status'] = $status;
 
             if ($with_vehicle_no == '1') {
-                $consignmentsave['delivery_status'] = "Unverified";
+                $consignmentsave['delivery_status'] = "Unassigned";
                 $consignmentsave['vehicle_id'] = $request->req_vehicle_id;
                 $consignmentsave['transporter_name'] = $request->req_transporter_name;
                 $consignmentsave['vehicle_type'] = $request->req_vehicle_type;
