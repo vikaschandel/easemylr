@@ -83,6 +83,8 @@ div.relative {
                                 <td>{{$trns['driver_name']}}</td>
                                 <td>{{$trns['driver_no']}}</td>
                                 <?php 
+
+                                if(empty($trns['vehicle_no'])){ ?>
                                 if($trns['status'] == 0){?>
                                  <td><label class="badge badge-dark">Cancelled</label></td>
                                  <?php }else{?>

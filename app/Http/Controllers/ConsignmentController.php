@@ -19,6 +19,7 @@ use LynX39\LaraPdfMerger\Facades\PdfMerger;
 use QrCode;
 use Storage;
 use Validator;
+use DataTables;
 
 class ConsignmentController extends Controller
 {
@@ -44,8 +45,8 @@ class ConsignmentController extends Controller
             $consignments = DB::table('consignment_notes')->select('consignment_notes.*', 'consigners.nick_name as consigner_id', 'consignees.nick_name as consignee_id', 'consignees.city as city', 'consignees.postal_code as pincode')
                 ->join('consigners', 'consigners.id', '=', 'consignment_notes.consigner_id')
                 ->join('consignees', 'consignees.id', '=', 'consignment_notes.consignee_id')
-            // ->join('vehicles', 'vehicles.id', '=', 'consignment_notes.vehicle_id')
-            // ->join('drivers', 'drivers.id', '=', 'consignment_notes.driver_id')
+             // ->join('vehicles', 'vehicles.id', '=', 'consignment_notes.vehicle_id')
+             // ->join('drivers', 'drivers.id', '=', 'consignment_notes.driver_id')
                 ->whereIn('consignment_notes.branch_id', $cc)
                 ->get(['consignees.city']);
 
@@ -77,6 +78,91 @@ class ConsignmentController extends Controller
         }
         return view('consignments.consignment-list', ['consignments' => $consignments, 'prefix' => $this->prefix, 'title' => $this->title])
             ->with('i', ($request->input('page', 1) - 1) * 5);
+    }
+
+    public function consignment_list(){
+        
+        $query = ConsignmentNote::query();
+        $authuser = Auth::user();
+        $cc = explode(',', $authuser->branch_id);
+        if ($authuser->role_id == 2) {
+            $data = DB::table('consignment_notes')->select('consignment_notes.*', 'consigners.nick_name as consigner_id', 'consigners.city as con_city', 'consigners.postal_code as con_pincode', 'consignees.nick_name as consignee_id', 'consignees.city as city', 'consignees.postal_code as pincode', 'consignees.address_line1 as con_add1', 'consignees.address_line2 as con_add2', 'consignees.address_line3 as con_add3')
+                ->join('consigners', 'consigners.id', '=', 'consignment_notes.consigner_id')
+                ->join('consignees', 'consignees.id', '=', 'consignment_notes.consignee_id')
+                ->whereIn('consignment_notes.branch_id', $cc)
+                ->get(['consignees.city']);
+        } else {
+            $data = DB::table('consignment_notes')->select('consignment_notes.*', 'consigners.nick_name as consigner_id', 'consigners.city as con_city', 'consigners.postal_code as con_pincode', 'consignees.nick_name as consignee_id', 'consignees.city as city', 'consignees.postal_code as pincode','consignees.address_line1 as con_add1', 'consignees.address_line2 as con_add2', 'consignees.address_line3 as con_add3' )
+                ->join('consigners', 'consigners.id', '=', 'consignment_notes.consigner_id')
+                ->join('consignees', 'consignees.id', '=', 'consignment_notes.consignee_id')
+                ->get(['consignees.city']);
+        }
+
+        return Datatables::of($data)
+        ->addColumn('lrdetails', function($data){
+                     
+            $trps = '<ul class="ant-timeline">
+                       <li class="ant-timeline-item"><span style="color:#4361ee;">LR No: </span>'.$data->id.'<li>
+                       <li class="ant-timeline-item"><span style="color:#4361ee;">LR Date: </span>'.$data->consignment_date.'<li>
+                     </ul>'; 
+
+            return $trps;
+        })
+        ->addColumn('route', function($data){
+           // echo "<pre>";print_r($data);die;
+            $troute = '<ul class="ant-timeline">
+            <li class="ant-timeline-item  css-b03s4t">
+                <div class="ant-timeline-item-tail"></div>
+                <div class="ant-timeline-item-head ant-timeline-item-head-green"></div>
+                <div class="ant-timeline-item-content">
+                    <div class="css-16pld72">'.$data->con_pincode.', '.$data->con_city.'</div>
+                </div>
+            </li>
+            <li class="ant-timeline-item ant-timeline-item-last css-phvyqn">
+                <div class="ant-timeline-item-tail"></div>
+                <div class="ant-timeline-item-head ant-timeline-item-head-red"></div>
+                <div class="ant-timeline-item-content">
+                <div class="css-16pld72">'.$data->pincode.', '.$data->city.'</div>
+                <div class="css-16pld72" style="font-size: 12px; color: rgb(102, 102, 102);">     
+                    <span>'.$data->con_add1.',</span>
+                    <span>'.$data->con_add2.', <span>'.$data->con_add3.'</span></span>
+                </div>
+                </div>
+            </li>
+            </ul>';
+                return $troute;
+            })
+            ->addColumn('poptions', function($data){
+                $st = '<a href="print-sticker/'.$data->id.'/" target="_blank" class="badge alert bg-secondary shadow-sm">Print Sticker</a> || <a href="consignments/'.$data->id.'/print-view/1/" target="_blank" class="badge alert bg-secondary shadow-sm">Print LR</a> || <a href="consignments/'.$data->id.'/print-view/2/" target="_blank" class="badge alert bg-secondary shadow-sm">Print with Ship to</a>';
+
+                return $st;
+            }) 
+            ->addColumn('status', function($data){
+                if($data->status == 0){
+                 $st = '<span class="badge alert bg-secondary shadow-sm">Unknown</span>';
+                } 
+                elseif($data->status == 1){
+                    $st = '<span class="badge bg-info shadow-sm">Active</span>';    
+                }
+                elseif($data->status == 2){
+                    $st = '<span class="badge bg-success">Unverified</span>';    
+                }
+                elseif($data->status == 3){
+                    $st = '<span class="badge bg-gradient-bloody text-white shadow-sm ">Cancel</span>';  
+                }
+
+                return $st;
+            })   
+            ->addColumn('delivery_status', function($data){
+          
+                 $st = '<span class="badge alert bg-secondary shadow-sm">'.$data->delivery_status.'</span>';
+                
+
+                return $st;
+            })                      
+        ->rawColumns(['lrdetails','route','poptions','status', 'delivery_status'])    
+        ->make(true);
+     
     }
 
     /**
@@ -223,12 +309,14 @@ class ConsignmentController extends Controller
             $consignmentsave['driver_id'] = $request->driver_id;
             $consignmentsave['branch_id'] = $authuser->branch_id;
             $consignmentsave['order_id'] = $request->order_id;
+
+            $consignmentsave['edd'] = $request->edd;
             $consignmentsave['e_way_bill'] = $request->e_way_bill;
             $consignmentsave['e_way_bill_date'] = $request->e_way_bill_date;
             $consignmentsave['status'] = $status;
-            $consignmentsave['delivery_status'] = 1;
 
             if ($with_vehicle_no == '1') {
+                $consignmentsave['delivery_status'] = "Unassigned";
                 $consignmentsave['vehicle_id'] = $request->req_vehicle_id;
                 $consignmentsave['transporter_name'] = $request->req_transporter_name;
                 $consignmentsave['vehicle_type'] = $request->req_vehicle_type;
@@ -236,14 +324,34 @@ class ConsignmentController extends Controller
                 $consignmentsave['vehicle_id'] = $request->vehicle_id;
                 $consignmentsave['transporter_name'] = $request->transporter_name;
                 $consignmentsave['vehicle_type'] = $request->vehicle_type;
+                $consignmentsave['delivery_status'] = "Unassigned";
             }
 
             $saveconsignment = ConsignmentNote::create($consignmentsave);
 
             if ($saveconsignment) {
-                // $consignment_no = str_pad($saveconsignment->id,8,"0", STR_PAD_LEFT);
-                // ConsignmentNote::where('id',$saveconsignment->id)->update(['consignment_no'=>$consignment_no]);
 
+                   /******* PUSH LR to Shadow if vehicle available & Driver has team & fleet ID   ********/
+
+                        $vn =  $consignmentsave['vehicle_id'];
+                        $lid = $saveconsignment->id;
+                        $lrdata = DB::table('consignment_notes')->select('consignment_notes.*', 'consigners.nick_name as consigner_id', 'consignees.nick_name as consignee_name','consignees.phone as phone', 'consignees.email as email', 'vehicles.regn_no as vehicle_id', 'consignees.city as city', 'consignees.postal_code as pincode', 'drivers.name as driver_id', 'drivers.phone as driver_phone', 'drivers.team_id as team_id', 'drivers.fleet_id as fleet_id')
+                        ->join('consigners', 'consigners.id', '=', 'consignment_notes.consigner_id')
+                        ->join('consignees', 'consignees.id', '=', 'consignment_notes.consignee_id')
+                        ->join('vehicles', 'vehicles.id', '=', 'consignment_notes.vehicle_id')
+                        ->join('drivers', 'drivers.id', '=', 'consignment_notes.driver_id')
+                        ->where('consignment_notes.id', $lid)
+                        ->get();
+                        $simplyfy = json_decode(json_encode($lrdata), true);
+                        
+                        //Send Data to API
+                        if (!empty($vn) && !empty($simplyfy[0]['team_id']) && !empty($simplyfy[0]['fleet_id'])) {
+                        $createTask = $this->createTookanTasks($simplyfy);
+                        $json = json_decode($createTask[0], true);
+                        $job_id= $json['data']['job_id'];
+                        $tracking_link= $json['data']['tracking_link'];
+                        $update = DB::table('consignment_notes')->where('id', $lid)->update(['job_id' => $job_id, 'tracking_link' => $tracking_link]);
+                        }
                 // insert consignment items
                 if (!empty($request->data)) {
                     $get_data = $request->data;
@@ -798,6 +906,29 @@ class ConsignmentController extends Controller
         $file->cleanDirectory('pdf');
     }
 
+    public function printSticker(Request $request)
+    {
+        $query = ConsignmentNote::query();
+        $authuser = Auth::user();
+        $cc = explode(',', $authuser->branch_id);
+        $branch_add = BranchAddress::first();
+        $locations = Location::whereIn('id', $cc)->first();
+
+        $cn_id = $request->id;
+        $getdata = ConsignmentNote::where('id', $cn_id)->with('ConsignmentItems', 'ConsignerDetail', 'ConsigneeDetail', 'ShiptoDetail', 'VehicleDetail', 'DriverDetail')->first();
+        $data = json_decode(json_encode($getdata), true);
+
+        //echo "<pre>";print_r($data);die;
+
+        //$logo = url('assets/img/logo_se.jpg');
+        $barcode = url('assets/img/barcode.png');
+
+        //echo $barcode; die;
+
+        return view('consignments.consignment-sticker', ['data' => $data]);
+
+    }
+
     public function unverifiedList(Request $request)
     {
         $this->prefix = request()->route()->getPrefix();
@@ -837,6 +968,7 @@ class ConsignmentController extends Controller
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
+
     public function updateUnverifiedLr(Request $request)
     {
 
@@ -847,11 +979,12 @@ class ConsignmentController extends Controller
         $adddriverId = $request->driver_id;
         $vehicleType = $request->vehicle_type;
         $transporterName = $request->transporter_name;
+        
 
-        $consigner = DB::table('consignment_notes')->whereIn('id', $cc)->update(['vehicle_id' => $addvechileNo, 'driver_id' => $adddriverId, 'transporter_name' => $transporterName, 'vehicle_type' => $vehicleType, 'delivery_status' => '2']);
+        $consigner = DB::table('consignment_notes')->whereIn('id', $cc)->update(['vehicle_id' => $addvechileNo, 'driver_id' => $adddriverId, 'transporter_name' => $transporterName, 'vehicle_type' => $vehicleType, 'delivery_status' => 'Assigned']);
         //echo'hii';
 
-        $consignees = DB::table('consignment_notes')->select('consignment_notes.*', 'consigners.nick_name as consigner_id', 'consignees.nick_name as consignee_id', 'vehicles.regn_no as vehicle_id', 'consignees.city as city', 'consignees.postal_code as pincode', 'drivers.name as driver_id', 'drivers.phone as driver_phone')
+        $consignees = DB::table('consignment_notes')->select('consignment_notes.*', 'consigners.nick_name as consigner_id', 'consignees.nick_name as consignee_name','consignees.phone as phone', 'consignees.email as email', 'vehicles.regn_no as vehicle_id', 'consignees.city as city', 'consignees.postal_code as pincode', 'drivers.name as driver_id', 'drivers.phone as driver_phone', 'drivers.team_id as team_id', 'drivers.fleet_id as fleet_id')
             ->join('consigners', 'consigners.id', '=', 'consignment_notes.consigner_id')
             ->join('consignees', 'consignees.id', '=', 'consignment_notes.consignee_id')
             ->join('vehicles', 'vehicles.id', '=', 'consignment_notes.vehicle_id')
@@ -864,7 +997,7 @@ class ConsignmentController extends Controller
         foreach ($simplyfy as $value) {
             $consignment_no = $value['consignment_no'];
             $vehicle_no = $value['vehicle_id'];
-            $consignee_id = $value['consignee_id'];
+            $consignee_name = $value['consignee_name'];
             $consignment_date = $value['consignment_date'];
             $city = $value['city'];
             $pincode = $value['pincode'];
@@ -874,13 +1007,174 @@ class ConsignmentController extends Controller
             $driverPhone = $value['driver_phone'];
 
         }
-
-        $transaction = DB::table('transaction_sheets')->whereIn('consignment_no', $cc)->update(['vehicle_no' => $vehicle_no, 'driver_name' => $driverName, 'driver_no' => $driverPhone, 'status' => '2']);
+        $chk_tooken = Driver::where('id', $adddriverId)->select('team_id', 'fleet_id')->get();
+        $tooken_details = json_decode(json_encode($chk_tooken), true);
+        // Push to tooken if Team Id & Fleet Id Available
+        if(!empty($tooken_details[0])){
+            $transaction = DB::table('transaction_sheets')->whereIn('consignment_no', $cc)->update(['vehicle_no' => $vehicle_no, 'driver_name' => $driverName, 'driver_no' => $driverPhone, 'status' => 'Assigned']);
+            $createTask = $this->createTookanTasks($simplyfy);
+            $json = json_decode($createTask[0], true);
+            echo "<pre>";print_r($json);die;
+            $job_id= $json['data']['job_id'];
+            $tracking_link= $json['data']['tracking_link'];
+            $update = DB::table('consignment_notes')->whereIn('id', $cc)->update(['job_id' => $job_id, 'tracking_link' => $tracking_link]);
+        }
+        else{
+            $transaction = DB::table('transaction_sheets')->whereIn('consignment_no', $cc)->update(['vehicle_no' => $vehicle_no, 'driver_name' => $driverName, 'driver_no' => $driverPhone, 'status' => 'Unassigned']);
+        }
 
         $response['success'] = true;
         $response['success_message'] = "Data Imported successfully";
         return response()->json($response);
 
+    }    
+
+    public function createTookanTasks($taskDetails) {
+       
+        foreach ($taskDetails as $task){
+
+            $td = '{
+                "api_key": "50666282f31751191c4f723c1410224319e5cdfb2fd5723e5a19",
+                "order_id": "'.$task['order_id'].'",
+                "job_description": "DRS-'.$task['id'].'",
+                "customer_email": "'.$task['email'].'",
+                "customer_username": "'.$task['consignee_name'].'",
+                "customer_phone": "'.$task['phone'].'",
+                "customer_address": "'.$task['pincode'].','.$task['city'].',India",
+                "latitude": "",
+                "longitude": "",
+                "job_delivery_datetime": "'.$task['edd'].' 21:00:00",
+                "custom_field_template": "Template_1",
+                "meta_data": [
+                    {
+                        "label": "Invoice Amount",
+                        "data": "'.$task['invoice_amount'].'"
+                    },
+                    {
+                        "label": "Quantity",
+                        "data": "'.$task['total_weight'].'"
+                    }
+                ],
+                "team_id": "'.$task['team_id'].'",
+                "auto_assignment": "1",
+                "has_pickup": "0",
+                "has_delivery": "1",
+                "layout_type": "0",
+                "tracking_link": 1,
+                "timezone": "-330",
+                "fleet_id": "'.$task['fleet_id'].'",
+                "notify": 1,
+                "tags": "",
+                "geofence": 0
+            }';
+
+           //echo "<pre>";print_r($td);echo "</pre>";die;
+
+            //die;
+
+            $curl = curl_init();
+
+            curl_setopt_array($curl, array(
+              CURLOPT_URL => 'https://api.tookanapp.com/v2/create_task',
+              CURLOPT_RETURNTRANSFER => true,
+              CURLOPT_ENCODING => '',
+              CURLOPT_MAXREDIRS => 10,
+              CURLOPT_TIMEOUT => 0,
+              CURLOPT_FOLLOWLOCATION => true,
+              CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+              CURLOPT_CUSTOMREQUEST => 'POST',
+              CURLOPT_POSTFIELDS =>$td,
+              CURLOPT_HTTPHEADER => array(
+                'Content-Type: application/json'
+              ),
+            ));
+            
+            $response[] = curl_exec($curl);
+            
+            curl_close($curl);
+
+        }
+
+        return $response;
+        
+    }
+
+     // Multiple Deliveries at once
+
+     public function createTookanMultipleTasks($taskDetails) {
+
+        $deliveries = array();
+        foreach ($taskDetails as $task){
+
+        $deliveries[] = '{
+                "address": "'.$task['pincode'].','.$task['city'].',India",
+                "name": "'.$task['consignee_name'].'",
+                "latitude": " ",
+                "longitude": " ",
+                "time": "'.$task['edd'].' 21:00:00",
+                "phone": "'.$task['phone'].'",
+                "job_description": "DRS-'.$task['id'].'",
+                "template_name": "Template_1",
+                "template_data": [
+                  {
+                    "label": "Invoice Amount",
+                    "data":  "'.$task['invoice_amount'].'"
+                  },
+                  {
+                    "label": "Quantity",
+                    "data": "'.$task['total_weight'].'"
+                  }
+                ],
+                "email": null,
+                 "order_id":  "'.$task['order_id'].'"
+                }';  
+            }
+            $de_json = implode(",", $deliveries);
+            //echo "<pre>"; print_r($de_json);die;
+
+         $apidata = '{
+                "api_key": "50666282f31751191c4f723c1410224319e5cdfb2fd5723e5a19",
+                "fleet_id": "'.$taskDetails[0]['fleet_id'].'",
+                "timezone": -330,
+                "has_pickup": 0,
+                "has_delivery": 1,
+                "layout_type": 0,
+                "geofence": 0,
+                "team_id": "'.$taskDetails[0]['team_id'].'",
+                "auto_assignment": 0,
+                "tags": "",
+                "deliveries": ['.$de_json.']
+              }';
+
+            echo "<pre>";print_r($apidata);echo "</pre>";die;
+
+            //die;
+
+            $curl = curl_init();
+
+            curl_setopt_array($curl, array(
+              CURLOPT_URL => 'https://api.tookanapp.com/v2/create_task',
+              CURLOPT_RETURNTRANSFER => true,
+              CURLOPT_ENCODING => '',
+              CURLOPT_MAXREDIRS => 10,
+              CURLOPT_TIMEOUT => 0,
+              CURLOPT_FOLLOWLOCATION => true,
+              CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+              CURLOPT_CUSTOMREQUEST => 'POST',
+              CURLOPT_POSTFIELDS =>$apidata,
+              CURLOPT_HTTPHEADER => array(
+                'Content-Type: application/json'
+              ),
+            ));
+            
+            $response = curl_exec($curl);
+            
+            curl_close($curl);
+
+            echo "<pre>";print_r($response);echo "</pre>";die;
+
+            return $response;
+        
     }
 
     public function transactionSheet(Request $request)
@@ -1058,7 +1352,6 @@ class ConsignmentController extends Controller
                                                 <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;"></td>
                                             </tr>'; 
          }
- 
          $html .= ' </tbody>
                                         <tfoot>
                                               <tr  style=" border: 1px solid; border-collapse: collapse;">
@@ -1187,7 +1480,6 @@ class ConsignmentController extends Controller
         $id = $_GET['draft_id'];
         $transcationview = TransactionSheet::select('*')->with('ConsignmentDetail')->where('drs_no', $id)->get();
         $result = json_decode(json_encode($transcationview), true);
-        // echo'<pre>'; print_r($result); die;
         $response['fetch'] = $result;
         $response['success'] = true;
         $response['success_message'] = "Data Imported successfully";
@@ -1257,14 +1549,22 @@ class ConsignmentController extends Controller
     }
 
 /////////////////Web Hooks/////////////////////////////
-    public function agent_webhooks(Request $data)
+    public function handle(Request $request)
     {
-        if (!empty($data)) {
-            echo 'no data found';
-        } else {
-            echo '<pre>';
-            print_r($data);die;
-        }
+        header('Content-Type: application/json');
+         $request = file_get_contents('php://input');
+         $req_dump = print_r( $request, true );
+         $fp = Storage::disk('local')->put('file.json', $req_dump);
+         $data = Storage::disk('local')->get('file.json');
+         //$update = DB::table('consignment_notes')->whereIn('id', $cc)->update(['job_id' => $job_id, 'tracking_link' => $tracking_link]);
+         //$json = json_decode($data, true);
+         $json = json_decode($data, true);
+         $job_id= $json['job_id'];
+         //echo "<pre>";print_r($job_id);die;
+         $update = DB::table('consignment_notes')->where('job_id', $job_id)->update(['delivery_status' => $json['job_state'], 'delivery_date' => $json['job_delivery_datetime_formatted']]);
+         //Do something with the event
+         //logger($data);
     }
+
 
 }

@@ -259,6 +259,14 @@ label.error{
                                                 <input type="text" class="form-seteing" id="order_id" name="order_id" value="" placeholder=""
                                                     style="border:none;" Required>
                                             </div>
+                                            <div class=" col-sm-4" style="margin-top:10px;">
+                                                <label for="exampleFormControlInput2">EDD</label>
+                                            </div>
+                                            <div class=" col-sm-8" style="margin-top:2px;">
+                                                <input type="date" class="form-seteing" id="edd" name="edd" value="" placeholder=""
+                                                    style="border:none;" >
+                                                    <p class="edd_error text-danger" style="display: none; color: #ff0000; font-weight: 500;">Please enter edd </p>
+                                            </div>
                                         </div>
 
                                     </div>

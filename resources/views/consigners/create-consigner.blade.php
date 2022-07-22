@@ -58,21 +58,40 @@
                                         placeholder="Enter 10 digit mobile no" maxlength="10">
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="exampleFormControlSelect1">Branch Location<span
+                                    <label for="exampleFormControlSelect1">Regional Client<span
                                             class="text-danger">*</span></label>
-                                    <select class="form-control" name="branch_id">
-                                        <option value="">Select</option>
+                                    <?php $authuser = Auth::user();
+                                    if($authuser->role_id == 4){
+                                    ?>        
+                                    <select class="form-control" id="regionalclient_id" name="regionalclient_id">
                                         <?php 
-                                        if(count($branches)>0) {
-                                            foreach ($branches as $key => $branch) {
+                                        if(count($regclients)>0) {
+                                            foreach ($regclients as $key => $client) {
                                         ?>
-                                        <option value="{{ $key }}">{{ucwords($branch)}}</option>
+                                        <option data-locationid="{{$client->location_id}}" value="{{ $client->id }}">{{ucwords($client->name)}}</option>
                                         <?php 
                                             }
                                         }
                                         ?>
                                     </select>
+                                    <input type="hidden" name="branch_id" value="{{$client->location_id}}">
+                                    <?php } else { ?>
+                                        <select class="form-control" id="regionalclient_id" name="regionalclient_id">
+                                        <option value="">Select</option>
+                                        <?php 
+                                        if(count($regclients)>0) {
+                                            foreach ($regclients as $key => $client) {
+                                        ?>
+                                        <option data-locationid="{{$client->location_id}}" value="{{ $client->id }}">{{ucwords($client->name)}}</option>
+                                        <?php 
+                                            }
+                                        }
+                                        ?>
+                                    </select>
+                                    <input type="hidden" name="branch_id" id="location_id">
+                                    <?php } ?>
                                 </div>
+                                
                             </div>
                             <div class="form-row mb-0">
                                 <div class="form-group col-md-6">

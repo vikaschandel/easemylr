@@ -57,7 +57,7 @@
                             <div class="form-row mb-0">
                                 <div class="form-group col-md-6">
                                     <label for="exampleFormControlInput2">Bank Name</label>
-                                    <input type="text" class="form-control" name="bank_name" placeholder="">
+                                    <input type="text" class="form-control" name="bank_name" placeholder=""> 
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="exampleFormControlInput2">Branch Name</label>
@@ -79,6 +79,16 @@
                                     <label for="exampleFormControlInput2">Account Holder Name</label>
                                     <input type="text" class="form-control" name="account_holdername" placeholder="">
                                 </div>
+                                <div class="form-group col-md-6">
+                                    <label for="exampleFormControlInput2">Team Id</label>
+                                    <input type="text" class="form-control" name="team_id" placeholder="">
+                                </div>  
+                            </div>
+                            <div class="form-row mb-0">
+                                <div class="form-group col-md-6">
+                                    <label for="exampleFormControlInput2">Fleet ID</label>
+                                    <input type="text" class="form-control" name="fleet_id" placeholder="">
+                                </div> 
                             </div>
                             <button type="submit" class="mt-4 mb-4 btn btn-primary">Submit</button>
                             <a class="btn btn-primary" href="{{url($prefix.'/drivers') }}"> Back</a>

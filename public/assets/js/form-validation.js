@@ -147,6 +147,9 @@ jQuery(document).ready(function(){
             },
             "branch_id[]" : {
                 required: true,
+            },
+            "regionalclient_id[]" : {
+                required: true,
             },      
         },
         messages: {
@@ -171,6 +174,9 @@ jQuery(document).ready(function(){
             },
             "branch_id[]" : {
                 required: "Please select location",
+            },
+            "regionalclient_id[]" : {
+                required: "Please select regional client",
             },
         },
         submitHandler : function(form)
@@ -1167,6 +1173,48 @@ jQuery(document).ready(function(){
         }
     });
 
+    /*===== Create Client =====*/
+    $('#createclient').validate({ 
+        rules: {
+            client_name: {
+                required: true
+            },
+            name: {
+                required: true
+            },
+            'location_id[]' : {
+                required: true,
+            },      
+        },
+        messages: {
+            client_name: {
+                required: "Enter client name",
+            },
+            name: {
+                required: "Enter name",
+            },
+            'location_id[]' : {
+                required: "Please select location",
+            },
+        },
+        submitHandler : function(form)
+        {
+            formSubmitRedirect(form);
+        }
+    });
+
+    $(".location_id").each(function()
+        {
+
+            $(this).rules('add', {
+                 required: true,
+                 // lettersonly:true,
+                  messages: {
+                    required: "Please select location",
+                  },
+             });
+        });
+
     
 
 
@@ -1250,6 +1298,7 @@ function formSubmit(form)
 /*======= submit redirect fuction =======*/
 function formSubmitRedirect(form)
 {
+   
     jQuery.ajax({
         url         : form.action,
         type        : form.method,
@@ -1263,14 +1312,24 @@ function formSubmitRedirect(form)
         dataType    : "json",
         beforeSend  : function () {
             $(".loader").show();
-            $('.disableme').prop('disabled', true);
+            
             if ($('#dealer_type').val() == 1 && $("#gst_number").val() == '') {
                 $('.gstno_error').show();
                 return false;
             }else{
                 $('.gstno_error').hide();
             }
-            
+            if($('.edd_error').css('display') == 'block'){
+                //alert('Please select a valid alert message');
+                return false;
+           }
+           $('.disableme').prop('disabled', true);
+            // if ($('#vehicle_no').val() != '' && $("#edd").val() == null) {
+            //     $('.edd_error').show();
+            //     return false;
+            // }else{
+            //     $('.edd_error').hide();
+            // }
         },
         complete: function (response) {
             $('.disableme').prop('disabled', true);
@@ -1325,6 +1384,8 @@ function formSubmitRedirect(form)
                 setTimeout(() => {window.location.href = response.redirect_url},2000);
             }else if(response.page == 'settings-branch-address'){
                 setTimeout(function(){ location.reload(); }, 50);
+            }else if(response.page == 'client-create' || response.page == 'client-update'){
+                setTimeout(() => {window.location.href = response.redirect_url},2000);
             }
             
             if(response.formErrors)

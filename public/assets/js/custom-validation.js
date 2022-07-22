@@ -558,6 +558,28 @@ jQuery(document).ready(function(){
         });
     }
 
+    //get location on create consigner page on client change
+    $('#regionalclient_id').change(function() {
+        // $('#location_id').empty();
+        let location_id = $(this).find(':selected').attr('data-locationid')
+            $.ajax({
+                type      : 'get',
+                url       : APP_URL+'/get_locations',
+                data      : {location_id:location_id},
+                headers   : {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                dataType  : 'json',
+                success:function(res){
+                    console.log(res);
+                    if(res.data){
+                        $('#location_id').val(res.data.id);
+                    }
+                }
+            });
+    
+    });
+
     $("#selwarehouse").on('change', function() {
         $('#consignment_no').val('');
         var con_no = $('#consignment_no').val();
@@ -826,6 +848,32 @@ jQuery(document).on('click','.drs_cancel',function(event){
         }
     });
 
+///////////////////////////////////////
+$('#vehicle_no').change(function (e) {
+    e.preventDefault();
+    var valueSelected = this.value;
+    var edd = $("#edd").val();
+    if(valueSelected != '' && edd != null){
+        $("#edd").attr("disabled", false);
+        $(".edd_error").css("display", "block");
+        //$('.edd_error').();
+        return false;
+    }else{
+        $(".edd_error").css("display", "none");
+    }
+});
+
+$(document).on('blur', "#edd",function () {
+        
+    var edd = $(this).val();
+     
+     const edd_len = edd.length;
+     if(edd_len > 0){
+         $('.edd_error').css("display", "none");
+     }else{
+         $('.edd_error').css("display", "block");
+     }
+ });
     // for vehicle tonnage capacity calculation
     $('#gross_vehicle_weight').keyup(function(){
         var gross_vehicle_weight = $('#gross_vehicle_weight').val();

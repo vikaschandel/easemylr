@@ -93,6 +93,8 @@ class DriverController extends Controller
         $driversave['name']            = $request->name;
         $driversave['phone']           = $request->phone;
         $driversave['license_number']  = $request->license_number;
+        $driversave['team_id']         = $request->team_id;
+        $driversave['fleet_id']        = $request->fleet_id;
         $driversave['status']          = '1';
 
         // upload license image
@@ -193,8 +195,10 @@ class DriverController extends Controller
             $driversave['name']           = $request->name;
             $driversave['phone']          = $request->phone;
             $driversave['license_number'] = $request->license_number;
+            $driversave['team_id']        = $request->team_id;
+            $driversave['fleet_id']       = $request->fleet_id;
 
-            // upload driver_license image
+            // upload driver_license image 
             if($request->license_image){
                 $file = $request->file('license_image');
                 $path = 'public/images/driverlicense_images';

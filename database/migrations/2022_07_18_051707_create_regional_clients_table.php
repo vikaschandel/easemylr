@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDriversTable extends Migration
+class CreateRegionalClientsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,14 @@ class CreateDriversTable extends Migration
      */
     public function up()
     {
-        Schema::create('drivers', function (Blueprint $table) {
+        Schema::create('regional_clients', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('baseclient_id')->unsigned();
+            $table->integer('location_id')->unsigned();
             $table->string('name')->nullable();
             $table->string('email')->nullable();
             $table->string('phone')->nullable();
-            $table->string('license_number')->nullable();
-            $table->string('license_image')->nullable();
-            $table->string('team_id')->nullable();
-            $table->string('fleet_id')->nullable();
-            $table->tinyinteger('status')->nullable();
+            $table->string('status')->nullable();
             $table->timestamps();
         });
     }
@@ -34,6 +32,6 @@ class CreateDriversTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('drivers');
+        Schema::dropIfExists('regional_clients');
     }
 }

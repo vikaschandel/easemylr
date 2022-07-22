@@ -9,7 +9,7 @@ class Driver extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'name', 'email', 'phone', 'license_number', 'license_image', 'status','created_at','updated_at'        
+        'name', 'email', 'phone', 'license_number', 'license_image','team_id','fleet_id','status','created_at','updated_at'        
     ];
 
     public function BankDetail()
