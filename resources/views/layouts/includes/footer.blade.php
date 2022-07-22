@@ -223,7 +223,7 @@
               }
                 });
                 $(function () {
-                    $('#create_edd').click(function () {
+                    $('#create_edd').click(function () { 
 
                         var consignmentID = [];
                 $(':checkbox[name="checked_consign[]"]:checked').each (function () {
