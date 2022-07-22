@@ -220,4 +220,4 @@ $('#consignment_report').DataTable( {
         } );
 
     </script>
-    <!-- END PAGE LEVEL SCRIPTS -->
+    <!-- END PAGE LEVEL SCRIPTS -->  
