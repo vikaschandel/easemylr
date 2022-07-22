@@ -1330,7 +1330,6 @@ class ConsignmentController extends Controller
                             <td  style=" border: 1px solid; border-collapse: collapse; text-align:center;"></td>
                         </tr>';
          }
- 
          $html .= ' </tbody>
                 <tfoot>
                     <tr  style=" border: 1px solid; border-collapse: collapse;">
@@ -1455,7 +1454,7 @@ class ConsignmentController extends Controller
         $id = $_GET['draft_id'];
         $transcationview = TransactionSheet::select('*')->with('ConsignmentDetail')->where('drs_no', $id)->get();
         $result = json_decode(json_encode($transcationview), true);
-       // echo'<pre>'; print_r($result); die;
+    
         $response['fetch'] = $result;
         $response['success'] = true;
         $response['success_message'] = "Data Imported successfully";

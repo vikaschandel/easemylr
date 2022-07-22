@@ -58,7 +58,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             </div>
             <div class="modal-body">
-                <form id="updt_vehicle" method="post">
+                <form id="updt_vehicle" method="post"> 
 
                     <input type="hidden" class="form-control" id="transaction_id" name="transaction_id" value="">
                     <div class="form-row mb-0">
