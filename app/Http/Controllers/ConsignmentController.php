@@ -185,6 +185,7 @@ class ConsignmentController extends Controller
         $this->prefix = request()->route()->getPrefix();
         $authuser = Auth::user();
         $role_id = Role::where('id','=',$authuser->role_id)->first();
+        $regclient = explode(',',$authuser->regionalclient_id);
         $cc = explode(',',$authuser->branch_id);
         // $cc = explode(',', $authuser->branch_id);
 
