@@ -111,6 +111,9 @@ td.dt-control {
 .labels{
     color:#4361ee;
 }
+a.badge.alert.bg-secondary.shadow-sm {
+    color: #fff;
+}
     </style>
 <!-- BEGIN PAGE LEVEL CUSTOM STYLES -->
     <link rel="stylesheet" type="text/css" href="{{asset('plugins/table/datatable/datatables.css')}}">
@@ -141,6 +144,7 @@ td.dt-control {
                                     <th> </th>
                                     <th>LR Details</th>
                                     <th>Route</th>
+                                    <th>Printing options</th>
                                     <th>EDD</th>
                                     <th>LR Status</th>
                                     <th>Delivery Status</th>

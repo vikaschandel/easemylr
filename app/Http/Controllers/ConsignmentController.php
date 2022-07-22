@@ -132,6 +132,11 @@ class ConsignmentController extends Controller
             </ul>';
                 return $troute;
             })
+            ->addColumn('poptions', function($data){
+                $st = '<a href="print-sticker/'.$data->id.'/" target="_blank" class="badge alert bg-secondary shadow-sm">Print Sticker</a> || <a href="consignments/'.$data->id.'/print-view/1/" target="_blank" class="badge alert bg-secondary shadow-sm">Print LR</a> || <a href="consignments/'.$data->id.'/print-view/2/" target="_blank" class="badge alert bg-secondary shadow-sm">Print with Ship to</a>';
+
+                return $st;
+            }) 
             ->addColumn('status', function($data){
                 if($data->status == 0){
                  $st = '<span class="badge alert bg-secondary shadow-sm">Unknown</span>';
@@ -164,7 +169,7 @@ class ConsignmentController extends Controller
 
                 return $st;
             })                      
-        ->rawColumns(['lrdetails','route','status', 'delivery_status'])    
+        ->rawColumns(['lrdetails','route','poptions','status', 'delivery_status'])    
         ->make(true);
      
     }
@@ -907,6 +912,29 @@ class ConsignmentController extends Controller
         $file->cleanDirectory('pdf');
     }
 
+    public function printSticker(Request $request)
+    {
+        $query = ConsignmentNote::query();
+        $authuser = Auth::user();
+        $cc = explode(',', $authuser->branch_id);
+        $branch_add = BranchAddress::first();
+        $locations = Location::whereIn('id', $cc)->first();
+
+        $cn_id = $request->id;
+        $getdata = ConsignmentNote::where('id', $cn_id)->with('ConsignmentItems', 'ConsignerDetail', 'ConsigneeDetail', 'ShiptoDetail', 'VehicleDetail', 'DriverDetail')->first();
+        $data = json_decode(json_encode($getdata), true);
+
+        //echo "<pre>";print_r($data);die;
+
+        //$logo = url('assets/img/logo_se.jpg');
+        $barcode = url('assets/img/barcode.png');
+
+        //echo $barcode; die;
+
+        return view('consignments.consignment-sticker', ['data' => $data]);
+
+    }
+
     public function unverifiedList(Request $request)
     {
         $this->prefix = request()->route()->getPrefix();
@@ -1431,14 +1459,21 @@ class ConsignmentController extends Controller
     }
 
 /////////////////Web Hooks/////////////////////////////
-    public function agent_webhooks(Request $data)
+    public function handle(Request $request)
     {
-        if (!empty($data)) {
-            echo 'no data found';
-        } else {
-            echo '<pre>';
-            print_r($data);die;
+        header('Content-Type: application/json');
+        $request = file_get_contents('php://input');
+        $req_dump = print_r( $request, true );
+        $fp = file_put_contents( 'request.log', $req_dump );
+        
+        //Updated Answer
+        if($json = json_decode(file_get_contents("php://input"), true)){
+           $data = $json;
         }
+        echo "<pre>"; print_r($data);
+        //Do something with the event
+         logger($data);
     }
+
 
 }
