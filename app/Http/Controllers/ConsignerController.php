@@ -38,9 +38,15 @@ class ConsignerController extends Controller
             $query = Consigner::query();
             $authuser = Auth::user();
             $role_id = Role::where('id','=',$authuser->role_id)->first();
-        
+            $regclient = explode(',',$authuser->regionalclient_id);
             $cc = explode(',',$authuser->branch_id);
-            if($authuser->role_id == $role_id->id){
+            if($authuser->role_id != 2 || $authuser->role_id != 3){
+                if($authuser->role_id == $role_id->id){
+                    $consigners = $query->whereIn('regionalclient_id',$regclient)->orderBy('id','DESC')->with('State')->get();
+                }else{
+                    $consigners = $query->orderBy('id','DESC')->with('State')->get();
+                }
+            }elseif($authuser->role_id == 2 || $authuser->role_id == 3){
                 $consigners = $query->whereIn('branch_id',$cc)->orderBy('id','DESC')->with('State')->get();
             }else{
                 $consigners = $query->orderBy('id','DESC')->with('State')->get();

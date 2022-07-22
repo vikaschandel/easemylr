@@ -58,11 +58,10 @@
                                                 <?php 
                                                 // print_r($locations); die;
                                                 if(count($locations)>0) {
-                                                    
                                                     foreach ($locations as $key => $location) {
                                                 ?>
                                                     <option value="{{ $key }}" {{$getClient->RegClients->location_id == $key ? 'selected' : ''}}>{{ucwords($location)}}</option>
-                                                    <?php 
+                                                <?php 
                                                     }
                                                 }
                                                 ?>
