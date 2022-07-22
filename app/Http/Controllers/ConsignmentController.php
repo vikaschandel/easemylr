@@ -1148,8 +1148,6 @@ class ConsignmentController extends Controller
             $total_quantity = $value['total_quantity'];
             $total_weight = $value['total_weight'];
 
-            //echo'<pre>'; print_r($data); die;
-
             $transaction = DB::table('transaction_sheets')->insert(['drs_no' => $drs_no, 'consignment_no' => $unique_id, 'branch_id' => $cc, 'consignee_id' => $consignee_id, 'consignment_date' => $consignment_date, 'city' => $city, 'pincode' => $pincode, 'total_quantity' => $total_quantity, 'total_weight' => $total_weight, 'order_no' => $i, 'status' => '1']);
         }
 
@@ -1174,7 +1172,6 @@ class ConsignmentController extends Controller
         $transcationview = TransactionSheet::select('*')->with('ConsignmentDetail')->where('drs_no', $id)->orderby('order_no', 'asc')->get();
         $result = json_decode(json_encode($transcationview), true);
         //echo'<pre>'; print_r($result); die;
-
         $response['fetch'] = $result;
         $response['success'] = true;
         $response['success_message'] = "Data Imported successfully";
@@ -1202,9 +1199,8 @@ class ConsignmentController extends Controller
         $cc = explode(',', $consignmentId);
 
         $consigner = DB::table('consignment_notes')->whereIn('id', $cc)->update(['delivery_status' => '3']);
-
         $drs = DB::table('transaction_sheets')->whereIn('consignment_no', $cc)->update(['status' => '3']);
-
+        
         $response['success'] = true;
         $response['success_message'] = "Data Imported successfully";
         return response()->json($response);

@@ -70,6 +70,7 @@ div.relative {
                                     <th>Driver Name</th>
                                     <th>Driver Number</th>
                                     <th>Action</th>
+                                    <th>DRS Status</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -105,8 +106,9 @@ div.relative {
                                         <?php }else{ ?>
                                             <button type="button" class="btn btn-danger" value="{{$trns['drs_no']}}" style="margin-right:4px;"> Cancelled</button>
                                             <?php } ?>
-                                            <a class="drs_cancel btn btn-danger" drs-no = "{{$trns['drs_no']}}" data-text="consignment" data-status = "0" data-action = "<?php echo URL::current();?>"><span><i class="fa fa-check-circle-o"></i> Cancel</span></a>
+                                           
                                 </td>
+                                        <td> <a class="drs_cancel btn btn-success" drs-no = "{{$trns['drs_no']}}" data-text="consignment" data-status = "0" data-action = "<?php echo URL::current();?>"><span><i class="fa fa-check-circle-o"></i> Active</span></a></td>
                                 <?php } ?>
                               </tr>
                               @endforeach
@@ -385,7 +387,7 @@ function showLibrary()
                         var alldata = value;  
                         consignmentID.push(alldata.consignment_no);
                         
-                        $('#delivery_status tbody').append("<tr><td>" + value.consignment_no + "</td><td><input type='date' name='delivery_date[]' data-id="+ value.consignment_no +" class='delivery_d' value='"+ alldata.consignment_detail.delivery_date+ "'></td></tr>");      
+                        $('#delivery_status tbody').append("<tr><td>" + value.consignment_no + "</td><td>" + value.consignee_id + "</td><td><input type='date' name='delivery_date[]' data-id="+ value.consignment_no +" class='delivery_d' value='"+ alldata.consignment_detail.delivery_date+ "'></td></tr>");      
 
 
                     });

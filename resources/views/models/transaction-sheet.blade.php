@@ -49,6 +49,7 @@
                             <thead>
                                 <tr>
                                     <th>LR No</th>
+                                    <th>Consignee Name</th>
                                     <th>Delivery Date</th>
                                 </tr>
                             </thead>
@@ -170,9 +171,7 @@
 
                             </div>
                         </div>
-
                     </div>
-
             </div>
 
             <div class="modal-footer">
@@ -183,7 +182,7 @@
         </div>
     </div>
 </div>
-<!-- =====================================================================================-->
+<!--=====================================================================================-->
 
 <div class="modal fade bd-example-modal-xl" id="opm" tabindex="-1" role="dialog"
     aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
@@ -209,11 +208,7 @@
                         <div class="col-sm-12">
 
                             <div>
-
                             </div>
-
-
-
                             <div class="table-responsive">
                                 <table id="sheet" class="table table-hover"
                                     style="width:100%; text-align:left; border: 1px solid #c7c7c7;">
