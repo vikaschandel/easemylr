@@ -91,6 +91,16 @@
                                     <label for="exampleFormControlInput2">Account Holder Name</label>
                                     <input type="text" class="form-control" name="account_holdername" value="{{old('account_holdername',isset($getdriver->BankDetail->account_holdername)?$getdriver->BankDetail->account_holdername:'')}}" placeholder="">
                                 </div>
+                                <div class="form-group col-md-6">
+                                    <label for="exampleFormControlInput2">Team Id</label>
+                                    <input type="text" class="form-control" name="team_id" value="{{old('team_id',isset($getdriver->team_id)?$getdriver->team_id:'')}}" placeholder="">
+                                </div>  
+                            </div>
+                            <div class="form-row mb-0">
+                                <div class="form-group col-md-6">
+                                    <label for="exampleFormControlInput2">Fleet ID</label>
+                                    <input type="text" class="form-control" name="fleet_id" value="{{old('fleet_id',isset($getdriver->fleet_id)?$getdriver->fleet_id:'')}}" placeholder="">
+                                </div> 
                             </div>
 
                             <input type="submit" class="mt-4 mb-4 btn btn-primary">
