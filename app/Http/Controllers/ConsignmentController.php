@@ -1005,7 +1005,7 @@ class ConsignmentController extends Controller
             $driverPhone = $value['driver_phone'];
 
         }
-
+        $chk_tooken = Driver::where('id', $adddriverId)->select('team_id', 'fleet_id')->get();
         $tooken_details = json_decode(json_encode($chk_tooken), true);
         // Push to tooken if Team Id & Fleet Id Available
         if(!empty($tooken_details[0])){
@@ -1033,7 +1033,7 @@ class ConsignmentController extends Controller
             $td = '{
                 "api_key": "50666282f31751191c4f723c1410224319e5cdfb2fd5723e5a19",
                 "order_id": "'.$task['order_id'].'",
-                "job_description": "DSR-'.$task['id'].'",
+                "job_description": "DRS-'.$task['id'].'",
                 "customer_email": "'.$task['email'].'",
                 "customer_username": "'.$task['consignee_name'].'",
                 "customer_phone": "'.$task['phone'].'",
@@ -1054,7 +1054,7 @@ class ConsignmentController extends Controller
                 ],
                 "team_id": "'.$task['team_id'].'",
                 "auto_assignment": "1",
-                "has_pickup": "0",
+                "has_pickup": "1",
                 "has_delivery": "1",
                 "layout_type": "0",
                 "tracking_link": 1,
@@ -1110,7 +1110,7 @@ class ConsignmentController extends Controller
                 "longitude": " ",
                 "time": "'.$task['edd'].' 21:00:00",
                 "phone": "'.$task['phone'].'",
-                "job_description": "DSR-'.$task['id'].'",
+                "job_description": "DRS-'.$task['id'].'",
                 "template_name": "Template_1",
                 "template_data": [
                   {
