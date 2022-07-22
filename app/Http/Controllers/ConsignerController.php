@@ -40,14 +40,16 @@ class ConsignerController extends Controller
             $role_id = Role::where('id','=',$authuser->role_id)->first();
             $regclient = explode(',',$authuser->regionalclient_id);
             $cc = explode(',',$authuser->branch_id);
-            if($authuser->role_id != 2 || $authuser->role_id != 3){
+           //echo "<pre>"; print_r($authuser->role_id); die;
+            if($authuser->role_id == 2 || $authuser->role_id == 3){
                 if($authuser->role_id == $role_id->id){
-                    $consigners = $query->whereIn('regionalclient_id',$regclient)->orderBy('id','DESC')->with('State')->get();
+                    $consigners = $query->whereIn('branch_id',$cc)->orderBy('id','DESC')->with('State')->get();
                 }else{
                     $consigners = $query->orderBy('id','DESC')->with('State')->get();
                 }
-            }elseif($authuser->role_id == 2 || $authuser->role_id == 3){
-                $consigners = $query->whereIn('branch_id',$cc)->orderBy('id','DESC')->with('State')->get();
+            }else if($authuser->role_id != 2 || $authuser->role_id != 3){
+                $consigners = $query->whereIn('regionalclient_id',$regclient)->orderBy('id','DESC')->with('State')->get();
+               
             }else{
                 $consigners = $query->orderBy('id','DESC')->with('State')->get();
             }
