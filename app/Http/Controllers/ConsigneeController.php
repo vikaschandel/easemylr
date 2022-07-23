@@ -9,6 +9,7 @@ use App\Models\State;
 use App\Models\Consigner;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\ConsigneeExport;
+use App\Models\Role;
 use DB;
 use URL;
 use Auth;
@@ -35,13 +36,17 @@ class ConsigneeController extends Controller
         if ($request->ajax()) {
             $query = Consignee::query();
             $authuser = Auth::user();
+            $role_id = Role::where('id','=',$authuser->role_id)->first();
+            $regclient = explode(',',$authuser->regionalclient_id);
             $cc = explode(',',$authuser->branch_id);
-            if($authuser->role_id == 2){
-                $consignees = DB::table('consignees')->select('consignees.*', 'consigners.nick_name as consigner_id', 'states.name as state_id')
-                            ->join('consigners', 'consigners.id', '=', 'consignees.consigner_id')
-                            ->join('states', 'states.id', '=', 'consignees.state_id')
-                            ->where('consigners.branch_id', $cc)
-                            ->get();
+            if($authuser->role_id !=1){
+                if($authuser->role_id == $role_id->id){
+                    $consignees = DB::table('consignees')->select('consignees.*', 'consigners.nick_name as consigner_id', 'states.name as state_id')
+                                ->join('consigners', 'consigners.id', '=', 'consignees.consigner_id')
+                                ->join('states', 'states.id', '=', 'consignees.state_id')
+                                ->where('consigners.branch_id', $cc)
+                                ->get();
+                }
             }else{
                 $consignees = $query->orderBy('id','DESC')->with(['Consigner','State'])->get();
             }
