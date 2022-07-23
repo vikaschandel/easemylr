@@ -24,6 +24,12 @@
                         <table class="table table-striped">
                             <tbody>
                                 <tr>
+                                    <th scope="row">Regional Client</th>
+                                    <td>
+                                        {{isset($getconsigner->GetRegClient->name) ? ucfirst($getconsigner->GetRegClient->name) : "-" }}
+                                    </td>                                       
+                                </tr>
+                                <tr>
                                     <th scope="row">Consigner Nick Name</th>
                                     <td>{{isset($getconsigner->nick_name)?ucfirst($getconsigner->nick_name):'-'}} </td>
                                 </tr>
@@ -42,12 +48,6 @@
                                 <tr>
                                     <th scope="row">Mobile No.</th>
                                     <td>{{isset($getconsigner->phone)?ucfirst($getconsigner->phone):'-'}}</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Regional Client</th>
-                                    <td>
-                                        {{isset($getconsigner->GetRegClient->name) ? ucfirst($getconsigner->GetRegClient->name) : "-" }}
-                                    </td>                                       
                                 </tr>
                                 <tr>
                                     <th scope="row">GSTNO.</th>

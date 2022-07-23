@@ -24,30 +24,6 @@
 
                             <div class="form-row mb-0">
                                 <div class="form-group col-md-6">
-                                    <label for="exampleFormControlInput2">Consigner Nick Name<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="nick_name" value="{{old('nick_name',isset($getconsigner->nick_name)?$getconsigner->nick_name:'')}}" placeholder="">
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="exampleFormControlInput2">Consigner Legal Name</label>
-                                    <input type="text" class="form-control" name="legal_name" value="{{old('legal_name',isset($getconsigner->legal_name)?$getconsigner->legal_name:'')}}" placeholder="">
-                                </div>
-                            </div>        
-                            <div class="form-row mb-0">
-                                <div class="form-group col-md-6">
-                                    <label for="exampleFormControlInput2">Contact Person Name</label>
-                                    <input type="text" class="form-control" name="contact_name" value="{{old('contact_name',isset($getconsigner->contact_name)?$getconsigner->contact_name:'')}}" placeholder="Contact Name">
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="exampleFormControlInput2">Email ID</label>
-                                    <input type="email" class="form-control" name="email" value="{{old('email',isset($getconsigner->email)?$getconsigner->email:'')}}" placeholder="Email">
-                                </div>
-                            </div>        
-                            <div class="form-row mb-0">
-                                <div class="form-group col-md-6">
-                                    <label for="exampleFormControlInput2">Mobile No.<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control mbCheckNm" name="phone" value="{{old('phone',isset($getconsigner->phone)?$getconsigner->phone:'')}}" placeholder="Phone" maxlength="10">
-                                </div>
-                                <div class="form-group col-md-6">
                                     <label for="exampleFormControlSelect1">Regional Client<span
                                             class="text-danger">*</span></label>
                                     <?php $authuser = Auth::user();
@@ -78,8 +54,32 @@
                                         }
                                         ?>
                                     </select>
-                                    <input type="" name="branch_id" id="location_id" value="{{old('branch_id',isset($getconsigner->branch_id)?$getconsigner->branch_id:'')}}">
+                                    <input type="hidden" name="branch_id" id="location_id" value="{{old('branch_id',isset($getconsigner->branch_id)?$getconsigner->branch_id:'')}}">
                                     <?php } ?>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="exampleFormControlInput2">Consigner Nick Name<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="nick_name" value="{{old('nick_name',isset($getconsigner->nick_name)?$getconsigner->nick_name:'')}}" placeholder="">
+                                </div>
+                            </div>        
+                            <div class="form-row mb-0">
+                                <div class="form-group col-md-6">
+                                    <label for="exampleFormControlInput2">Consigner Legal Name</label>
+                                    <input type="text" class="form-control" name="legal_name" value="{{old('legal_name',isset($getconsigner->legal_name)?$getconsigner->legal_name:'')}}" placeholder="">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="exampleFormControlInput2">Contact Person Name</label>
+                                    <input type="text" class="form-control" name="contact_name" value="{{old('contact_name',isset($getconsigner->contact_name)?$getconsigner->contact_name:'')}}" placeholder="Contact Name">
+                                </div>
+                            </div>        
+                            <div class="form-row mb-0">
+                                <div class="form-group col-md-6">
+                                    <label for="exampleFormControlInput2">Email ID</label>
+                                    <input type="email" class="form-control" name="email" value="{{old('email',isset($getconsigner->email)?$getconsigner->email:'')}}" placeholder="Email">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="exampleFormControlInput2">Mobile No.<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control mbCheckNm" name="phone" value="{{old('phone',isset($getconsigner->phone)?$getconsigner->phone:'')}}" placeholder="Phone" maxlength="10">
                                 </div>
                             </div>         
                             <div class="form-row mb-0">
