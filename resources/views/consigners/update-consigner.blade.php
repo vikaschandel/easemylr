@@ -48,19 +48,38 @@
                                     <input type="text" class="form-control mbCheckNm" name="phone" value="{{old('phone',isset($getconsigner->phone)?$getconsigner->phone:'')}}" placeholder="Phone" maxlength="10">
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="exampleFormControlSelect1">Branch Location<span class="text-danger">*</span></label>
-                                    <select class="form-control" name="branch_id">
-                                        <option value="">Select</option>
+                                    <label for="exampleFormControlSelect1">Regional Client<span
+                                            class="text-danger">*</span></label>
+                                    <?php $authuser = Auth::user();
+                                    if($authuser->role_id == 4){
+                                    ?>        
+                                    <select class="form-control" id="regionalclient_id" name="regionalclient_id">
                                         <?php 
-                                        if(count($branches)>0) {
-                                            foreach ($branches as $k => $branch) {
+                                        if(count($regclients)>0) {
+                                            foreach ($regclients as $k => $client) {
                                         ?>
-                                            <option value="{{ $k }}" {{ $k == $getconsigner->branch_id ? 'selected' : ''}}>{{ucwords($branch)}}</option>
-                                            <?php 
+                                        <option data-locationid="{{$client->location_id}}" value="{{ $client->id }}" {{ $k == $getconsigner->regionalclient_id ? 'selected' : ''}}>{{ucwords($client->name)}}</option>
+                                        <?php 
                                             }
                                         }
                                         ?>
                                     </select>
+                                    <input type="hidden" name="branch_id" value="{{$client->location_id}}">
+                                    <?php } else { ?>
+                                        <select class="form-control" id="regionalclient_id" name="regionalclient_id">
+                                        <option value="">Select</option>
+                                        <?php 
+                                        if(count($regclients)>0) {
+                                            foreach ($regclients as $k => $client) {
+                                        ?>
+                                        <option data-locationid="{{$client->location_id}}" value="{{ $client->id }}" {{ $k == $getconsigner->regionalclient_id ? 'selected' : ''}}>{{ucwords($client->name)}}</option>
+                                        <?php 
+                                            }
+                                        }
+                                        ?>
+                                    </select>
+                                    <input type="" name="branch_id" id="location_id" value="{{old('branch_id',isset($getconsigner->branch_id)?$getconsigner->branch_id:'')}}">
+                                    <?php } ?>
                                 </div>
                             </div>         
                             <div class="form-row mb-0">

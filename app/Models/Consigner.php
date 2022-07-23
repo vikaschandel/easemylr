@@ -23,6 +23,13 @@ class Consigner extends Model
     public function GetBranch(){
         return $this->hasOne('App\Models\Location','id','branch_id');
     }
+    
+    public function GetRegClient(){
+        return $this->hasOne('App\Models\RegionalClient','id','regionalclient_id');
+    }
+    public function RegClient(){
+        return $this->belongsTo('App\Models\RegionalClient','regionalclient_id');
+    }
 
     public function GetState(){
         return $this->hasOne('App\Models\State','id','state_id');
