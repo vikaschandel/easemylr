@@ -48,8 +48,15 @@ class ConsignerController extends Controller
                     $consigners = $query->orderBy('id','DESC')->with('State')->get();
                 }
             }else if($authuser->role_id != 2 || $authuser->role_id != 3){
-                $consigners = $query->whereIn('regionalclient_id',$regclient)->orderBy('id','DESC')->with('State')->get();
-               
+                if($authuser->role_id == $role_id->id){
+                    if($authuser->role_id !=1){
+                        $consigners = $query->whereIn('regionalclient_id',$regclient)->orderBy('id','DESC')->with('State')->get();
+                    }else{
+                        $consigners = $query->orderBy('id','DESC')->with('State')->get();
+                    }
+                }else{
+                    $consigners = $query->orderBy('id','DESC')->with('State')->get();
+                }
             }else{
                 $consigners = $query->orderBy('id','DESC')->with('State')->get();
             }
