@@ -37,9 +37,19 @@ class ConsignerController extends Controller
         if ($request->ajax()) {
             $query = Consigner::query();
             $authuser = Auth::user();
+            $role_id = Role::where('id','=',$authuser->role_id)->first();
+            $regclient = explode(',',$authuser->regionalclient_id);
             $cc = explode(',',$authuser->branch_id);
-            if($authuser->role_id == 2){
-                $consigners = $query->whereIn('branch_id',$cc)->orderBy('id','DESC')->with('State')->get();
+           //echo "<pre>"; print_r($authuser->role_id); die;
+            if($authuser->role_id == 2 || $authuser->role_id == 3){
+                if($authuser->role_id == $role_id->id){
+                    $consigners = $query->whereIn('branch_id',$cc)->orderBy('id','DESC')->with('State')->get();
+                }else{
+                    $consigners = $query->orderBy('id','DESC')->with('State')->get();
+                }
+            }else if($authuser->role_id != 2 || $authuser->role_id != 3){
+                $consigners = $query->whereIn('regionalclient_id',$regclient)->orderBy('id','DESC')->with('State')->get();
+               
             }else{
                 $consigners = $query->orderBy('id','DESC')->with('State')->get();
             }
@@ -160,7 +170,7 @@ class ConsignerController extends Controller
     {
         $this->prefix = request()->route()->getPrefix();
         $id = decrypt($consigner);
-        $getconsigner = Consigner::where('id',$id)->with('GetBranch','GetState')->first();
+        $getconsigner = Consigner::where('id',$id)->with('GetRegClient','GetState')->first();
         return view('consigners.view-consigner',['prefix'=>$this->prefix,'title'=>$this->title, 'pagetitle'=>'View Details', 'getconsigner'=>$getconsigner]);
     }
 
@@ -175,16 +185,17 @@ class ConsignerController extends Controller
         $this->prefix = request()->route()->getPrefix();
         $id = decrypt($id);      
         $states = Helper::getStates();
-        // $branches = Helper::getLocations();
         $authuser = Auth::user();
+        $role_id = Role::where('id','=',$authuser->role_id)->first();
+
         $cc = explode(',',$authuser->branch_id);
-        if($authuser->role_id == 2){
-            $branches = Location::whereIn('id',$cc)->orderby('name','ASC')->pluck('name','id');
+        if($authuser->role_id == $role_id->id){
+            $regclients = RegionalClient::whereIn('location_id',$cc)->orderby('name','ASC')->get();
         }else{
-            $branches = Location::where('status',1)->orderby('name','ASC')->pluck('name','id');
+            $regclients = RegionalClient::where('status',1)->orderby('name','ASC')->get();
         }
         $getconsigner = Consigner::where('id',$id)->first();
-        return view('consigners.update-consigner')->with(['prefix'=>$this->prefix,'getconsigner'=>$getconsigner,'states'=>$states,'branches'=>$branches, 'title'=>$this->title, 'pagetitle'=>'Update']);
+        return view('consigners.update-consigner')->with(['prefix'=>$this->prefix,'getconsigner'=>$getconsigner,'states'=>$states,'regclients'=>$regclients, 'title'=>$this->title, 'pagetitle'=>'Update']);
     }
 
     /**
@@ -218,8 +229,9 @@ class ConsignerController extends Controller
             $consignersave['gst_number']   = $request->gst_number;
             $consignersave['contact_name'] = $request->contact_name;
             $consignersave['phone']        = $request->phone;
-            $consignersave['branch_id']    = $request->branch_id;
-            $consignersave['email']        = $request->email;
+            $consignersave['regionalclient_id'] = $request->regionalclient_id;
+            $consignersave['branch_id']     = $request->branch_id;
+            $consignersave['email']         = $request->email;
             $consignersave['address_line1'] = $request->address_line1;
             $consignersave['address_line2'] = $request->address_line2;
             $consignersave['address_line3'] = $request->address_line3;
