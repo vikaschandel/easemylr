@@ -105,9 +105,7 @@ div.relative {
                                         <button type="button" class="btn btn-success" value="{{$trns['drs_no']}}" style="margin-right:4px;"> Started</button>
                                         <?php }elseif($trns['delivery_status'] == 'Successful'){ ?>
                                         <button type="button" class="btn btn-success" value="{{$trns['drs_no']}}" style="margin-right:4px;"> Successful</button>
-                                        <?php }else{ ?>
-                                       <button type="button" class="btn btn-danger" value="{{$trns['drs_no']}}" style="margin-right:4px;"> Cancelled</button>
-                                            <?php } ?>
+                                        <?php } ?>
                                       </td>
                                         <td> <a class="drs_cancel btn btn-success" drs-no = "{{$trns['drs_no']}}" data-text="consignment" data-status = "0" data-action = "<?php echo URL::current();?>"><span><i class="fa fa-check-circle-o"></i> Active</span></a></td>
                                 <?php } ?>
