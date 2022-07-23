@@ -39,7 +39,8 @@ class ConsigneeController extends Controller
             $role_id = Role::where('id','=',$authuser->role_id)->first();
             $regclient = explode(',',$authuser->regionalclient_id);
             $cc = explode(',',$authuser->branch_id);
-            if($authuser->role_id !=1){
+            
+            if($authuser->role_id == 2 || $authuser->role_id == 3){
                 if($authuser->role_id == $role_id->id){
                     $consignees = DB::table('consignees')->select('consignees.*', 'consigners.nick_name as consigner_id', 'states.name as state_id')
                                 ->join('consigners', 'consigners.id', '=', 'consignees.consigner_id')
@@ -47,7 +48,14 @@ class ConsigneeController extends Controller
                                 ->where('consigners.branch_id', $cc)
                                 ->get();
                 }
-            }else{
+            }else if($authuser->role_id != 2 || $authuser->role_id != 3){
+                $consignees = DB::table('consignees')->select('consignees.*', 'consigners.nick_name as consigner_id', 'states.name as state_id')
+                                ->join('consigners', 'consigners.id', '=', 'consignees.consigner_id')
+                                ->join('states', 'states.id', '=', 'consignees.state_id')
+                                ->whereIn('consigners.regionalclient_id',$regclient)
+                                ->get();
+            }
+            else{
                 $consignees = $query->orderBy('id','DESC')->with(['Consigner','State'])->get();
             }
             return datatables()->of($consignees)
