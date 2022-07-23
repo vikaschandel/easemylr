@@ -266,6 +266,7 @@ Route::group(['prefix'=>'regional-manager', 'middleware'=>['auth','PermissionChe
     Route::get('consignments/{id}/print-view/{typeid}', [ConsignmentController::class, 'consignPrintview']);
     Route::get('transaction-sheet', [ConsignmentController::class, 'transactionSheet']);
     Route::any('view-transactionSheet/{id}', [ConsignmentController::class, 'getTransactionDetails']);
+    Route::any('print-sticker/{id}', [ConsignmentController::class, 'printSticker']);
     Route::any('print-transaction/{id}', [ConsignmentController::class, 'printTransactionsheet']);
     Route::any('update-edd', [ConsignmentController::class, 'updateEDD']);
     Route::any('create-drs', [ConsignmentController::class, 'CreateEdd']);
@@ -346,6 +347,7 @@ Route::group(['prefix'=>'branch-user', 'middleware'=>['auth','PermissionCheck']]
     Route::get('consignments/{id}/print-view/{typeid}', [ConsignmentController::class, 'consignPrintview']);
     Route::get('transaction-sheet', [ConsignmentController::class, 'transactionSheet']);
     Route::any('view-transactionSheet/{id}', [ConsignmentController::class, 'getTransactionDetails']);
+    Route::any('print-sticker/{id}', [ConsignmentController::class, 'printSticker']);
     Route::any('print-transaction/{id}', [ConsignmentController::class, 'printTransactionsheet']);
     Route::any('update-edd', [ConsignmentController::class, 'updateEDD']);
     Route::any('create-drs', [ConsignmentController::class, 'CreateEdd']);
@@ -473,6 +475,7 @@ Route::group(['prefix'=>'client-account', 'middleware'=>['auth','PermissionCheck
     Route::get('consignments/{id}/print-view/{typeid}', [ConsignmentController::class, 'consignPrintview']);
     Route::get('transaction-sheet', [ConsignmentController::class, 'transactionSheet']);
     Route::any('view-transactionSheet/{id}', [ConsignmentController::class, 'getTransactionDetails']);
+    Route::any('print-sticker/{id}', [ConsignmentController::class, 'printSticker']);
     Route::any('print-transaction/{id}', [ConsignmentController::class, 'printTransactionsheet']);
     Route::any('update-edd', [ConsignmentController::class, 'updateEDD']);
     Route::any('create-drs', [ConsignmentController::class, 'CreateEdd']);
