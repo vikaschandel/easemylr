@@ -155,7 +155,29 @@ class ConsignmentController extends Controller
             })   
             ->addColumn('delivery_status', function($data){
           
-                 $st = '<span class="badge alert bg-secondary shadow-sm">'.$data->delivery_status.'</span>';
+                if($data->delivery_status == "Unassigned"){
+
+                    $st = '<span class="badge alert bg-primary shadow-sm">'.$data->delivery_status.'</span>';
+
+                 }
+                 elseif($data->delivery_status == "Assigned"){
+
+                    $st = '<span class="badge alert bg-secondary shadow-sm">'.$data->delivery_status.'</span>';
+
+                 }
+                 elseif($data->delivery_status == "Started"){
+
+                    $st = '<span class="badge alert bg-warning shadow-sm">'.$data->delivery_status.'</span>';
+
+                 }
+                 elseif($data->delivery_status == "Successful"){
+
+                    $st = '<span class="badge alert bg-success shadow-sm">'.$data->delivery_status.'</span>';
+
+                 }
+                
+
+                return $st;
                 
 
                 return $st;
