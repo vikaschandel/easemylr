@@ -28,36 +28,7 @@
                         <form class="general_form" method="POST" action="{{url($prefix.'/consigners')}}"
                             id="createconsigner">
                             <div class="form-row mb-0">
-                                <div class="form-group col-md-6">
-                                    <label for="exampleFormControlInput2">Consigner Nick Name<span
-                                            class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="nick_name" placeholder="">
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="exampleFormControlInput2">Consigner Legal Name</label>
-                                    <input type="text" class="form-control" name="legal_name" placeholder="">
-                                </div>
-                            </div>
-                            <div class="form-row mb-0">
-                                <div class="form-group col-md-6">
-                                    <label for="exampleFormControlInput2">Contact Person Name</label>
-                                    <input type="text" class="form-control" name="contact_name"
-                                        placeholder="Contact Name">
-                                </div>
-
-                                <div class="form-group col-md-6">
-                                    <label for="exampleFormControlInput2">Email ID</label>
-                                    <input type="email" class="form-control" name="email" placeholder="">
-                                </div>
-                            </div>
-                            <div class="form-row mb-0">
-                                <div class="form-group col-md-6">
-                                    <label for="exampleFormControlInput2">Mobile No.<span
-                                            class="text-danger">*</span></label>
-                                    <input type="text" class="form-control mbCheckNm" name="phone"
-                                        placeholder="Enter 10 digit mobile no" maxlength="10">
-                                </div>
-                                <div class="form-group col-md-6">
+                            <div class="form-group col-md-6">
                                     <label for="exampleFormControlSelect1">Regional Client<span
                                             class="text-danger">*</span></label>
                                     <?php $authuser = Auth::user();
@@ -91,7 +62,34 @@
                                     <input type="hidden" name="branch_id" id="location_id">
                                     <?php } ?>
                                 </div>
-                                
+                                <div class="form-group col-md-6">
+                                    <label for="exampleFormControlInput2">Consigner Nick Name<span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="nick_name" placeholder="">
+                                </div>
+                            </div>
+                            <div class="form-row mb-0">
+                                <div class="form-group col-md-6">
+                                    <label for="exampleFormControlInput2">Consigner Legal Name</label>
+                                    <input type="text" class="form-control" name="legal_name" placeholder="">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="exampleFormControlInput2">Contact Person Name</label>
+                                    <input type="text" class="form-control" name="contact_name"
+                                        placeholder="Contact Name">
+                                </div>
+                            </div>
+                            <div class="form-row mb-0">
+                                <div class="form-group col-md-6">
+                                    <label for="exampleFormControlInput2">Email ID</label>
+                                    <input type="email" class="form-control" name="email" placeholder="">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="exampleFormControlInput2">Mobile No.<span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" class="form-control mbCheckNm" name="phone"
+                                        placeholder="Enter 10 digit mobile no" maxlength="10">
+                                </div>                                
                             </div>
                             <div class="form-row mb-0">
                                 <div class="form-group col-md-6">
