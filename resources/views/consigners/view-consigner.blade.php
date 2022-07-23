@@ -44,9 +44,9 @@
                                     <td>{{isset($getconsigner->phone)?ucfirst($getconsigner->phone):'-'}}</td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">Branch Location</th>
+                                    <th scope="row">Regional Client</th>
                                     <td>
-                                        {{isset($getconsigner->GetBranch->name) ? ucfirst($getconsigner->GetBranch->name) : "-" }}
+                                        {{isset($getconsigner->GetRegClient->name) ? ucfirst($getconsigner->GetRegClient->name) : "-" }}
                                     </td>                                       
                                 </tr>
                                 <tr>
@@ -55,7 +55,7 @@
                                 </tr>
                                 <tr>
                                     <th scope="row">Pincode</th>
-                                    <td>{{isset($getconsigner->postal_code) ? ucfirst($getconsigner->postal_code):'-'}}</td>
+                                    <td>{{isset($getconsigner->postal_code) ? $getconsigner->postal_code:'-'}}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">City</th>

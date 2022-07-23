@@ -33,7 +33,7 @@
                                 <div class="form-group col-md-6">
                                     <label for="exampleFormControlInput2">Client Name<span
                                             class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="client_name" placeholder="">
+                                    <input type="text" class="form-control" name="client_name" value="{{old('client_name',isset($getClient->client_name)?$getClient->client_name:'')}}">
                                 </div>
                                 <div class="form-group col-md-6">
                                     
@@ -45,19 +45,23 @@
                                         <th><label for="exampleFormControlInput2">Regional Client Name<span class="text-danger">*</span></label></th>
                                         <th><label for="exampleFormControlInput2">Location<span class="text-danger">*</span></label></th>
                                     </tr>
+                                    <?php $i=0;
+                                    foreach($getClient->RegClients as $key=>$regclientdata){ 
+                                        ?>
                                     <tr class="rowcls">
                                         <td>
-                                            <input type="text" class="form-control name" name="data[1][name]" placeholder="">
+                                            <input type="text" class="form-control name" name="data[{{$i}}][name]" value="{{old('name',isset($regclientdata->name)?$regclientdata->name:'')}}">
                                         </td>
                                         <td>
-                                            <select class="form-control location_id" name="data[1][location_id]">
+                                            <select class="form-control location_id" name="data[{{$i}}][location_id]">
                                                 <option value="">Select</option>
                                                 <?php 
+                                                // print_r($locations); die;
                                                 if(count($locations)>0) {
                                                     foreach ($locations as $key => $location) {
                                                 ?>
-                                                    <option value="{{ $key }}">{{ucwords($location)}}</option>
-                                                    <?php 
+                                                    <option value="{{ $key }}" {{$getClient->RegClients->location_id == $key ? 'selected' : ''}}>{{ucwords($location)}}</option>
+                                                <?php
                                                     }
                                                 }
                                                 ?>
@@ -69,6 +73,7 @@
                                             
                                         </td>
                                     </tr>
+                                    <?php } ?> 
                                 </tbody>
                             </table>
                             

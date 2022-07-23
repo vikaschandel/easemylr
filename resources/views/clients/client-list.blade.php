@@ -18,6 +18,16 @@ div.relative {
     width: 83px;
     height: 38px;
 }
+div.relat {
+    position: absolute;
+    left: 110px;
+    top: 24px;
+    z-index: 1;
+    width: 240px;
+    height: 38px;
+}
+
+
 /* .table > tbody > tr > td {
     color: #4361ee;
 } */
@@ -56,9 +66,9 @@ div.relative {
                     <div class="table-responsive mb-4 mt-4">
                         @csrf
                         <table id="clienttable" class="table table-hover get-datatable" style="width:100%">
-                        <div class="btn-group relative">
-                        <a href="{{'clients/create'}}" class="btn btn-primary pull-right" >Create Client</a> ||
-                        <a href="{{'reginal-clients'}}" class="btn btn-primary pull-right" >Regional Client List</a>
+                        <div class="btn-group relat">
+                        <a href="{{'clients/create'}}" class="btn btn-primary pull-right" >Create Client</a>
+                        <a href="{{'reginal-clients'}}" class="btn btn-primary pull-right" style="margin-left:7px;">Regional Client List</a>
                         </div>
                             <thead>
                                 <tr>
@@ -77,13 +87,8 @@ div.relative {
                                     <td>{{ ucwords($value->client_name ?? "-")}}</td>
                                     <!-- <td>
                                         <a class="btn btn-primary" href="{{url($prefix.'/clients/'.Crypt::encrypt($value->id).'/edit')}}" ><span><i class="fa fa-edit"></i></span></a>
-                                        <a class="btn btn-primary" href="{{url($prefix.'/clients/'.Crypt::encrypt($value->id))}}" ><span><i class="fa fa-eye"></i></span></a>
-                                        <?php $authuser = Auth::user();
-                                        if($authuser->role_id ==1) { ?>
-                                            <button type="button" class="btn btn-danger delete_client" data-id="{{ $value->id }}" data-action="<?php echo URL::to($prefix.'/clients/delete-client'); ?>">
-                                                <span><i class="fa fa-trash"></i></span></button>
-                                        <?php } ?>
-                                    </td> -->
+                                    </td>    -->
+                                    
                                 </tr>
                                 <?php 
                                     }

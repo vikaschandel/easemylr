@@ -62,7 +62,7 @@
                                             class="text-danger">*</span></label>
                                     <?php $authuser = Auth::user();
                                     if($authuser->role_id == 4){
-                                    ?>        
+                                    ?>
                                     <select class="form-control" id="regionalclient_id" name="regionalclient_id">
                                         <?php 
                                         if(count($regclients)>0) {
