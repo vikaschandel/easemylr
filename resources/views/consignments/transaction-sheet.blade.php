@@ -69,6 +69,7 @@ div.relative {
                                     <th>Vehicle No</th>
                                     <th>Driver Name</th>
                                     <th>Driver Number</th>
+                                    <th>DRS Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -83,8 +84,6 @@ div.relative {
                                 <td>{{$trns['driver_name']}}</td>
                                 <td>{{$trns['driver_no']}}</td>
                                 <?php 
-
-                                if(empty($trns['vehicle_no'])){ ?>
                                 if($trns['status'] == 0){?>
                                  <td><label class="badge badge-dark">Cancelled</label></td>
                                  <?php }else{?>
@@ -98,17 +97,19 @@ div.relative {
                                     <a class="btn btn-primary" href="{{url($prefix.'/print-transaction/'.$trns['drs_no'])}}" role="button" >Print</a>
                                     <?php } ?>
                                     <?php  
-                                    if($trns['status'] == 1){?>
-                                    <button type="button" class="btn btn-danger" value="{{$trns['drs_no']}}" style="margin-right:4px;">undelivered</button>
-                                    <?php }elseif($trns['status'] == 2){ ?>
-                                        <button type="button" class="btn btn-warning delivery_status" value="{{$trns['drs_no']}}" style="margin-right:4px;">Out For  Delivery</button>
-                                    <?php }elseif($trns['status'] == 3){ ?>
-                                        <button type="button" class="btn btn-success" value="{{$trns['drs_no']}}" style="margin-right:4px;"> Delivered</button>
+                                    if($trns['delivery_status'] == 'Unassigned'){?>
+                                    <button type="button" class="btn btn-danger" value="{{$trns['drs_no']}}" style="margin-right:4px;">Unassigned</button>
+                                    <?php }elseif($trns['delivery_status'] == 'Assigned'){ ?>
+                                        <button type="button" class="btn btn-warning delivery_status" value="{{$trns['drs_no']}}" style="margin-right:4px;">Assigned</button>
+                                    <?php }elseif($trns['delivery_status'] == 'Started'){ ?>
+                                        <button type="button" class="btn btn-success" value="{{$trns['drs_no']}}" style="margin-right:4px;"> Started</button>
+                                        <?php }elseif($trns['delivery_status'] == 'Successful'){ ?>
+                                        <button type="button" class="btn btn-success" value="{{$trns['drs_no']}}" style="margin-right:4px;"> Successful</button>
                                         <?php }else{ ?>
-                                            <button type="button" class="btn btn-danger" value="{{$trns['drs_no']}}" style="margin-right:4px;"> Cancelled</button>
+                                       <button type="button" class="btn btn-danger" value="{{$trns['drs_no']}}" style="margin-right:4px;"> Cancelled</button>
                                             <?php } ?>
-                                            <a class="drs_cancel btn btn-danger" drs-no = "{{$trns['drs_no']}}" data-text="consignment" data-status = "0" data-action = "<?php echo URL::current();?>"><span><i class="fa fa-check-circle-o"></i> Cancel</span></a>
-                                </td>
+                                      </td>
+                                        <td> <a class="drs_cancel btn btn-success" drs-no = "{{$trns['drs_no']}}" data-text="consignment" data-status = "0" data-action = "<?php echo URL::current();?>"><span><i class="fa fa-check-circle-o"></i> Active</span></a></td>
                                 <?php } ?>
                               </tr>
                               @endforeach
@@ -322,9 +323,19 @@ $('#updt_vehicle').submit(function(e) {
               processData: false,
               contentType: false,
               beforeSend: function(){
-              
+                $('.indicator-progress').prop('disabled', true);
+                $('.indicator-label').prop('disabled', true);
+
+                $(".indicator-progress").show(); 
+                $(".indicator-label").hide();
                },
+               complete: function (response) {
+            $('.indicator-progress').prop('disabled', true);
+            $('.indicator-label').prop('disabled', true);
+        },
               success: (data) => {
+                $(".indicator-progress").hide();
+                $(".indicator-label").show();
                     if(data.success == true){
                         
                         alert('Data Updated Successfully');

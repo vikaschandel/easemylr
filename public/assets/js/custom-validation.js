@@ -769,16 +769,18 @@ jQuery(document).ready(function(){
 //    Drs Cncel status update+++++++++++++++++++++++++++++++++++++
 jQuery(document).on('click','.drs_cancel',function(event){
     event.stopPropagation();
+   
+    
     let drs_no   = jQuery(this).attr('drs-no');
     var dataaction = jQuery(this).attr('data-action');
-    var datastatus = jQuery(this).attr('data-status');
     var updatestatus = 'updatestatus';
 
     jQuery('#commonconfirm').modal('show');
     // jQuery('.confirmtext').text('Are you sure you want to '+statustext+' this '+datatext+'?');
     jQuery( ".commonconfirmclick").one( "click", function() {
-
-        var data =  {drs_no:drs_no,status:datastatus,updatestatus:updatestatus};
+        var drs_status = jQuery('#drs_status').val();
+        alert(drs_status);
+        var data =  {drs_no:drs_no,drs_status:drs_status,updatestatus:updatestatus};
         
         jQuery.ajax({
             url         : dataaction,

@@ -4,13 +4,27 @@
        <!-- <button type="button" class="close" data-dismiss="modal"><img src="/assets/images/close-bottle.png" class="img-fluid"></button> -->
        <!-- Modal Header -->
        <div class="modal-header text-center">
-        	<h4 class="modal-title">Confirm</h4>
+        	<h4 class="modal-title">Update DRS Status</h4>
        </div>
        <!-- Modal body -->
        <div class="modal-body">
+       <div class="form-row mb-0">
+                        <div class="form-group col-md-12">
+                            <label for="location_name">Status</label>
+
+                            <select class="form-control" id="drs_status" name="drs_status" tabindex="-1">
+                                <option value="">Select status</option>
+                                <option value="0">Cancel Drs</option>
+                                <option value="Started">Started</option>
+                                <option value="Successful">Successful</option>
+
+                               
+                            </select>
+                        </div>
+                        </div>
           <div class="Delt-content text-center">
             <!-- <img src="/assets/images/sucess.png" class="img-fluid mb-2">  -->
-             <p class="confirmtext">Are You Sure You Want To Cancel It ?</p>
+             <!-- <p class="confirmtext">Are You Sure You Want To Cancel It ?</p> -->
           </div>
        </div>
        <!-- Modal footer -->
@@ -177,7 +191,10 @@
 
             <div class="modal-footer">
                 <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Discard</button>
-                <button type="submit" class="btn btn-primary">Save</button>
+                <!-- <button type="submit" class="btn btn-primary">Save</button> -->
+                <button type="submit" class="btn btn-primary"><span class="indicator-label">Save</span>
+                 <span class="indicator-progress" style="display: none;">Please wait...
+            	    <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span></button> 
                 </form>
             </div>
         </div>

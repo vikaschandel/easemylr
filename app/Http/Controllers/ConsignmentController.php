@@ -1010,17 +1010,19 @@ class ConsignmentController extends Controller
         $chk_tooken = Driver::where('id', $adddriverId)->select('team_id', 'fleet_id')->get();
         $tooken_details = json_decode(json_encode($chk_tooken), true);
         // Push to tooken if Team Id & Fleet Id Available
-        if(!empty($tooken_details[0])){
-            $transaction = DB::table('transaction_sheets')->whereIn('consignment_no', $cc)->update(['vehicle_no' => $vehicle_no, 'driver_name' => $driverName, 'driver_no' => $driverPhone, 'status' => 'Assigned']);
+        if(!empty($tooken_details[0]['fleet_id'])){
+            $transaction = DB::table('transaction_sheets')->whereIn('consignment_no', $cc)->update(['vehicle_no' => $vehicle_no, 'driver_name' => $driverName, 'driver_no' => $driverPhone, 'delivery_status' => 'Assigned']);
             $createTask = $this->createTookanTasks($simplyfy);
             $json = json_decode($createTask[0], true);
-            echo "<pre>";print_r($json);die;
+         //echo "<pre>";print_r($json);die;
+           
             $job_id= $json['data']['job_id'];
             $tracking_link= $json['data']['tracking_link'];
             $update = DB::table('consignment_notes')->whereIn('id', $cc)->update(['job_id' => $job_id, 'tracking_link' => $tracking_link]);
+            $updatedrs = DB::table('transaction_sheets')->whereIn('consignment_no', $cc)->update(['job_id' => $job_id]);
         }
         else{
-            $transaction = DB::table('transaction_sheets')->whereIn('consignment_no', $cc)->update(['vehicle_no' => $vehicle_no, 'driver_name' => $driverName, 'driver_no' => $driverPhone, 'status' => 'Unassigned']);
+            $transaction = DB::table('transaction_sheets')->whereIn('consignment_no', $cc)->update(['vehicle_no' => $vehicle_no, 'driver_name' => $driverName, 'driver_no' => $driverPhone, 'delivery_status' => 'Assigned']);
         }
 
         $response['success'] = true;
@@ -1094,7 +1096,7 @@ class ConsignmentController extends Controller
             curl_close($curl);
 
         }
-
+        //echo "<pre>";print_r($response);echo "</pre>";die;
         return $response;
         
     }
@@ -1187,14 +1189,22 @@ class ConsignmentController extends Controller
         $cc = $authuser->branch_id;
         if ($authuser->role_id == 2) {
 
-            $transaction = TransactionSheet::select('drs_no', 'created_at', 'vehicle_no', 'driver_name', 'driver_no', 'status')->where('branch_id', '=', $cc)->distinct()->get();
+            $transaction = TransactionSheet::select('drs_no', 'created_at', 'vehicle_no', 'driver_name', 'driver_no', 'status','delivery_status')->where('branch_id', '=', $cc)->distinct()->get();
         } else {
             $transaction = TransactionSheet::all();
         }
 
         if ($request->ajax()) {
             if (isset($request->updatestatus)) {
-                TransactionSheet::where('drs_no', $request->drs_no)->update(['status' => $request->status]);
+               // echo'<pre>'; print_r($request->drs_status); die;
+                if($request->drs_status == 'Started'){
+                    TransactionSheet::where('drs_no', $request->drs_no)->update(['delivery_status' => $request->drs_status]);
+                }elseif($request->drs_status == 'Successful'){
+                    TransactionSheet::where('drs_no', $request->drs_no)->update(['delivery_status' => $request->drs_status]);
+                }elseif($request->drs_status == 0){
+                    TransactionSheet::where('drs_no', $request->drs_no)->update(['status' => $request->drs_status]);
+                }
+
             }
 
             $url = $this->prefix . '/transaction-sheet';
@@ -1410,7 +1420,7 @@ class ConsignmentController extends Controller
         $authuser = Auth::user();
         $cc = $authuser->branch_id;
 
-        $consigner = DB::table('consignment_notes')->whereIn('id', $consignmentId)->update(['status' => '1']);
+         $consigner = DB::table('consignment_notes')->whereIn('id', $consignmentId)->update(['status' => '1']);
         $consignment = DB::table('consignment_notes')->select('consignment_notes.*', 'consigners.nick_name as consigner_id', 'consignees.nick_name as consignee_id', 'consignees.city as city', 'consignees.postal_code as pincode')
             ->join('consigners', 'consigners.id', '=', 'consignment_notes.consigner_id')
             ->join('consignees', 'consignees.id', '=', 'consignment_notes.consignee_id')
@@ -1443,7 +1453,7 @@ class ConsignmentController extends Controller
 
             //echo'<pre>'; print_r($data); die;
 
-            $transaction = DB::table('transaction_sheets')->insert(['drs_no' => $drs_no, 'consignment_no' => $unique_id, 'branch_id' => $cc, 'consignee_id' => $consignee_id, 'consignment_date' => $consignment_date, 'city' => $city, 'pincode' => $pincode, 'total_quantity' => $total_quantity, 'total_weight' => $total_weight, 'order_no' => $i, 'status' => '1']);
+            $transaction = DB::table('transaction_sheets')->insert(['drs_no' => $drs_no, 'consignment_no' => $unique_id, 'branch_id' => $cc, 'consignee_id' => $consignee_id, 'consignment_date' => $consignment_date, 'city' => $city, 'pincode' => $pincode, 'total_quantity' => $total_quantity, 'total_weight' => $total_weight, 'order_no' => $i, 'delivery_status' => 'Unassigned','status' => '1']);
         }
 
         $response['success'] = true;
@@ -1562,6 +1572,7 @@ class ConsignmentController extends Controller
          $job_id= $json['job_id'];
          //echo "<pre>";print_r($job_id);die;
          $update = DB::table('consignment_notes')->where('job_id', $job_id)->update(['delivery_status' => $json['job_state'], 'delivery_date' => $json['job_delivery_datetime_formatted']]);
+         $updatedrs = DB::table('transaction_sheets')->where('job_id', $job_id)->update(['delivery_status' => $json['job_state'], 'delivery_date' => $json['job_delivery_datetime_formatted']]);
          //Do something with the event
          //logger($data);
     }
