@@ -61,7 +61,7 @@
                                                     foreach ($locations as $key => $location) {
                                                 ?>
                                                     <option value="{{ $key }}" {{$getClient->RegClients->location_id == $key ? 'selected' : ''}}>{{ucwords($location)}}</option>
-                                                <?php 
+                                                <?php
                                                     }
                                                 }
                                                 ?>
