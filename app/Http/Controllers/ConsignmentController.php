@@ -134,7 +134,7 @@ class ConsignmentController extends Controller
                 return $troute;
             })
             ->addColumn('poptions', function($data){
-                $st = '<a href="print-sticker/'.$data->id.'/" target="_blank" class="badge alert bg-secondary shadow-sm">Print Sticker</a> || <a href="consignments/'.$data->id.'/print-view/1/" target="_blank" class="badge alert bg-secondary shadow-sm">Print LR</a> || <a href="consignments/'.$data->id.'/print-view/2/" target="_blank" class="badge alert bg-secondary shadow-sm">Print with Ship to</a>';
+                $st = '<a href="print-sticker/'.$data->id.'/" target="_blank" class="badge alert bg-warning shadow-sm">Print Sticker</a> || <a href="consignments/'.$data->id.'/print-view/1/" target="_blank" class="badge alert bg-warning shadow-sm">Print LR</a> || <a href="consignments/'.$data->id.'/print-view/2/" target="_blank" class="badge alert bg-warning shadow-sm">Print with Ship to</a>';
 
                 return $st;
             }) 
