@@ -352,7 +352,7 @@ jQuery(document).ready(function(){
                 minlength: 10,
             },
             gst_number : {
-                required: true,
+                // required: true,
                 AlphabetandNumbers: true,
                 minlength: 15,
             },
@@ -411,7 +411,7 @@ jQuery(document).ready(function(){
                 minlength: 10,
             },
             gst_number : {
-                required: true,
+                // required: true,
                 AlphabetandNumbers: true,
                 minlength: 15,
             },
