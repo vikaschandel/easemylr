@@ -57,7 +57,7 @@
                             <div class="form-row mb-0">
                                 <div class="form-group col-md-6">
                                     <label for="exampleFormControlInput2">Bank Name</label>
-                                    <input type="text" class="form-control" name="bank_name" placeholder="">
+                                    <input type="text" class="form-control" name="bank_name" placeholder=""> 
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="exampleFormControlInput2">Branch Name</label>
