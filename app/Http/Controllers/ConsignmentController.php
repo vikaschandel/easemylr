@@ -94,12 +94,14 @@ class ConsignmentController extends Controller
                     ->join('consigners', 'consigners.id', '=', 'consignment_notes.consigner_id')
                     ->join('consignees', 'consignees.id', '=', 'consignment_notes.consignee_id')
                     ->whereIn('consignment_notes.branch_id', $cc)
+                    ->orderBy('id', 'DESC')
                     ->get(['consignees.city']);
             }
         } else {
             $data = DB::table('consignment_notes')->select('consignment_notes.*', 'consigners.nick_name as consigner_id', 'consigners.city as con_city', 'consigners.postal_code as con_pincode', 'consignees.nick_name as consignee_id', 'consignees.city as city', 'consignees.postal_code as pincode','consignees.address_line1 as con_add1', 'consignees.address_line2 as con_add2', 'consignees.address_line3 as con_add3' )
                 ->join('consigners', 'consigners.id', '=', 'consignment_notes.consigner_id')
                 ->join('consignees', 'consignees.id', '=', 'consignment_notes.consignee_id')
+                ->orderBy('id', 'DESC')
                 ->get(['consignees.city']);
         }
 
