@@ -399,7 +399,7 @@ label.error{
                                                 name="data[1][freight]"></td>
                                         <td>
                                             <select class="seteing term" name="data[1][payment_type]">
-                                                <option value=""></option>
+                                                <!-- <option value=""></option> -->
                                                 <option value="To be Billed">To be Billed
                                                 </option>
                                                 <option value="To Pay">To Pay</option>
