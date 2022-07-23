@@ -362,7 +362,7 @@ class ConsignmentController extends Controller
                 $consignmentsave['vehicle_id'] = $request->vehicle_id;
                 $consignmentsave['transporter_name'] = $request->transporter_name;
                 $consignmentsave['vehicle_type'] = $request->vehicle_type;
-                $consignmentsave['delivery_status'] = "Unassigned";
+                $consignmentsave['delivery_status'] = "Assigned";
             }
 
             $saveconsignment = ConsignmentNote::create($consignmentsave);
