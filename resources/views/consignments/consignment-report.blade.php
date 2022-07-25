@@ -83,7 +83,9 @@ div.relative {
                                 </tr>
                             </thead>
                             <tbody>
+                           
                                 @foreach($consignments as $consignment)
+                                
                                 <tr>
                                     <td>{{ $consignment->id ?? "-" }}</td>
                                     <td>{{ $consignment->consignment_date ?? "-" }}</td>
@@ -113,12 +115,14 @@ div.relative {
                                     <td>{{ $consignment->consignment_date ?? "-" }}</td>
                                     <td>{{ $consignment->delivery_date ?? "-" }}</td>
                                     <?php 
-                                    if($consignment->delivery_status == 1){ ?>
-                                        <td>UnDelivered</td>
-                                        <?php }elseif($consignment->delivery_status == 2){ ?>
-                                    <td>Out For Delivery</td>
-                                    <?php }else{ ?>
-                                        <td>Delivered</td>
+                                    if($consignment->delivery_status == 'Assigned'){ ?>
+                                        <td>Assigned</td>
+                                        <?php }elseif($consignment->delivery_status == 'Started'){ ?>
+                                    <td>Started</td>
+                                    <?php }elseif($consignment->delivery_status == 'Successful'){ ?>
+                                        <td>Successful</td>
+                                    <?php }else{?>
+                                        <td>Unknown</td>
                                     <?php }?>
                                 </tr>
                                 @endforeach

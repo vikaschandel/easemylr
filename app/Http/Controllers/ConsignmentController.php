@@ -140,13 +140,13 @@ class ConsignmentController extends Controller
                 return $troute;
             })
             ->addColumn('poptions', function($data){
-                $st = '<a href="print-sticker/'.$data->id.'/" target="_blank" class="badge alert bg-warning shadow-sm">Print Sticker</a> || <a href="consignments/'.$data->id.'/print-view/1/" target="_blank" class="badge alert bg-warning shadow-sm">Print LR</a> || <a href="consignments/'.$data->id.'/print-view/2/" target="_blank" class="badge alert bg-warning shadow-sm">Print with Ship to</a>';
+                $po = '<a href="print-sticker/'.$data->id.'/" target="_blank" class="badge alert bg-warning shadow-sm">Print Sticker</a> || <a href="consignments/'.$data->id.'/print-view/1/" target="_blank" class="badge alert bg-warning shadow-sm">Print LR</a> || <a href="consignments/'.$data->id.'/print-view/2/" target="_blank" class="badge alert bg-warning shadow-sm">Print with Ship to</a>';
 
-                return $st;
+                return $po;
             }) 
             ->addColumn('status', function($data){
                 if($data->status == 0){
-                 $st = '<span class="badge alert bg-secondary shadow-sm">Unknown</span>';
+                 $st = '<span class="badge alert bg-secondary shadow-sm">Cancel</span>';
                 } 
                 elseif($data->status == 1){
                     $st = '<span class="badge bg-info shadow-sm">Active</span>';    
@@ -155,7 +155,7 @@ class ConsignmentController extends Controller
                     $st = '<span class="badge bg-success">Unverified</span>';    
                 }
                 elseif($data->status == 3){
-                    $st = '<span class="badge bg-gradient-bloody text-white shadow-sm ">Cancel</span>';  
+                    $st = '<span class="badge bg-gradient-bloody text-white shadow-sm ">Unknown</span>';  
                 }
 
                 return $st;
@@ -164,30 +164,31 @@ class ConsignmentController extends Controller
           
                 if($data->delivery_status == "Unassigned"){
 
-                    $st = '<span class="badge alert bg-primary shadow-sm">'.$data->delivery_status.'</span>';
+                    $dt = '<span class="badge alert bg-primary shadow-sm">'.$data->delivery_status.'</span>';
 
                  }
                  elseif($data->delivery_status == "Assigned"){
 
-                    $st = '<span class="badge alert bg-secondary shadow-sm">'.$data->delivery_status.'</span>';
+                    $dt = '<span class="badge alert bg-secondary shadow-sm">'.$data->delivery_status.'</span>';
 
                  }
                  elseif($data->delivery_status == "Started"){
 
-                    $st = '<span class="badge alert bg-warning shadow-sm">'.$data->delivery_status.'</span>';
+                    $dt = '<span class="badge alert bg-warning shadow-sm">'.$data->delivery_status.'</span>';
 
                  }
                  elseif($data->delivery_status == "Successful"){
 
-                    $st = '<span class="badge alert bg-success shadow-sm">'.$data->delivery_status.'</span>';
+                    $dt = '<span class="badge alert bg-success shadow-sm">'.$data->delivery_status.'</span>';
 
+                 }else{
+                     $dt = '<span class="badge alert bg-success shadow-sm">need to update</span>';
                  }
                 
 
-                return $st;
+                return $dt;
                 
 
-                return $st;
             })                      
         ->rawColumns(['lrdetails','route','poptions','status', 'delivery_status'])    
         ->make(true);
@@ -986,7 +987,7 @@ class ConsignmentController extends Controller
         $cc = explode(',',$authuser->branch_id);
         if($authuser->role_id !=1){
             if($authuser->role_id == $role_id->id){
-                $consignments = DB::table('consignment_notes')->select('consignment_notes.*', 'consigners.nick_name as consigner_id', 'consignees.nick_name as consignee_id', 'consignees.city as city', 'consignees.postal_code as pincode')
+                $consignments = DB::table('consignment_notes')->select('consignment_notes.*', 'consigners.nick_name as consigner_id', 'consignees.nick_name as consignee_id', 'consignees.city as city', 'consignees.postal_code as pincode', 'consignees.district as consignee_district')
                     ->join('consigners', 'consigners.id', '=', 'consignment_notes.consigner_id')
                     ->join('consignees', 'consignees.id', '=', 'consignment_notes.consignee_id')
                 // ->join('vehicles', 'vehicles.id', '=', 'consignment_notes.vehicle_id')
@@ -997,7 +998,7 @@ class ConsignmentController extends Controller
                 //echo'<pre>';print_r($consignments);die;
             }
         } else {
-            $consignments = DB::table('consignment_notes')->select('consignment_notes.*', 'consigners.nick_name as consigner_id', 'consignees.nick_name as consignee_id', 'consignees.city as city', 'consignees.postal_code as pincode')
+            $consignments = DB::table('consignment_notes')->select('consignment_notes.*', 'consigners.nick_name as consigner_id', 'consignees.nick_name as consignee_id', 'consignees.city as city', 'consignees.postal_code as pincode', 'consignees.district as consignee_district')
                 ->join('consigners', 'consigners.id', '=', 'consignment_notes.consigner_id')
                 ->join('consignees', 'consignees.id', '=', 'consignment_notes.consignee_id')
             // ->join('vehicles', 'vehicles.id', '=', 'consignment_notes.vehicle_id')
