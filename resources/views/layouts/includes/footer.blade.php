@@ -168,6 +168,7 @@
         });
 
         $('.get-datatable').DataTable( {
+            
             "dom": "<'dt--top-section'<'row'<'col-sm-12 col-md-6 d-flex justify-content-md-start justify-content-center'B><'col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3'f>>>" +
         "<'table-responsive'tr>" +
         "<'dt--bottom-section d-sm-flex justify-content-sm-between text-center'<'dt--pages-count  mb-sm-0 mb-3'i><'dt--pagination'p>>",
@@ -223,7 +224,7 @@
               }
                 });
                 $(function () {
-                    $('#create_edd').click(function () {
+                    $('#create_edd').click(function () { 
 
                         var consignmentID = [];
                 $(':checkbox[name="checked_consign[]"]:checked').each (function () {
@@ -239,6 +240,13 @@
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                             },
                     dataType  : 'json',
+                    beforeSend  : function () {
+                   $('.disableDrs').prop('disabled', true);
+             
+                   },
+                    complete: function (response) {
+                        $('.disableDrs').prop('disabled', true);
+                    },
                     success: function (data) {
                         if(data.success == true){
                         
@@ -314,8 +322,9 @@ $('#consignment_report').DataTable( {
             
             "ordering": true,
             "paging": true,
+            "pageLength": 80,
             
         } );
 
     </script>
-    <!-- END PAGE LEVEL SCRIPTS -->
+    <!-- END PAGE LEVEL SCRIPTS -->  
