@@ -203,25 +203,7 @@ label.error{
 
                                 <div class="row con1 form-group" style="background: white; height: 188px; ">
                                     <div class=" col-sm-12" style="margin-top: 7px;">
-                                        <?php $auth_user = Auth::user();
-                                        if($auth_user->role_id ==1){ ?>
-                                        <div class="row">
-                                            <div class=" col-sm-4" style="margin-top:10px;">
-                                                <label for="exampleFormControlInput2">Select Series</label>
-                                            </div>
-                                            <div class=" col-sm-8" style="margin-top:2px;">
-
-                                                <select id="selwarehouse" class="form-seteing" id="warehouse" name="warehouse" value="" disabled>
-                                                    <option value="">Select Series</option>
-                                                    @foreach($locations as $location)
-                                                    <option value="{{$location->consignment_no}}">
-                                                        {{$location->consignment_no}}
-                                                    </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <?php } ?>
+                                        
                                         <div class="row">
                                             <!-- <div class=" col-sm-4" style="margin-top:10px;">
                                                 <label for="exampleFormControlInput2">Consignment No.</label>
@@ -461,14 +443,14 @@ label.error{
                 <div class="row cuss fuss" style="margin-top: 15px;">
                     <?php if($with_vehicle_no == '1'){ ?>
                     <div class=" col-sm-1">
-                        <label for="exampleFormControlInput2">Transporter <br>Name</label>
+                        <label for="exampleFormControlInput2">Vendor <br>Name</label>
                     </div>
                     <div class=" col-sm-2">
                         <input type="text" class="sete" id="Transporter" name="req_transporter_name" value="">
                     </div>
                     <?php }else{ ?>
                     <div class=" col-sm-1">
-                        <label for="exampleFormControlInput2">Transporter <br>Name<span class="text-danger">*</span></label>
+                        <label for="exampleFormControlInput2">Vendor <br>Name<span class="text-danger">*</span></label>
                     </div>
                     <div class=" col-sm-2">
                         <input type="text" class="sete" id="Transporter" name="transporter_name" value="">
@@ -524,14 +506,14 @@ label.error{
                         <input type="text" class="sete" id="purchase_price" name="purchase_price" value="" maxlength="9">
                     </div>
                     <div class=" col-sm-1">
-                        <label for="exampleFormControlInput2">E way Bill</label>
+                        <label for="exampleFormControlInput2">E way Bill<span class="text-danger">*</span></label>
                     </div>
                     <div class=" col-sm-2">
                         
                         <input type="text" class="sete" id="e_way_bill" name="e_way_bill" value="">
                     </div>
                     <div class=" col-sm-1">
-                        <label for="exampleFormControlInput2">E way Bill Date</label>
+                        <label for="exampleFormControlInput2">E way Bill Date<span class="text-danger">*</span></label>
                     </div>
                     <div class=" col-sm-2">
                         

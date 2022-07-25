@@ -22,7 +22,7 @@ class ConsignerExport implements FromCollection, WithHeadings,ShouldQueue
         $arr = array();
         $query = Consigner::query();
 
-        $consigner = $query->with('State')->orderby('created_at','DESC')->get();
+        $consigner = $query->with('State','RegClient','Branch')->orderby('created_at','DESC')->get();
 
         if($consigner->count() > 0){
             foreach ($consigner as $key => $value){  
@@ -35,15 +35,45 @@ class ConsignerExport implements FromCollection, WithHeadings,ShouldQueue
                 }else{
                     $state = '';
                 }
+                if(!empty($value->RegClient)){
+                    if(!empty($value->RegClient->name)){
+                      $regClient = $value->RegClient->name;
+                    }else{
+                      $regClient = '';
+                    }
+                }else{
+                    $regClient = '';
+                }
+
+                if(!empty($value->Branch)){
+                    if(!empty($value->Branch->name)){
+                      $location_name = $value->Branch->name;
+                    }else{
+                      $location_name = '';
+                    }
+                }else{
+                    $location_name = '';
+                }
+                
 
                 $arr[] = [
                     'id' => $value->id,
                     'nick_name' => $value->nick_name,
+                    'legal_name' => $value->legal_name,
+                    'gst_number' => $value->gst_number,
                     'contact_name' => $value->contact_name,
                     'phone' => $value->phone,
+                    'branch_id' => $location_name,
+                    'regionalclient_id' => @$regClient,
+                    'email' => $value->email,
+                    'address_line1' => $value->address_line1,
+                    'address_line2' => $value->address_line2,
+                    'address_line3' => $value->address_line3,
+                    'address_line4' => $value->address_line4,
                     'postal_code' => $value->postal_code,
                     'city' => $value->city,
                     'district' => $value->district,
+                    'postal_code' => $value->postal_code,
                     'state_id' => $state,
                 ];
             }
@@ -55,8 +85,17 @@ class ConsignerExport implements FromCollection, WithHeadings,ShouldQueue
         return [
             'id',
             'Consigner Nick Name',
+            'Consigner Legal Name',
+            'GST Number',            
             'Contact Person Name',
             'Mobile No.',
+            'Location Name',
+            'Regional Client Name',
+            'Email',
+            'Address Line1',
+            'Address Line2',
+            'Address Line3',
+            'Address Line4',
             'PIN Code',
             'City',
             'District',

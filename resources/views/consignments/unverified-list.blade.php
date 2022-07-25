@@ -72,12 +72,13 @@ div.relative {
                             <thead>
                                 <tr>
                                      <th>
-                                     <input type="checkbox" name="" id="ckbCheckAll">
+                                     <input type="checkbox" name="" id="ckbCheckAll" style="width: 30px; height:30px;">
                                     </th>
                                         <th>LR No</th>
                                         <th>CN Date</th>
                                         <th>Consigner Name</th>
                                         <th>Consignee Name</th>
+                                        <th>District</th>
                                         <th>City</th>
                                         <th>Pin Code</th> 
                                         <th>Boxes</th> 
@@ -88,16 +89,16 @@ div.relative {
                             <tbody>
                             <?php 
                             $i = 1;
-                                foreach ($consignments as $key => $consignment) {  
-                                    
+                                foreach ($consignments as $key => $consignment) {       
                                 ?> 
                                 <tr>
 
-                                <td><input type="checkbox" name="checked_consign[]" class="chkBoxClass ddd" value="{{$consignment->id}}" data-trp="" data-vehno="" data-vctype=""></td>
+                                <td><input type="checkbox" name="checked_consign[]" class="chkBoxClass ddd" value="{{$consignment->id}}" data-trp="" data-vehno="" data-vctype="" style="width: 30px; height:30px;"></td>
                                     <td>{{ $consignment->id ?? "-" }}</td>
                                     <td>{{ $consignment->consignment_date}}</td>
                                     <td>{{ $consignment->consigner_id}}</td>
                                     <td>{{ $consignment->consignee_id}}</td>
+                                    <td>{{ $consignment->consignee_district ?? "-" }}</td>
                                     <td>{{ $consignment->city ?? "-" }}</td>
                                     <td>{{ $consignment->pincode ?? "-" }}</td>
                                     <td>{{ $consignment->total_quantity ?? "-" }}</td>

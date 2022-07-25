@@ -133,7 +133,7 @@
                 buttons: [
                     // { extend: 'copy', className: 'btn btn-sm' },
                     // { extend: 'csv', className: 'btn btn-sm' },
-                    { extend: 'excel', className: 'btn btn-sm' },
+                    // { extend: 'excel', className: 'btn btn-sm' },
                     // { extend: 'print', className: 'btn btn-sm' }
                 ]
             },

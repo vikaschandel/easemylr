@@ -112,6 +112,7 @@ var table = $('#consignerstable').DataTable({
         "sSearchPlaceholder": "Search...",
         "sLengthMenu": "Results :  _MENU_",
         },
+   
 
         "stripeClasses": [],
         "pageLength": 30,
@@ -129,6 +130,7 @@ var table = $('#consignerstable').DataTable({
         {data: 'action', name: 'action', orderable: false, searchable: false}
         
     ]
+
 });
 </script>
 @endsection
