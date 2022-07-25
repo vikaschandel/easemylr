@@ -56,7 +56,10 @@ class ConsigneeController extends Controller
                                 ->get();
             }
             else{
-                $consignees = $query->orderBy('id','DESC')->with(['Consigner','State'])->get();
+                $consignees = DB::table('consignees')->select('consignees.*', 'consigners.nick_name as consigner_id', 'states.name as state_id')
+                ->join('consigners', 'consigners.id', '=', 'consignees.consigner_id')
+                ->join('states', 'states.id', '=', 'consignees.state_id')
+                ->get();
             }
             return datatables()->of($consignees)
                 ->addIndexColumn()

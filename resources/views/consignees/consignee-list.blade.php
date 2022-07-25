@@ -133,4 +133,4 @@ var table = $('#consigneetable').DataTable({
  
 });
 </script>
-@endsection
+@endsection  
