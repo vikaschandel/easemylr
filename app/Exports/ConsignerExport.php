@@ -22,7 +22,7 @@ class ConsignerExport implements FromCollection, WithHeadings,ShouldQueue
         $arr = array();
         $query = Consigner::query();
 
-        $consigner = $query->with('State','RegClient')->orderby('created_at','DESC')->get();
+        $consigner = $query->with('State','RegClient','Branch')->orderby('created_at','DESC')->get();
 
         if($consigner->count() > 0){
             foreach ($consigner as $key => $value){  
@@ -37,7 +37,7 @@ class ConsignerExport implements FromCollection, WithHeadings,ShouldQueue
                 }
                 if(!empty($value->RegClient)){
                     if(!empty($value->RegClient->name)){
-                      $RegClient = $value->RegClient->name;
+                      $regClient = $value->RegClient->name;
                     }else{
                       $regClient = '';
                     }
@@ -45,6 +45,15 @@ class ConsignerExport implements FromCollection, WithHeadings,ShouldQueue
                     $regClient = '';
                 }
 
+                if(!empty($value->Branch)){
+                    if(!empty($value->Branch->name)){
+                      $location_name = $value->Branch->name;
+                    }else{
+                      $location_name = '';
+                    }
+                }else{
+                    $location_name = '';
+                }
                 
 
                 $arr[] = [
@@ -54,6 +63,7 @@ class ConsignerExport implements FromCollection, WithHeadings,ShouldQueue
                     'gst_number' => $value->gst_number,
                     'contact_name' => $value->contact_name,
                     'phone' => $value->phone,
+                    'branch_id' => $location_name,
                     'regionalclient_id' => @$regClient,
                     'email' => $value->email,
                     'address_line1' => $value->address_line1,
@@ -79,6 +89,7 @@ class ConsignerExport implements FromCollection, WithHeadings,ShouldQueue
             'GST Number',            
             'Contact Person Name',
             'Mobile No.',
+            'Location Name',
             'Regional Client Name',
             'Email',
             'Address Line1',
