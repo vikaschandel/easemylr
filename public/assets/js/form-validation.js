@@ -1202,6 +1202,34 @@ jQuery(document).ready(function(){
             formSubmitRedirect(form);
         }
     });
+    $('#updateclient').validate({ 
+        rules: {
+            client_name: {
+                required: true
+            },
+            name: {
+                required: true
+            },
+            'location_id[]' : {
+                required: true,
+            },      
+        },
+        messages: {
+            client_name: {
+                required: "Enter client name",
+            },
+            name: {
+                required: "Enter name",
+            },
+            'location_id[]' : {
+                required: "Please select location",
+            },
+        },
+        submitHandler : function(form)
+        {
+            formSubmitRedirect(form);
+        }
+    });
 
     $(".location_id").each(function()
         {

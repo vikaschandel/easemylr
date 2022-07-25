@@ -14,8 +14,8 @@
             <div class="page-header">
                 <nav class="breadcrumb-one" aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="javascript:void(0);">Clients</a></li>
-                        <li class="breadcrumb-item active" aria-current="page"><a href="javascript:void(0);">Create Client</a></li>
+                        <li class="breadcrumb-item"><a href="{{url($prefix.'/clients')}}">Client</a></li>
+                        <li class="breadcrumb-item active" aria-current="page"><a href="javascript:void(0);">Update Client</a></li>
                     </ol>
                 </nav>
             </div>
@@ -24,11 +24,8 @@
                 </div>
                 <div class="col-lg-12 col-12 layout-spacing">
                     <div class="statbox widget box box-shadow">
-                        <form class="general_form" method="POST" action="{{url($prefix.'/clients')}}" id="createclient">
-                            <!-- <div class="form-group mb-4">
-                                <label for="exampleFormControlInput2">Client Name<span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" name="client_name" id="client_name" placeholder="">
-                            </div> -->
+                        <form class="general_form" method="POST" action="{{url($prefix.'/clients/update-client')}}" id="updateclient">
+                            <input type="hidden" name="baseclient_id" value="{{$getClient->id}}">
                             <div class="form-row mb-0">
                                 <div class="form-group col-md-6">
                                     <label for="exampleFormControlInput2">Client Name<span
@@ -45,9 +42,13 @@
                                         <th><label for="exampleFormControlInput2">Regional Client Name<span class="text-danger">*</span></label></th>
                                         <th><label for="exampleFormControlInput2">Location<span class="text-danger">*</span></label></th>
                                     </tr>
-                                    <?php $i=0;
+                                    
+                                    <?php
+                                    $i=0;
                                     foreach($getClient->RegClients as $key=>$regclientdata){ 
                                         ?>
+                                    <input type="hidden" name="data[{{$i}}][isRegionalClientNull]" value="0">
+                                    <input type="hidden" name="data[{{$i}}][hidden_id]" value="{!! $regclientdata->id !!}">
                                     <tr class="rowcls">
                                         <td>
                                             <input type="text" class="form-control name" name="data[{{$i}}][name]" value="{{old('name',isset($regclientdata->name)?$regclientdata->name:'')}}">
@@ -56,11 +57,10 @@
                                             <select class="form-control location_id" name="data[{{$i}}][location_id]">
                                                 <option value="">Select</option>
                                                 <?php 
-                                                // print_r($locations); die;
                                                 if(count($locations)>0) {
                                                     foreach ($locations as $key => $location) {
                                                 ?>
-                                                    <option value="{{ $key }}" {{$getClient->RegClients->location_id == $key ? 'selected' : ''}}>{{ucwords($location)}}</option>
+                                                    <option value="{{ $key }}" {{$regclientdata->location_id == $key ? 'selected' : ''}}>{{ucwords($location)}}</option>
                                                 <?php
                                                     }
                                                 }
@@ -69,11 +69,11 @@
                                         </td>
                                         <td>
                                             <button type="button" class="btn btn-primary" id="addRow" onclick="addrow()"><i class="fa fa-plus-circle"></i></button>
-                                            <!-- <a onclick="addrow()" class="fa fa-plus-circle" href="#"></a> -->
+                                            <button type="button" class="btn btn-danger removeRow" onclick="removerow()"><i class="fa fa-minus-circle"></i></button>
                                             
                                         </td>
                                     </tr>
-                                    <?php } ?> 
+                                    <?php $i++; } ?> 
                                 </tbody>
                             </table>
                             

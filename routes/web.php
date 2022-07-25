@@ -149,6 +149,7 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth','PermissionCheck']], func
     Route::get('/sample-driver',[ImportCsvController::class, 'driverSampleDownload']);
 
     Route::resource('clients', ClientController::class);
+    Route::post('/clients/update-client', [ClientController::class, 'UpdateClient']);
     Route::get('reginal-clients', [ClientController::class, 'regionalClients']);
     
 });
