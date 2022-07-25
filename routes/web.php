@@ -170,19 +170,23 @@ Route::group(['prefix'=>'branch-manager', 'middleware'=>['auth','PermissionCheck
     Route::resource('consigners', ConsignerController::class);
     Route::post('consigners/update-consigner', [ConsignerController::class, 'updateConsigner']);
     Route::post('consigners/delete-consigner', [ConsignerController::class, 'deleteConsigner']);
+    Route::get('consigners/export/excel', [ConsignerController::class, 'exportExcel']);
 
     Route::resource('consignees', ConsigneeController::class);
     Route::post('consignees/update-consignee', [ConsigneeController::class, 'updateConsignee']);
     Route::post('consignees/delete-consignee', [ConsigneeController::class, 'deleteConsignee']);
+    Route::get('consignees/export/excel', [ConsigneeController::class, 'exportExcel']);
 
     Route::resource('drivers', DriverController::class);
     Route::post('drivers/update-driver', [DriverController::class, 'updateDriver']);
     Route::post('drivers/delete-driver', [DriverController::class, 'deleteDriver']);
     Route::post('/drivers/delete-licenseimage', [DriverController::class, 'deletelicenseImage']);
+    Route::get('drivers/export/excel', [DriverController::class, 'exportExcel']);
 
     Route::resource('vehicles', VehicleController::class);
     Route::post('vehicles/update-vehicle', [VehicleController::class, 'updateVehicle']);
     Route::post('vehicles/delete-vehicle', [VehicleController::class, 'deleteVehicle']);
+    Route::get('vehicles/export/excel', [VehicleController::class, 'exportExcel']);
 
     Route::resource('consignments', ConsignmentController::class);
     Route::get('unverified-list', [ConsignmentController::class, 'unverifiedList']);
@@ -234,6 +238,7 @@ Route::group(['prefix'=>'regional-manager', 'middleware'=>['auth','PermissionChe
     Route::post('consignees/update-consignee', [ConsigneeController::class, 'updateConsignee']);
     Route::post('consignees/delete-consignee', [ConsigneeController::class, 'deleteConsignee']);
     Route::get('consignees/export/excel', [ConsigneeController::class, 'exportExcel']);
+    Route::get('consignees/export/excel', [ConsigneeController::class, 'exportExcel']);
 
     // Route::resource('brokers', BrokerController::class);
     // Route::post('brokers/update-broker', [BrokerController::class, 'updateBroker']);
@@ -261,6 +266,7 @@ Route::group(['prefix'=>'regional-manager', 'middleware'=>['auth','PermissionChe
     Route::get('consignments/{id}/print-view/{typeid}', [ConsignmentController::class, 'consignPrintview']);
     Route::get('transaction-sheet', [ConsignmentController::class, 'transactionSheet']);
     Route::any('view-transactionSheet/{id}', [ConsignmentController::class, 'getTransactionDetails']);
+    Route::any('print-sticker/{id}', [ConsignmentController::class, 'printSticker']);
     Route::any('print-transaction/{id}', [ConsignmentController::class, 'printTransactionsheet']);
     Route::any('update-edd', [ConsignmentController::class, 'updateEDD']);
     Route::any('create-drs', [ConsignmentController::class, 'CreateEdd']);
@@ -341,6 +347,7 @@ Route::group(['prefix'=>'branch-user', 'middleware'=>['auth','PermissionCheck']]
     Route::get('consignments/{id}/print-view/{typeid}', [ConsignmentController::class, 'consignPrintview']);
     Route::get('transaction-sheet', [ConsignmentController::class, 'transactionSheet']);
     Route::any('view-transactionSheet/{id}', [ConsignmentController::class, 'getTransactionDetails']);
+    Route::any('print-sticker/{id}', [ConsignmentController::class, 'printSticker']);
     Route::any('print-transaction/{id}', [ConsignmentController::class, 'printTransactionsheet']);
     Route::any('update-edd', [ConsignmentController::class, 'updateEDD']);
     Route::any('create-drs', [ConsignmentController::class, 'CreateEdd']);
@@ -389,19 +396,23 @@ Route::group(['prefix'=>'account-manager', 'middleware'=>['auth','PermissionChec
     Route::resource('consigners', ConsignerController::class);
     Route::post('consigners/update-consigner', [ConsignerController::class, 'updateConsigner']);
     Route::post('consigners/delete-consigner', [ConsignerController::class, 'deleteConsigner']);
+    Route::get('consigners/export/excel', [ConsignerController::class, 'exportExcel']);
 
     Route::resource('consignees', ConsigneeController::class);
     Route::post('consignees/update-consignee', [ConsigneeController::class, 'updateConsignee']);
     Route::post('consignees/delete-consignee', [ConsigneeController::class, 'deleteConsignee']);
+    Route::get('consignees/export/excel', [ConsigneeController::class, 'exportExcel']);
 
     Route::resource('drivers', DriverController::class);
     Route::post('drivers/update-driver', [DriverController::class, 'updateDriver']);
     Route::post('drivers/delete-driver', [DriverController::class, 'deleteDriver']);
     Route::post('/drivers/delete-licenseimage', [DriverController::class, 'deletelicenseImage']);
+    Route::get('drivers/export/excel', [DriverController::class, 'exportExcel']);
 
     Route::resource('vehicles', VehicleController::class);
     Route::post('vehicles/update-vehicle', [VehicleController::class, 'updateVehicle']);
     Route::post('vehicles/delete-vehicle', [VehicleController::class, 'deleteVehicle']);
+    Route::get('vehicles/export/excel', [VehicleController::class, 'exportExcel']);
 
     Route::resource('consignments', ConsignmentController::class);
     Route::post('consignments/update-consignment', [ConsignmentController::class, 'updateConsignment']);
@@ -464,6 +475,7 @@ Route::group(['prefix'=>'client-account', 'middleware'=>['auth','PermissionCheck
     Route::get('consignments/{id}/print-view/{typeid}', [ConsignmentController::class, 'consignPrintview']);
     Route::get('transaction-sheet', [ConsignmentController::class, 'transactionSheet']);
     Route::any('view-transactionSheet/{id}', [ConsignmentController::class, 'getTransactionDetails']);
+    Route::any('print-sticker/{id}', [ConsignmentController::class, 'printSticker']);
     Route::any('print-transaction/{id}', [ConsignmentController::class, 'printTransactionsheet']);
     Route::any('update-edd', [ConsignmentController::class, 'updateEDD']);
     Route::any('create-drs', [ConsignmentController::class, 'CreateEdd']);

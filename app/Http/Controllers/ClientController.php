@@ -61,7 +61,7 @@ class ClientController extends Controller
         $this->prefix = request()->route()->getPrefix();
         $rules = array(
             'client_name' => 'required|unique:base_clients,client_name',
-            'name' => 'required|unique:regional_clients,name',
+            // 'name' => 'required|unique:regional_clients,name',
         );
 
         $validator = Validator::make($request->all(),$rules);
