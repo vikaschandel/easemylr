@@ -45,6 +45,8 @@ class ConsignerExport implements FromCollection, WithHeadings,ShouldQueue
                     $regClient = '';
                 }
 
+                
+
                 $arr[] = [
                     'id' => $value->id,
                     'nick_name' => $value->nick_name,
@@ -52,7 +54,7 @@ class ConsignerExport implements FromCollection, WithHeadings,ShouldQueue
                     'gst_number' => $value->gst_number,
                     'contact_name' => $value->contact_name,
                     'phone' => $value->phone,
-                    'regionalclient_id' => $regClient,
+                    'regionalclient_id' => @$regClient,
                     'email' => $value->email,
                     'address_line1' => $value->address_line1,
                     'address_line2' => $value->address_line2,
