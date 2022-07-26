@@ -929,10 +929,43 @@ $(document).on('blur', "#edd",function () {
             $("#city").val('');
             $("#state").val('');
             $("#district").val('');
-        }
-
-        
+        }        
     });
+
+    //// daterangepicker on Consignment list
+    
+  var options = {
+    opens: 'right',
+    format: " yyyy",
+    viewMode: "years",
+    minViewMode: "years"
+  }
+  jQuery('.daterange').daterangepicker(options,
+   function(start, end, label) {
+    alert("hhhhh");
+     var startdate = start.format('YYYY-MM-DD');
+     var enddate = end.format('YYYY-MM-DD');
+     var search = jQuery('#search').val();
+     var url =  jQuery('#search').attr('data-action');
+     jQuery.ajax({
+       type      : 'get',
+       url       : url,
+       data      : {startdate:startdate,enddate:enddate,search:search},
+       headers   : {
+         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+       },
+       dataType  : 'json',
+       success:function(response){
+         if(response.html){
+           jQuery('.table-responsive').html(response.html);
+           jQuery('.daterange').data('daterangepicker').setStartDate(start);
+           jQuery('.daterange').data('daterangepicker').setEndDate(end);
+ 
+         }
+       }
+     });
+     return false;
+   });
 
     
 

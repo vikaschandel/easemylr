@@ -142,7 +142,9 @@ a.badge.alert.bg-secondary.shadow-sm {
                             <thead>
                                 <tr>
                                     <th> </th>
-                                    <th>LR Details</th>
+                                    <th>LR Details<a class=""><input id="datepicker" type="hidden" val="" >
+                                        <i class="fa fa-caret-down"></i></a>
+                                    </th>
                                     <th>Route</th>
                                     <th>Printing options</th>
                                     <th>EDD</th>
@@ -161,4 +163,13 @@ a.badge.alert.bg-secondary.shadow-sm {
     </div>
 @include('models.delete-user')
 @include('models.common-confirm')
+@endsection
+@section('js')
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.js"></script> -->
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+  <script>
+  $( function() {
+    $( "#datepicker" ).datepicker();
+  } );
+  </script>
 @endsection
