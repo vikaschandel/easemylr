@@ -1640,5 +1640,127 @@ class ConsignmentController extends Controller
          //logger($data);
     }
 
+    ////////////////////////////////// Test Function /////////////////////////////////    
+
+
+    public function testview(Request $request)
+    {
+        $this->prefix = request()->route()->getPrefix();
+        return view('consignments.test-list',['prefix' => $this->prefix]);
+    }   
+
+    public function test(){
+        
+        $query = ConsignmentNote::query();
+        $authuser = Auth::user();
+        $role_id = Role::where('id','=',$authuser->role_id)->first();
+        $regclient = explode(',',$authuser->regionalclient_id);
+        $cc = explode(',',$authuser->branch_id);
+        if($authuser->role_id !=1){
+            if ($authuser->role_id == $role_id->id) {
+                $data = DB::table('consignment_notes')->select('consignment_notes.*', 'consigners.nick_name as consigner_id', 'consigners.city as con_city', 'consigners.postal_code as con_pincode', 'consignees.nick_name as consignee_id', 'consignees.city as city', 'consignees.postal_code as pincode', 'consignees.address_line1 as con_add1', 'consignees.address_line2 as con_add2', 'consignees.address_line3 as con_add3')
+                    ->join('consigners', 'consigners.id', '=', 'consignment_notes.consigner_id')
+                    ->join('consignees', 'consignees.id', '=', 'consignment_notes.consignee_id')
+                    ->whereIn('consignment_notes.branch_id', $cc)
+                    ->orderBy('id', 'DESC')
+                    ->get(['consignees.city']);
+            }
+        } else {
+            $data = DB::table('consignment_notes')->select('consignment_notes.*', 'consigners.nick_name as consigner_id', 'consigners.city as con_city', 'consigners.postal_code as con_pincode', 'consignees.nick_name as consignee_id', 'consignees.city as city', 'consignees.postal_code as pincode','consignees.address_line1 as con_add1', 'consignees.address_line2 as con_add2', 'consignees.address_line3 as con_add3' )
+                ->join('consigners', 'consigners.id', '=', 'consignment_notes.consigner_id')
+                ->join('consignees', 'consignees.id', '=', 'consignment_notes.consignee_id')
+                ->orderBy('id', 'DESC')
+                ->get(['consignees.city']);
+        }
+
+        return Datatables::of($data)
+        ->addColumn('lrdetails', function($data){
+                     
+            $trps = '<ul class="ant-timeline">
+                       <li class="ant-timeline-item"><span style="color:#4361ee;">LR No: </span>'.$data->id.'<li>
+                       <li class="ant-timeline-item"><span style="color:#4361ee;">LR Date: </span>'.$data->consignment_date.'<li>
+                     </ul>'; 
+
+            return $trps;
+        })
+        ->addColumn('route', function($data){
+           // echo "<pre>";print_r($data);die;
+            $troute = '<ul class="ant-timeline">
+            <li class="ant-timeline-item  css-b03s4t">
+                <div class="ant-timeline-item-tail"></div>
+                <div class="ant-timeline-item-head ant-timeline-item-head-green"></div>
+                <div class="ant-timeline-item-content">
+                    <div class="css-16pld72">'.$data->con_pincode.', '.$data->con_city.'</div>
+                </div>
+            </li>
+            <li class="ant-timeline-item ant-timeline-item-last css-phvyqn">
+                <div class="ant-timeline-item-tail"></div>
+                <div class="ant-timeline-item-head ant-timeline-item-head-red"></div>
+                <div class="ant-timeline-item-content">
+                <div class="css-16pld72">'.$data->pincode.', '.$data->city.'</div>
+                <div class="css-16pld72" style="font-size: 12px; color: rgb(102, 102, 102);">     
+                    <span>'.$data->con_add1.',</span>
+                    <span>'.$data->con_add2.', <span>'.$data->con_add3.'</span></span>
+                </div>
+                </div>
+            </li>
+            </ul>';
+                return $troute;
+            })
+            ->addColumn('poptions', function($data){
+                $po = '<a href="print-sticker/'.$data->id.'/" target="_blank" class="badge alert bg-warning shadow-sm">Print Sticker</a> || <a href="consignments/'.$data->id.'/print-view/1/" target="_blank" class="badge alert bg-warning shadow-sm">Print LR</a> || <a href="consignments/'.$data->id.'/print-view/2/" target="_blank" class="badge alert bg-warning shadow-sm">Print with Ship to</a>';
+
+                return $po;
+            }) 
+            ->addColumn('status', function($data){
+                if($data->status == 0){
+                 $st = '<span class="badge alert bg-secondary shadow-sm">Cancel</span>';
+                } 
+                elseif($data->status == 1){
+                    $st = '<span class="badge bg-info shadow-sm">Active</span>';    
+                }
+                elseif($data->status == 2){
+                    $st = '<span class="badge bg-success">Unverified</span>';    
+                }
+                elseif($data->status == 3){
+                    $st = '<span class="badge bg-gradient-bloody text-white shadow-sm ">Unknown</span>';  
+                }
+
+                return $st;
+            })   
+            ->addColumn('delivery_status', function($data){
+          
+                if($data->delivery_status == "Unassigned"){
+
+                    $dt = '<span class="badge alert bg-primary shadow-sm">'.$data->delivery_status.'</span>';
+
+                 }
+                 elseif($data->delivery_status == "Assigned"){
+
+                    $dt = '<span class="badge alert bg-secondary shadow-sm">'.$data->delivery_status.'</span>';
+
+                 }
+                 elseif($data->delivery_status == "Started"){
+
+                    $dt = '<span class="badge alert bg-warning shadow-sm">'.$data->delivery_status.'</span>';
+
+                 }
+                 elseif($data->delivery_status == "Successful"){
+
+                    $dt = '<span class="badge alert bg-success shadow-sm">'.$data->delivery_status.'</span>';
+
+                 }else{
+                     $dt = '<span class="badge alert bg-success shadow-sm">need to update</span>';
+                 }
+                
+
+                return $dt;
+                
+
+            })                      
+        ->rawColumns(['lrdetails','route','poptions','status', 'delivery_status'])    
+        ->make(true);
+     
+    }
 
 }

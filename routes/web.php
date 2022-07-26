@@ -17,7 +17,7 @@ use App\Http\Controllers\LocationController;
 use App\Http\Controllers\ImportCsvController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\ClientController;
-
+use App\Http\Controllers\API\ReceiveAddressController;
 
 /*
 |--------------------------------------------------------------------------
@@ -75,7 +75,6 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth','PermissionCheck']], func
 {
     Route::resource('dashboard', DashboardController::class);
     Route::resource('/', DashboardController::class);
-
     Route::resource('users', UserController::class);
     Route::post('/users/update-user', [UserController::class, 'updateUser']);
     Route::post('/users/delete-user', [UserController::class, 'deleteUser']);
@@ -114,6 +113,10 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth','PermissionCheck']], func
 
     Route::resource('consignments', ConsignmentController::class);
     Route::any('clist', [ConsignmentController::class, 'consignment_list']);
+    //Test Routes 
+    Route::any('testview', [ConsignmentController::class, 'testview']);
+    Route::any('test', [ConsignmentController::class, 'test']);
+    // Test Routes 
     Route::get('unverified-list', [ConsignmentController::class, 'unverifiedList']);
     Route::any('update_unverifiedLR', [ConsignmentController::class, 'updateUnverifiedLr']);
     Route::post('consignments/update-consignment', [ConsignmentController::class, 'updateConsignment']);
@@ -123,6 +126,7 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth','PermissionCheck']], func
     Route::get('transaction-sheet', [ConsignmentController::class, 'transactionSheet']);
     Route::any('view-transactionSheet/{id}', [ConsignmentController::class, 'getTransactionDetails']);
     Route::any('print-transaction/{id}', [ConsignmentController::class, 'printTransactionsheet']);
+    Route::any('print-sticker/{id}', [ConsignmentController::class, 'printSticker']);
     Route::any('update-edd', [ConsignmentController::class, 'updateEDD']);
     Route::any('create-drs', [ConsignmentController::class, 'CreateEdd']);
     Route::any('update-suffle', [ConsignmentController::class, 'updateSuffle']);
@@ -517,8 +521,12 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/get_regclients', [UserController::class, 'regClients']);
     Route::get('/get_locations', [ConsignerController::class, 'regLocations']);
+    Route::any('/get-address-by-postcode', [ConsignerController::class, 'getPostalAddress']);
 
 });
 
 Route::get('/forbidden-error', [DashboardController::class, 'ForbiddenPage']);
 Route::post('webhook', [ConsignmentController::class, 'handle']);
+
+
+

@@ -47,13 +47,32 @@ class ConsigneeController extends Controller
                                 ->join('states', 'states.id', '=', 'consignees.state_id')
                                 ->where('consigners.branch_id', $cc)
                                 ->get();
+                }else{
+                    $consignees = DB::table('consignees')->select('consignees.*', 'consigners.nick_name as consigner_id', 'states.name as state_id')
+                    ->join('consigners', 'consigners.id', '=', 'consignees.consigner_id')
+                    ->join('states', 'states.id', '=', 'consignees.state_id')
+                    ->get();
                 }
             }else if($authuser->role_id != 2 || $authuser->role_id != 3){
-                $consignees = DB::table('consignees')->select('consignees.*', 'consigners.nick_name as consigner_id', 'states.name as state_id')
+                if($authuser->role_id == $role_id->id){
+                    if($authuser->role_id !=1){
+                        $consignees = DB::table('consignees')->select('consignees.*', 'consigners.nick_name as consigner_id', 'states.name as state_id')
                                 ->join('consigners', 'consigners.id', '=', 'consignees.consigner_id')
                                 ->join('states', 'states.id', '=', 'consignees.state_id')
                                 ->whereIn('consigners.regionalclient_id',$regclient)
                                 ->get();
+                    }else{
+                        $consignees = DB::table('consignees')->select('consignees.*', 'consigners.nick_name as consigner_id', 'states.name as state_id')
+                    ->join('consigners', 'consigners.id', '=', 'consignees.consigner_id')
+                    ->join('states', 'states.id', '=', 'consignees.state_id')
+                    ->get();
+                    }
+                }else{
+                    $consignees = DB::table('consignees')->select('consignees.*', 'consigners.nick_name as consigner_id', 'states.name as state_id')
+                    ->join('consigners', 'consigners.id', '=', 'consignees.consigner_id')
+                    ->join('states', 'states.id', '=', 'consignees.state_id')
+                    ->get();
+                }
             }
             else{
                 $consignees = DB::table('consignees')->select('consignees.*', 'consigners.nick_name as consigner_id', 'states.name as state_id')
@@ -88,9 +107,15 @@ class ConsigneeController extends Controller
         $this->prefix = request()->route()->getPrefix();
         // $consigners = Helper::getConsigners();
         $authuser = Auth::user();
+        $role_id = Role::where('id','=',$authuser->role_id)->first();
+        $regclient = explode(',',$authuser->regionalclient_id);
         $cc = explode(',',$authuser->branch_id);
-        if($authuser->role_id == 2){
-            $consigners = Consigner::whereIn('branch_id',$cc)->orderby('nick_name','ASC')->pluck('nick_name','id');
+        
+        if($authuser->role_id == 2 || $authuser->role_id == 3){
+            if($authuser->role_id == $role_id->id){
+                $consigners = Consigner::whereIn('branch_id',$cc)->orderby('nick_name','ASC')->pluck('nick_name','id');
+        }}else if($authuser->role_id != 2 || $authuser->role_id != 3){
+            $consigners = Consigner::whereIn('regionalclient_id',$regclient)->orderby('nick_name','ASC')->pluck('nick_name','id');
         }else{
             $consigners = Consigner::where('status',1)->orderby('nick_name','ASC')->pluck('nick_name','id');
         }
@@ -190,9 +215,16 @@ class ConsigneeController extends Controller
         $branches = Helper::getLocations();  
         // $consigners = Helper::getConsigners(); 
         $authuser = Auth::user();
+        $role_id = Role::where('id','=',$authuser->role_id)->first();
+        $regclient = explode(',',$authuser->regionalclient_id);
         $cc = explode(',',$authuser->branch_id);
-        if($authuser->role_id == 2){
-            $consigners = Consigner::whereIn('branch_id',$cc)->orderby('nick_name','ASC')->pluck('nick_name','id');
+        
+        if($authuser->role_id == 2 || $authuser->role_id == 3){
+            if($authuser->role_id == $role_id->id){
+                $consigners = Consigner::whereIn('branch_id',$cc)->orderby('nick_name','ASC')->pluck('nick_name','id');
+            }
+        }else if($authuser->role_id != 2 || $authuser->role_id != 3){
+            $consigners = Consigner::whereIn('regionalclient_id',$regclient)->orderby('nick_name','ASC')->pluck('nick_name','id');
         }else{
             $consigners = Consigner::where('status',1)->orderby('nick_name','ASC')->pluck('nick_name','id');
         }      
