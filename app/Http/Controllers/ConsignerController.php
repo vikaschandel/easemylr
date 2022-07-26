@@ -306,4 +306,13 @@ class ConsignerController extends Controller
         return response()->json($response);
     }
 
+    public function getPostalAddress(Request $request){
+        $postcode = $request->postcode;
+        $pin = URL::to('get-address-by-postcode');
+        $pin = file_get_contents('https://api.postalpincode.in/pincode/'.$postcode);
+        $pins = json_decode($pin);
+        // dd($pins);
+        return response()->json(['success'=>true, 'data'=>$pins]);
+    }
+
 }
