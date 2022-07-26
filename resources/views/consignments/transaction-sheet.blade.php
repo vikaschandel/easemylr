@@ -104,7 +104,7 @@ div.relative {
                                     <?php }elseif($trns['delivery_status'] == 'Started'){ ?>
                                         <button type="button" class="btn btn-success" value="{{$trns['drs_no']}}" style="margin-right:4px;"> Started</button>
                                         <?php }elseif($trns['delivery_status'] == 'Successful'){ ?>
-                                        <button type="button" class="btn btn-success" value="{{$trns['drs_no']}}" style="margin-right:4px;"> Successful</button>
+                                        <button type="button" class="btn btn-success delivery_status" value="{{$trns['drs_no']}}" style="margin-right:4px;"> Successful</button>
                                         <?php } ?>
                                       </td>
                                         <td> <a class="drs_cancel btn btn-success" drs-no = "{{$trns['drs_no']}}" data-text="consignment" data-status = "0" data-action = "<?php echo URL::current();?>"><span><i class="fa fa-check-circle-o"></i> Active</span></a></td>
@@ -228,6 +228,7 @@ div.relative {
 
                         var alldata = value;  
                         //console.log(alldata);
+                        //alert(value.edd);
 
                         consignmentID.push(alldata.consignment_no);
                         totalBoxes += parseInt(value.total_quantity);
@@ -235,7 +236,7 @@ div.relative {
                         //alert(alldata.consignment_detail.edd); return false;
 
 
-                        $('#save-DraftSheet tbody').append("<tr id="+value.id+"><td>" + value.consignment_no + "</td><td>" + value.consignment_date + "</td><td>" + value.consignee_id + "</td><td>"+ value.city + "</td><td>"+ value.pincode + "</td><td>"+ value.total_quantity + "</td><td>"+ value.total_weight + "</td><td><input type='date' name='edd[]' data-id="+ value.consignment_no +" class='new_edd' value='"+ alldata.consignment_detail.edd+ "'></td></tr>");      
+                        $('#save-DraftSheet tbody').append("<tr id="+value.id+"><td>" + value.consignment_no + "</td><td>" + value.consignment_date + "</td><td>" + value.consignee_id + "</td><td>"+ value.city + "</td><td>"+ value.pincode + "</td><td>"+ value.total_quantity + "</td><td>"+ value.total_weight + "</td><td><input type='date' name='edd[]' data-id="+ value.consignment_no +" class='new_edd' value='"+ value.edd+ "'></td></tr>");      
                     });
                      // alert(consignmentID);
                       $("#transaction_id").val(consignmentID);
@@ -352,6 +353,7 @@ function showLibrary()
                  $('.new_edd').blur(function () {
                     
                     var consignment_id = $(this).attr('data-id');
+                    
                     var drs_edd = $(this).val();
                     var _token = $('input[name="_token"]').val();
                     $.ajax({
@@ -394,9 +396,10 @@ function showLibrary()
                     $.each(re.fetch, function(index, value) {
 
                         var alldata = value;  
+                       
                         consignmentID.push(alldata.consignment_no);
                         
-                        $('#delivery_status tbody').append("<tr><td>" + value.consignment_no + "</td><td><input type='date' name='delivery_date[]' data-id="+ value.consignment_no +" class='delivery_d' value='"+ alldata.consignment_detail.delivery_date+ "'></td></tr>");      
+                        $('#delivery_status tbody').append("<tr><td>" + value.consignment_no + "</td><td><input type='date' name='delivery_date[]' data-id="+ value.consignment_no +" class='delivery_d' value='"+ value.dd+ "'></td><td><button type='button'  data-id="+ value.consignment_no +" class='btn btn-primary remover_lr'>remove</button></td></tr>");      
 
 
                     });
@@ -453,7 +456,7 @@ $('#update_delivery_status').submit(function(e) {
                     // alert('hello');
                     var consignment_id = $(this).attr('data-id');
                     var delivery_date = $(this).val();
-
+                    
                     var _token = $('input[name="_token"]').val();
                     $.ajax({
                     url: "update-delivery-date",
@@ -469,6 +472,37 @@ $('#update_delivery_status').submit(function(e) {
                     })
            });
     }
+//////////////////////////////////Remove Lr From DRS////////////////////
+    $(document).on('click','.remover_lr', function(){
+            
+           var consignment_id = $(this).attr('data-id');
+           //alert(consignment_id);
+          
+            $.ajax({
+                type: "GET",
+                url: "remove-lr", 
+                data: {consignment_id:consignment_id},
+                //dataType: "json",
+                beforeSend:                      //reinitialize Datatables
+               function(){   
+             
+              },
+                success: function(data){
+                    var re = jQuery.parseJSON(data)
+                    if(re.success == true){
+                
+                alert('LR Removed nSuccessfully');
+                location.reload();
+            }
+            else{
+                alert('something wrong');
+            }
+
+                   
+        } 
+        
+    });
+});
     </script>
 
 @endsection

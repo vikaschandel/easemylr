@@ -64,6 +64,7 @@
                                 <tr>
                                     <th>LR No</th>
                                     <th>Delivery Date</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>

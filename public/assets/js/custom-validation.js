@@ -779,7 +779,7 @@ jQuery(document).on('click','.drs_cancel',function(event){
     // jQuery('.confirmtext').text('Are you sure you want to '+statustext+' this '+datatext+'?');
     jQuery( ".commonconfirmclick").one( "click", function() {
         var drs_status = jQuery('#drs_status').val();
-        alert(drs_status);
+        //alert(drs_status);
         var data =  {drs_no:drs_no,drs_status:drs_status,updatestatus:updatestatus};
         
         jQuery.ajax({

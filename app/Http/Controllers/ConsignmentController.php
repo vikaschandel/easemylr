@@ -1244,6 +1244,8 @@ class ConsignmentController extends Controller
         if($authuser->role_id !=1){
             if($authuser->role_id == $role_id->id){
                 $transaction = TransactionSheet::select('drs_no', 'created_at', 'vehicle_no', 'driver_name', 'driver_no', 'status','delivery_status')->where('branch_id', '=', $cc)->distinct()->get();
+                $s = json_decode(json_encode($transaction, true));
+                echo'<pre>';print_r($s); die;
             }
         } else {
                 $transaction = TransactionSheet::all();
@@ -1279,24 +1281,10 @@ class ConsignmentController extends Controller
     {
         $id = $_GET['cat_id'];
 
-        $transcationview = DB::table('transaction_sheets')->select('*')->where('drs_no', $id)->orderby('order_no', 'asc')->get();
-        $result = json_decode(json_encode($transcationview), true);
-        //echo'<pre>'; print_r($result);
-        //   foreach($simplfy as $value){
-
-        //        $result[] = $value;
-        //   }
-
-        //  $col  = 'order_no';
-        //  $sort = array();
-        //  foreach ($result as $i => $obj) {
-        //    $sort[$i] = $obj->{$col};
-        //  }
-
-        //  $sorted_db = array_multisort($sort, SORT_ASC, $result);
-
-        // //  echo'<pre>'; print_r($result);
-        // //  die;
+       $transcationview = DB::table('transaction_sheets')->select('*')
+       ->join('consignment_notes', 'consignment_notes.id', '=', 'transaction_sheets.consignment_no')->where('drs_no', $id)->where('consignment_notes.status', '1')->orderby('order_no', 'asc')->get();
+       $result = json_decode(json_encode($transcationview), true);
+        
 
         $response['fetch'] = $result;
         $response['success'] = true;
@@ -1467,6 +1455,19 @@ class ConsignmentController extends Controller
             return response()->json(['error' => 'Something went wrong']);
         }
     }
+    //////////////////////////////////remove lr////////////////////
+    public function removeLR(Request $request)
+    {
+    //    echo'<pre>'; print_r($_GET); die;
+        $consignmentId = $_GET['consignment_id'];
+
+        $consigner = DB::table('consignment_notes')->where('id', $consignmentId)->update(['status' => '2']);
+
+       
+        $response['success'] = true;
+        $response['success_message'] = "Data Imported successfully";
+        echo json_encode($response);
+    }
 
     public function CreateEdd(Request $request)
     {
@@ -1505,7 +1506,6 @@ class ConsignmentController extends Controller
             $pincode = $value['pincode'];
             $total_quantity = $value['total_quantity'];
             $total_weight = $value['total_weight'];
-
             //echo'<pre>'; print_r($data); die;
 
             $transaction = DB::table('transaction_sheets')->insert(['drs_no' => $drs_no, 'consignment_no' => $unique_id, 'branch_id' => $cc, 'consignee_id' => $consignee_id, 'consignment_date' => $consignment_date, 'city' => $city, 'pincode' => $pincode, 'total_quantity' => $total_quantity, 'total_weight' => $total_weight, 'order_no' => $i, 'delivery_status' => 'Unassigned','status' => '1']);
@@ -1529,9 +1529,10 @@ class ConsignmentController extends Controller
     {
         //echo'hi';
         $id = $_GET['draft_id'];
-        $transcationview = TransactionSheet::select('*')->with('ConsignmentDetail')->where('drs_no', $id)->orderby('order_no', 'asc')->get();
+        // $transcationview = TransactionSheet::select('*')->with('ConsignmentDetail')->where('drs_no', $id)->orderby('order_no', 'asc')->get();
+        $transcationview = DB::table('transaction_sheets')->select('transaction_sheets.*','consignment_notes.status as lrstatus','consignment_notes.edd as edd' )
+       ->join('consignment_notes', 'consignment_notes.id', '=', 'transaction_sheets.consignment_no')->where('drs_no', $id)->where('consignment_notes.status', '1')->orderby('order_no', 'asc')->get();
         $result = json_decode(json_encode($transcationview), true);
-        //echo'<pre>'; print_r($result); die;
 
         $response['fetch'] = $result;
         $response['success'] = true;
@@ -1543,8 +1544,12 @@ class ConsignmentController extends Controller
     public function updateDelivery(Request $request)
     {
         $id = $_GET['draft_id'];
-        $transcationview = TransactionSheet::select('*')->with('ConsignmentDetail')->where('drs_no', $id)->get();
+        // $transcationview = TransactionSheet::select('*')->with('ConsignmentDetail')->where('drs_no', $id)->get();
+
+       $transcationview = DB::table('transaction_sheets')->select('transaction_sheets.*','consignment_notes.status as lrstatus','consignment_notes.edd as edd','consignment_notes.delivery_date as dd'  )
+         ->join('consignment_notes', 'consignment_notes.id', '=', 'transaction_sheets.consignment_no')->where('drs_no', $id)->where('consignment_notes.status', '1')->get();
         $result = json_decode(json_encode($transcationview), true);
+    //    echo'<pre>'; print_r($result); exit;
         $response['fetch'] = $result;
         $response['success'] = true;
         $response['success_message'] = "Data Imported successfully";
@@ -1558,7 +1563,7 @@ class ConsignmentController extends Controller
         $consignmentId = $_POST['consignment_no'];
         $cc = explode(',', $consignmentId);
 
-        $consigner = DB::table('consignment_notes')->whereIn('id', $cc)->update(['delivery_status' => '3']);
+        $consigner = DB::table('consignment_notes')->whereIn('id', $cc)->update(['delivery_status' => 'Successful']);
 
         $drs = DB::table('transaction_sheets')->whereIn('consignment_no', $cc)->update(['status' => '3']);
 
