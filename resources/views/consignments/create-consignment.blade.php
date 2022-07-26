@@ -235,7 +235,7 @@ label.error{
                                                     style="border:none;">
                                             </div>
                                             <div class=" col-sm-4" style="margin-top:10px;">
-                                                <label for="exampleFormControlInput2">Order ID</label>
+                                                <label for="exampleFormControlInput2">Order ID<span class="text-danger">*</span></label>
                                             </div>
                                             <div class=" col-sm-8" style="margin-top:2px;">
                                                 <input type="text" class="form-seteing" id="order_id" name="order_id" value="" placeholder=""
