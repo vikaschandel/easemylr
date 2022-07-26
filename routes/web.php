@@ -17,7 +17,7 @@ use App\Http\Controllers\LocationController;
 use App\Http\Controllers\ImportCsvController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\ClientController;
-
+use App\Http\Controllers\API\ReceiveAddressController;
 
 /*
 |--------------------------------------------------------------------------
@@ -517,8 +517,12 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/get_regclients', [UserController::class, 'regClients']);
     Route::get('/get_locations', [ConsignerController::class, 'regLocations']);
+    Route::any('/get-address-by-postcode', [ConsignerController::class, 'getPostalAddress']);
 
 });
 
 Route::get('/forbidden-error', [DashboardController::class, 'ForbiddenPage']);
 Route::post('webhook', [ConsignmentController::class, 'handle']);
+
+
+

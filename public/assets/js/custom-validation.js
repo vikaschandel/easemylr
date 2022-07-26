@@ -902,6 +902,42 @@ $(document).on('blur', "#edd",function () {
         }
     });
 
+    //fetch address on postcode keyup
+    $(document).on('keyup', '#postal_code', function(){
+        var postcode = $(this).val();
+        var postcode_len = postcode.length;
+        if(postcode_len > 0){
+            $.ajax({
+                url         : '/get-address-by-postcode',
+                type        : 'get',
+                cache       : false,
+                data        :  {postcode:postcode},
+                dataType    :  'json',
+                headers     : {
+                    'X-CSRF-TOKEN': jQuery('meta[name="_token"]').attr('content')
+                },
+                success: function(data){
+                    if(data.success){
+                        console.log(data);
+                        each(data.PostOffice, function(key, value){
+                            $('#city').val(value.District);
+                            $('#state').val(value.State);
+                            $('#district').val(value.District);
+                        });
+                    }  
+                }
+            });
+        }else{
+            $("#city").val('');
+            $("#state").val('');
+            $("#district").val('');
+        }
+
+        
+    });
+
+    
+
 
 
 
