@@ -79,12 +79,14 @@
                                     <label for="exampleFormControlInput2">Account Holder Name</label>
                                     <input type="text" class="form-control" name="account_holdername" placeholder="">
                                 </div>
-                                <div class="form-group col-md-6">
+                                 
+                            </div>
+                            <h5 class="form-row mb-2">Shadow Details</h5>
+                            <div class="form-row mb-0">
+                            <div class="form-group col-md-6">
                                     <label for="exampleFormControlInput2">Team Id</label>
                                     <input type="text" class="form-control" name="team_id" placeholder="">
-                                </div>  
-                            </div>
-                            <div class="form-row mb-0">
+                                </div>
                                 <div class="form-group col-md-6">
                                     <label for="exampleFormControlInput2">Fleet ID</label>
                                     <input type="text" class="form-control" name="fleet_id" placeholder="">
