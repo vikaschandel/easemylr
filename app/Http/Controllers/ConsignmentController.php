@@ -802,6 +802,7 @@ class ConsignmentController extends Controller
                                             <p>Plot No. ' . $branch_add->address . '</p>
                                             <p>' . $branch_add->district . ' - ' . $branch_add->postal_code . ',' . $branch_add->state . '</p>
                                             <p>GST No. : ' . $branch_add['gst_number'] . '</p>
+                                            <p>CIN No. : U63030PB2021PTC053388 </p>
                                             <p>Email : ' . @$locations->email . '</p>
                                             <p>Phone No. : ' . @$locations->phone . '' . '</p>
                                             <br>
@@ -1242,13 +1243,14 @@ class ConsignmentController extends Controller
         $regclient = explode(',',$authuser->regionalclient_id);
         $cc = explode(',',$authuser->branch_id);
         if($authuser->role_id !=1){
-            if($authuser->role_id == $role_id->id){
+            if($authuser->role_id == $role_id->id){ 
                 $transaction = TransactionSheet::select('drs_no', 'created_at', 'vehicle_no', 'driver_name', 'driver_no', 'status','delivery_status')->where('branch_id', '=', $cc)->distinct()->get();
                 $s = json_decode(json_encode($transaction, true));
                 echo'<pre>';print_r($s); die;
             }
         } else {
-                $transaction = TransactionSheet::all();
+            $transaction = TransactionSheet::select('drs_no', 'created_at', 'vehicle_no', 'driver_name', 'driver_no', 'status','delivery_status')->distinct()->get();
+                // $transaction = TransactionSheet::all();  
             }
 
         if ($request->ajax()) {

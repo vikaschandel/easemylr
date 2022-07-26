@@ -84,11 +84,11 @@
                             <div class="form-row mb-0">      
                             <div class="form-group col-md-6">
                                     <label for="exampleFormControlInput2">Pincode</label>
-                                    <input type="text" class="form-control" name="postal_code" value="{{old('postal_code',isset($getconsignee->postal_code)?$getconsignee->postal_code:'')}}" placeholder="Pincode">
+                                    <input type="text" class="form-control" id="postal_code" name="postal_code" value="{{old('postal_code',isset($getconsignee->postal_code)?$getconsignee->postal_code:'')}}" placeholder="Pincode">
                                 </div> 
                             <div class="form-group col-md-6">
                                     <label for="exampleFormControlInput2">Village/City</label>
-                                    <input type="text" class="form-control" name="city" value="{{old('city',isset($getconsignee->city)?$getconsignee->city:'')}}" placeholder="City">
+                                    <input type="text" class="form-control" id="city" name="city" value="{{old('city',isset($getconsignee->city)?$getconsignee->city:'')}}" placeholder="City">
                                 </div>                   
                                 <!-- <div class="form-group col-md-6">
                                     <label for="exampleFormControlSelect1">Location</label>
@@ -111,11 +111,11 @@
                                
                                <div class="form-group col-md-6">
                                    <label for="exampleFormControlInput2">District</label>
-                                   <input type="text" class="form-control" name="district" value="{{old('district',isset($getconsignee->district)?$getconsignee->district:'')}}" placeholder="District">
+                                   <input type="text" class="form-control" id="district" name="district" value="{{old('district',isset($getconsignee->district)?$getconsignee->district:'')}}" placeholder="District">
                                </div>
                                <div class="form-group col-md-6">
                                    <label for="exampleFormControlSelect1">Select State</label>
-                                   <select class="form-control" name="state_id">
+                                   <select class="form-control" id="state" name="state_id">
                                        <option value="">Select</option>
                                        <?php 
                                        if(count($states)>0) {

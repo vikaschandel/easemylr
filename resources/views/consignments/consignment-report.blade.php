@@ -79,13 +79,18 @@ div.relative {
                                     <th>Dispatch Date</th>
                                     <th>Delivery Date</th>
                                     <th>Delivery Status</th>
+                                    <th>TAT</th>
                                   
                                 </tr>
                             </thead>
                             <tbody>
                            
                                 @foreach($consignments as $consignment)
-                                
+                                <?php
+                                    $start_date = strtotime($consignment->consignment_date);
+                                    $end_date = strtotime($consignment->delivery_date);
+                                    $tat = ($end_date - $start_date)/60/60/24;
+                                ?>
                                 <tr>
                                     <td>{{ $consignment->id ?? "-" }}</td>
                                     <td>{{ $consignment->consignment_date ?? "-" }}</td>
@@ -123,6 +128,11 @@ div.relative {
                                         <td>Successful</td>
                                     <?php }else{?>
                                         <td>Unknown</td>
+                                    <?php }?>
+                                    <?php if($consignment->delivery_date == ''){?>
+                                        <td> - </td>
+                                    <?php }else{?>
+                                    <td>{{ $tat }}</td>
                                     <?php }?>
                                 </tr>
                                 @endforeach
