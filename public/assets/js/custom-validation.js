@@ -918,12 +918,10 @@ $(document).on('blur', "#edd",function () {
                 },
                 success: function(data){
                     if(data.success){
-                        console.log(data);
-                        each(data.PostOffice, function(key, value){
-                            $('#city').val(value.District);
-                            $('#state').val(value.State);
-                            $('#district').val(value.District);
-                        });
+                        console.log(data.data);
+                        $("#city").val(data.data.city);
+                        $("#district").val(data.data.district);
+                        // $("#state").val(data.data.state);
                     }  
                 }
             });
