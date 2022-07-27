@@ -927,9 +927,9 @@ $(document).on('blur', "#edd",function () {
                             $("#zone_name").val('');
                         }
                         if(!empty(data.zone.id)){
-                            $("#zone_name").val(data.zone.id);
+                            $("#zone_id").val(data.zone.id);
                         }else{
-                            $("#zone_name").val('');
+                            $("#zone_id").val('');
                         }
                     }  
                 }
