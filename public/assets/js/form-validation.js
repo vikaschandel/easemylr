@@ -359,6 +359,9 @@ jQuery(document).ready(function(){
             branch_id : {
                 required: true,
             },
+            postal_code : {
+                minlength: 6,
+            },
         },
         messages: {
             nick_name: {
@@ -383,6 +386,9 @@ jQuery(document).ready(function(){
             },
             branch_id: {
                 required: "Please select location",
+            },
+            postal_code: {
+                minlength: "Enter at least 6 digits",
             },
         },
         submitHandler : function(form)
@@ -417,7 +423,10 @@ jQuery(document).ready(function(){
             },
             branch_id : {
                 required: true,
-            },     
+            },
+            postal_code : {
+                minlength: 6,
+            },
         },
         messages: {
             nick_name: {
@@ -442,6 +451,9 @@ jQuery(document).ready(function(){
             },
             branch_id: {
                 required: "Please select location",
+            },
+            postal_code: {
+                minlength: "Enter at least 6 digits",
             },
         },
         submitHandler : function(form)
@@ -474,6 +486,9 @@ jQuery(document).ready(function(){
             consigner_id : {
                 required: true,
             },
+            postal_code : {
+                minlength: 6,
+            }
         },
         messages: {
             nick_name: {
@@ -495,6 +510,9 @@ jQuery(document).ready(function(){
             },
             consigner_id: {
                 required: "Please select consigner",
+            },
+            postal_code: {
+                minlength: "Enter at least 6 digits",
             },
         },
         submitHandler : function(form)
@@ -526,6 +544,9 @@ jQuery(document).ready(function(){
             consigner_id : {
                 required: true,
             },
+            postal_code : {
+                minlength: 6,
+            },
         },
         messages: {
             nick_name: {
@@ -546,6 +567,9 @@ jQuery(document).ready(function(){
             },
             consigner_id: {
                 required: "Please select consigner",
+            },
+            postal_code: {
+                minlength: "Enter at least 6 digits",
             },
         },
         submitHandler : function(form)
