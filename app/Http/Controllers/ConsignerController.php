@@ -318,7 +318,6 @@ class ConsignerController extends Controller
         $pin = URL::to('get-address-by-postcode');
         $pin = file_get_contents('https://api.postalpincode.in/pincode/'.$postcode);
         $pins = json_decode($pin);
-        dd($pins);
         foreach($pins as $key){
             if($key->PostOffice == null){
                 $response['success'] = false;
@@ -334,7 +333,7 @@ class ConsignerController extends Controller
                 $response['success_message'] = "Postal Address fetch successfully";
                 $response['error'] = false;
                 $response['data'] = $arr;
-                $response['zone'] = $getZone;
+                $response['zone'] = $getZone; 
             }
         }
         // dd($response);
