@@ -333,7 +333,7 @@ class ConsignerController extends Controller
                 $response['success_message'] = "Postal Address fetch successfully";
                 $response['error'] = false;
                 $response['data'] = $arr;
-                $response['zone'] = $getZone;
+                $response['zone'] = $getZone; 
             }
         }
         // dd($response);
