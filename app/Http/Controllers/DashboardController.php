@@ -95,8 +95,14 @@ class DashboardController extends Controller
                         ->sum('gross_weight');
             $getmonthly_gross_weightlifted = $monthly_gross_weightlifted/1000;
         }
+        //=========================== Activity Logs ======================================//
+    
+        $getLatestLr = ConsignmentNote::select('*')->with('ConsigneeDetail')->orderby('id', 'DESC')->limit(5)->get();
+        $Lrsimplify = json_decode(json_encode($getLatestLr), true);
+        
 
-        return view('dashboard',['prefix'=>$this->prefix,'title'=>$this->title,'gettoday_lr'=>$gettoday_lr,'gettoday_weightlifted'=>$gettoday_weightlifted,'gettoday_gross_weightlifted'=>$gettoday_gross_weightlifted,'getcurrentmonth_lr'=>$getcurrentmonth_lr,'getmonthly_weightlifted'=>$getmonthly_weightlifted,'getmonthly_gross_weightlifted'=>$getmonthly_gross_weightlifted]);
+
+        return view('dashboard',['prefix'=>$this->prefix,'title'=>$this->title,'gettoday_lr'=>$gettoday_lr,'gettoday_weightlifted'=>$gettoday_weightlifted,'gettoday_gross_weightlifted'=>$gettoday_gross_weightlifted,'getcurrentmonth_lr'=>$getcurrentmonth_lr,'getmonthly_weightlifted'=>$getmonthly_weightlifted,'getmonthly_gross_weightlifted'=>$getmonthly_gross_weightlifted,'Lrsimplify' => $Lrsimplify]);
     }
 
     public function ForbiddenPage(Request $request)

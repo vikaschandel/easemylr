@@ -131,7 +131,7 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth','PermissionCheck']], func
     Route::any('create-drs', [ConsignmentController::class, 'CreateEdd']);
     Route::any('update-suffle', [ConsignmentController::class, 'updateSuffle']);
     Route::any('view-draftSheet/{id}', [ConsignmentController::class, 'view_saveDraft']);
-    Route::any('update-delivery/{id}', [ConsignmentController::class, 'updateDeliveryStatus']);
+    Route::any('update-delivery/{id}', [ConsignmentController::class, 'updateDelivery']);
     Route::any('update-delivery-status', [ConsignmentController::class, 'updateDeliveryStatus']);
     Route::any('consignment-report', [ConsignmentController::class, 'consignmentReports']);
     Route::any('update-delivery-date', [ConsignmentController::class, 'updateDeliveryDateOneBy']);
@@ -277,7 +277,7 @@ Route::group(['prefix'=>'regional-manager', 'middleware'=>['auth','PermissionChe
     Route::any('create-drs', [ConsignmentController::class, 'CreateEdd']);
     Route::any('update-suffle', [ConsignmentController::class, 'updateSuffle']);
     Route::any('view-draftSheet/{id}', [ConsignmentController::class, 'view_saveDraft']);
-    Route::any('update-delivery/{id}', [ConsignmentController::class, 'updateDeliveryStatus']);
+    Route::any('update-delivery/{id}', [ConsignmentController::class, 'updateDelivery']);
     Route::any('update-delivery-status', [ConsignmentController::class, 'updateDeliveryStatus']);
     Route::any('consignment-report', [ConsignmentController::class, 'consignmentReports']);
     Route::any('update-delivery-date', [ConsignmentController::class, 'updateDeliveryDateOneBy']);
@@ -358,7 +358,7 @@ Route::group(['prefix'=>'branch-user', 'middleware'=>['auth','PermissionCheck']]
     Route::any('create-drs', [ConsignmentController::class, 'CreateEdd']);
     Route::any('update-suffle', [ConsignmentController::class, 'updateSuffle']);
     Route::any('view-draftSheet/{id}', [ConsignmentController::class, 'view_saveDraft']);
-    Route::any('update-delivery/{id}', [ConsignmentController::class, 'updateDeliveryStatus']);
+    Route::any('update-delivery/{id}', [ConsignmentController::class, 'updateDelivery']);
     Route::any('update-delivery-status', [ConsignmentController::class, 'updateDeliveryStatus']);
     Route::any('consignment-report', [ConsignmentController::class, 'consignmentReports']);
     Route::any('update-delivery-date', [ConsignmentController::class, 'updateDeliveryDateOneBy']);
@@ -486,7 +486,7 @@ Route::group(['prefix'=>'client-account', 'middleware'=>['auth','PermissionCheck
     Route::any('create-drs', [ConsignmentController::class, 'CreateEdd']);
     Route::any('update-suffle', [ConsignmentController::class, 'updateSuffle']);
     Route::any('view-draftSheet/{id}', [ConsignmentController::class, 'view_saveDraft']);
-    Route::any('update-delivery/{id}', [ConsignmentController::class, 'updateDeliveryStatus']);
+    Route::any('update-delivery/{id}', [ConsignmentController::class, 'updateDelivery']);
     Route::any('update-delivery-status', [ConsignmentController::class, 'updateDeliveryStatus']);
     Route::any('consignment-report', [ConsignmentController::class, 'consignmentReports']);
     Route::any('update-delivery-date', [ConsignmentController::class, 'updateDeliveryDateOneBy']);
