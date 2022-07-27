@@ -921,9 +921,16 @@ $(document).on('blur', "#edd",function () {
                         console.log(data.zone);
                         $("#city").val(data.data.city);
                         $("#district").val(data.data.district);
-                        $("#zone_name").val(data.zone.primary_zone);
-                        $("#zone_id").val(data.zone.id);
-                        // $("#state").val(data.data.state);
+                        if(!empty(data.zone.primary_zone =='')){
+                            $("#zone_name").val(data.zone.primary_zone);
+                        }else{
+                            $("#zone_name").val('');
+                        }
+                        if(!empty(data.zone.id)){
+                            $("#zone_name").val(data.zone.id);
+                        }else{
+                            $("#zone_name").val('');
+                        }
                     }  
                 }
             });
