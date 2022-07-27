@@ -7,6 +7,7 @@ use App\Imports\ConsigneeImport;
 use App\Imports\VehiclesImport;
 use App\Imports\ConsignerImport;
 use App\Imports\DriverImport;
+use App\Imports\ZoneImport;
 use Maatwebsite\Excel\Facades\Excel;
 use URL;
 
@@ -41,6 +42,11 @@ class ImportCsvController extends Controller
             $data = Excel::import(new DriverImport,request()->file('driversfile'));
             $url  = URL::to($this->prefix.'/drivers');
             $message = 'Drivers Uploaded Successfully';
+        }
+        if($request->hasFile('zonesfile')){
+            $data = Excel::import(new ZoneImport,request()->file('zonesfile'));
+            $url  = URL::to($this->prefix.'/zones');
+            $message = 'Zones Uploaded Successfully';
         }
         if($data){            
             $response['success']    = true;
@@ -78,6 +84,12 @@ class ImportCsvController extends Controller
     public function driverSampleDownload()
     {
         $path = public_path('sample/driver_bulkimport.xlsx');
+        return response()->download($path);   
+    }
+
+    public function zoneSampleDownload()
+    {
+        $path = public_path('sample/zone_bulkimport.xlsx');
         return response()->download($path);   
     }
 

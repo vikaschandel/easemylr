@@ -154,6 +154,7 @@ class ConsigneeController extends Controller
         $consigneesave['contact_name']        = $request->contact_name;
         $consigneesave['phone']               = $request->phone;
         $consigneesave['consigner_id']        = $request->consigner_id;
+        $consigneesave['zone_id']             = $request->zone_id;
         $consigneesave['branch_id']           = $request->branch_id;
         $consigneesave['dealer_type']         = $request->dealer_type;
         $consigneesave['email']               = $request->email;
@@ -264,6 +265,7 @@ class ConsigneeController extends Controller
             $consigneesave['contact_name']        = $request->contact_name;
             $consigneesave['phone']               = $request->phone;
             $consigneesave['consigner_id']        = $request->consigner_id;
+            $consigneesave['zone_id']             = $request->zone_id;
             $consigneesave['branch_id']           = $request->branch_id;
             $consigneesave['dealer_type']         = $request->dealer_type;
             $consigneesave['email']               = $request->email;
@@ -319,4 +321,6 @@ class ConsigneeController extends Controller
     {
         return Excel::download(new ConsigneeExport, 'consignees.csv');
     }
+
+    
 }

@@ -107,15 +107,14 @@
                                 </div>-->
                                 
                             </div>
-                            <div class="form-row mb-0">                          
-                               
-                               <div class="form-group col-md-6">
-                                   <label for="exampleFormControlInput2">District</label>
-                                   <input type="text" class="form-control" id="district" name="district" value="{{old('district',isset($getconsignee->district)?$getconsignee->district:'')}}" placeholder="District">
-                               </div>
-                               <div class="form-group col-md-6">
-                                   <label for="exampleFormControlSelect1">Select State</label>
-                                   <select class="form-control" id="state" name="state_id">
+                            <div class="form-row mb-0">
+                                <div class="form-group col-md-6">
+                                    <label for="exampleFormControlInput2">District</label>
+                                    <input type="text" class="form-control" id="district" name="district" value="{{old('district',isset($getconsignee->district)?$getconsignee->district:'')}}" placeholder="District">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="exampleFormControlSelect1">Select State</label>
+                                    <select class="form-control" id="state" name="state_id">
                                        <option value="">Select</option>
                                        <?php 
                                        if(count($states)>0) {
@@ -126,12 +125,18 @@
                                            }
                                        }
                                        ?>                            
-                                   </select>
-                               </div>
-                           </div>
-                           
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row mb-0">
+                                <div class="form-group col-md-6">
+                                    <label for="exampleFormControlInput2">Primary Zone</label>
+                                    <input type="text" class="form-control" id="zone_name" name="zone_name" disabled value="{{old('zone_id',isset($getconsignee->GetZone->primary_zone)?$getconsignee->GetZone->primary_zone:'')}}" placeholder="">
+                                </div>
+                                <input type="hidden" id="zone_id" name="zone_id" value="{{old('zone_id',isset($getconsignee->GetZone->id)?$getconsignee->GetZone->id:'')}}">
+                            </div>
                             <div class="form-row mb-0">                          
-                            <div class="form-group col-md-6">
+                                <div class="form-group col-md-6">
                                     <label for="exampleFormControlInput2">Address Line 1</label>
                                     <input type="text" class="form-control" name="address_line1" value="{{old('address_line1',isset($getconsignee->address_line1)?$getconsignee->address_line1:'')}}" placeholder="">
                                 </div>
@@ -141,7 +146,7 @@
                                 </div>
                             </div>
                             <div class="form-row mb-0">                          
-                            <div class="form-group col-md-6">
+                                <div class="form-group col-md-6">
                                     <label for="exampleFormControlInput2">Address Line 3</label>
                                     <input type="text" class="form-control" name="address_line3" value="{{old('address_line3',isset($getconsignee->address_line3)?$getconsignee->address_line3:'')}}" placeholder="">
                                 </div>

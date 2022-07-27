@@ -81,18 +81,10 @@
                                     <th scope="row">State</th>
                                     <td>{{isset($getconsignee->GetState->name) ? ucfirst($getconsignee->GetState->name) : "-" }}</td>
                                 </tr>
-                                <!-- <tr>
-                                    <th scope="row">Sales officer Name</th>
-                                    <td>{{isset($getconsignee->sales_officer_name)?ucfirst($getconsignee->sales_officer_name):'-'}}</td>
-                                </tr>
                                 <tr>
-                                <th scope="row">Sales officer Email</th>
-                                    <td>{{isset($getconsignee->sales_officer_email)?ucfirst($getconsignee->sales_officer_email):'-'}}</td>
+                                    <th scope="row">Primary Zone</th>
+                                    <td>{{isset($getconsignee->GetZone->primary_zone) ? ucfirst($getconsignee->GetZone->primary_zone) : "-" }}</td>
                                 </tr>
-                                <tr>
-                                <th scope="row">Sales officer Mobile</th>
-                                    <td>{{isset($getconsignee->sales_officer_phone)?ucfirst($getconsignee->sales_officer_phone):'-'}}</td>
-                                </tr> -->
                                 <tr>
                                     <th scope="row">Address Line 1</th>
                                     <td>{{isset($getconsignee->address_line1)?ucfirst($getconsignee->address_line1):'-'}} </td>
