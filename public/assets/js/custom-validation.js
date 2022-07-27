@@ -766,18 +766,69 @@ jQuery(document).ready(function(){
 
 
     });
+ ///////////////////////get data successful model++++++++++++++++++++++++++++
+ 
+jQuery(document).on('click','.drs_cancel',function(event){
+    event.stopPropagation();
+   
+    let drs_no   = jQuery(this).attr('drs-no');
+
+        var data =  {drs_no:drs_no};
+        
+        jQuery.ajax({
+            url         : "get-delivery-datamodel",
+            type        : 'get',
+            cache       : false,
+            data        :  data,
+            dataType    :  'json',
+            headers     : {
+                'X-CSRF-TOKEN': jQuery('meta[name="_token"]').attr('content')
+            },
+            processData: true,
+            beforeSend  : function () {
+                $('#get-delvery-date').dataTable().fnClearTable();             
+                $('#get-delvery-date').dataTable().fnDestroy();
+            },
+            complete: function () {
+               
+            },
+
+            success:function(data){
+                console.log(data.fetch);
+            //     var re = jQuery.parseJSON(data)
+            //  console.log(re.fetch); return false;
+                    var consignmentID = [];
+                    $.each(data.fetch, function(index, value) {
+
+                        var alldata = value;  
+                        consignmentID.push(alldata.consignment_no);
+                        
+                        $('#get-delvery-date tbody').append("<tr><td>" + value.consignment_no + "</td><td><input type='date' name='delivery_date[]' data-id="+ value.consignment_no +" class='delivery_d' value='"+ value.dd+ "'></td><td><button type='button'  data-id="+ value.consignment_no +" class='btn btn-primary remover_lr'>remove</button></td></tr>");      
+
+
+                    });
+                    get_delivery_date();
+               
+            }
+        });
+    
+
+
+});
 //    Drs Cncel status update+++++++++++++++++++++++++++++++++++++
 jQuery(document).on('click','.drs_cancel',function(event){
     event.stopPropagation();
    
     
     let drs_no   = jQuery(this).attr('drs-no');
+   
     var dataaction = jQuery(this).attr('data-action');
     var updatestatus = 'updatestatus';
 
     jQuery('#commonconfirm').modal('show');
     // jQuery('.confirmtext').text('Are you sure you want to '+statustext+' this '+datatext+'?');
     jQuery( ".commonconfirmclick").one( "click", function() {
+        //alert('d');
         var drs_status = jQuery('#drs_status').val();
         //alert(drs_status);
         var data =  {drs_no:drs_no,drs_status:drs_status,updatestatus:updatestatus};

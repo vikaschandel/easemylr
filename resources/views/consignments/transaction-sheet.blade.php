@@ -69,45 +69,47 @@ div.relative {
                                     <th>Vehicle No</th>
                                     <th>Driver Name</th>
                                     <th>Driver Number</th>
+                                    <th>Total LR</th>
                                     <th>DRS Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach($transaction as $trns)
-                                <?php  $creation = date('d-m-Y',strtotime($trns['created_at']));    ?>
+                                <?php  $creation = date('d-m-Y',strtotime($trns->created_at));    ?>
                               <tr>
                                 
-                                <td>DRS-{{$trns['drs_no']}}</td>
+                                <td>DRS-{{$trns->drs_no}}</td>
                                 <td>{{$creation}}</td> 
-                                <td>{{$trns['vehicle_no']}}</td>
-                                <td>{{$trns['driver_name']}}</td>
-                                <td>{{$trns['driver_no']}}</td>
+                                <td>{{$trns->vehicle_no}}</td>
+                                <td>{{$trns->driver_name}}</td>
+                                <td>{{$trns->driver_no}}</td>
+                                <td>{{ $trns->total}}</td>
                                 <?php 
-                                if($trns['status'] == 0){?>
+                                if($trns->status == 0){?>
                                  <td><label class="badge badge-dark">Cancelled</label></td>
                                  <?php }else{?>
                                 <td>
                                
-                              <?php  if(empty($trns['vehicle_no'])){ ?>
-                                    <button type="button" class="btn btn-warning view-sheet" value="{{$trns['drs_no']}}" style="margin-right:4px;">Draft</button> 
-                                   <button type="button" class="btn btn-danger draft-sheet" value="{{$trns['drs_no']}}" style="margin-right:4px;">Save</button> 
+                              <?php  if(empty($trns->vehicle_no)){ ?>
+                                    <button type="button" class="btn btn-warning view-sheet" value="{{$trns->drs_no}}" style="margin-right:4px;">Draft</button> 
+                                   <button type="button" class="btn btn-danger draft-sheet" value="{{$trns->drs_no}}" style="margin-right:4px;">Save</button> 
                                    <?php } ?>
-                                   <?php if(!empty($trns['vehicle_no'])){?>
-                                    <a class="btn btn-primary" href="{{url($prefix.'/print-transaction/'.$trns['drs_no'])}}" role="button" >Print</a>
+                                   <?php if(!empty($trns->vehicle_no)){?>
+                                    <a class="btn btn-primary" href="{{url($prefix.'/print-transaction/'.$trns->drs_no)}}" role="button" >Print</a>
                                     <?php } ?>
                                     <?php  
-                                    if($trns['delivery_status'] == 'Unassigned'){?>
-                                    <button type="button" class="btn btn-danger" value="{{$trns['drs_no']}}" style="margin-right:4px;">Unassigned</button>
-                                    <?php }elseif($trns['delivery_status'] == 'Assigned'){ ?>
-                                        <button type="button" class="btn btn-warning delivery_status" value="{{$trns['drs_no']}}" style="margin-right:4px;">Assigned</button>
-                                    <?php }elseif($trns['delivery_status'] == 'Started'){ ?>
-                                        <button type="button" class="btn btn-success" value="{{$trns['drs_no']}}" style="margin-right:4px;"> Started</button>
-                                        <?php }elseif($trns['delivery_status'] == 'Successful'){ ?>
-                                        <button type="button" class="btn btn-success delivery_status" value="{{$trns['drs_no']}}" style="margin-right:4px;"> Successful</button>
+                                    if($trns->delivery_status == 'Unassigned'){?>
+                                    <button type="button" class="btn btn-danger" value="{{$trns->drs_no}}" style="margin-right:4px;">Unassigned</button>
+                                    <?php }elseif($trns->delivery_status == 'Assigned'){ ?>
+                                        <button type="button" class="btn btn-warning" value="{{$trns->drs_no}}" style="margin-right:4px;">Assigned</button>
+                                    <?php }elseif($trns->delivery_status == 'Started'){ ?>
+                                        <button type="button" class="btn btn-success" value="{{$trns->drs_no}}" style="margin-right:4px;"> Started</button>
+                                        <?php }elseif($trns->delivery_status == 'Successful'){ ?>
+                                        <button type="button" class="btn btn-success" value="{{$trns->drs_no}}" style="margin-right:4px;"> Successful</button>
                                         <?php } ?>
                                       </td>
-                                        <td> <a class="drs_cancel btn btn-success" drs-no = "{{$trns['drs_no']}}" data-text="consignment" data-status = "0" data-action = "<?php echo URL::current();?>"><span><i class="fa fa-check-circle-o"></i> Active</span></a></td>
+                                        <td> <a class="drs_cancel btn btn-success" drs-no = "{{$trns->drs_no}}" data-text="consignment" data-status = "0" data-action = "<?php echo URL::current();?>"><span><i class="fa fa-check-circle-o"></i> Active</span></a></td>
                                 <?php } ?>
                               </tr>
                               @endforeach
@@ -503,6 +505,16 @@ $('#update_delivery_status').submit(function(e) {
         
     });
 });
+/////////////////////////////////////////////////
+function catagoriesCheck(that) {
+    if (that.value == "Successful") {
+        document.getElementById("opi").style.display = "block";
+   
+    } else{
+        document.getElementById("opi").style.display = "none";
+          
+    }
+}
     </script>
 
 @endsection
