@@ -921,15 +921,12 @@ $(document).on('blur', "#edd",function () {
                         console.log(data.zone);
                         $("#city").val(data.data.city);
                         $("#district").val(data.data.district);
-                        if(!empty(data.zone.primary_zone =='')){
-                            $("#zone_name").val(data.zone.primary_zone);
-                        }else{
+                        if(data.zone == null || data.zone == ''){
                             $("#zone_name").val('');
-                        }
-                        if(!empty(data.zone.id)){
-                            $("#zone_id").val(data.zone.id);
-                        }else{
                             $("#zone_id").val('');
+                        }else{
+                            $("#zone_name").val(data.zone.primary_zone);
+                            $("#zone_id").val(data.zone.id);                            
                         }
                     }  
                 }
