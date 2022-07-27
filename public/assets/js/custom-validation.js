@@ -969,10 +969,16 @@ $(document).on('blur', "#edd",function () {
                 },
                 success: function(data){
                     if(data.success){
-                        console.log(data.data);
+                        console.log(data.zone);
                         $("#city").val(data.data.city);
                         $("#district").val(data.data.district);
-                        // $("#state").val(data.data.state);
+                        if(data.zone == null || data.zone == ''){
+                            $("#zone_name").val('');
+                            $("#zone_id").val('');
+                        }else{
+                            $("#zone_name").val(data.zone.primary_zone);
+                            $("#zone_id").val(data.zone.id);                            
+                        }
                     }  
                 }
             });
@@ -980,9 +986,8 @@ $(document).on('blur', "#edd",function () {
             $("#city").val('');
             $("#state").val('');
             $("#district").val('');
+            $("#zone").val('');
         }
-
-        
     });
 
     

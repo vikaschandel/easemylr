@@ -9,6 +9,7 @@ use App\Models\State;
 use App\Models\Location;
 use App\Models\Role;
 use App\Models\RegionalClient;
+use App\Models\Zone;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\ConsignerExport;
 use DB;
@@ -308,6 +309,12 @@ class ConsignerController extends Controller
 
     public function getPostalAddress(Request $request){
         $postcode = $request->postcode;
+        if(!empty($postcode)){
+            $getZone = Zone::where('postal_code',$postcode)->first();
+        }else{
+            $getZone = '';
+        }
+            
         $pin = URL::to('get-address-by-postcode');
         $pin = file_get_contents('https://api.postalpincode.in/pincode/'.$postcode);
         $pins = json_decode($pin);
@@ -326,7 +333,7 @@ class ConsignerController extends Controller
                 $response['success_message'] = "Postal Address fetch successfully";
                 $response['error'] = false;
                 $response['data'] = $arr;
-                
+                $response['zone'] = $getZone; 
             }
         }
         // dd($response);
