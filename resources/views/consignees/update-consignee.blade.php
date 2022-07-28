@@ -195,14 +195,39 @@
 <script>
 jQuery(document).ready(function(){
 
-    // on ready function for create/update consignee page
-    // var gstno = $("#gst_number").val().length;
-    // const gst_numberlen = gstno.length;
-    // if(gstno > 0){
-    //     $('#dealer_type option[value="1"]').prop('selected', true);
-    // }else{
-    //     $('#dealer_type option[value="0"]').prop('selected', true);
-    // }
+    var postcode = $('#postal_code').val();
+    var postcode_len = postcode.length;
+    if(postcode_len > 0){
+        $.ajax({
+            url         : '/get-address-by-postcode',
+            type        : 'get',
+            cache       : false,
+            data        :  {postcode:postcode},
+            dataType    :  'json',
+            headers     : {
+                'X-CSRF-TOKEN': jQuery('meta[name="_token"]').attr('content')
+            },
+            success: function(data){
+                if(data.success){
+                    console.log(data.zone);
+                    // $("#city").val(data.data.city);
+                    // $("#district").val(data.data.district);
+                    if(data.zone == null || data.zone == ''){
+                        $("#zone_name").val('No Zone Assigned');
+                        $("#zone_id").val('0');
+                    }else{
+                        $("#zone_name").val(data.zone.primary_zone);
+                        $("#zone_id").val(data.zone.id);                            
+                    }
+                }  
+            }
+        });
+    }else{
+        $("#city").val('');
+        $("#state").val('');
+        $("#district").val('');
+        $("#zone").val('');
+    }
 
     // $('#dealer_type').change(function (e) {
         // e.preventDefault();
