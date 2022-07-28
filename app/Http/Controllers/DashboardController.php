@@ -26,7 +26,6 @@ class DashboardController extends Controller
         $this->prefix = request()->route()->getPrefix();
         $query = ConsignmentNote::query();
         $authuser = Auth::user();
-        ////
         $role_id = Role::where('id','=',$authuser->role_id)->first();
         $regclient = explode(',',$authuser->regionalclient_id);
         $cc = explode(',',$authuser->branch_id);
@@ -74,6 +73,7 @@ class DashboardController extends Controller
                             ->sum('gross_weight');
             $getmonthly_gross_weightlifted = $monthly_gross_weightlifted/1000;
 
+            /// Activity Logs ///
             $getLatestLr = ConsignmentNote::select('*')->with('ConsigneeDetail')->where('user_id',$authuser->id)->orderby('id', 'DESC')->limit(5)->get();
             $Lrsimplify = json_decode(json_encode($getLatestLr), true);
 
@@ -120,6 +120,7 @@ class DashboardController extends Controller
                                 ->sum('gross_weight');
                 $getmonthly_gross_weightlifted = $monthly_gross_weightlifted/1000;
 
+                /// Activity Logs ///
                 $getLatestLr = ConsignmentNote::select('*')->with('ConsigneeDetail')->whereIn('branch_id',$cc)->orderby('id', 'DESC')->limit(5)->get();
                 $Lrsimplify = json_decode(json_encode($getLatestLr), true);
             }
@@ -151,15 +152,11 @@ class DashboardController extends Controller
                         ->sum('gross_weight');
             $getmonthly_gross_weightlifted = $monthly_gross_weightlifted/1000;
 
+            /// Activity Logs ///
             $getLatestLr = ConsignmentNote::select('*')->with('ConsigneeDetail')->orderby('id', 'DESC')->limit(5)->get();
             $Lrsimplify = json_decode(json_encode($getLatestLr), true);
         }
-        //=========================== Activity Logs ======================================//
     
-        
-        
-
-
         return view('dashboard',['prefix'=>$this->prefix,'title'=>$this->title,'gettoday_lr'=>$gettoday_lr,'gettoday_weightlifted'=>$gettoday_weightlifted,'gettoday_gross_weightlifted'=>$gettoday_gross_weightlifted,'getcurrentmonth_lr'=>$getcurrentmonth_lr,'getmonthly_weightlifted'=>$getmonthly_weightlifted,'getmonthly_gross_weightlifted'=>$getmonthly_gross_weightlifted,'Lrsimplify' => $Lrsimplify]);
     }
 
