@@ -719,6 +719,7 @@ jQuery(document).ready(function(){
     jQuery(document).on('click','.activestatus,.inactivestatus',function(event){
         event.stopPropagation();
         let user_id   = jQuery(this).attr('data-id');
+
         var dataaction = jQuery(this).attr('data-action');
         var datastatus = jQuery(this).attr('data-status');
         var datatext = jQuery(this).attr('data-text');
@@ -737,7 +738,7 @@ jQuery(document).ready(function(){
             var data =  {id:user_id,status:datastatus,updatestatus:updatestatus,reason_to_cancel:reason_to_cancel};
             
             jQuery.ajax({
-                url         : dataaction,
+                url         : 'consignments',
                 type        : 'get',
                 cache       : false,
                 data        :  data,
