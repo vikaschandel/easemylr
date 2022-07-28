@@ -116,10 +116,11 @@ class ConsignmentController extends Controller
         return Datatables::of($data)
         ->addColumn('lrdetails', function($data){
                      
-            $trps = '<ul class="ant-timeline">
-                       <li class="ant-timeline-item"><span style="color:#4361ee;">LR No: </span>'.$data->id.'<li>
-                       <li class="ant-timeline-item"><span style="color:#4361ee;">LR Date: </span>'.$data->consignment_date.'<li>
-                     </ul>'; 
+            $trps = '<div class="ant-timeline-item-content">
+                     <div class="css-16pld72"><span style="color:#4361ee;">LR No: </span>'.$data->id.'</div>
+                     <div class="css-16pld72"><span style="color:#4361ee;">Order ID: </span>'.$data->order_id.'</div>
+                     <div class="css-16pld72"><span style="color:#4361ee;">Consignment Date: </span>'.$data->consignment_date.'</div>
+                     </div>'; 
 
             return $trps;
         })
@@ -140,7 +141,6 @@ class ConsignmentController extends Controller
                 <div class="css-16pld72">'.$data->pincode.', '.$data->city.'</div>
                 <div class="css-16pld72" style="font-size: 12px; color: rgb(102, 102, 102);">     
                     <span>'.$data->con_add1.',</span>
-                    <span>'.$data->con_add2.', <span>'.$data->con_add3.'</span></span>
                 </div>
                 </div>
             </li>
@@ -148,7 +148,7 @@ class ConsignmentController extends Controller
                 return $troute;
             })
             ->addColumn('poptions', function($data){
-                $po = '<a href="print-sticker/'.$data->id.'/" target="_blank" class="badge alert bg-warning shadow-sm">Print Sticker</a> || <a href="consignments/'.$data->id.'/print-view/1/" target="_blank" class="badge alert bg-warning shadow-sm">Print LR</a> || <a href="consignments/'.$data->id.'/print-view/2/" target="_blank" class="badge alert bg-warning shadow-sm">Print with Ship to</a>';
+                $po = '<a href="print-sticker/'.$data->id.'/" target="_blank" class="badge alert bg-info shadow-sm">Print Sticker</a> | <a href="consignments/'.$data->id.'/print-view/1/" target="_blank" class="badge alert bg-warning shadow-sm">Print LR</a> | <a href="consignments/'.$data->id.'/print-view/2/" target="_blank" class="badge alert bg-info shadow-sm">Print with Ship to</a>';
 
                 return $po;
             }) 
