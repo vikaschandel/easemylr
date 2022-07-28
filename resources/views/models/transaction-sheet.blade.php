@@ -12,7 +12,7 @@
                         <div class="form-group col-md-12">
                             <label for="location_name">Status</label>
 
-                            <select class="form-control" id="drs_status" name="drs_status" tabindex="-1">
+                            <select class="form-control" id="drs_status" name="drs_status" onchange="catagoriesCheck(this);" tabindex="-1" >
                                 <option value="">Select status</option>
                                 <option value="0">Cancel Drs</option>
                                 <option value="Started">Started</option>
@@ -26,6 +26,22 @@
             <!-- <img src="/assets/images/sucess.png" class="img-fluid mb-2">  -->
              <!-- <p class="confirmtext">Are You Sure You Want To Cancel It ?</p> -->
           </div>
+          <div class="table-responsive" id="opi" style="display: none;">
+                        <table id="get-delvery-date" class="table table-hover"
+                            style="width:100%; text-align:left; border: 1px solid #c7c7c7;">
+                            <thead>
+                                <tr>
+                                    <th>LR No</th>
+                                    <th>Delivery Date</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+
+                    </div>
        </div>
        <!-- Modal footer -->
        <div class="modal-footer">
@@ -56,7 +72,7 @@
             </div>
             <div class="modal-body">
                 <form id="update_delivery_status" >
-            <input type="hidden" name="consignment_no" id="drs_status">
+            <input type="text" name="consignment_no" id="drs_status">
             <div class="table-responsive">
                         <table id="delivery_status" class="table table-hover"
                             style="width:100%; text-align:left; border: 1px solid #c7c7c7;">
@@ -64,6 +80,7 @@
                                 <tr>
                                     <th>LR No</th>
                                     <th>Delivery Date</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>

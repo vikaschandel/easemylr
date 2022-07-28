@@ -42,7 +42,7 @@ class DashboardController extends Controller
                         ->where('consignment_items.status', '=', 1)
                         ->where('consignment_notes.user_id',$authuser->id)
                         ->sum('weight');
-        $gettoday_weightlifted = $today_weightlifted/1000;              
+        $gettoday_weightlifted = $today_weightlifted/1000;         
 
         $monthly_weightlifted = DB::table('consignment_items')->select('consignment_items.*', 'consignment_notes.id as consignment_id')
                         ->join('consignment_notes', 'consignment_notes.id', '=', 'consignment_items.consignment_id')
