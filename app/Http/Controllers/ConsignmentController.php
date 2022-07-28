@@ -385,6 +385,8 @@ class ConsignmentController extends Controller
 
             $saveconsignment = ConsignmentNote::create($consignmentsave);
 
+            
+
             if ($saveconsignment) {
 
                    /******* PUSH LR to Shadow if vehicle available & Driver has team & fleet ID   ********/
