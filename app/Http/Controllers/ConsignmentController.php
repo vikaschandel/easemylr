@@ -149,7 +149,6 @@ class ConsignmentController extends Controller
             })
             ->addColumn('poptions', function($data){
                 $po = '<a href="print-sticker/'.$data->id.'/" target="_blank" class="badge alert bg-info shadow-sm">Print Sticker</a> | <a href="consignments/'.$data->id.'/print-view/2/" target="_blank" class="badge alert bg-info shadow-sm">Print LR</a>';
-
                 return $po;
             }) 
             ->addColumn('status', function($data){
