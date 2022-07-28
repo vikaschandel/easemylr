@@ -91,7 +91,7 @@
                                     '<strong class="labels">Invoice No:</strong> '+d.invoice_no+'<br/>'+
                                     '<strong class="labels">Invoice Date :</strong> '+d.invoice_date+'<br/>'+
                                     '<strong class="labels">Invoice Amount:</strong> '+d.invoice_amount+'<br/>'+
-                                    '<strong class="labels">Vehicle No:</strong> '+d.consignee_id+'<br/>'+
+                                    '<strong class="labels">Vehicle No:</strong> '+d.vehicle_no+'<br/>'+
                                     '<strong class="labels">Boxes:</strong> '+d.total_quantity+'<br/>'+
                                     '<strong class="labels">Net Weight:</strong> '+d.total_weight+'<br/><br/>'+
                                     ''+d.route+'<br/>'+
