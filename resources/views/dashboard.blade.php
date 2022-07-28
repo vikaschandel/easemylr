@@ -269,6 +269,7 @@
                         <div class="timeline-line">
 
                             @foreach($Lrsimplify as $lastlr)
+                          
                          
                             <div class="item-timeline timeline-new">
                                 <div class="t-dot">
@@ -278,7 +279,7 @@
                                     <div class="t-uppercontent">
                                         <h5>{{$lastlr['consignee_detail']['nick_name']}}<a href="javscript:void(0);"><span></span></a></h5>
                                     </div>
-                                    <p>27 Feb, 2020</p>
+                                    <p>{{$lastlr['consignment_date']}}</p>
                                 </div>
                             </div>
                             @endforeach
