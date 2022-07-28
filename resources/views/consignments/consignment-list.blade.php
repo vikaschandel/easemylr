@@ -6,8 +6,8 @@
 }
 div.relative {
     position: absolute;
-    left: 110px;
-    top: 24px;
+    left: 9px;
+    top: 14px;
     z-index: 1;
     width: 145px;
     height: 38px;
