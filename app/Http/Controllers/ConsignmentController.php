@@ -156,7 +156,7 @@ class ConsignmentController extends Controller
                  $st = '<span class="badge alert bg-secondary shadow-sm">Cancel</span>';
                 } 
                 elseif($data->status == 1){
-                    $st = '<span class="badge bg-info shadow-sm">Active</span>';    
+                    $st = '<a class="activestatus btn btn-success" data-id = "'.$data->id.'" data-text="consignment" data-status = "0" ><span><i class="fa fa-check-circle-o"></i> Active</span';    
                 }
                 elseif($data->status == 2){
                     $st = '<span class="badge bg-success">Unverified</span>';    
@@ -199,6 +199,8 @@ class ConsignmentController extends Controller
             })                      
         ->rawColumns(['lrdetails','route','poptions','status', 'delivery_status'])    
         ->make(true);
+
+        
      
     }
 
@@ -384,7 +386,7 @@ class ConsignmentController extends Controller
 
             $saveconsignment = ConsignmentNote::create($consignmentsave);
 
-            
+
 
             if ($saveconsignment) {
 
