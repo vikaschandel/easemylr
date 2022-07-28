@@ -413,7 +413,7 @@ class ConsignmentController extends Controller
                         ->where('consignment_notes.id', $lid)
                         ->get();
                         $simplyfy = json_decode(json_encode($lrdata), true);
-                        
+                        //echo "<pre>";print_r($vn);die;
                         //Send Data to API
                         if (!empty($vn) && !empty($simplyfy[0]['team_id']) && !empty($simplyfy[0]['fleet_id'])) {
                         $createTask = $this->createTookanTasks($simplyfy);
@@ -1340,7 +1340,8 @@ class ConsignmentController extends Controller
                       </div>
                       <div class="column">
                         <p></p>
-                      </div>
+   
+                        </div>
                   </div>
 
                 <br>';
@@ -1558,11 +1559,13 @@ class ConsignmentController extends Controller
     //++++++++++++++++++++++ Tookan API Push +++++++++++++++++++++++++++++++++++//
 
     public function createTookanTasks($taskDetails) {
+
+        //echo "<pre>";print_r($taskDetails);die;
        
         foreach ($taskDetails as $task){
 
             $td = '{
-                "api_key": "50666282f31751191c4f723c1410224319e5cdfb2fd5723e5a19",
+                "api_key": "53606486f24a031f54467d38434b7c471ae1ccf323d8733c541506c9",
                 "order_id": "'.$task['order_id'].'",
                 "job_description": "DRS-'.$task['id'].'",
                 "customer_email": "'.$task['email'].'",
@@ -1661,7 +1664,7 @@ class ConsignmentController extends Controller
             //echo "<pre>"; print_r($de_json);die;
 
          $apidata = '{
-                "api_key": "50666282f31751191c4f723c1410224319e5cdfb2fd5723e5a19",
+                "api_key": "53606486f24a031f54467d38434b7c471ae1ccf323d8733c541506c9",
                 "fleet_id": "'.$taskDetails[0]['fleet_id'].'",
                 "timezone": -330,
                 "has_pickup": 0,
