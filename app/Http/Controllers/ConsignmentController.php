@@ -116,10 +116,11 @@ class ConsignmentController extends Controller
         return Datatables::of($data)
         ->addColumn('lrdetails', function($data){
                      
-            $trps = '<ul class="ant-timeline">
-                       <li class="ant-timeline-item"><span style="color:#4361ee;">LR No: </span>'.$data->id.'<li>
-                       <li class="ant-timeline-item"><span style="color:#4361ee;">LR Date: </span>'.$data->consignment_date.'<li>
-                     </ul>'; 
+            $trps = '<div class="">
+                     <div class=""><span style="color:#4361ee;">LR No: </span>'.$data->id.'</div>
+                     <div class=""><span style="color:#4361ee;">Order No: </span>'.$data->order_id.'</div>
+                     <div class=""><span style="color:#4361ee;">Invoice No: </span>'.$data->invoice_no.'</div>
+                     </div>'; 
 
             return $trps;
         })
@@ -140,16 +141,23 @@ class ConsignmentController extends Controller
                 <div class="css-16pld72">'.$data->pincode.', '.$data->city.'</div>
                 <div class="css-16pld72" style="font-size: 12px; color: rgb(102, 102, 102);">     
                     <span>'.$data->con_add1.',</span>
-                    <span>'.$data->con_add2.', <span>'.$data->con_add3.'</span></span>
                 </div>
                 </div>
             </li>
             </ul>';
                 return $troute;
             })
+            ->addColumn('impdates', function($data){
+                     
+                $dates = '<div class="">
+                         <div class=""><span style="color:#4361ee;">LR Date: </span>'.$data->consignment_date.'</div>
+                         <div class=""><span style="color:#4361ee;">EDD: </span>'.$data->edd.'</div>
+                         </div>'; 
+    
+                return $dates;
+            })
             ->addColumn('poptions', function($data){
-                $po = '<a href="print-sticker/'.$data->id.'/" target="_blank" class="badge alert bg-warning shadow-sm">Print Sticker</a> || <a href="consignments/'.$data->id.'/print-view/1/" target="_blank" class="badge alert bg-warning shadow-sm">Print LR</a> || <a href="consignments/'.$data->id.'/print-view/2/" target="_blank" class="badge alert bg-warning shadow-sm">Print with Ship to</a>';
-
+                $po = '<a href="print-sticker/'.$data->id.'/" target="_blank" class="badge alert bg-info shadow-sm">Print Sticker</a> | <a href="consignments/'.$data->id.'/print-view/2/" target="_blank" class="badge alert bg-info shadow-sm">Print LR</a>';
                 return $po;
             }) 
             ->addColumn('status', function($data){
@@ -157,7 +165,7 @@ class ConsignmentController extends Controller
                  $st = '<span class="badge alert bg-secondary shadow-sm">Cancel</span>';
                 } 
                 elseif($data->status == 1){
-                    $st = '<span class="badge bg-info shadow-sm">Active</span>';    
+                    $st = '<a class="activestatus btn btn-success" data-id = "'.$data->id.'" data-text="consignment" data-status = "0" ><span><i class="fa fa-check-circle-o"></i> Active</span';    
                 }
                 elseif($data->status == 2){
                     $st = '<span class="badge bg-success">Unverified</span>';    
@@ -198,8 +206,10 @@ class ConsignmentController extends Controller
                 
 
             })                      
-        ->rawColumns(['lrdetails','route','poptions','status', 'delivery_status'])    
+        ->rawColumns(['lrdetails','route','impdates','poptions','status', 'delivery_status'])    
         ->make(true);
+
+        
      
     }
 
@@ -384,6 +394,8 @@ class ConsignmentController extends Controller
             }
 
             $saveconsignment = ConsignmentNote::create($consignmentsave);
+
+
 
             if ($saveconsignment) {
 
