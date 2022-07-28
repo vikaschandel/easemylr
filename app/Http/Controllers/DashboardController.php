@@ -30,14 +30,16 @@ class DashboardController extends Controller
         $regclient = explode(',',$authuser->regionalclient_id);
         $cc = explode(',',$authuser->branch_id);
         if($authuser->role_id ==4){
-            $gettoday_lr = $query->where('user_id',$authuser->id)
-                            ->whereDate('created_at', '=', date('Y-m-d'))
-                            ->where('status', '1')
-                            ->count();
-            $getcurrentmonth_lr = $query->where('created_at', '>=', date('Y-m-01'))
-                            ->where('user_id',$authuser->id)
-                            ->where('status', 1)
-                            ->count();
+            $gettoday_lr = $query->where('user_id','=',$authuser->id)->where('status','=','1')->where('created_at','>=',Carbon::today())->count();
+            // $gettoday_lr = $query->where('user_id',$authuser->id)
+            //                 ->whereDate('created_at', '=', date('Y-m-d'))
+            //                 ->where('status', '1')
+            //                 ->count();
+            $getcurrentmonth_lr = $query->where('user_id','=',$authuser->id)->where('status','=','1')->where('created_at','>=',Carbon::now()->startOfMonth())->count();
+            // $getcurrentmonth_lr = $query->where('created_at', '>=', date('Y-m-01'))
+            //                 ->where('user_id',$authuser->id)
+            //                 ->where('status', 1)
+            //                 ->count();
 
             $today_weightlifted = DB::table('consignment_items')->select('consignment_items.*', 'consignment_notes.id as consignment_id')
                             ->join('consignment_notes', 'consignment_notes.id', '=', 'consignment_items.consignment_id')
