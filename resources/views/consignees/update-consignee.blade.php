@@ -131,7 +131,7 @@
                             <div class="form-row mb-0">
                                 <div class="form-group col-md-6">
                                     <label for="exampleFormControlInput2">Primary Zone</label>
-                                    <input type="text" class="form-control" id="zone_name" name="zone_name" disabled value="{{old('zone_id',isset($getconsignee->GetZone->primary_zone)?$getconsignee->GetZone->primary_zone:'')}}" placeholder="">
+                                    <input type="text" class="form-control" id="zone_name" name="zone_name" disabled value="{{old('zone_id',isset($getconsignee->GetZone->primary_zone)?$getconsignee->GetZone->primary_zone:'No Zone Assigned')}}" placeholder="">
                                 </div>
                                 <input type="hidden" id="zone_id" name="zone_id" value="{{old('zone_id',isset($getconsignee->GetZone->id)?$getconsignee->GetZone->id:'')}}">
                             </div>
@@ -194,41 +194,6 @@
 @section('js')
 <script>
 jQuery(document).ready(function(){
-
-    var postcode = $('#postal_code').val();
-    var postcode_len = postcode.length;
-    if(postcode_len > 0){
-        $.ajax({
-            url         : '/get-address-by-postcode',
-            type        : 'get',
-            cache       : false,
-            data        :  {postcode:postcode},
-            dataType    :  'json',
-            headers     : {
-                'X-CSRF-TOKEN': jQuery('meta[name="_token"]').attr('content')
-            },
-            success: function(data){
-                if(data.success){
-                    console.log(data.zone);
-                    // $("#city").val(data.data.city);
-                    // $("#district").val(data.data.district);
-                    if(data.zone == null || data.zone == ''){
-                        $("#zone_name").val('No Zone Assigned');
-                        $("#zone_id").val('0');
-                    }else{
-                        $("#zone_name").val(data.zone.primary_zone);
-                        $("#zone_id").val(data.zone.id);                            
-                    }
-                }  
-            }
-        });
-    }else{
-        $("#city").val('');
-        $("#state").val('');
-        $("#district").val('');
-        $("#zone").val('');
-    }
-
     // $('#dealer_type').change(function (e) {
         // e.preventDefault();
         var valueSelected = $('#dealer_type').val();
