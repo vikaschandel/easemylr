@@ -21,6 +21,7 @@ use QrCode;
 use Storage;
 use Validator;
 use DataTables;
+use Helper;
 
 class ConsignmentController extends Controller
 {
@@ -1467,7 +1468,7 @@ class ConsignmentController extends Controller
                     </div>
                     <div class="column" style="width:75px;">
                         <p style="margin-top:0px;">' . $dataitem['consignment_no'] . '</p>
-                        <p style="margin-top:-13px;">' . $dataitem['consignment_date'] . '</p>
+                        <p style="margin-top:-13px;">' . Helper::ShowDayMonthYear($dataitem['consignment_date']). '</p>
                     </div>
                     <div class="column" style="width:140px;">
                         <p style="margin-top:0px;">' . $dataitem['consignee_id'] . '</p>
