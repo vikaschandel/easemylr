@@ -132,6 +132,14 @@ a.badge.alert.bg-secondary.shadow-sm {
                         </ol>
                     </nav>
                 </div>
+
+                <div class="alert alert-info alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" 
+                        aria-hidden="true">
+                        &times;
+                    </button>
+                        <p>Status updated for <span id="jobs_count">[count]</span> consignments please refresh the page!</p>
+                </div>
                 <div class="widget-content widget-content-area br-6">
                     <div class="mb-4 mt-4">
                         @csrf

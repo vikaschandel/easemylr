@@ -113,10 +113,7 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth','PermissionCheck']], func
 
     Route::resource('consignments', ConsignmentController::class);
     Route::any('clist', [ConsignmentController::class, 'consignment_list']);
-    //Test Routes 
-    Route::any('testview', [ConsignmentController::class, 'testview']);
-    Route::any('test', [ConsignmentController::class, 'test']);
-    // Test Routes 
+
     Route::get('unverified-list', [ConsignmentController::class, 'unverifiedList']);
     Route::any('update_unverifiedLR', [ConsignmentController::class, 'updateUnverifiedLr']);
     Route::post('consignments/update-consignment', [ConsignmentController::class, 'updateConsignment']);
