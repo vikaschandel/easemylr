@@ -144,8 +144,8 @@ a.badge.alert.bg-secondary.shadow-sm {
                                     <th> </th>
                                     <th>LR Details</th>
                                     <th>Route</th>
+                                    <th>Dates</th>
                                     <th>Printing options</th>
-                                    <th>EDD</th>
                                     <th>LR Status</th>
                                     <th>Delivery Status</th>
                                 </tr>

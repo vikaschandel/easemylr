@@ -974,8 +974,8 @@ $(document).on('blur', "#edd",function () {
                         $("#city").val(data.data.city);
                         $("#district").val(data.data.district);
                         if(data.zone == null || data.zone == ''){
-                            $("#zone_name").val('');
-                            $("#zone_id").val('');
+                            $("#zone_name").val('No Zone Assigned');
+                            $("#zone_id").val('0');
                         }else{
                             $("#zone_name").val(data.zone.primary_zone);
                             $("#zone_id").val(data.zone.id);                            

@@ -131,7 +131,7 @@
                             <div class="form-row mb-0">
                                 <div class="form-group col-md-6">
                                     <label for="exampleFormControlInput2">Primary Zone</label>
-                                    <input type="text" class="form-control" id="zone_name" name="zone_name" disabled value="{{old('zone_id',isset($getconsignee->GetZone->primary_zone)?$getconsignee->GetZone->primary_zone:'')}}" placeholder="">
+                                    <input type="text" class="form-control" id="zone_name" name="zone_name" disabled value="{{old('zone_id',isset($getconsignee->GetZone->primary_zone)?$getconsignee->GetZone->primary_zone:'No Zone Assigned')}}" placeholder="">
                                 </div>
                                 <input type="hidden" id="zone_id" name="zone_id" value="{{old('zone_id',isset($getconsignee->GetZone->id)?$getconsignee->GetZone->id:'')}}">
                             </div>
@@ -194,16 +194,6 @@
 @section('js')
 <script>
 jQuery(document).ready(function(){
-
-    // on ready function for create/update consignee page
-    // var gstno = $("#gst_number").val().length;
-    // const gst_numberlen = gstno.length;
-    // if(gstno > 0){
-    //     $('#dealer_type option[value="1"]').prop('selected', true);
-    // }else{
-    //     $('#dealer_type option[value="0"]').prop('selected', true);
-    // }
-
     // $('#dealer_type').change(function (e) {
         // e.preventDefault();
         var valueSelected = $('#dealer_type').val();

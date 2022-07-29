@@ -116,10 +116,10 @@ class ConsignmentController extends Controller
         return Datatables::of($data)
         ->addColumn('lrdetails', function($data){
                      
-            $trps = '<div class="ant-timeline-item-content">
-                     <div class="css-16pld72"><span style="color:#4361ee;">LR No: </span>'.$data->id.'</div>
-                     <div class="css-16pld72"><span style="color:#4361ee;">Order ID: </span>'.$data->order_id.'</div>
-                     <div class="css-16pld72"><span style="color:#4361ee;">Consignment Date: </span>'.$data->consignment_date.'</div>
+            $trps = '<div class="">
+                     <div class=""><span style="color:#4361ee;">LR No: </span>'.$data->id.'</div>
+                     <div class=""><span style="color:#4361ee;">Order No: </span>'.$data->order_id.'</div>
+                     <div class=""><span style="color:#4361ee;">Invoice No: </span>'.$data->invoice_no.'</div>
                      </div>'; 
 
             return $trps;
@@ -146,6 +146,15 @@ class ConsignmentController extends Controller
             </li>
             </ul>';
                 return $troute;
+            })
+            ->addColumn('impdates', function($data){
+                     
+                $dates = '<div class="">
+                         <div class=""><span style="color:#4361ee;">LR Date: </span>'.$data->consignment_date.'</div>
+                         <div class=""><span style="color:#4361ee;">EDD: </span>'.$data->edd.'</div>
+                         </div>'; 
+    
+                return $dates;
             })
             ->addColumn('poptions', function($data){
                 $po = '<a href="print-sticker/'.$data->id.'/" target="_blank" class="badge alert bg-info shadow-sm">Print Sticker</a> | <a href="consignments/'.$data->id.'/print-view/2/" target="_blank" class="badge alert bg-info shadow-sm">Print LR</a>';
@@ -197,7 +206,7 @@ class ConsignmentController extends Controller
                 
 
             })                      
-        ->rawColumns(['lrdetails','route','poptions','status', 'delivery_status'])    
+        ->rawColumns(['lrdetails','route','impdates','poptions','status', 'delivery_status'])    
         ->make(true);
 
         
