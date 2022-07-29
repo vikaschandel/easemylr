@@ -21,6 +21,7 @@ use QrCode;
 use Storage;
 use Validator;
 use DataTables;
+use Helper;
 
 class ConsignmentController extends Controller
 {
@@ -1241,9 +1242,9 @@ class ConsignmentController extends Controller
               }
           </style>
         </head>
-        <body style="font-size:14px;">
+        <body style="font-size:13px; font-family:Arial Helvetica,sans-serif;">
                     <header><div class="row" style="display:flex;">
-                    <div class="col"  style="width: 493px;">
+                    <div class="column"  style="width: 493px;">
                         <h1 class="dd">Delivery Run Sheet</h1>
                         <div  class="dd">
                         <table style="width:100%">
@@ -1269,29 +1270,29 @@ class ConsignmentController extends Controller
                     </div>
 
                     </div>
-                    <!-- <div class="col" style="margin-left: 26px;">
-                        <img src="logo.png" class="imga">
-                    </div> -->
+                     <div class="column" style="margin-left: 56px;">
+                        <img src="'.$pay.'" class="imga" style = "width: 170px; height: 80px; margin-top:30px;">
+                    </div> 
                 </div>
                 <br>
                 <div id="content"><div class="row" style="border: 1px solid black;">
-                <div class="column" style="width:85px;">
+                <div class="column" style="width:75px;">
                     <h4 style="margin: 0px;">Order Id</h4>
                 </div>
-                <div class="column" style="width:85px;">
+                <div class="column" style="width:75px;">
                     <h4 style="margin: 0px;">LR No. & Date</h4>
                 </div>
-                <div class="column" style="width:190px;">
+                <div class="column" style="width:140px;">
                     <h4 style="margin: 0px;">Consignee Name & Mobile Number</h4>
                 </div>
-                <div class="column" style="width:140px;">
+                <div class="column" style="width:110px;">
                     <h4 style="margin: 0px;">Delivery City & PIN</h4>
                     </div>
                     <div class="column">
                     <h4 style="margin: 0px;">Shipment Details</h4>
                     </div>
-                    <div class="column">
-                    <h4 style="margin: 0px;">Stamp & Signature of Receiver</h4>
+                    <div class="column" style="width:170px;">
+                    <h4 style="margin: 0px; ">Stamp & Signature of Receiver</h4>
                     </div>
                 </div>
                 </div>
@@ -1300,10 +1301,10 @@ class ConsignmentController extends Controller
                     <div class="col-sm-12" style="margin-left: 0px;">
                         <p>Head Office:Forwarders private Limited</p>
                         <p style="margin-top:-13px;">Add:Plot No.B-014/03712,prabhat,Zirakpur-140603</p>
-                        <p style="margin-top:-13px;">Phone:07126645510 email:contact@eternityforwarders.com</p>
+                        <p style="margin-top:-13px;">Phone:07126645510 mailto:email:contact@eternityforwarders.com</p>
                     </div>
                 </div></footer>
-                    <main style="margin-top:160px;">';
+                    <main style="margin-top:150px;">';
                     $i = 0;
                     $total_Boxes = 0;
                     $total_weight = 0;
@@ -1322,31 +1323,31 @@ class ConsignmentController extends Controller
             //echo'<pre>'; print_r($dataitem['consignment_no']); die;
             $html .= '  
                 <div class="row" style="border: 1px solid black;">
-                    <div class="column" style="width:85px;">
+                    <div class="column" style="width:75px;">
                       <p style="margin-top:0px; overflow-wrap: break-word;">' . $dataitem['consignment_detail']['order_id'] . '</p>
                       <p></p>
                     </div>
-                    <div class="column" style="width:85px;">
+                    <div class="column" style="width:75px;">
                         <p style="margin-top:0px;">' . $dataitem['consignment_no'] . '</p>
-                        <p style="margin-top:-13px;">' . $dataitem['consignment_date'] . '</p>
-                    </div>
-                    <div class="column" style="width:190px;">
-                        <p style="margin-top:0px;">' . $dataitem['consignee_id'] . '</p>
-                        <p style="margin-top:-13px;">' . $dataitem['consignee_detail']['phone'] . '</p>
-
+                        <p style="margin-top:-13px;">' . Helper::ShowDayMonthYear($dataitem['consignment_date']). '</p>
                     </div>
                     <div class="column" style="width:140px;">
+                        <p style="margin-top:0px;">' . $dataitem['consignee_id'] . '</p>
+                        <p style="margin-top:-13px;">' . @$dataitem['consignee_detail']['phone'] . '</p>
+
+                    </div>
+                    <div class="column" style="width:110px;">
                         <p style="margin-top:0px;">' . $dataitem['city'] . '</p>
-                        <p style="margin-top:-13px;">' . $dataitem['pincode'] . '</p>
+                        <p style="margin-top:-13px;">' . @$dataitem['pincode'] . '</p>
 
                       </div>
-                      <div class="column">
+                      <div class="column" >
                         <p style="margin-top:0px;">Boxes:' . $dataitem['total_quantity'] . '</p>
-                        <p style="margin-top:-13px;">Wt:' . $dataitem['total_weight'] . '</p>
-                        <p style="margin-top:-13px; overflow-wrap: break-word;">' . $dataitem['consignment_detail']['invoice_no'] . '</p>
+                        <p style="margin-top:-13px;">Wt:' . $dataitem['consignment_detail']['total_gross_weight'] . '</p>
+                        <p style="margin-top:-13px;">Inv No. ' . $dataitem['consignment_detail']['invoice_no'] . '</p>
 
                       </div>
-                      <div class="column">
+                      <div class="column" style="width:170px;">
                         <p></p>
                       </div>
                   </div>
