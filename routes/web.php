@@ -297,7 +297,6 @@ Route::group(['prefix'=>'regional-manager', 'middleware'=>['auth','PermissionChe
     Route::any('update-lrstatus', [ConsignmentController::class, 'updateLrStatus']);
 
 
-
     Route::resource('locations', LocationController::class);
     Route::post('/locations/update', [LocationController::class, 'updateLocation']);
     Route::any('locations/get-location', [LocationController::class, 'getLocation']);
