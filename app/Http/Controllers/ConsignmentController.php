@@ -88,16 +88,15 @@ class ConsignmentController extends Controller
         $role_id = Role::where('id','=',$authuser->role_id)->first();
         $regclient = explode(',',$authuser->regionalclient_id);
         $cc = explode(',',$authuser->branch_id);
-        if($authuser->role_id ==4){
-            $data = DB::table('consignment_notes')->select('consignment_notes.*', 'consigners.nick_name as consigner_id', 'consigners.city as con_city', 'consigners.postal_code as con_pincode', 'consignees.nick_name as consignee_id', 'consignees.city as city', 'consignees.postal_code as pincode', 'consignees.address_line1 as con_add1', 'consignees.address_line2 as con_add2', 'consignees.address_line3 as con_add3')
-                    ->join('consigners', 'consigners.id', '=', 'consignment_notes.consigner_id')
-                    ->join('consignees', 'consignees.id', '=', 'consignment_notes.consignee_id')
-                    ->where('consignment_notes.user_id', $authuser->id)
-                    ->orderBy('id', 'DESC')
-                    ->get(['consignees.city']);
-        } 
-        elseif($authuser->role_id !=1 || $authuser->role_id !=4){
-            if ($authuser->role_id == $role_id->id) {
+        if($authuser->role_id !=1){
+            if($authuser->role_id ==4){
+                $data = DB::table('consignment_notes')->select('consignment_notes.*', 'consigners.nick_name as consigner_id', 'consigners.city as con_city', 'consigners.postal_code as con_pincode', 'consignees.nick_name as consignee_id', 'consignees.city as city', 'consignees.postal_code as pincode', 'consignees.address_line1 as con_add1', 'consignees.address_line2 as con_add2', 'consignees.address_line3 as con_add3')
+                        ->join('consigners', 'consigners.id', '=', 'consignment_notes.consigner_id')
+                        ->join('consignees', 'consignees.id', '=', 'consignment_notes.consignee_id')
+                        ->where('consignment_notes.user_id', $authuser->id)
+                        ->orderBy('id', 'DESC')
+                        ->get(['consignees.city']);
+            }else {
                 $data = DB::table('consignment_notes')->select('consignment_notes.*', 'consigners.nick_name as consigner_id', 'consigners.city as con_city', 'consigners.postal_code as con_pincode', 'consignees.nick_name as consignee_id', 'consignees.city as city', 'consignees.postal_code as pincode', 'consignees.address_line1 as con_add1', 'consignees.address_line2 as con_add2', 'consignees.address_line3 as con_add3')
                     ->join('consigners', 'consigners.id', '=', 'consignment_notes.consigner_id')
                     ->join('consignees', 'consignees.id', '=', 'consignment_notes.consignee_id')
@@ -1254,7 +1253,6 @@ class ConsignmentController extends Controller
             return $response;
         
     }
-
     public function transactionSheet(Request $request)
     {
         $this->prefix = request()->route()->getPrefix();
@@ -1266,22 +1264,30 @@ class ConsignmentController extends Controller
         $regclient = explode(',',$authuser->regionalclient_id);
         $cc = explode(',',$authuser->branch_id);
         if($authuser->role_id !=1){
-            if($authuser->role_id == $role_id->id){ 
-                $query = TransactionSheet::query();
-                $transaction = DB::table('transaction_sheets')->select('drs_no','driver_name','vehicle_no', 'status','delivery_status','created_at','driver_no', DB::raw('count("drs_no") as total'))
-                ->groupBy('drs_no','driver_name','vehicle_no', 'status','delivery_status','created_at','driver_no')
-                ->where('branch_id', '=', $cc)->whereIn('status', ['1','0','3'])->get();
-                
-
-                // $transaction = TransactionSheet::select('drs_no', 'created_at', 'vehicle_no', 'driver_name', 'driver_no', 'status','delivery_status')->where('branch_id', '=', $cc)->distinct()->get();
-                // $s = json_decode(json_encode($transaction, true));
-                // // echo'<pre>';print_r($s); die;
+            if($authuser->role_id == 4){ 
+                $transaction = DB::table('transaction_sheets')->select('transaction_sheets.drs_no','transaction_sheets.driver_name','transaction_sheets.vehicle_no', 'transaction_sheets.status','transaction_sheets.delivery_status','transaction_sheets.created_at','transaction_sheets.driver_no','consignment_notes.user_id','consignment_notes.user_id')
+                ->leftJoin('consignment_notes', 'consignment_notes.id', '=', 'transaction_sheets.consignment_no')
+                ->whereIn('transaction_sheets.status', ['1','0','3'])
+                ->where('consignment_notes.user_id', $authuser->id)
+                ->groupBy('transaction_sheets.drs_no')
+                ->get();
+            }else{
+                $transaction = DB::table('transaction_sheets')->select('transaction_sheets.drs_no','transaction_sheets.driver_name','transaction_sheets.vehicle_no', 'transaction_sheets.status','transaction_sheets.delivery_status','transaction_sheets.created_at','transaction_sheets.driver_no','consignment_notes.user_id','consignment_notes.user_id')
+                ->leftJoin('consignment_notes', 'consignment_notes.id', '=', 'transaction_sheets.consignment_no')
+                ->whereIn('transaction_sheets.status', ['1','0','3'])
+                ->whereIn('transaction_sheets.branch_id', [$cc])
+                ->groupBy('transaction_sheets.drs_no')
+                ->get();
             }
         } else {
-            $transaction = DB::table('transaction_sheets')->select('drs_no','driver_name','vehicle_no', 'status','delivery_status','created_at','driver_no', DB::raw('count("drs_no") as total'))
-            ->groupBy('drs_no','driver_name','vehicle_no', 'status','delivery_status','created_at','driver_no')->whereIn('status', ['1','0','3'])->get();
-                // $transaction = TransactionSheet::all();  
-            }
+            $transaction = DB::table('transaction_sheets')->select('transaction_sheets.drs_no','transaction_sheets.driver_name','transaction_sheets.vehicle_no', 'transaction_sheets.status','transaction_sheets.delivery_status','transaction_sheets.created_at','transaction_sheets.driver_no','consignment_notes.user_id','consignment_notes.user_id')
+                ->leftJoin('consignment_notes', 'consignment_notes.id', '=', 'transaction_sheets.consignment_no')
+                ->whereIn('transaction_sheets.status', ['1','0','3'])
+                ->groupBy('transaction_sheets.drs_no')
+                ->get();
+            // $transaction = DB::table('transaction_sheets')->select('drs_no','driver_name','vehicle_no', 'status','delivery_status','created_at','driver_no', DB::raw('count("drs_no") as total'))
+            // ->groupBy('drs_no','driver_name','vehicle_no', 'status','delivery_status','created_at','driver_no')->whereIn('status', ['1','0','3'])->get();  
+        }
 
         if ($request->ajax()) {
             if (isset($request->updatestatus)) {
@@ -1293,7 +1299,6 @@ class ConsignmentController extends Controller
                 }elseif($request->drs_status == 0){
                     TransactionSheet::where('drs_no', $request->drs_no)->update(['status' => $request->drs_status]);
                 }
-
             }
 
             $url = $this->prefix . '/transaction-sheet';

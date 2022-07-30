@@ -100,4 +100,9 @@ class GlobalFunctions {
         return 'C-'.$skuId;
      }
 
+     public static function getCountDrs($drs_number){
+        $data = DB::table('transaction_sheets')->where('drs_no',$drs_number)->count();
+        return $data;
+     }
+
 }
