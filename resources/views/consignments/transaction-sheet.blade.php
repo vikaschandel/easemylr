@@ -455,7 +455,7 @@ $('#update_delivery_status').submit(function(e) {
     function get_delivery_date()
 {
     $('.delivery_d').blur(function () {
-                    // alert('hello');
+                    //  alert('hello');
                     var consignment_id = $(this).attr('data-id');
                     var delivery_date = $(this).val();
                     
