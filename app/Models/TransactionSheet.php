@@ -22,4 +22,8 @@ class TransactionSheet extends Model
     {
         return $this->hasOne('App\Models\Consignee','nick_name','consignee_id');
     }
+
+    public function ConsignmentNote(){
+        return $this->belongsTo('App\models\ConsignmentNote','consignment_no');
+    }
 }

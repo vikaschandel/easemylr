@@ -80,11 +80,11 @@ div.relative {
                               <tr>
                                 
                                 <td>DRS-{{$trns->drs_no}}</td>
-                                <td>{{$creation}}</td> 
+                                <td>{{$creation}}</td>
                                 <td>{{$trns->vehicle_no}}</td>
                                 <td>{{$trns->driver_name}}</td>
                                 <td>{{$trns->driver_no}}</td>
-                                <td>{{ $trns->total}}</td>
+                                <td>{{ Helper::getCountDrs($trns->drs_no) ?? "" }}</td>
                                 <?php 
                                 if($trns->status == 0){?>
                                  <td><label class="badge badge-dark">Cancelled</label></td>
