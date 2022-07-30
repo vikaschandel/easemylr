@@ -180,25 +180,25 @@ class ConsignmentController extends Controller
           
                 if($data->delivery_status == "Unassigned"){
 
-                    $dt = '<span class="badge alert bg-primary shadow-sm">'.$data->delivery_status.'</span>';
+                    $dt = '<span class="badge alert bg-primary shadow-sm manual_updateLR" lr-no = "'.$data->id.'">'.$data->delivery_status.'</span>';
 
                  }
                  elseif($data->delivery_status == "Assigned"){
 
-                    $dt = '<span class="badge alert bg-secondary shadow-sm">'.$data->delivery_status.'</span>';
+                    $dt = '<span class="badge alert bg-secondary shadow-sm manual_updateLR" lr-no = "'.$data->id.'">'.$data->delivery_status.'</span>';
 
                  }
                  elseif($data->delivery_status == "Started"){
 
-                    $dt = '<span class="badge alert bg-warning shadow-sm">'.$data->delivery_status.'</span>';
+                    $dt = '<span class="badge alert bg-warning shadow-sm manual_updateLR" lr-no = "'.$data->id.'">'.$data->delivery_status.'</span>';
 
                  }
                  elseif($data->delivery_status == "Successful"){
 
-                    $dt = '<span class="badge alert bg-success shadow-sm">'.$data->delivery_status.'</span>';
+                    $dt = '<span class="badge alert bg-success shadow-sm" lr-no = "'.$data->id.'">'.$data->delivery_status.'</span>';
 
                  }else{
-                     $dt = '<span class="badge alert bg-success shadow-sm">need to update</span>';
+                     $dt = '<span class="badge alert bg-success shadow-sm" lr-no = "'.$data->id.'">need to update</span>';
                  }
                 
 
@@ -1813,6 +1813,53 @@ class ConsignmentController extends Controller
         $response['success'] = true;
         $response['success_message'] = "Data Imported successfully";
         echo json_encode($response);
+
+    }
+    ////////////////get delevery date LR//////////////////////
+    public function getDeleveryDateLr(Request $request)
+    {
+        $transcationview = DB::table('consignment_notes')->select('*')
+        ->where('id', $request->lr_no)->get();
+        $result = json_decode(json_encode($transcationview), true);
+        $response['fetch'] = $result;
+
+        $response['success'] = true;
+        $response['success_message'] = "Data Imported successfully";
+        echo json_encode($response);
+
+    }
+
+    public function updateLrStatus(Request $request)
+    {
+        $this->prefix = request()->route()->getPrefix();
+        if ($request->ajax()) {
+            if (isset($request->updatestatus)) {
+
+                if($request->lr_status == 'Unassigned'){
+                   
+                    ConsignmentNote::where('id', $request->lr_no)->update(['delivery_status' => $request->lr_status]);
+                }elseif($request->lr_status == 'Assigned'){
+                    
+                    ConsignmentNote::where('id', $request->lr_no)->update(['delivery_status' => $request->lr_status]);
+                }elseif($request->lr_status == 'Started'){
+                   
+                    ConsignmentNote::where('id', $request->lr_no)->update(['delivery_status' => $request->lr_status]);
+                }elseif($request->lr_status == 'Successful'){
+                   
+                    ConsignmentNote::where('id', $request->lr_no)->update(['delivery_status' => $request->lr_status]);
+                }
+
+            }
+
+            $url = $this->prefix . '/consignments';
+            $response['success'] = true;
+            $response['success_message'] = "Dsr cancel status updated successfully";
+            $response['error'] = false;
+            $response['page'] = 'dsr-cancel-update';
+            $response['redirect_url'] = $url;
+
+            return response()->json($response);
+        }
 
     }
 }
