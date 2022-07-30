@@ -949,6 +949,117 @@ jQuery(document).ready(function(){
         }
     });
 
+    /*===== create order =====*/
+    $('#createorder').validate({ 
+        rules: {
+            consigner_id: {
+                required: true,
+            },
+            consignee_id: {
+                required: true
+            },
+            ship_to_id: {
+                required: true
+            },
+            invoice_no: {
+                // required: true,
+            },
+            invoice_amount: {
+                // required: true,
+            },
+            driver_id : {
+                // required: true,
+            },
+            transporter_name : {
+                // required: true,
+            },
+            vehicle_type : {
+                // required: true,
+            },
+            vehicle_id : {
+                // required: true,
+            },
+            e_way_bill: {
+                // required: true,
+            },
+            e_way_bill_date: {
+                // required: true,
+            },
+            'quantity[]': {
+                required: true,
+                //   lettersonly:true
+                },
+           'weight[]': {
+                  required: true
+                },
+           'gross_weight[]': {
+                  required: true
+                },
+           'freight[]': {
+                  required: true
+                },
+            'payment_type[]': {
+                required: true
+                },
+        },
+        messages: {
+            consigner_id: {
+                required: "Select consigner address",
+            },
+            consignee_id: {
+                required: "Select consignee address",
+            },
+            ship_to_id: {
+                required: "Select ship to address",
+            },
+            invoice_no: {
+                required: "Enter invoice no.",
+                AlphabetandNumbers: "Enter only alphabets and numbers",
+            },
+            invoice_amount: {
+                required: "Enter invoice amount",
+                AlphabetandNumbers: "Enter only alphabets and numbers",
+            },
+            driver_id : {
+                required: "Select driver",
+            },
+            transporter_name : {
+                required: "Enter transporter name",
+            },
+            vehicle_type : {
+                required: "Select vehicle type",
+            },
+            vehicle_id : {
+                required: "Select vehicle no.",
+            },
+            e_way_bill : {
+                required: "Enter E Way Bill Number",
+            },
+            e_way_bill_date : {
+                required: "Enter E Way Bill Date",
+            },
+            'quantity[]': {
+                required: "Enter quantity",
+            },
+            'weight[]': {
+                required: "Enter weight",
+            },
+            'gross_weight[]': {
+                required: "Enter gross weight",
+            },
+            'freight[]': {
+                required: "Enter freight",
+            },
+            'payment_type[]': {
+                required: "Select payment type",
+            },
+        },
+        submitHandler : function(form)
+        {
+            formSubmitRedirect(form);
+        }
+    });
+
     /*===== Create payment =====*/
     $('#createpayment').validate({ 
         rules: {

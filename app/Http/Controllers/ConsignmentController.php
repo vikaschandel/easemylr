@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Models\BranchAddress;
 use App\Models\Consignee;
 use App\Models\Consigner;
@@ -11,12 +12,11 @@ use App\Models\Driver;
 use App\Models\Location;
 use App\Models\TransactionSheet;
 use App\Models\Vehicle;
-use App\Models\VehicleType;
 use App\Models\Role;
+use App\Models\VehicleType;
+use LynX39\LaraPdfMerger\Facades\PdfMerger;
 use Auth;
 use DB;
-use Illuminate\Http\Request;
-use LynX39\LaraPdfMerger\Facades\PdfMerger;
 use QrCode;
 use Storage;
 use Validator;
@@ -225,15 +225,7 @@ class ConsignmentController extends Controller
         $role_id = Role::where('id','=',$authuser->role_id)->first();
         $regclient = explode(',',$authuser->regionalclient_id);
         $cc = explode(',',$authuser->branch_id);
-        // $cc = explode(',', $authuser->branch_id);
 
-        $location_vehcleno = Location::whereIn('id', $cc)->first();
-        if ($location_vehcleno) {
-            $with_vehicle_no = $location_vehcleno->with_vehicle_no;
-        } else {
-            $with_vehicle_no = 0;
-        }
-        /////
         if($authuser->role_id == 2 || $authuser->role_id == 3){
             if($authuser->role_id == $role_id->id){
                 $consigners = Consigner::select('id', 'nick_name')->whereIn('branch_id', $cc)->get();
@@ -249,45 +241,41 @@ class ConsignmentController extends Controller
         }else{
             $consigners = Consigner::select('id', 'nick_name')->get();
         }
-        ////
-            $consignees = Consignee::select('id', 'nick_name')->where('user_id', $authuser->id)->get();
-            if (empty($consignees)) {
-                $consignees = Consignee::select('id', 'nick_name')->get();
-            }
+        $consignees = Consignee::select('id', 'nick_name')->where('user_id', $authuser->id)->get();
+        if (empty($consignees)) {
+            $consignees = Consignee::select('id', 'nick_name')->get();
+        }
             // $consignees = Consignee::select('id','nick_name')->whereIn('branch_id',$cc)->get();
-            $getconsignment = Location::select('id', 'name', 'consignment_no')->whereIn('id', $cc)->latest('id')->first();
-            if (!empty($getconsignment->consignment_no)) {
-                $con_series = $getconsignment->consignment_no;
-            } else {
-                $con_series = '';
-            }
-            // $con_series = $getconsignment->consignment_no;
-            $cn = ConsignmentNote::select('id', 'consignment_no', 'branch_id')->whereIn('branch_id', $cc)->latest('id')->first();
-            if ($cn) {
-                if (!empty($cn->consignment_no)) {
-                    $cc = explode('-', $cn->consignment_no);
-                    $getconsignmentno = @$cc[1] + 1;
-                    $consignmentno = $cc[0] . '-' . $getconsignmentno;
-                } else {
-                    $consignmentno = $con_series . '-1';
-                }
+        $getconsignment = Location::select('id', 'name', 'consignment_no')->whereIn('id', $cc)->latest('id')->first();
+        if (!empty($getconsignment->consignment_no)) {
+            $con_series = $getconsignment->consignment_no;
+        } else {
+            $con_series = '';
+        }
+        // $con_series = $getconsignment->consignment_no;
+        $cn = ConsignmentNote::select('id', 'consignment_no', 'branch_id')->whereIn('branch_id', $cc)->latest('id')->first();
+        if ($cn) {
+            if (!empty($cn->consignment_no)) {
+                $cc = explode('-', $cn->consignment_no);
+                $getconsignmentno = @$cc[1] + 1;
+                $consignmentno = $cc[0] . '-' . $getconsignmentno;
             } else {
                 $consignmentno = $con_series . '-1';
             }
-
+        } else {
+            $consignmentno = $con_series . '-1';
+        }
         // $cc = explode('-',$cn->consignment_no);
         // $getconsignmentno = $cc[1] + 1;
         // $consignmentno = $cc[0].'-'.$getconsignmentno;
         if(empty($consignmentno)) {
             $consignmentno = "";
         }
-
-        $locations = Location::where('status', '1')->select('id', 'consignment_no')->get();
         $vehicles = Vehicle::where('status', '1')->select('id', 'regn_no')->get();
         $drivers = Driver::where('status', '1')->select('id', 'name', 'phone')->get();
         $vehicletypes = VehicleType::where('status', '1')->select('id', 'name')->get();
 
-        return view('consignments.create-consignment', ['prefix' => $this->prefix, 'consigners' => $consigners, 'consignees' => $consignees, 'locations' => $locations, 'vehicles' => $vehicles, 'vehicletypes' => $vehicletypes, 'consignmentno' => $consignmentno, 'drivers' => $drivers, 'with_vehicle_no' => $with_vehicle_no]);
+        return view('consignments.create-consignment', ['prefix' => $this->prefix, 'consigners' => $consigners, 'consignees' => $consignees, 'vehicles' => $vehicles, 'vehicletypes' => $vehicletypes, 'consignmentno' => $consignmentno, 'drivers' => $drivers]);
     }
 
     /**
@@ -321,13 +309,6 @@ class ConsignmentController extends Controller
             $authuser = Auth::user();
             $cc = explode(',', $authuser->branch_id);
 
-            $location_vehcleno = Location::whereIn('id', $cc)->first();
-            if ($location_vehcleno) {
-                $with_vehicle_no = $location_vehcleno->with_vehicle_no;
-            } else {
-                $with_vehicle_no = 0;
-            }
-
             if (empty($request->vehicle_id || $request->req_vehicle_id)) {
                 $status = '2';
             } else {
@@ -353,7 +334,6 @@ class ConsignmentController extends Controller
             } else {
                 $consignmentno = $con_series . '-1';
             }
-
             $consignmentsave['consigner_id'] = $request->consigner_id;
             $consignmentsave['consignee_id'] = $request->consignee_id;
             $consignmentsave['ship_to_id'] = $request->ship_to_id;
@@ -367,59 +347,47 @@ class ConsignmentController extends Controller
             $consignmentsave['total_weight'] = $request->total_weight;
             $consignmentsave['total_gross_weight'] = $request->total_gross_weight;
             $consignmentsave['total_freight'] = $request->total_freight;
-            // $consignmentsave['transporter_name']  = $request->transporter_name;
-            // $consignmentsave['vehicle_type']      = $request->vehicle_type;
+            $consignmentsave['transporter_name']  = $request->transporter_name;
+            $consignmentsave['vehicle_type']      = $request->vehicle_type;
             $consignmentsave['purchase_price'] = $request->purchase_price;
             $consignmentsave['user_id'] = $authuser->id;
-            // $consignmentsave['vehicle_id']        = $request->vehicle_id;
+            $consignmentsave['vehicle_id']        = $request->vehicle_id;
             $consignmentsave['driver_id'] = $request->driver_id;
             $consignmentsave['branch_id'] = $authuser->branch_id;
             $consignmentsave['order_id'] = $request->order_id;
-
             $consignmentsave['edd'] = $request->edd;
             $consignmentsave['e_way_bill'] = $request->e_way_bill;
             $consignmentsave['e_way_bill_date'] = $request->e_way_bill_date;
             $consignmentsave['status'] = $status;
 
-            if ($with_vehicle_no == '1') {
-                $consignmentsave['delivery_status'] = "Unassigned";
-                $consignmentsave['vehicle_id'] = $request->req_vehicle_id;
-                $consignmentsave['transporter_name'] = $request->req_transporter_name;
-                $consignmentsave['vehicle_type'] = $request->req_vehicle_type;
-            } else {
-                $consignmentsave['vehicle_id'] = $request->vehicle_id;
-                $consignmentsave['transporter_name'] = $request->transporter_name;
-                $consignmentsave['vehicle_type'] = $request->vehicle_type;
+            if (!empty($request->vehicle_id)) {                
                 $consignmentsave['delivery_status'] = "Assigned";
+            }else{
+                $consignmentsave['delivery_status'] = "Unassigned";
             }
 
             $saveconsignment = ConsignmentNote::create($consignmentsave);
-
-
-
             if ($saveconsignment) {
-
                    /******* PUSH LR to Shadow if vehicle available & Driver has team & fleet ID   ********/
-
-                        $vn =  $consignmentsave['vehicle_id'];
-                        $lid = $saveconsignment->id;
-                        $lrdata = DB::table('consignment_notes')->select('consignment_notes.*', 'consigners.nick_name as consigner_id', 'consignees.nick_name as consignee_name','consignees.phone as phone', 'consignees.email as email', 'vehicles.regn_no as vehicle_id', 'consignees.city as city', 'consignees.postal_code as pincode', 'drivers.name as driver_id', 'drivers.phone as driver_phone', 'drivers.team_id as team_id', 'drivers.fleet_id as fleet_id')
-                        ->join('consigners', 'consigners.id', '=', 'consignment_notes.consigner_id')
-                        ->join('consignees', 'consignees.id', '=', 'consignment_notes.consignee_id')
-                        ->join('vehicles', 'vehicles.id', '=', 'consignment_notes.vehicle_id')
-                        ->join('drivers', 'drivers.id', '=', 'consignment_notes.driver_id')
-                        ->where('consignment_notes.id', $lid)
-                        ->get();
-                        $simplyfy = json_decode(json_encode($lrdata), true);
+                $vn =  $consignmentsave['vehicle_id'];
+                $lid = $saveconsignment->id;
+                $lrdata = DB::table('consignment_notes')->select('consignment_notes.*', 'consigners.nick_name as consigner_id', 'consignees.nick_name as consignee_name','consignees.phone as phone', 'consignees.email as email', 'vehicles.regn_no as vehicle_id', 'consignees.city as city', 'consignees.postal_code as pincode', 'drivers.name as driver_id', 'drivers.phone as driver_phone', 'drivers.team_id as team_id', 'drivers.fleet_id as fleet_id')
+                    ->join('consigners', 'consigners.id', '=', 'consignment_notes.consigner_id')
+                    ->join('consignees', 'consignees.id', '=', 'consignment_notes.consignee_id')
+                    ->join('vehicles', 'vehicles.id', '=', 'consignment_notes.vehicle_id')
+                    ->join('drivers', 'drivers.id', '=', 'consignment_notes.driver_id')
+                    ->where('consignment_notes.id', $lid)
+                    ->get();
+                $simplyfy = json_decode(json_encode($lrdata), true);
                         
-                        //Send Data to API
-                        if (!empty($vn) && !empty($simplyfy[0]['team_id']) && !empty($simplyfy[0]['fleet_id'])) {
-                        $createTask = $this->createTookanTasks($simplyfy);
-                        $json = json_decode($createTask[0], true);
-                        $job_id= $json['data']['job_id'];
-                        $tracking_link= $json['data']['tracking_link'];
-                        $update = DB::table('consignment_notes')->where('id', $lid)->update(['job_id' => $job_id, 'tracking_link' => $tracking_link]);
-                        }
+                //Send Data to API
+                if (!empty($vn) && !empty($simplyfy[0]['team_id']) && !empty($simplyfy[0]['fleet_id'])) {
+                    $createTask = $this->createTookanTasks($simplyfy);
+                    $json = json_decode($createTask[0], true);
+                    $job_id= $json['data']['job_id'];
+                    $tracking_link= $json['data']['tracking_link'];
+                    $update = DB::table('consignment_notes')->where('id', $lid)->update(['job_id' => $job_id, 'tracking_link' => $tracking_link]);
+                }
                 // insert consignment items
                 if (!empty($request->data)) {
                     $get_data = $request->data;
@@ -1662,7 +1630,6 @@ class ConsignmentController extends Controller
                     ->join('states', 'states.id', '=', 'consignees.state_id')
                     ->whereIn('consignment_notes.branch_id', $cc)
                     ->get(['consignees.city']);
-
             }} else {
                 $consignments = DB::table('consignment_notes')->select('consignment_notes.*', 'consigners.nick_name as consigner_nickname', 'consignees.nick_name as consignee_nickname', 'consignees.city as city', 'consignees.postal_code as pincode', 'consignees.district as district', 'states.name as state', 'vehicles.regn_no as vechile_number', 'consigners.city as consigners_city')
                     ->join('consigners', 'consigners.id', '=', 'consignment_notes.consigner_id')

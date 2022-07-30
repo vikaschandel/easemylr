@@ -106,7 +106,7 @@ label.error{
                 </nav>
             </div>
             <div class="widget-content widget-content-area br-6">
-            <form class="general_form" method="POST" action="{{url($prefix.'/consignments')}}" id="createconsignment"
+            <form class="general_form" method="POST" action="{{url($prefix.'/orders')}}" id="createorder"
                 style="margin: auto; ">
                 <div class="row cuss">
                     <div class="col-sm-4">
@@ -187,8 +187,8 @@ label.error{
                     </div>
                 </div>
 
-                <!-- Row -->
-                <div class="row mb-4 cuss" >
+                <!-- Row right -->
+                <!-- <div class="row mb-4 cuss" >
                     <div class=" col-sm-6">
                         <div class="panel info-box panel-white">
                             <div class="panel-body">
@@ -209,11 +209,11 @@ label.error{
                                             <div class=" col-sm-4" style="margin-top:10px;">
                                                 <label for="exampleFormControlInput2">Dispatch From</label>
                                             </div>
-                                            <div class=" col-sm-8" style="margin-top:2px;">
+                                            <div class=" col-sm-8" style="margin-top:2px;"> -->
 
-                                                <input type="text" class="form-seteing" id="dispatch" name="dispatch_form" value="" placeholder="" readonly
+                                                <input type="hidden" class="form-seteing" id="dispatch" name="dispatch_form" value="" placeholder="" readonly
                                                     style="border:none;">
-                                            </div>
+                                            <!-- </div>
                                             <div class=" col-sm-4" style="margin-top:10px;">
                                                 <label for="exampleFormControlInput2">Order ID<span class="text-danger">*</span></label>
                                             </div>
@@ -235,9 +235,9 @@ label.error{
                             </div>
                         </div>
 
-                    </div>
-                    <!-- .////////////////////////////////////////////// -->
-                    <div class=" col-sm-6 cusright" style="margin-bottom:10px;">
+                    </div> -->
+                    <!-- ./////////////////////left div///////////////////////// -->
+                    <!-- <div class=" col-sm-6 cusright" style="margin-bottom:10px;">
 
                         <div class="panel info-box panel-white">
                             <div class="panel-body">
@@ -260,7 +260,7 @@ label.error{
                                                 <label for="exampleFormControlInput2">Invoice Date</label>
                                             </div>
                                             <div class=" col-sm-8" style="margin-top:2px;">
-                                                <input type="date" class="form-seteing date-picker" id="date" placeholder="" name="invoice_date" value="<?php echo date('d-m-Y'); ?>">
+                                                <input type="date" class="form-seteing date-picker" id="date" placeholder="" name="invoice_date" value="<?php// echo date('d-m-Y'); ?>">
                                             </div>
                                         </div>
                                         <div class="row">
@@ -292,7 +292,8 @@ label.error{
                         </div>
                     </div>
 
-                </div><!-- Row -->
+                </div> -->
+                <!-- Row -->
                 <div class="row" >
                     <div class="col-sm-12" >
                         <div style="overflow-x:auto; background-color: white;">
@@ -389,7 +390,7 @@ label.error{
                 </div>
 
                 <div class="row cuss fuss" style="margin-top: 15px;">
-                    <div class=" col-sm-1">
+                    <!-- <div class=" col-sm-1">
                         <label for="exampleFormControlInput2">Vendor <br>Name<span class="text-danger">*</span></label>
                     </div>
                     <div class=" col-sm-2">
@@ -440,7 +441,7 @@ label.error{
                     <div class=" col-sm-2">
                         
                         <input type="date" class="sete" id="e_way_bill_date" name="e_way_bill_date" value="">
-                    </div>
+                    </div> -->
                     <div class=" col-sm-3">
                          <button type="submit" class="mt-2 btn btn-primary disableme">Submit</button>
                            
