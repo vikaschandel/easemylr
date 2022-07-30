@@ -764,8 +764,6 @@ jQuery(document).ready(function(){
                 }
             });
         });
-
-
     });
  ///////////////////////get data successful model++++++++++++++++++++++++++++
  

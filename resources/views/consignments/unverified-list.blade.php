@@ -107,7 +107,7 @@ div.relative {
                                 </tr>
                                
                                 <?php  $i++; } ?>
-                            </tbody>
+                            </tbody> 
                         </table>
                     </div>
                 </div>

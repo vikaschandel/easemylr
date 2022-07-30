@@ -217,6 +217,8 @@ Route::group(['prefix'=>'branch-manager', 'middleware'=>['auth','PermissionCheck
     Route::any('update-delivery-date', [ConsignmentController::class, 'updateDeliveryDateOneBy']);
     Route::any('remove-lr', [ConsignmentController::class, 'removeLR']);
     Route::any('get-delivery-datamodel', [ConsignmentController::class, 'getdeliverydatamodel']);
+    Route::any('bulklr-view', [ConsignmentController::class, 'BulkLrView']);
+
 
 
     Route::resource('locations', LocationController::class);

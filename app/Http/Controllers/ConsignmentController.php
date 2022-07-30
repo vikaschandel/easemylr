@@ -1869,4 +1869,34 @@ class ConsignmentController extends Controller
         echo json_encode($response);
 
     }
+
+    //========================Bulk Print LR ==============================//
+    public function BulkLrView(Request $request)
+    {
+        $this->prefix = request()->route()->getPrefix();
+        // $peritem = 20;
+        $query = ConsignmentNote::query();
+        $authuser = Auth::user();
+        $cc = explode(',', $authuser->branch_id);
+        if ($authuser->role_id == 2) {
+            $consignments = DB::table('consignment_notes')->select('consignment_notes.*', 'consigners.nick_name as consigner_name', 'consignees.nick_name as consignee_name', 'consignees.city as city', 'consignees.postal_code as pincode')
+                ->join('consigners', 'consigners.id', '=', 'consignment_notes.consigner_id')
+                ->join('consignees', 'consignees.id', '=', 'consignment_notes.consignee_id')
+                ->whereIn('consignment_notes.branch_id', $cc)
+                ->get(['consignees.city']);
+                
+
+            // $consignments = $query->whereIn('branch_id',$cc)->orderby('id','DESC')->get();
+        } else {
+            $consignments = DB::table('consignment_notes')->select('consignment_notes.*', 'consigners.nick_name as consigner_id', 'consignees.nick_name as consignee_id', 'consignees.city as city', 'consignees.postal_code as pincode')
+                ->join('consigners', 'consigners.id', '=', 'consignment_notes.consigner_id')
+                ->join('consignees', 'consignees.id', '=', 'consignment_notes.consignee_id')
+                ->get(['consignees.city']);
+
+            // $consignments = $query->orderby('id','DESC')->get();
+        }
+      
+        return view('consignments.bulkLr-view', ['consignments' => $consignments, 'prefix' => $this->prefix, 'title' => $this->title]);
+    }
+
 }
