@@ -77,6 +77,16 @@ class GlobalFunctions {
         }
         return $changeformat;
     }
+    //////format 10-07-2000
+    public static function ShowDayMonthYear($date){
+
+        if(!empty($date)){
+        $changeformat = date('d-m-Y',strtotime($date));
+        }else{
+        $changeformat = '-';
+        }
+        return $changeformat;
+    }
 
     // function for get random unique number //
     public static function random_number($length_of_number)
