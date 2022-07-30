@@ -137,6 +137,8 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth','PermissionCheck']], func
     Route::any('update-delivery-date', [ConsignmentController::class, 'updateDeliveryDateOneBy']);
     Route::any('remove-lr', [ConsignmentController::class, 'removeLR']);
     Route::any('get-delivery-datamodel', [ConsignmentController::class, 'getdeliverydatamodel']);
+    Route::any('get-delivery-dateLR', [ConsignmentController::class, 'getDeleveryDateLr']);
+    Route::any('update-lrstatus', [ConsignmentController::class, 'updateLrStatus']);
 
 
     Route::resource('locations', LocationController::class);
@@ -217,6 +219,8 @@ Route::group(['prefix'=>'branch-manager', 'middleware'=>['auth','PermissionCheck
     Route::any('update-delivery-date', [ConsignmentController::class, 'updateDeliveryDateOneBy']);
     Route::any('remove-lr', [ConsignmentController::class, 'removeLR']);
     Route::any('get-delivery-datamodel', [ConsignmentController::class, 'getdeliverydatamodel']);
+    Route::any('get-delivery-dateLR', [ConsignmentController::class, 'getDeleveryDateLr']);
+    Route::any('update-lrstatus', [ConsignmentController::class, 'updateLrStatus']);
 
 
     Route::resource('locations', LocationController::class);
@@ -287,7 +291,10 @@ Route::group(['prefix'=>'regional-manager', 'middleware'=>['auth','PermissionChe
     Route::any('update-delivery-status', [ConsignmentController::class, 'updateDeliveryStatus']);
     Route::any('consignment-report', [ConsignmentController::class, 'consignmentReports']);
     Route::any('update-delivery-date', [ConsignmentController::class, 'updateDeliveryDateOneBy']);
+    Route::any('remove-lr', [ConsignmentController::class, 'removeLR']);
     Route::any('get-delivery-datamodel', [ConsignmentController::class, 'getdeliverydatamodel']);
+    Route::any('get-delivery-dateLR', [ConsignmentController::class, 'getDeleveryDateLr']);
+    Route::any('update-lrstatus', [ConsignmentController::class, 'updateLrStatus']);
 
 
     Route::resource('locations', LocationController::class);
@@ -370,7 +377,11 @@ Route::group(['prefix'=>'branch-user', 'middleware'=>['auth','PermissionCheck']]
     Route::any('update-delivery-status', [ConsignmentController::class, 'updateDeliveryStatus']);
     Route::any('consignment-report', [ConsignmentController::class, 'consignmentReports']);
     Route::any('update-delivery-date', [ConsignmentController::class, 'updateDeliveryDateOneBy']);
+    Route::any('remove-lr', [ConsignmentController::class, 'removeLR']);
     Route::any('get-delivery-datamodel', [ConsignmentController::class, 'getdeliverydatamodel']);
+    Route::any('get-delivery-dateLR', [ConsignmentController::class, 'getDeleveryDateLr']);
+    Route::any('update-lrstatus', [ConsignmentController::class, 'updateLrStatus']);
+
 
 
     Route::resource('locations', LocationController::class);
@@ -503,6 +514,9 @@ Route::group(['prefix'=>'client-account', 'middleware'=>['auth','PermissionCheck
     Route::any('consignment-report', [ConsignmentController::class, 'consignmentReports']);
     Route::any('update-delivery-date', [ConsignmentController::class, 'updateDeliveryDateOneBy']);
     Route::any('get-delivery-datamodel', [ConsignmentController::class, 'getdeliverydatamodel']);
+    Route::any('get-delivery-dateLR', [ConsignmentController::class, 'getDeleveryDateLr']);
+    Route::any('update-lrstatus', [ConsignmentController::class, 'updateLrStatus']);
+    Route::any('remove-lr', [ConsignmentController::class, 'removeLR']);
 
 
     Route::resource('locations', LocationController::class);
