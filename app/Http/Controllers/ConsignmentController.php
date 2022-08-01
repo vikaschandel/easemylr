@@ -1905,6 +1905,27 @@ class ConsignmentController extends Controller
         return view('consignments.bulkLr-view', ['consignments' => $consignments, 'prefix' => $this->prefix, 'title' => $this->title]);
     }
 
+    public function DownloadBulkLr(Request $request)
+    {
+        // dd($request->consignmentID);
+        $query = ConsignmentNote::query();
+        $authuser = Auth::user();
+        $cc = explode(',', $authuser->branch_id);
+        $branch_add = BranchAddress::first();
+        $locations = Location::whereIn('id', $cc)->first();
+
+        $cn_id = $request->id;
+        $getdata = ConsignmentNote::whereIn('id', $request->consignmentID)->with('ConsignmentItems', 'ConsignerDetail', 'ConsigneeDetail', 'ShiptoDetail', 'VehicleDetail', 'DriverDetail')->first();
+        $data = json_decode(json_encode($getdata), true);
+         $html = 'hii';
+
+         $pdf = \App::make('dompdf.wrapper');
+         $pdf->loadHTML($html);
+         $pdf->setPaper('a4', 'portrait');
+         return $pdf->stream('print.pdf');
+
+    }
+
 
     ////////////////get delevery date LR//////////////////////
     public function getDeleveryDateLr(Request $request)

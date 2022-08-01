@@ -137,12 +137,15 @@ a.badge.alert.bg-secondary.shadow-sm {
                         @csrf
                         <table id="bulk-table" class="table table-hover" style="width:100%">
                             <div class="btn-group relative">
-                                <a href="{{'consignments/create'}}" class="btn btn-primary pull-right" style="font-size: 13px; padding: 6px 0px;">Create Consignment</a>
+                            <a href="{{'download-bulklr'}}" class="btn btn-primary pull-right" style="font-size: 13px; padding: 6px 0px;">Create Consignment</a>
+                            <!-- <button type="button" class="btn btn-warning disableDrs" id="download_bulkLr" style="font-size: 11px;">
+                             Download All LR
+                              </button> -->
                             </div>
                             <thead>
                                 <tr>
                                 <th>
-                                     <input type="checkbox" name="" id="ckbCheckAll" style="width: 30px; height:30px;">
+                                     <input type="checkbox" name="" id="checkAll_Lr" style="width: 30px; height:30px;">
                                     </th>
                                     <th>LR No.</th>
                                     <th>LR Date</th>
@@ -154,7 +157,7 @@ a.badge.alert.bg-secondary.shadow-sm {
                             <tbody>
                                 @foreach($consignments as $value)
                                 <tr>
-                                <td><input type="checkbox" name="checked_consign[]" class="chkBoxClass ddd" value="{{$value->id}}" data-trp="" data-vehno="" data-vctype="" style="width: 30px; height:30px;"></td>
+                                <td><input type="checkbox" name="checked_lr[]" class="checkLr" value="{{$value->id}}" data-trp="" data-vehno="" data-vctype="" style="width: 30px; height:30px;"></td>
                                     <td>{{$value->id}}</td>
                                     <td>{{$value->consignment_date}}</td>
                                     <td>{{$value->consigner_name}}</td>
@@ -174,25 +177,47 @@ a.badge.alert.bg-secondary.shadow-sm {
 @endsection
 @section('js')
 <script>
-$("#select_all").click(function () {
-                    if($(this).is(':checked')){
-                     
-                        $('.ddd').prop('checked', true);
-                 }else{ 
-                   $('.ddd').prop('checked', false);
-              }
-                });
-                $(function () {
-                    $('#create_edd').click(function () { 
+  jQuery(document).on('click','#checkAll_Lr',function(){
+        if(this.checked){
+            jQuery('#create_edd').prop('disabled', false);
+            jQuery('.checkLr').each(function(){
+                this.checked = true;
+            });
+        } 
+        else{
+            jQuery('.checkLr').each(function(){
+                this.checked = false;
+            });
+            jQuery('#create_edd').prop('disabled', true);
+        }
+    });
+
+    jQuery(document).on('click','.checkLr',function(){
+        if($('.chkBoxClass:checked').length == $('.checkLr').length){
+            $('#checkAll_Lr').prop('checked',true);
+        }else{
+            var checklength = $('.checkLr:checked').length;
+            if(checklength < 1){
+                jQuery('#create_edd').prop('disabled', true);
+            }else{
+                jQuery('#create_edd').prop('disabled', false);
+            }
+
+            $('#checkAll_Lr').prop('checked',false);
+        }
+    });
+    $(function () {
+                    $('#download_bulkLr').click(function () { 
+                        // alert('hi'); return false;
 
                         var consignmentID = [];
-                $(':checkbox[name="checked_consign[]"]:checked').each (function () {
+                $(':checkbox[name="checked_lr[]"]:checked').each (function () {
                     consignmentID.push(this.value);
                 });
-                //alert(consignmentID);
+                //alert(consignmentID); return false;
 
                 $.ajax({
-                    url: "",
+                    url: "download-bulklr",
                     method: "POST",
                     data: {consignmentID: consignmentID},
                     headers   : {
@@ -222,6 +247,8 @@ $("#select_all").click(function () {
 
                     }); 
                 });
+
+
             //////////////////////////////////////////    
                 $('#bulk-table').DataTable( {
             "dom": "<'dt--top-section'<'row'<'col-sm-12 col-md-6 d-flex justify-content-md-start justify-content-center'B><'col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3'f>>>" +
