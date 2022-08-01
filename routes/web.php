@@ -142,6 +142,7 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth','PermissionCheck']], func
     Route::any('update-lrstatus', [ConsignmentController::class, 'updateLrStatus']);
 
     Route::resource('orders', OrderController::class);
+    Route::post('/orders/update-order', [OrderController::class, 'updateOrder']);
 
     Route::resource('locations', LocationController::class);
     Route::post('/locations/update', [LocationController::class, 'updateLocation']);

@@ -309,7 +309,7 @@ class ConsignmentController extends Controller
             $authuser = Auth::user();
             $cc = explode(',', $authuser->branch_id);
 
-            if (empty($request->vehicle_id || $request->req_vehicle_id)) {
+            if (empty($request->vehicle_id)) {
                 $status = '2';
             } else {
                 $status = '1';

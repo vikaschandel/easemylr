@@ -252,16 +252,16 @@ class OrderController extends Controller
                         $saveconsignmentitems = ConsignmentItem::create($save_data);
                     }
                 }
-                $url = $this->prefix . '/consignments';
+                $url = $this->prefix . '/orders';
                 $response['success'] = true;
-                $response['success_message'] = "Consignment Added successfully";
+                $response['success_message'] = "Order Added successfully";
                 $response['error'] = false;
                 // $response['resetform'] = true;
-                $response['page'] = 'create-consignment';
+                $response['page'] = 'create-order';
                 $response['redirect_url'] = $url;
             } else {
                 $response['success'] = false;
-                $response['error_message'] = "Can not created consignment please try again";
+                $response['error_message'] = "Can not created order please try again";
                 $response['error'] = true;
             }
             DB::commit();
@@ -293,7 +293,29 @@ class OrderController extends Controller
      */
     public function edit($id)
     {
-        //
+        $this->prefix = request()->route()->getPrefix();
+        $id = decrypt($id); 
+        
+        $authuser = Auth::user();
+        $role_id = Role::where('id','=',$authuser->role_id)->first();
+        $regclient = explode(',',$authuser->regionalclient_id);
+        $cc = explode(',',$authuser->branch_id);
+        
+        if($authuser->role_id == 2 || $authuser->role_id == 3){
+            if($authuser->role_id == $role_id->id){
+                $consigners = Consigner::whereIn('branch_id',$cc)->orderby('nick_name','ASC')->pluck('nick_name','id');
+            }
+        }else if($authuser->role_id != 2 || $authuser->role_id != 3){
+            $consigners = Consigner::whereIn('regionalclient_id',$regclient)->orderby('nick_name','ASC')->pluck('nick_name','id');
+        }else{
+            $consigners = Consigner::where('status',1)->orderby('nick_name','ASC')->pluck('nick_name','id');
+        } 
+
+        $getconsignment = ConsignmentNote::where('id',$id)->with(['ConsignmentItems'=> function($query){
+            $query->where('status',1);
+        }])->first();
+        // dd($consigners);
+        return view('orders.update-order')->with(['prefix'=>$this->prefix,'getconsignment'=>$getconsignment,'consigners'=>$consigners]);
     }
 
     /**
