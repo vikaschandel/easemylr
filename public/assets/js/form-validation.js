@@ -852,7 +852,7 @@ jQuery(document).ready(function(){
                 required: true,
                 // AlphabetandNumbers: true,
             },
-            invoice_amount: {
+            invoice_amount: { 
                 required: true,
                 // AlphabetandNumbers: true,
             },
@@ -860,13 +860,13 @@ jQuery(document).ready(function(){
                 // required: true,
             },
             transporter_name : {
-                required: true,
+                // required: true,
             },
             vehicle_type : {
-                required: true,
+                // required: true,
             },
             vehicle_id : {
-                required: true,
+                // required: true,
             },
             e_way_bill: {
                 required: true,

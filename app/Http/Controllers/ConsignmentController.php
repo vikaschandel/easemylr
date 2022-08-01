@@ -304,12 +304,12 @@ class ConsignmentController extends Controller
                 $response['validation'] = false;
                 $response['formErrors'] = true;
                 $response['errors'] = $errors;
-                return response()->json($response);
+                return response()->json($response); 
             }
             $authuser = Auth::user();
             $cc = explode(',', $authuser->branch_id);
 
-            if (empty($request->vehicle_id || $request->req_vehicle_id)) {
+            if (empty($request->vehicle_id)) {
                 $status = '2';
             } else {
                 $status = '1';
