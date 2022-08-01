@@ -72,7 +72,7 @@
                                             @if($i>0)
                                             <!-- <button type="button" class="btn btn-danger removeRow delete_client"><i class="fa fa-minus-circle"></i></button> -->
 
-                                            <button type="button" class="btn btn-danger removeRow delete_client" data-id="{{ $regclientdata->id }}" data-action="<?php echo URL::to($prefix.'/clients/delete-client'); ?>"><i class="fa fa-minus-circle"></i></button>
+                                            <button type="button" class="btn btn-danger delete_client" data-id="{{ $regclientdata->id }}" data-action="<?php echo URL::to($prefix.'/clients/delete-client'); ?>"><i class="fa fa-minus-circle"></i></button>
                                             @endif
                                         </td>
                                     </tr>
@@ -89,7 +89,7 @@
         </div>
     </div>
 </div>
-
+@include('models.delete-client')
 @endsection
 @section('js')
 <script>
@@ -98,7 +98,7 @@
         var i = $('.rowcls').length;
         i  = i + 1;
 
-        $('#myTable tbody').append('<tr class="rowcls"><td><input class="form-control name" type="text" name="data['+i+'][name]"></td><td> <select class="form-control location_id" name="data['+i+'][location_id]"> <option value="">Select</option> @if(count($locations)>0)@foreach ($locations as $key => $location)<option value="{{ $key }}">{{ucwords($location)}}</option> @endforeach @endif</select></td><td><button type="button" class="btn btn-primary" id="addRow" onclick="addrow()"><i class="fa fa-plus-circle"></i></button> <button type="button" class="btn btn-danger removeRow delete_client" data-id="{{ $regclientdata->id }}" data-action="<?php echo URL::to($prefix.'/clients/delete-client'); ?>"><i class="fa fa-minus-circle"></i></button></td></tr>');   
+        $('#myTable tbody').append('<tr class="rowcls"><td><input class="form-control name" type="text" name="data['+i+'][name]"></td><td> <select class="form-control location_id" name="data['+i+'][location_id]"> <option value="">Select</option> @if(count($locations)>0)@foreach ($locations as $key => $location)<option value="{{ $key }}">{{ucwords($location)}}</option> @endforeach @endif</select></td><td><button type="button" class="btn btn-primary" id="addRow" onclick="addrow()"><i class="fa fa-plus-circle"></i></button> <button type="button" class="btn btn-danger removeRow" data-id="{{ $regclientdata->id }}" data-action="<?php echo URL::to($prefix.'/clients/delete-client'); ?>"><i class="fa fa-minus-circle"></i></button></td></tr>');   
     }
 
     //Remove the current row

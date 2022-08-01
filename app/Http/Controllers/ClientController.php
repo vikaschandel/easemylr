@@ -234,6 +234,16 @@ class ClientController extends Controller
         return response()->json($response);
     }
 
+    public function deleteClient(Request $request)
+    {
+        RegionalClient::where('id',$request->regclient_id)->delete();
+
+        $response['success']         = true;
+        $response['success_message'] = 'Regional Client deleted successfully';
+        $response['error']           = false;
+        return response()->json($response);
+    }
+
     /**
      * Remove the specified resource from storage.
      *
