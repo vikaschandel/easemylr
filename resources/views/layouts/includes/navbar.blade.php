@@ -9,15 +9,6 @@
                 $authuser = Auth::user();
                 $permissions = App\Models\UserPermission::where('user_id',$authuser->id)->pluck('permisssion_id')->ToArray();
                 $submenusegment = Request::segment(3);
-
-
-                $cc = explode(',',$authuser->branch_id);
-                $location_vehcleno = App\Models\Location::whereIn('id',$cc)->first();
-                if(isset($location_vehcleno->with_vehicle_no)){
-                    $with_vehicle_no = $location_vehcleno->with_vehicle_no;
-                }else{
-                    $with_vehicle_no = 0;
-                }
                 ?>
 
     <div class="nav-logo align-self-center">
@@ -123,29 +114,22 @@
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
                     </a>
                     <ul class="collapse submenu list-unstyled animated fadeInUp" id="forms"  data-parent="#topAccordion">
-                    <li>
-                                    <a href="{{$prefixurl.'consignments/create'}}">Create Consignment </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{$prefixurl.'consignments'}}"> Consignments List </a>
-                                    </li>
-                                <?php if($with_vehicle_no == '1'){ ?>
-                                    <li>
-                                        <a href="{{$prefixurl.'unverified-list'}}"> Create DRS</a>
-                                    </li>
-                                    <li>
-                                        <a href="{{$prefixurl.'transaction-sheet'}}"> Download DRS </a>
-                                    </li>
-                                <?php }else if($authuser->role_id == 1){ ?>
-                                    <li>
-                                        <a href="{{$prefixurl.'unverified-list'}}"> Unverified List</a>
-                                    </li>
-                                    <li>
-                                        <a href="{{$prefixurl.'transaction-sheet'}}">  Download DRS </a>
-                                    </li>
-                                <?php } ?>
-
-                                </ul>
+                        <!-- <li>
+                            <a href="{{$prefixurl.'orders'}}">Order Booking </a>
+                        </li> -->
+                        <li>
+                            <a href="{{$prefixurl.'consignments/create'}}">Create Consignment </a>
+                        </li>
+                        <li>
+                            <a href="{{$prefixurl.'consignments'}}"> Consignments List </a>
+                        </li>
+                        <li>
+                            <a href="{{$prefixurl.'unverified-list'}}"> Create DRS</a>
+                        </li>
+                        <li>
+                            <a href="{{$prefixurl.'transaction-sheet'}}"> Download DRS </a>
+                        </li>
+                    </ul>
                 </li>
                 <?php }
                     } ?> 

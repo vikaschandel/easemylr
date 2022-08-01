@@ -107,7 +107,7 @@ div.relative {
                                 </tr>
                                
                                 <?php  $i++; } ?>
-                            </tbody>
+                            </tbody> 
                         </table>
                     </div>
                 </div>
@@ -130,7 +130,7 @@ div.relative {
             jQuery('.chkBoxClass').each(function(){
                 this.checked = true;
             });
-        }
+        } 
         else{
             jQuery('.chkBoxClass').each(function(){
                 this.checked = false;
