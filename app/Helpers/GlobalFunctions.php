@@ -77,6 +77,16 @@ class GlobalFunctions {
         }
         return $changeformat;
     }
+    //////format 10-07-2000
+    public static function ShowDayMonthYear($date){
+
+        if(!empty($date)){
+        $changeformat = date('d-m-Y',strtotime($date));
+        }else{
+        $changeformat = '-';
+        }
+        return $changeformat;
+    }
 
     // function for get random unique number //
     public static function random_number($length_of_number)
@@ -98,6 +108,11 @@ class GlobalFunctions {
            self::generateSku();
         }
         return 'C-'.$skuId;
+     }
+
+     public static function getCountDrs($drs_number){
+        $data = DB::table('transaction_sheets')->where('drs_no',$drs_number)->count();
+        return $data;
      }
 
 }

@@ -94,18 +94,18 @@
                                 </div> -->
                                 <div class="form-group col-md-6">
                                     <label for="exampleFormControlInput2">Pincode</label>
-                                    <input type="text" class="form-control" name="postal_code" placeholder="Pincode">
+                                    <input type="text" class="form-control" id="postal_code" name="postal_code" placeholder="Pincode">
                                 </div> 
                                 <div class="form-group col-md-6">
                                     <label for="exampleFormControlInput2">Village/City</label>
-                                    <input type="text" class="form-control" name="city" placeholder="City">
+                                    <input type="text" class="form-control" id="city" name="city" placeholder="City">
                                 </div>  
                               
                             </div>
                             <div class="form-row mb-0">
-                            <div class="form-group col-md-6">
+                                <div class="form-group col-md-6">
                                     <label for="exampleFormControlSelect1">Select State</label>
-                                    <select class="form-control" name="state_id">
+                                    <select class="form-control" id="state" name="state_id">
                                         <option value="">Select</option>
                                         <?php 
                                         if(count($states)>0) {
@@ -120,11 +120,18 @@
                                 </div>               
                                 <div class="form-group col-md-6">
                                     <label for="exampleFormControlInput2">District</label>
-                                    <input type="text" class="form-control" name="district" placeholder="District">
+                                    <input type="text" class="form-control" id="district" name="district" placeholder="District">
                                 </div>
-                            </div>          
+                            </div>
                             <div class="form-row mb-0">
-                            <div class="form-group col-md-6">
+                                <div class="form-group col-md-6">
+                                    <label for="exampleFormControlInput2">Primary Zone</label>
+                                    <input type="text" class="form-control" id="zone_name" name="zone_name" disabled placeholder="">
+                                </div>
+                                <input type="hidden" id="zone_id" name="zone_id" value="">
+                            </div>         
+                            <div class="form-row mb-0">
+                                <div class="form-group col-md-6">
                                     <label for="exampleFormControlInput2">Address Line 1</label>
                                     <input type="text" class="form-control" name="address_line1" placeholder="">
                                 </div>       
@@ -134,7 +141,7 @@
                                 </div> 
                             </div>
                             <div class="form-row mb-0">
-                            <div class="form-group col-md-6">
+                                <div class="form-group col-md-6">
                                     <label for="exampleFormControlInput2">Address Line 3</label>
                                     <input type="text" class="form-control" name="address_line3" placeholder="">
                                 </div>                 

@@ -9,6 +9,7 @@ use App\Models\State;
 use App\Models\Location;
 use App\Models\Role;
 use App\Models\RegionalClient;
+use App\Models\Zone;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\ConsignerExport;
 use DB;
@@ -94,18 +95,18 @@ class ConsignerController extends Controller
         $states = Helper::getStates();
         $authuser = Auth::user();
         $role_id = Role::where('id','=',$authuser->role_id)->first();
-        
+        $regclient = explode(',',$authuser->regionalclient_id);
         $cc = explode(',',$authuser->branch_id);
-        if($authuser->role_id == $role_id->id){
-            $regclients = RegionalClient::whereIn('location_id',$cc)->orderby('name','ASC')->get();
+
+        if($authuser->role_id !=1){
+            if($authuser->role_id ==2 || $role_id->id ==3){
+                $regclients = RegionalClient::whereIn('location_id',$cc)->orderby('name','ASC')->get();
+            }else{
+                $regclients = RegionalClient::whereIn('regionalclient_id',$regclient)->orderby('name','ASC')->get();
+            }
         }else{
             $regclients = RegionalClient::where('status',1)->orderby('name','ASC')->get();
         }
-        // if($authuser->role_id == 2){
-        //     $branches = Location::whereIn('id',$cc)->orderby('name','ASC')->pluck('name','id');
-        // }else{
-        //     $branches = Location::where('status',1)->orderby('name','ASC')->pluck('name','id');
-        // }
         return view('consigners.create-consigner',['states'=>$states,'regclients'=>$regclients, 'prefix'=>$this->prefix, 'title'=>$this->title, 'pagetitle'=>'Create']);
     }
 
@@ -303,6 +304,39 @@ class ConsignerController extends Controller
             $response['error_message'] = "Can not fetch location list please try again";
             $response['error'] = true;
         }
+        return response()->json($response);
+    }
+
+    public function getPostalAddress(Request $request){
+        $postcode = $request->postcode;
+        if(!empty($postcode)){
+            $getZone = Zone::where('postal_code',$postcode)->first();
+        }else{
+            $getZone = '';
+        }
+            
+        $pin = URL::to('get-address-by-postcode');
+        $pin = file_get_contents('https://api.postalpincode.in/pincode/'.$postcode);
+        $pins = json_decode($pin);
+        foreach($pins as $key){
+            if($key->PostOffice == null){
+                $response['success'] = false;
+                $response['error_message'] = "Can not fetch postal address please try again";
+                $response['error'] = true;
+                
+            }else{
+                $arr['city'] = $key->PostOffice[0]->Block;
+                $arr['district'] = $key->PostOffice[0]->District;
+                $arr['state'] = $key->PostOffice[0]->State;
+
+                $response['success'] = true;
+                $response['success_message'] = "Postal Address fetch successfully";
+                $response['error'] = false;
+                $response['data'] = $arr;
+                $response['zone'] = $getZone; 
+            }
+        }
+        // dd($response);
         return response()->json($response);
     }
 

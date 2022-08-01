@@ -90,7 +90,7 @@
                                
                                 <div class="form-group col-md-6">
                                     <label for="exampleFormControlInput2">Pincode</label>
-                                    <input type="text" class="form-control" name="postal_code" value="{{old('postal_code',isset($getconsigner->postal_code)?$getconsigner->postal_code:'')}}" placeholder="">
+                                    <input type="text" class="form-control" id="postal_code" name="postal_code" value="{{old('postal_code',isset($getconsigner->postal_code)?$getconsigner->postal_code:'')}}" placeholder="">
                                 </div>
                                
                             </div>
@@ -103,11 +103,11 @@
                             <div class="form-row mb-0">
                             <div class="form-group col-md-6">
                                     <label for="exampleFormControlInput2">City</label>
-                                    <input type="text" class="form-control" name="city" value="{{old('city',isset($getconsigner->city)?$getconsigner->city:'')}}" placeholder="">
+                                    <input type="text" class="form-control" id="city" name="city" value="{{old('city',isset($getconsigner->city)?$getconsigner->city:'')}}" placeholder="">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="exampleFormControlInput2">District</label>
-                                    <input type="text" class="form-control" name="district" value="{{old('district',isset($getconsigner->district)?$getconsigner->district:'')}}" placeholder="">
+                                    <input type="text" class="form-control" id="district" name="district" value="{{old('district',isset($getconsigner->district)?$getconsigner->district:'')}}" placeholder="">
                                 </div>
                                
                                 <!-- <div class="form-group col-md-6">

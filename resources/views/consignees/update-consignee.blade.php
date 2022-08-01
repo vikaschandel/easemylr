@@ -84,11 +84,11 @@
                             <div class="form-row mb-0">      
                             <div class="form-group col-md-6">
                                     <label for="exampleFormControlInput2">Pincode</label>
-                                    <input type="text" class="form-control" name="postal_code" value="{{old('postal_code',isset($getconsignee->postal_code)?$getconsignee->postal_code:'')}}" placeholder="Pincode">
+                                    <input type="text" class="form-control" id="postal_code" name="postal_code" value="{{old('postal_code',isset($getconsignee->postal_code)?$getconsignee->postal_code:'')}}" placeholder="Pincode">
                                 </div> 
                             <div class="form-group col-md-6">
                                     <label for="exampleFormControlInput2">Village/City</label>
-                                    <input type="text" class="form-control" name="city" value="{{old('city',isset($getconsignee->city)?$getconsignee->city:'')}}" placeholder="City">
+                                    <input type="text" class="form-control" id="city" name="city" value="{{old('city',isset($getconsignee->city)?$getconsignee->city:'')}}" placeholder="City">
                                 </div>                   
                                 <!-- <div class="form-group col-md-6">
                                     <label for="exampleFormControlSelect1">Location</label>
@@ -107,15 +107,14 @@
                                 </div>-->
                                 
                             </div>
-                            <div class="form-row mb-0">                          
-                               
-                               <div class="form-group col-md-6">
-                                   <label for="exampleFormControlInput2">District</label>
-                                   <input type="text" class="form-control" name="district" value="{{old('district',isset($getconsignee->district)?$getconsignee->district:'')}}" placeholder="District">
-                               </div>
-                               <div class="form-group col-md-6">
-                                   <label for="exampleFormControlSelect1">Select State</label>
-                                   <select class="form-control" name="state_id">
+                            <div class="form-row mb-0">
+                                <div class="form-group col-md-6">
+                                    <label for="exampleFormControlInput2">District</label>
+                                    <input type="text" class="form-control" id="district" name="district" value="{{old('district',isset($getconsignee->district)?$getconsignee->district:'')}}" placeholder="District">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="exampleFormControlSelect1">Select State</label>
+                                    <select class="form-control" id="state" name="state_id">
                                        <option value="">Select</option>
                                        <?php 
                                        if(count($states)>0) {
@@ -126,12 +125,18 @@
                                            }
                                        }
                                        ?>                            
-                                   </select>
-                               </div>
-                           </div>
-                           
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row mb-0">
+                                <div class="form-group col-md-6">
+                                    <label for="exampleFormControlInput2">Primary Zone</label>
+                                    <input type="text" class="form-control" id="zone_name" name="zone_name" disabled value="{{old('zone_id',isset($getconsignee->GetZone->primary_zone)?$getconsignee->GetZone->primary_zone:'No Zone Assigned')}}" placeholder="">
+                                </div>
+                                <input type="hidden" id="zone_id" name="zone_id" value="{{old('zone_id',isset($getconsignee->GetZone->id)?$getconsignee->GetZone->id:'')}}">
+                            </div>
                             <div class="form-row mb-0">                          
-                            <div class="form-group col-md-6">
+                                <div class="form-group col-md-6">
                                     <label for="exampleFormControlInput2">Address Line 1</label>
                                     <input type="text" class="form-control" name="address_line1" value="{{old('address_line1',isset($getconsignee->address_line1)?$getconsignee->address_line1:'')}}" placeholder="">
                                 </div>
@@ -141,7 +146,7 @@
                                 </div>
                             </div>
                             <div class="form-row mb-0">                          
-                            <div class="form-group col-md-6">
+                                <div class="form-group col-md-6">
                                     <label for="exampleFormControlInput2">Address Line 3</label>
                                     <input type="text" class="form-control" name="address_line3" value="{{old('address_line3',isset($getconsignee->address_line3)?$getconsignee->address_line3:'')}}" placeholder="">
                                 </div>
@@ -189,16 +194,6 @@
 @section('js')
 <script>
 jQuery(document).ready(function(){
-
-    // on ready function for create/update consignee page
-    // var gstno = $("#gst_number").val().length;
-    // const gst_numberlen = gstno.length;
-    // if(gstno > 0){
-    //     $('#dealer_type option[value="1"]').prop('selected', true);
-    // }else{
-    //     $('#dealer_type option[value="0"]').prop('selected', true);
-    // }
-
     // $('#dealer_type').change(function (e) {
         // e.preventDefault();
         var valueSelected = $('#dealer_type').val();

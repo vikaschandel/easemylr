@@ -105,7 +105,7 @@
                                 <div class="w-summary-details">
 
                                     <div class="w-summary-info">
-                                        <h6><span style="font-size: 23px;">{{$gettoday_weightlifted}} (MT)</span><span class="summary-count"> </span>Today Net Weight lifted</h6>
+                                        <h6><span style="font-size: 23px;">{{number_format((float)$gettoday_weightlifted,2, '.', '')}} (MT)</span><span class="summary-count"> </span>Today Net Weight lifted</h6>
                                         <p class="summary-average"></p>
                                     </div>
                                 </div>
@@ -122,7 +122,7 @@
                                 <div class="w-summary-details">
 
                                     <div class="w-summary-info">
-                                        <h6><span style="font-size: 23px;">{{$getmonthly_weightlifted}} (MT)</span><span class="summary-count"> </span>Monthly Net Weight Lifted</h6>
+                                        <h6><span style="font-size: 23px;">{{number_format((float)$getmonthly_weightlifted,2, '.', '')}} (MT)</span><span class="summary-count"> </span>Monthly Net Weight Lifted</h6>
                                         <p class="summary-average"></p>
                                     </div>
                                 </div>
@@ -148,7 +148,7 @@
 
                                 <div class="w-summary-details">
                                     <div class="w-summary-info">
-                                        <h6><span style="font-size: 23px;">{{$gettoday_gross_weightlifted}} (MT)</span><span class="summary-count"> </span>Today's Gross Weight Lifted</h6>
+                                        <h6><span style="font-size: 23px;">{{number_format((float)$gettoday_gross_weightlifted,2, '.', '')}} (MT)</span><span class="summary-count"> </span>Today's Gross Weight Lifted</h6>
                                         <p class="summary-average"></p>
                                     </div>
                                 </div>
@@ -165,7 +165,7 @@
                                 <div class="w-summary-details">
 
                                     <div class="w-summary-info">
-                                        <h6><span style="font-size: 23px;">{{$getmonthly_gross_weightlifted}} (MT)</span><span class="summary-count"> </span>Monthly Gross Weight Lifted</h6>
+                                        <h6><span style="font-size: 23px;">{{number_format((float)$getmonthly_gross_weightlifted,2, '.', '')}} (MT)</span><span class="summary-count"> </span>Monthly Gross Weight Lifted</h6>
                                         <p class="summary-average"></p>
                                     </div>
                                 </div>
@@ -267,54 +267,23 @@
 
                     <div class="MTs-container mx-auto">
                         <div class="timeline-line">
-                            
+
+                            @foreach($Lrsimplify as $lastlr)
+                          
+                         
                             <div class="item-timeline timeline-new">
                                 <div class="t-dot">
                                     <div class="t-secondary"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></div>
                                 </div>
                                 <div class="t-content">
                                     <div class="t-uppercontent">
-                                        <h5>New project created : <a href="javscript:void(0);"><span>[Cork Admin Template]</span></a></h5>
+                                        <h5>{{$lastlr['consignee_detail']['nick_name']}}<a href="javscript:void(0);"><span></span></a></h5>
                                     </div>
-                                    <p>27 Feb, 2020</p>
+                                    <p>{{$lastlr['consignment_date']}}</p>
                                 </div>
                             </div>
-
-                            <div class="item-timeline timeline-new">
-                                <div class="t-dot">
-                                    <div class="t-success"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg></div>
-                                </div>
-                                <div class="t-content">
-                                    <div class="t-uppercontent">
-                                        <h5>Mail sent to <a href="javascript:void(0);">HR</a> and <a href="javascript:void(0);">Admin</a></h5>
-                                    </div>
-                                    <p>28 Feb, 2020</p>
-                                </div>
-                            </div>
-
-                            <div class="item-timeline timeline-new">
-                                <div class="t-dot">
-                                    <div class="t-primary"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
-                                </div>
-                                <div class="t-content">
-                                    <div class="t-uppercontent">
-                                        <h5>Server Logs Updated</h5>
-                                    </div>
-                                    <p>27 Feb, 2020</p>
-                                </div>
-                            </div>
-
-                            <div class="item-timeline timeline-new">
-                                <div class="t-dot">
-                                    <div class="t-danger"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
-                                </div>
-                                <div class="t-content">
-                                    <div class="t-uppercontent">
-                                        <h5>Task Completed : <a href="javscript:void(0);"><span>[Backup Files EOD]</span></a></h5>
-                                    </div>
-                                    <p>01 Mar, 2020</p>
-                                </div>
-                            </div>                 
+                            @endforeach
+               
                         </div>                                    
                     </div>
 
@@ -322,9 +291,7 @@
                 </div>
             </div>
         </div>
-
     </div>
-
 </div>
 
 @endsection

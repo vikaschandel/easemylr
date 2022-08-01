@@ -85,6 +85,14 @@ label.error{
 .row.cuss.fuss {
     padding: 15px 0;
 }
+.select2-results__options {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    height: 160px;
+    /* scroll-margin: 38px; */
+    overflow: auto;
+}
 </style>
 <div class="layout-px-spacing">
     <div class="row layout-top-spacing">
@@ -112,7 +120,7 @@ label.error{
                                             Consignor<span class="text-danger">*</span></label>
                                     </div>
                                     <div class="col-sm-9" style="margin-top:3px;" >
-                                        <select id="select_consigner" class="basic form-seteing" type="text"
+                                        <select id="select_consigner" class="my-select2 form-seteing" type="text"
                                             name="consigner_id">
                                             <option value="">Select Consignor</option>
                                             @foreach($consigners as $consigner)
@@ -142,7 +150,7 @@ label.error{
                                             Consignee<span class="text-danger">*</span></label>
                                     </div>
                                     <div class="col-sm-9" >
-                                        <select class="basic form-seteing" type="text" name="consignee_id"
+                                        <select class="my-select2 form-seteing" type="text" name="consignee_id"
                                             id="select_consignee">
                                             <option value="">Select Consignee</option>
                                             
@@ -170,7 +178,7 @@ label.error{
                                                 class="text-danger">*</span></label>
                                     </div>
                                     <div class="col-sm-9" style="margin-top:2px;">
-                                        <select class="basic form-seteing" type="text" name="ship_to_id"
+                                        <select class="my-select2 form-seteing" type="text" name="ship_to_id"
                                             id="select_ship_to">
                                             <option value="">Select Ship To</option>
                                             <!-- @foreach($consignees as $consignee)
@@ -235,7 +243,7 @@ label.error{
                                                     style="border:none;">
                                             </div>
                                             <div class=" col-sm-4" style="margin-top:10px;">
-                                                <label for="exampleFormControlInput2">Order ID</label>
+                                                <label for="exampleFormControlInput2">Order ID<span class="text-danger">*</span></label>
                                             </div>
                                             <div class=" col-sm-8" style="margin-top:2px;">
                                                 <input type="text" class="form-seteing" id="order_id" name="order_id" value="" placeholder=""
@@ -305,7 +313,7 @@ label.error{
                                             </div>
                                             <?php if($with_vehicle_no == '1'){ ?>
                                             <div class=" col-sm-8" style="margin-top:2px;">
-                                                <select class="basic js-states vehicle form-seteing" id="vehicle_no" name="req_vehicle_id" tabindex="-1">
+                                                <select class="my-select2 js-states vehicle form-seteing" id="vehicle_no" name="req_vehicle_id" tabindex="-1">
                                                     <option value="">Select vehicle no</option>
                                                     @foreach($vehicles as $vehicle)
                                                     <option value="{{$vehicle->id}}">{{$vehicle->regn_no}}
@@ -315,7 +323,7 @@ label.error{
                                             </div>
                                             <?php }else{ ?>
                                             <div class=" col-sm-8" style="margin-top:10px;">
-                                                <select class="basic js-states vehicle form-seteing" id="vehicle_no" name="vehicle_id" tabindex="-1">
+                                                <select class="my-select2 js-states vehicle form-seteing" id="vehicle_no" name="vehicle_id" tabindex="-1">
                                                     <option value="">Select vehicle no</option>
                                                     @foreach($vehicles as $vehicle)
                                                     <option value="{{$vehicle->id}}">{{$vehicle->regn_no}}
@@ -462,7 +470,7 @@ label.error{
                     </div>
                     <div class=" col-sm-2">
                         
-                        <select class="basic sete" id="vehicle_type" name="req_vehicle_type"
+                        <select class="my-select2 sete" id="vehicle_type" name="req_vehicle_type"
                             tabindex="-1">
                             <option value="">Select vehicle type</option>
                             @foreach($vehicletypes as $vehicle)
@@ -476,7 +484,7 @@ label.error{
                         <label for="exampleFormControlInput2">Vehicle Type<span class="text-danger">*</span></label>
                     </div>
                     <div class=" col-sm-2">
-                        <select class="basic sete" id="vehicle_type" name="vehicle_type"
+                        <select class="my-select2 sete" id="vehicle_type" name="vehicle_type"
                             tabindex="-1">
                             <option value="">Select vehicle type</option>
                             @foreach($vehicletypes as $vehicle)
@@ -490,7 +498,7 @@ label.error{
                         <label for="exampleFormControlInput2">Driver Name</label>
                     </div>
                     <div class=" col-sm-2">
-                        <select class="basic sete" id="driver_id" name="driver_id" tabindex="-1">
+                        <select class="my-select2 sete" id="driver_id" name="driver_id" tabindex="-1">
                             <option value="">Select driver</option>
                             @foreach($drivers as $driver)
                             <option value="{{$driver->id}}">{{ucfirst($driver->name) ?? '-'}}-{{$driver->phone ?? '-'}}
@@ -537,9 +545,24 @@ label.error{
 @endsection
 @section('js')
 <script>
-    $(function() {
-        $('.basic').selectpicker();
-    });
+    // $(function() {
+    //     $('.basic').selectpicker();
+    // });
+    jQuery(function() {
+            $('.my-select2').each(function() {
+                $(this).select2({
+                    theme: "bootstrap-5",
+                    dropdownParent: $(this).parent(), // fix select2 search input focus bug
+                })
+            })
+
+            // fix select2 bootstrap modal scroll bug
+            $(document).on('select2:close', '.my-select2', function(e) {
+                var evt = "scroll.select2"
+                $(e.target).parents().off(evt)
+                $(window).off(evt)
+            })
+        })
 
     // add consignment date
     $('#consignDate, #date').val(new Date().toJSON().slice(0, 10));

@@ -120,8 +120,8 @@
                     },
                     { data: 'lrdetails' },
                     { data: 'route' },
+                    { data: 'impdates' },
                     { data: 'poptions' },
-                    { data: 'edd' },
                     { data: 'status' },
                     { data: 'delivery_status' },
                 ],
@@ -193,6 +193,43 @@
             "pageLength": 100,
 
         } );
+
+        $(document).ready(function() {
+    var jobs_count = 0;
+
+    setInterval(function() {
+        // the actual code:
+        // $.get('notification.php', checkJobsCounter);
+        // notification.php returns a single number, e.g.: 10
+
+        // demo: return the number of minutes in each hour instead the job_id and jobs_count
+        var mock = (new Date()).getMinutes();
+        checkJobsCounter(mock);
+
+    }, 15000);
+
+    function checkJobsCounter(data) {
+        if (jobs_count !== data) {
+            if ($(".alert:not(.hidden)").length <= 0) { // don't show new alert if the user haven't dismissed the old one
+
+                // job_id got updated... need to show it
+                var $notification = $("#alert_template")
+                      .clone()
+                      .removeClass("hidden")
+                      .attr("id", "") // removes id of the cloned DOM node
+                      .appendTo("body");
+            }
+            
+            $(".alert-dismissable span#jobs_count").text(data);
+            jobs_count = data;
+        }
+
+        if(jobs_count === 0) {
+            $(".alert-dismissable:not(.hidden) button").click();
+        }
+    }
+
+});
 
 ////////////////////////////////////////////////////////
         // $("#select_all").click(function () {
@@ -325,6 +362,18 @@ $('#consignment_report').DataTable( {
             "pageLength": 80,
             
         } );
+
+        ///////////////////////////////////
+        /////////////////////////////////////////////////
+function lrCheck(that) {
+    if (that.value == "Successful") {
+        document.getElementById("lrid").style.display = "block";
+   
+    } else{
+        document.getElementById("lrid").style.display = "none";
+          
+    }
+}
 
     </script>
     <!-- END PAGE LEVEL SCRIPTS -->  

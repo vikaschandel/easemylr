@@ -100,7 +100,7 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="exampleFormControlInput2">Pincode</label>
-                                    <input type="text" class="form-control" name="postal_code" placeholder="">
+                                    <input type="text" class="form-control" id="postal_code" name="postal_code" placeholder="">
                                 </div>
 
 
@@ -113,13 +113,12 @@
                             <div class="form-row mb-0">
                                 <div class="form-group col-md-6">
                                     <label for="exampleFormControlInput2">City</label>
-                                    <input type="text" class="form-control" name="city" placeholder="">
+                                    <input type="text" class="form-control" id="city" name="city" placeholder="">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="exampleFormControlInput2">District</label>
-                                    <input type="text" class="form-control" name="district" placeholder="">
+                                    <input type="text" class="form-control" id="district" name="district" placeholder="">
                                 </div>
-
 
                                 <!-- <div class="form-group col-md-6">
                                     <label for="exampleFormControlInput2">Status</label>
@@ -142,7 +141,7 @@
                             <div class="form-row mb-0">
                                 <div class="form-group col-md-6">
                                     <label for="exampleFormControlSelect1">State</label>
-                                    <select class="form-control" name="state_id">
+                                    <select class="form-control" id="state" name="state_id">
                                         <option value="">Select</option>
                                         <?php 
                                         if(count($states)>0) {

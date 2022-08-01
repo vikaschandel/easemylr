@@ -6,8 +6,8 @@
 }
 div.relative {
     position: absolute;
-    left: 9px;
-    top: 14px;
+    left: 110px;
+    top: 24px;
     z-index: 1;
     width: 145px;
     height: 38px;
@@ -144,8 +144,8 @@ a.badge.alert.bg-secondary.shadow-sm {
                                     <th> </th>
                                     <th>LR Details</th>
                                     <th>Route</th>
-                                    <th>Dates</th>
                                     <th>Printing options</th>
+                                    <th>EDD</th>
                                     <th>LR Status</th>
                                     <th>Delivery Status</th>
                                 </tr>
@@ -161,5 +161,4 @@ a.badge.alert.bg-secondary.shadow-sm {
     </div>
 @include('models.delete-user')
 @include('models.common-confirm')
-@include('models.manual-updatrLR')
 @endsection

@@ -64,6 +64,7 @@ div.relative {
                                     <th>No</th>
                                     <th>Name</th>
                                     <th>Login ID</th>
+                                    <th>Password</th>
                                     <th>Email</th>
                                     <th>Roles</th>
                                     <th style="display: none;">Password</th>
@@ -79,6 +80,7 @@ div.relative {
                                     <td>{{ ++$i }}</td>
                                     <td>{{ ucwords($user->name ?? "-")}}</td>
                                     <td>{{ $user->login_id ?? "-"}}</td>
+                                    <td>{{ $user->user_password ?? "-"}}</td>
                                     <td>{{ $user->email ?? "-" }}</td>
                                     <td>{{ ucwords($user->UserRole->name ?? "-") }}</td>
                                     <td style="display: none;">{{ $user->user_password ?? "-" }}</td>

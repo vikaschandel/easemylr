@@ -719,6 +719,7 @@ jQuery(document).ready(function(){
     jQuery(document).on('click','.activestatus,.inactivestatus',function(event){
         event.stopPropagation();
         let user_id   = jQuery(this).attr('data-id');
+
         var dataaction = jQuery(this).attr('data-action');
         var datastatus = jQuery(this).attr('data-status');
         var datatext = jQuery(this).attr('data-text');
@@ -737,7 +738,7 @@ jQuery(document).ready(function(){
             var data =  {id:user_id,status:datastatus,updatestatus:updatestatus,reason_to_cancel:reason_to_cancel};
             
             jQuery.ajax({
-                url         : dataaction,
+                url         : 'consignments',
                 type        : 'get',
                 cache       : false,
                 data        :  data,
@@ -766,20 +767,71 @@ jQuery(document).ready(function(){
 
 
     });
+ ///////////////////////get data successful model++++++++++++++++++++++++++++
+ 
+jQuery(document).on('click','.drs_cancel',function(event){
+    event.stopPropagation();
+   
+    let drs_no   = jQuery(this).attr('drs-no');
+
+        var data =  {drs_no:drs_no};
+        
+        jQuery.ajax({
+            url         : "get-delivery-datamodel",
+            type        : 'get',
+            cache       : false,
+            data        :  data,
+            dataType    :  'json',
+            headers     : {
+                'X-CSRF-TOKEN': jQuery('meta[name="_token"]').attr('content')
+            },
+            processData: true,
+            beforeSend  : function () {
+                $('#get-delvery-date').dataTable().fnClearTable();             
+                $('#get-delvery-date').dataTable().fnDestroy();
+            },
+            complete: function () {
+               
+            },
+
+            success:function(data){
+                console.log(data.fetch);
+            //     var re = jQuery.parseJSON(data)
+            //  console.log(re.fetch); return false;
+                    var consignmentID = [];
+                    $.each(data.fetch, function(index, value) {
+
+                        var alldata = value;  
+                        consignmentID.push(alldata.consignment_no);
+                        
+                        $('#get-delvery-date tbody').append("<tr><td>" + value.consignment_no + "</td><td><input type='date' name='delivery_date[]' data-id="+ value.consignment_no +" class='delivery_d' value='"+ value.dd+ "'></td><td><button type='button'  data-id="+ value.consignment_no +" class='btn btn-primary remover_lr'>remove</button></td></tr>");      
+
+
+                    });
+                    get_delivery_date();
+               
+            }
+        });
+    
+
+
+});
 //    Drs Cncel status update+++++++++++++++++++++++++++++++++++++
 jQuery(document).on('click','.drs_cancel',function(event){
     event.stopPropagation();
    
     
     let drs_no   = jQuery(this).attr('drs-no');
+   
     var dataaction = jQuery(this).attr('data-action');
     var updatestatus = 'updatestatus';
 
     jQuery('#commonconfirm').modal('show');
     // jQuery('.confirmtext').text('Are you sure you want to '+statustext+' this '+datatext+'?');
     jQuery( ".commonconfirmclick").one( "click", function() {
+        //alert('d');
         var drs_status = jQuery('#drs_status').val();
-        alert(drs_status);
+        //alert(drs_status);
         var data =  {drs_no:drs_no,drs_status:drs_status,updatestatus:updatestatus};
         
         jQuery.ajax({
@@ -810,6 +862,102 @@ jQuery(document).on('click','.drs_cancel',function(event){
         });
     });
 
+
+});
+//    Manual LR status update+++++++++++++++++++++++++++++++++++++
+jQuery(document).on('click','.manual_updateLR',function(event){
+    event.stopPropagation();
+   
+    
+     let lr_no   = jQuery(this).attr('lr-no');
+   
+    //   var dataaction = jQuery(this).attr('data-action');
+     var updatestatus = 'updatestatus';
+
+    jQuery('#manualLR').modal('show');
+    
+    // jQuery('.confirmtext').text('Are you sure you want to '+statustext+' this '+datatext+'?');
+    jQuery( ".commonconfirmclick").one( "click", function() {
+        // alert('d');
+        var lr_status = jQuery('#lr_status').val();
+        //alert(drs_status);
+        var data =  {lr_no:lr_no,lr_status:lr_status,updatestatus:updatestatus};
+        
+        jQuery.ajax({
+            url         : 'update-lrstatus',
+            type        : 'get',
+            cache       : false,
+            data        :  data,
+            dataType    :  'json',
+            headers     : {
+                'X-CSRF-TOKEN': jQuery('meta[name="_token"]').attr('content')
+            },
+            processData: true,
+            beforeSend  : function () {
+                // jQuery("input[type=submit]").attr("disabled", "disabled");
+            },
+            complete: function () {
+                //jQuery("#loader-section").css('display','none');
+            },
+
+            success:function(response){
+                if(response.success){
+                    jQuery('#commonconfirm').modal('hide');
+                    if(response.page == 'dsr-cancel-update'){
+                        setTimeout(() => {window.location.href = response.redirect_url},10);
+                    }
+                }
+            }
+        });
+    });
+
+
+});
+ ///////////////////////get deleverydata LR successful model++++++++++++++++++++++++++++
+ 
+ jQuery(document).on('click','.manual_updateLR',function(event){
+    event.stopPropagation();
+   
+    let lr_no   = jQuery(this).attr('lr-no');
+
+        var data =  {lr_no:lr_no};
+        
+        jQuery.ajax({
+            url         : "get-delivery-dateLR",
+            type        : 'get',
+            cache       : false,
+            data        :  data,
+            dataType    :  'json',
+            headers     : {
+                'X-CSRF-TOKEN': jQuery('meta[name="_token"]').attr('content')
+            },
+            processData: true,
+            beforeSend  : function () {
+                $('#get-delvery-dateLR').dataTable().fnClearTable();             
+                $('#get-delvery-dateLR').dataTable().fnDestroy();
+            },
+            complete: function () {
+               
+            },
+
+            success:function(data){
+                console.log(data.fetch);
+            //     var re = jQuery.parseJSON(data)
+            //  console.log(re.fetch); return false;
+                    var consignmentID = [];
+                    $.each(data.fetch, function(index, value) {
+                        // alert(value.delivery_date);
+
+                        var alldata = value;  
+                        consignmentID.push(alldata.consignment_no);
+                        
+                        $('#get-delvery-dateLR tbody').append("<tr><td>" + value.id + "</td><td><input type='date' name='delivery_date[]' data-id="+ value.id +" class='delivery_d' value='"+ value.delivery_date+ "'></td></tr>");      
+
+                    });
+                     get_delivery_date();
+               
+            }
+        });
 
 });
 
@@ -902,6 +1050,45 @@ $(document).on('blur', "#edd",function () {
         }
     });
 
+    //fetch address on postcode keyup
+    $(document).on('keyup', '#postal_code', function(){
+        var postcode = $(this).val();
+        var postcode_len = postcode.length;
+        if(postcode_len > 0){
+            $.ajax({
+                url         : '/get-address-by-postcode',
+                type        : 'get',
+                cache       : false,
+                data        :  {postcode:postcode},
+                dataType    :  'json',
+                headers     : {
+                    'X-CSRF-TOKEN': jQuery('meta[name="_token"]').attr('content')
+                },
+                success: function(data){
+                    if(data.success){
+                        console.log(data.zone);
+                        $("#city").val(data.data.city);
+                        $("#district").val(data.data.district);
+                        if(data.zone == null || data.zone == ''){
+                            $("#zone_name").val('No Zone Assigned');
+                            $("#zone_id").val('0');
+                        }else{
+                            $("#zone_name").val(data.zone.primary_zone);
+                            $("#zone_id").val(data.zone.id);                            
+                        }
+                    }  
+                }
+            });
+        }else{
+            $("#city").val('');
+            $("#state").val('');
+            $("#district").val('');
+            $("#zone").val('');
+        }
+    });
+
+    
+
 
 
 
@@ -909,3 +1096,25 @@ $(document).on('blur', "#edd",function () {
 
 });
 /*====== End document ready function =====*/ 
+function get_delivery_date()
+{
+    $('.delivery_d').blur(function () {
+                    //  alert('hello');
+                    var consignment_id = $(this).attr('data-id');
+                    var delivery_date = $(this).val();
+                    
+                    var _token = $('input[name="_token"]').val();
+                    $.ajax({
+                    url: "update-delivery-date",
+                    method: "POST",
+                    data: { delivery_date: delivery_date,consignment_id:consignment_id, _token: _token },
+                    headers   : {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                    dataType  : 'json',
+                    success: function (result) {
+                        
+                    }
+                    })
+           });
+    }
