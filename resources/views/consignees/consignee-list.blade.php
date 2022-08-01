@@ -72,9 +72,9 @@ div.relat {
                         </div>
                         <thead>
                             <tr>
-                                <th>Id</th>
+                                <th>Cnee ID</th>
                                 <th>Consignee Nick Name</th>
-                               <th>Consigner</th> 
+                                <th>Consigner</th> 
                                 <th>Contact Person Name</th>
                                 <th>Mobile No.</th>
                                 <th>PIN Code</th>
