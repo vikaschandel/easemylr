@@ -95,18 +95,18 @@ class ConsignerController extends Controller
         $states = Helper::getStates();
         $authuser = Auth::user();
         $role_id = Role::where('id','=',$authuser->role_id)->first();
-        
+        $regclient = explode(',',$authuser->regionalclient_id);
         $cc = explode(',',$authuser->branch_id);
-        if($authuser->role_id == $role_id->id){
-            $regclients = RegionalClient::whereIn('location_id',$cc)->orderby('name','ASC')->get();
+
+        if($authuser->role_id !=1){
+            if($authuser->role_id ==2 || $role_id->id ==3){
+                $regclients = RegionalClient::whereIn('location_id',$cc)->orderby('name','ASC')->get();
+            }else{
+                $regclients = RegionalClient::whereIn('regionalclient_id',$regclient)->orderby('name','ASC')->get();
+            }
         }else{
             $regclients = RegionalClient::where('status',1)->orderby('name','ASC')->get();
         }
-        // if($authuser->role_id == 2){
-        //     $branches = Location::whereIn('id',$cc)->orderby('name','ASC')->pluck('name','id');
-        // }else{
-        //     $branches = Location::where('status',1)->orderby('name','ASC')->pluck('name','id');
-        // }
         return view('consigners.create-consigner',['states'=>$states,'regclients'=>$regclients, 'prefix'=>$this->prefix, 'title'=>$this->title, 'pagetitle'=>'Create']);
     }
 

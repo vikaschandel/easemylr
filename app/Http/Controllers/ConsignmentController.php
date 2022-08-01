@@ -359,14 +359,41 @@ class ConsignmentController extends Controller
             $consignmentsave['e_way_bill'] = $request->e_way_bill;
             $consignmentsave['e_way_bill_date'] = $request->e_way_bill_date;
             $consignmentsave['status'] = $status;
-
-            if (!empty($request->vehicle_id)) {                
+            if (!empty($request->vehicle_id)) {    
                 $consignmentsave['delivery_status'] = "Assigned";
             }else{
                 $consignmentsave['delivery_status'] = "Unassigned";
             }
 
             $saveconsignment = ConsignmentNote::create($consignmentsave);
+            $consignment_id = $saveconsignment->id;
+
+           //===================== Create DRS in LR ================================= //
+           if(!empty($request->req_vehicle_id || $request->vehicle_id)){
+
+           $consignmentdrs = DB::table('consignment_notes')->select('consignment_notes.*', 'consigners.nick_name as consigner_name', 'consignees.nick_name as consignee_name', 'consignees.city as city', 'consignees.postal_code as pincode','vehicles.regn_no as regn_no','drivers.name as driver_name', 'drivers.phone as driver_phone')
+           ->join('consigners', 'consigners.id', '=', 'consignment_notes.consigner_id')
+           ->join('consignees', 'consignees.id', '=', 'consignment_notes.consignee_id')
+           ->join('vehicles', 'vehicles.id', '=', 'consignment_notes.vehicle_id')
+           ->join('drivers', 'drivers.id', '=', 'consignment_notes.driver_id')
+           ->where('consignment_notes.id', $consignment_id)
+           ->first(['consignees.city']);
+           $simplyfy = json_decode(json_encode($consignmentdrs), true);
+           //echo'<pre>'; print_r($simplyfy); die;
+
+            $no_of_digit = 5;
+            $drs = DB::table('transaction_sheets')->select('drs_no')->latest('drs_no')->first();
+            $drs_no = json_decode(json_encode($drs), true);
+            if (empty($drs_no) || $drs_no == null) {
+                $drs_no['drs_no'] = 0;
+            }
+            $number = $drs_no['drs_no'] + 1;
+            $drs_no = str_pad($number, $no_of_digit, "0", STR_PAD_LEFT);
+
+
+            $transaction = DB::table('transaction_sheets')->insert(['drs_no' => $drs_no, 'consignment_no' => $simplyfy['id'],'consignee_id' => $simplyfy['consignee_name'], 'consignment_date' => $simplyfy['consignment_date'], 'branch_id' => $authuser->branch_id , 'city' => $simplyfy['city'], 'pincode' => $simplyfy['pincode'], 'total_quantity' => $simplyfy['total_quantity'], 'total_weight' => $simplyfy['total_weight'],'vehicle_no' => $simplyfy['regn_no'], 'driver_name' => $simplyfy['driver_name'], 'driver_no' => $simplyfy['driver_phone'], 'order_no' => '1', 'delivery_status' => 'Assigned','status' => '1']);
+           }
+           //===========================End drs lr ================================= //
             if ($saveconsignment) {
                    /******* PUSH LR to Shadow if vehicle available & Driver has team & fleet ID   ********/
                 $vn =  $consignmentsave['vehicle_id'];
@@ -1815,6 +1842,58 @@ class ConsignmentController extends Controller
         echo json_encode($response);
 
     }
+
+    //========================Bulk Print LR ==============================//
+    public function BulkLrView(Request $request)
+    {
+        $this->prefix = request()->route()->getPrefix();
+        // $peritem = 20;
+        $query = ConsignmentNote::query();
+        $authuser = Auth::user();
+        $cc = explode(',', $authuser->branch_id);
+        if ($authuser->role_id == 2) {
+            $consignments = DB::table('consignment_notes')->select('consignment_notes.*', 'consigners.nick_name as consigner_name', 'consignees.nick_name as consignee_name', 'consignees.city as city', 'consignees.postal_code as pincode')
+                ->join('consigners', 'consigners.id', '=', 'consignment_notes.consigner_id')
+                ->join('consignees', 'consignees.id', '=', 'consignment_notes.consignee_id')
+                ->whereIn('consignment_notes.branch_id', $cc)
+                ->get(['consignees.city']);
+                
+
+            // $consignments = $query->whereIn('branch_id',$cc)->orderby('id','DESC')->get();
+        } else {
+            $consignments = DB::table('consignment_notes')->select('consignment_notes.*', 'consigners.nick_name as consigner_id', 'consignees.nick_name as consignee_id', 'consignees.city as city', 'consignees.postal_code as pincode')
+                ->join('consigners', 'consigners.id', '=', 'consignment_notes.consigner_id')
+                ->join('consignees', 'consignees.id', '=', 'consignment_notes.consignee_id')
+                ->get(['consignees.city']);
+
+            // $consignments = $query->orderby('id','DESC')->get();
+        }
+      
+        return view('consignments.bulkLr-view', ['consignments' => $consignments, 'prefix' => $this->prefix, 'title' => $this->title]);
+    }
+
+    public function DownloadBulkLr(Request $request)
+    {
+        // dd($request->consignmentID);
+        $query = ConsignmentNote::query();
+        $authuser = Auth::user();
+        $cc = explode(',', $authuser->branch_id);
+        $branch_add = BranchAddress::first();
+        $locations = Location::whereIn('id', $cc)->first();
+
+        $cn_id = $request->id;
+        $getdata = ConsignmentNote::whereIn('id', $request->consignmentID)->with('ConsignmentItems', 'ConsignerDetail', 'ConsigneeDetail', 'ShiptoDetail', 'VehicleDetail', 'DriverDetail')->first();
+        $data = json_decode(json_encode($getdata), true);
+         $html = 'hii';
+
+         $pdf = \App::make('dompdf.wrapper');
+         $pdf->loadHTML($html);
+         $pdf->setPaper('a4', 'portrait');
+         return $pdf->stream('print.pdf');
+
+    }
+
+
     ////////////////get delevery date LR//////////////////////
     public function getDeleveryDateLr(Request $request)
     {
@@ -1862,4 +1941,5 @@ class ConsignmentController extends Controller
         }
 
     }
+
 }
