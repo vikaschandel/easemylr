@@ -21,16 +21,6 @@
                     </div>
                     <div class="form-row mb-0">
                         <div class="form-group col-md-6">
-                            <label for="location_name">Team ID</label>
-                            <input class="form-control" id="team_idup" name="team_id" value="">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="location_name">Consignment No.</label>
-                            <input class="form-control" id="consignment_noup" name="consignment_no" value="" maxlength="4">
-                        </div>
-                    </div>
-                    <div class="form-row mb-0">
-                        <div class="form-group col-md-6">
                             <label for="location_name">Email</label>
                             <input class="form-control" id="emailup" name="email" value="">
                         </div>
@@ -38,6 +28,16 @@
                             <label for="location_name">Mobile No.</label>
                             <input class="form-control" id="phoneup" name="phone" value="" maxlength="10">
                         </div>
+                    </div>
+                    <div class="form-row mb-0">
+                        <div class="form-group col-md-6">
+                            <label for="location_name">Team ID</label>
+                            <input class="form-control" id="team_idup" name="team_id" value="">
+                        </div>
+                        <!-- <div class="form-group col-md-6">
+                            <label for="location_name">Consignment No.</label>
+                            <input class="form-control" id="consignment_noup" name="consignment_no" value="" maxlength="4">
+                        </div> -->
                     </div>
                     <div class="form-row mb-0">
                         <span>Allow LR without vehicle no. :  </span>

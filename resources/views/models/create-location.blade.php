@@ -21,16 +21,6 @@
                     </div>
                     <div class="form-row mb-0">
                         <div class="form-group col-md-6">
-                            <label for="location_name">Team ID</label>
-                            <input class="form-control" id="team_id" name="team_id" placeholder="">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="location_name"> Consignment No.</label>
-                            <input class="form-control" id="consignment_no" name="consignment_no" placeholder="" maxlength="4">
-                        </div>
-                    </div>
-                    <div class="form-row mb-0">
-                        <div class="form-group col-md-6">
                             <label for="location_name">Email ID</label>
                             <input class="form-control" id="email" name="email" placeholder="">
                         </div>
@@ -40,17 +30,27 @@
                         </div>
                     </div>
                     <div class="form-row mb-0">
+                        <div class="form-group col-md-6">
+                            <label for="location_name">Team ID</label>
+                            <input class="form-control" id="team_id" name="team_id" placeholder="">
+                        </div>
+                        <!-- <div class="form-group col-md-6">
+                            <label for="location_name"> Consignment No.</label>
+                            <input class="form-control" id="consignment_no" name="consignment_no" placeholder="" maxlength="4">
+                        </div> -->
+                    </div>
+                    <div class="form-row mb-0">
                         <span>Allow LR without vehicle no. :  </span>
                         <div class="check-box d-flex">
                             <div class="checkbox radio">
                                 <label class="check-label">Yes
-                                    <input type="radio"  value='1' name="with_vehicle_no">
+                                    <input type="radio"  value='1' name="with_vehicle_no" checked>
                                     <span class="checkmark"></span>
                                 </label>
                             </div>
                             <div class="checkbox radio">
                                 <label class="check-label">No
-                                    <input type="radio" name="with_vehicle_no" value='0' checked>
+                                    <input type="radio" name="with_vehicle_no" value='0'>
                                     <span class="checkmark"></span>
                                 </label>
                             </div>

@@ -61,7 +61,7 @@ class LocationController extends Controller
         $rules = array(
             'name'    => 'required|unique:locations',
             'team_id' => 'required', 
-            'consignment_no' => 'required|unique:locations',
+            // 'consignment_no' => 'required|unique:locations',
             'email'  => 'required',
             'phone'  => 'required',
         );
@@ -85,9 +85,9 @@ class LocationController extends Controller
         if(!empty($request->team_id)){
             $addlocation['team_id'] = $request->team_id;
         }
-        if(!empty($request->consignment_no)){
-            $addlocation['consignment_no'] = $request->consignment_no;
-        }
+        // if(!empty($request->consignment_no)){
+        //     $addlocation['consignment_no'] = $request->consignment_no;
+        // }
         if(!empty($request->email)){
             $addlocation['email'] = $request->email;
         }
@@ -117,7 +117,7 @@ class LocationController extends Controller
         $rules = array(
             'name'      => 'required|unique:locations,name,' . $request->id,
             // 'team_id' => 'unique:locations,team_id,' . $request->id,
-            'consignment_no' => 'required|unique:locations,consignment_no,' . $request->id,
+            // 'consignment_no' => 'required|unique:locations,consignment_no,' . $request->id,
             'email'  => 'required',
             'phone'  => 'required',
             'team_id' => 'required',
@@ -141,9 +141,9 @@ class LocationController extends Controller
         if(!empty($request->team_id)){
             $locationsave['team_id']  = $request->team_id;
         }
-        if(!empty($request->consignment_no)){
-            $locationsave['consignment_no']  = $request->consignment_no;
-        }
+        // if(!empty($request->consignment_no)){
+        //     $locationsave['consignment_no']  = $request->consignment_no;
+        // }
         if(!empty($request->email)){
             $locationsave['email']  = $request->email;
         }

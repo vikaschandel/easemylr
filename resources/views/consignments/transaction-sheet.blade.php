@@ -70,8 +70,8 @@ div.relative {
                                     <th>Driver Name</th>
                                     <th>Driver Number</th>
                                     <th>Total LR</th>
-                                    <th>DRS Status</th>
                                     <th>Action</th>
+                                    <th>DRS Status</th>
                                 </tr>
                             </thead>
                             <tbody>
