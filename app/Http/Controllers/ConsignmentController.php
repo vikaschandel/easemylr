@@ -1734,7 +1734,7 @@ class ConsignmentController extends Controller
          $time = strtotime($json['job_delivery_datetime']);
          $newformat = date('Y-m-d',$time);
          $delivery_status = $json['job_state'];
-
+         $consignment_no = $json['order_id'];
          //Update LR
 
          $update = \DB::table('consignment_notes') ->where('job_id', $job_id) ->limit(1) ->update( [ 'delivery_status' => $json['job_state'],'delivery_date' => $newformat]); 
@@ -1742,6 +1742,8 @@ class ConsignmentController extends Controller
          //Update DRS
 
          $updatedrs = \DB::table('transaction_sheets') ->where('job_id', $job_id) ->limit(1) ->update( [ 'delivery_status' => $json['job_state'],'delivery_date' => $newformat]); 
+
+         event(new App\Events\RealTimeMessage('Status updated as <strong>'. $json['job_state']. '</strong> for consignment no -'.$consignment_no));
 
     }
 
