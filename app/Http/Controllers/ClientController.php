@@ -204,7 +204,6 @@ class ClientController extends Controller
                         $saveregclients = RegionalClient::create($insertdata);
                     }
                     
-
                     // if($save_data['isRegionalClientNull']==1){
                     //     $save_data['baseclient_id'] = $request->baseclient_id;
                     //     unset($save_data['hidden_id']);
