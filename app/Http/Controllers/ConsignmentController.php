@@ -1359,7 +1359,7 @@ class ConsignmentController extends Controller
            /* p { page-break-after: always; }
             p:last-child { page-break-after: never; } */
             * {
-                box-sizing: border-box;
+                box-sizing: border-box;  
               }
 
 
