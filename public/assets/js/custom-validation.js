@@ -325,6 +325,31 @@ jQuery(document).ready(function(){
     });
  	/*===== End delete User =====*/
 
+    /*===== delete Regional client =====*/
+    jQuery(document).on('click', '.delete_client', function(){
+        jQuery('#deleteclient').modal('show');
+        var regclient_id =  jQuery(this).attr('data-id');
+        var url =  jQuery(this).attr('data-action');
+        jQuery(document).off('click','.deleteclientconfirm').on('click', '.deleteclientconfirm', function(){
+           
+            jQuery.ajax({
+                type      : 'post',
+                url       : url,
+                data      : {regclient_id:regclient_id},
+                headers   : {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                dataType : "JSON",
+                success:function(data){
+                    if(data){
+                        jQuery("#deleteclient").modal("hide");
+                        location.reload();
+                    }
+                }
+            });
+        });
+    });
+
      /*===== delete vehicle =====*/
     jQuery(document).on('click', '.delete_vehicle', function(){
         jQuery('#deletevehicle').modal('show');
