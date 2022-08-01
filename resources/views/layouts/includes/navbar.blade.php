@@ -141,7 +141,7 @@
                                         <a href="{{$prefixurl.'unverified-list'}}"> Unverified List</a>
                                     </li>
                                     <li>
-                                        <a href="{{$prefixurl.'transaction-sheet'}}"> Transaction Sheet </a>
+                                        <a href="{{$prefixurl.'transaction-sheet'}}">  Download DRS </a>
                                     </li>
                                 <?php } ?>
 
