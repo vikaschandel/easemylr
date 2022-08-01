@@ -90,16 +90,15 @@
         var i = $('.rowcls').length;
         i  = i + 1;
 
-        $('#myTable tbody').append('<tr class="rowcls"><td><input class="form-control name" type="text" name="data['+i+'][name]"></td><td> <select class="form-control location_id" name="data['+i+'][location_id]"> <option value="">Select</option> @if(count($locations)>0)@foreach ($locations as $key => $location)<option value="{{ $key }}">{{ucwords($location)}}</option> @endforeach @endif</select></td><td><button type="button" class="btn btn-danger removeRow"><i class="fa fa-minus-circle"></i></button></td></tr>');   
+        $('#myTable tbody').append('<tr class="rowcls"><td><input class="form-control name" type="text" name="data['+i+'][name]"></td><td> <select class="form-control location_id" name="data['+i+'][location_id]"> <option value="">Select</option> @if(count($locations)>0)@foreach ($locations as $key => $location)<option value="{{ $key }}">{{ucwords($location)}}</option> @endforeach @endif</select></td><td><button type="button" class="btn btn-danger removeRow" onclick="removerow()"><i class="fa fa-minus-circle"></i></button></td></tr>');   
     }
     
-    // function removerow(){
-    //     $('#myTable tr:last').remove();
-    // }
-
-    $(document).on('click', '.removeRow', function(){
-        $(this).closest('tr').remove();
-    });
+    function removerow(){
+        $('#myTable tr:last').remove();
+    }
+    // $('.removeRow').click(function(){
+    //     $(this).parent().parent().remove();
+    // });
 
 </script>
 @endsection
