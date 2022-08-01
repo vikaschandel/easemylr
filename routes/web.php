@@ -159,7 +159,9 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth','PermissionCheck']], func
     Route::get('/sample-zone',[ImportCsvController::class, 'zoneSampleDownload']);
 
     Route::resource('clients', ClientController::class);
+    Route::post('/clients/update-client', [ClientController::class, 'UpdateClient']);
     Route::get('reginal-clients', [ClientController::class, 'regionalClients']);
+    Route::post('/clients/delete-client', [ClientController::class, 'deleteClient']);
     
 });
 
