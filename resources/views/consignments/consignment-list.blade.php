@@ -169,4 +169,5 @@ a.badge.alert.bg-secondary.shadow-sm {
     </div>
 @include('models.delete-user')
 @include('models.common-confirm')
+@include('models.manual-updatrLR')
 @endsection
