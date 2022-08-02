@@ -49,7 +49,21 @@ div.relative {
                     </nav>
                 </div>
                 <div class="widget-content widget-content-area br-6">
+                    
                     <div class="mb-4 mt-4">
+                <form id="filter_report">
+            <div class="row">
+                <div class="col-sm-4">
+                <input type="date" class="form-control" name="first_date">
+                </div>
+                <div class="col-sm-4">
+                <input type="date" class="form-control" name="last_date">
+                </div>
+                <div class="col-sm-4">
+                <button type="submit" class="btn btn-primary">get</button>
+                </div>
+            </div>
+            </form>
                         @csrf
                         <table id="consignment_report" class="table table-hover" style="width:100%">
                             <div class="btn-group relative">
@@ -148,45 +162,57 @@ div.relative {
 @endsection
 @section('js')
 <script>
- var minDate, maxDate;
- 
- // Custom filtering function which will search data in column four between two values
- $.fn.dataTable.ext.search.push(
-     function( settings, data, dataIndex ) {
-         var min = minDate.val();
-         var max = maxDate.val();
-         var date = new Date( data[4] );
-  
-         if (
-             ( min === null && max === null ) ||
-             ( min === null && date <= max ) ||
-             ( min <= date   && max === null ) ||
-             ( min <= date   && date <= max )
-         ) {
-             return true;
-         }
-         return false;
-     }
- );
-  
- $(document).ready(function() {
-     // Create date inputs
-     minDate = new DateTime($('#min'), {
-         format: 'MMMM Do YYYY'
-     });
-     maxDate = new DateTime($('#max'), {
-         format: 'MMMM Do YYYY'
-     });
-  
-     // DataTables initialisation
-     var table = $('#consignment_report').DataTable();
-  
-     // Refilter the table
-     $('#min, #max').on('change', function () {
-         table.draw();
-     });
- });
+    $('#filter_report').submit(function(e) {
+    e.preventDefault();
+    var formData = new FormData(this);
+        $.ajax({
+            url: "get-filter-report", 
+            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            type: 'POST',  
+            data:new FormData(this),
+            processData: false,
+            contentType: false,
+            beforeSend: function(){
+          $('#consignment_report').dataTable().fnClearTable();             
+          $('#consignment_report').dataTable().fnDestroy();    
+            },
+            success: (data) => {
+                // console.log(data.fetch); return false;
+                $.each(data.fetch, function(key, value){
 
+                    $('#consignment_report tbody').append("<tr><td>" + value.id + "</td><td>" + value.consignment_date + "</td><td>" + value.order_id + "</td><td>"+ value.consigner_nickname + "</td><td>"+ value.consigners_city + "</td><td>"+ value.consignee_nickname + "</td><td>"+ value.city + "</td><td>"+ value.pincode + "</td><td>"+ value.district + "</td><td>"+ value.invoice_no + "</td><td>"+ value.invoice_amount + "</td><td>"+ value.vechile_number + "</td><td>"+ value.total_quantity +'%'+ "</td><td>"+  value.total_quantity +"</td><td>"+ value.total_weight + "</td><td>"+ value.status + "</td><td>"+  value.consignment_date +"</td><td>"+ value.delivery_date + "</td><td>"+ value.delivery_status + "</td><td>"+ value.delivery_status + "</td></tr>");
+
+                });
+                $('#consignment_report').DataTable( {
+            "dom": "<'dt--top-section'<'row'<'col-sm-12 col-md-6 d-flex justify-content-md-start justify-content-center'B><'col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3'f>>>" +
+        "<'table-responsive'tr>" +
+        "<'dt--bottom-section d-sm-flex justify-content-sm-between text-center'<'dt--pages-count  mb-sm-0 mb-3'i><'dt--pagination'p>>",
+            buttons: {
+                buttons: [
+                    // { extend: 'copy', className: 'btn btn-sm' },
+                    // { extend: 'csv', className: 'btn btn-sm' },
+                    { extend: 'excel', className: 'btn btn-sm' },
+                    // { extend: 'print', className: 'btn btn-sm' }
+                ]
+            },
+            "oLanguage": {
+                "oPaginate": { "sPrevious": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>', "sNext": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>' },
+                "sInfo": "Showing page _PAGE_ of _PAGES_",
+                "sSearch": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>',
+                "sSearchPlaceholder": "Search...",
+               "sLengthMenu": "Results :  _MENU_",
+            },
+            
+            "ordering": true,
+            "paging": true,
+            "pageLength": 80,
+            
+        } );    
+             
+            }
+        }); 
+    });	
+ 
 
 </script>
 

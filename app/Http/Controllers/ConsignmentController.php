@@ -22,6 +22,7 @@ use Storage;
 use Validator;
 use DataTables;
 use Helper;
+use Response;
 
 class ConsignmentController extends Controller
 {
@@ -1638,7 +1639,7 @@ class ConsignmentController extends Controller
         return response()->json($response);
 
     }
-    ////////////////////////////////////////////////////
+    //////////////////////////////////////////////////// 
     public function consignmentReports()
     {
         $this->prefix = request()->route()->getPrefix();
@@ -1671,6 +1672,41 @@ class ConsignmentController extends Controller
         return view('consignments.consignment-report', ['consignments' => $consignments, 'prefix' => $this->prefix]);
 
     }
+      public function getFilterReport(Request $request)
+      {
+       // echo'<pre>'; print_r($_POST); die;
+        $query = ConsignmentNote::query();
+        $authuser = Auth::user();
+        $role_id = Role::where('id','=',$authuser->role_id)->first();
+        $regclient = explode(',',$authuser->regionalclient_id);
+        $cc = explode(',',$authuser->branch_id);
+        if($authuser->role_id !=1){
+            if($authuser->role_id == $role_id->id){
+                $consignments = DB::table('consignment_notes')->select('consignment_notes.*', 'consigners.nick_name as consigner_nickname', 'consignees.nick_name as consignee_nickname', 'consignees.city as city', 'consignees.postal_code as pincode', 'consignees.district as district', 'states.name as state', 'vehicles.regn_no as vechile_number', 'consigners.city as consigners_city')
+                    ->join('consigners', 'consigners.id', '=', 'consignment_notes.consigner_id')
+                    ->join('consignees', 'consignees.id', '=', 'consignment_notes.consignee_id')
+                    ->leftjoin('vehicles', 'vehicles.id', '=', 'consignment_notes.vehicle_id')
+                    ->join('states', 'states.id', '=', 'consignees.state_id')
+                    ->whereIn('consignment_notes.branch_id', $cc)
+                    ->whereBetween('consignment_notes.consignment_date', [$_POST['first_date'], $_POST['last_date']])
+                    ->get(['consignees.city']);
+            }} else {
+                $consignments = DB::table('consignment_notes')->select('consignment_notes.*', 'consigners.nick_name as consigner_nickname', 'consignees.nick_name as consignee_nickname', 'consignees.city as city', 'consignees.postal_code as pincode', 'consignees.district as district', 'states.name as state', 'vehicles.regn_no as vechile_number', 'consigners.city as consigners_city')
+                    ->join('consigners', 'consigners.id', '=', 'consignment_notes.consigner_id')
+                    ->join('consignees', 'consignees.id', '=', 'consignment_notes.consignee_id')
+                    ->leftjoin('vehicles', 'vehicles.id', '=', 'consignment_notes.vehicle_id')
+                    ->join('states', 'states.id', '=', 'consignees.state_id')
+                    ->whereBetween('consignment_notes.consignment_date', [$_POST['first_date'], $_POST['last_date']])
+                    ->get(['consignees.city']);
+
+            }
+            $response['fetch'] = $consignments;
+            $response['success'] = true;
+            $response['messages'] = 'Succesfully loaded';
+            return Response::json($response);
+      }
+
+
 
     public function updateDeliveryDateOneBy(Request $request)
     {

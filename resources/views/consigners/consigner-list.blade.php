@@ -121,7 +121,7 @@ var table = $('#consignerstable').DataTable({
 
     columns: [
         {data: 'id', name: 'id', defaultContent: '-'},
-        {data: 'regional_client', name: 'regional_client', defaultContent: '-'},
+        {data: 'regional_clientname', name: 'regional_clientname', defaultContent: '-'},
         {data: 'nick_name', name: 'nick_name', defaultContent: '-'},
         {data: 'contact_name', name: 'contact_name', defaultContent: '-'},
         {data: 'phone', name: 'phone', defaultContent: '-'},
