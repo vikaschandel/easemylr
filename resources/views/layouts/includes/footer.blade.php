@@ -265,42 +265,54 @@
 
         } );
 
-        $(document).ready(function() {
-    var jobs_count = 0;
+    $(document).ready(function() {
+        var jobs_count = 0;
+        setInterval(function() {
+            // the actual code:
+            $.get('/get_notifications', checkJobsCounter);
 
-    setInterval(function() {
-        // the actual code:
-        // $.get('notification.php', checkJobsCounter);
-        // notification.php returns a single number, e.g.: 10
+            checkJobsCounter();
 
-        // demo: return the number of minutes in each hour instead the job_id and jobs_count
-        var mock = (new Date()).getMinutes();
-        checkJobsCounter(mock);
-
-    }, 15000);
+        }, 3000);
 
     function checkJobsCounter(data) {
+        console.log(data);
+        if(data == 'undefined' || data == ''){
+            $(".tt").hide();
+        }
+        else{
         if (jobs_count !== data) {
-            if ($(".alert:not(.hidden)").length <= 0) { // don't show new alert if the user haven't dismissed the old one
-
-                // job_id got updated... need to show it
-                var $notification = $("#alert_template")
-                      .clone()
-                      .removeClass("hidden")
-                      .attr("id", "") // removes id of the cloned DOM node
-                      .appendTo("body");
-            }
-            
-            $(".alert-dismissable span#jobs_count").text(data);
+            $(".tt").show();
+            $(".tt").css("padding", "10px");
+            var fd = "Status updated for LR ID: "+data;
+            $(".alert-dismissable #rs").text(fd);
             jobs_count = data;
         }
 
         if(jobs_count === 0) {
             $(".alert-dismissable:not(.hidden) button").click();
         }
+      }
     }
 
-});
+    $(".tt").click(function(){
+        $.ajax({
+                    url: "/update_notifications",
+                    method: "POST",
+                    data: {type: '0'},
+                    headers   : {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                    dataType  : 'json',
+                    success:function(data) {
+                        if(data.success == true){
+                        location.reload();
+                    }
+                        
+                    }
+                    })
+            });
+    });
 
 ////////////////////////////////////////////////////////
         // $("#select_all").click(function () {
