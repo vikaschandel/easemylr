@@ -1743,7 +1743,7 @@ class ConsignmentController extends Controller
 
          $updatedrs = \DB::table('transaction_sheets') ->where('job_id', $job_id) ->limit(1) ->update( [ 'delivery_status' => $json['job_state'],'delivery_date' => $newformat]); 
 
-         event(new App\Events\RealTimeMessage('Status updated as <strong>'. $json['job_state']. '</strong> for consignment no -'.$consignment_no));
+         //event(new App\Events\RealTimeMessage('Status updated as <strong>'. $json['job_state']. '</strong> for consignment no -'.$consignment_no));
 
     }
 
