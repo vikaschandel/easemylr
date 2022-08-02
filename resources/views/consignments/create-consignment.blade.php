@@ -54,7 +54,6 @@ label.error{
     margin: 0 auto;
 }
 .cusright {
-    min-height: 238px;
     box-shadow: -7px 0px 6px -8px #000;
 }
 .cuss span {
@@ -209,7 +208,7 @@ label.error{
                         <div class="panel info-box panel-white">
                             <div class="panel-body">
 
-                                <div class="row con1 form-group" style="background: white; height: 188px; ">
+                                <div class="row con1 form-group" style="background: white; ">
                                     <div class=" col-sm-12" style="margin-top: 7px;">
                                         
                                         <div class="row">
@@ -242,21 +241,6 @@ label.error{
                                                 <input type="text" class="form-seteing" id="dispatch" name="dispatch_form" value="" placeholder="" readonly
                                                     style="border:none;">
                                             </div>
-                                            <div class=" col-sm-4" style="margin-top:10px;">
-                                                <label for="exampleFormControlInput2">Order ID<span class="text-danger">*</span></label>
-                                            </div>
-                                            <div class=" col-sm-8" style="margin-top:2px;">
-                                                <input type="text" class="form-seteing" id="order_id" name="order_id" value="" placeholder=""
-                                                    style="border:none;" Required>
-                                            </div>
-                                            <div class=" col-sm-4" style="margin-top:10px;">
-                                                <label for="exampleFormControlInput2">EDD</label>
-                                            </div>
-                                            <div class=" col-sm-8" style="margin-top:2px;">
-                                                <input type="date" class="form-seteing" id="edd" name="edd" value="" placeholder=""
-                                                    style="border:none;" >
-                                                    <p class="edd_error text-danger" style="display: none; color: #ff0000; font-weight: 500;">Please enter edd </p>
-                                            </div>
                                         </div>
 
                                     </div>
@@ -271,42 +255,9 @@ label.error{
                         <div class="panel info-box panel-white">
                             <div class="panel-body">
 
-                                <div class="row con1 form-group" style="background: white; height: 188px;">
-                                    <div class=" col-sm-12" style="margin-top:2px;">
-                                        <div class="row">
-                                            <div class=" col-sm-4" style="margin-top:15px;">
-                                                <label for="exampleFormControlInput2">Consignor's Invoice
-                                                    No.<span class="text-danger">*</span></label>
-                                            </div>
-                                            <div class=" col-sm-8" style="margin-top:2px;">
-
-                                                <input type="text" class="form-seteing" id="consignerinvoice"
-                                                    placeholder="Enter Consignor's Invoice No." value=""
-                                                    name="invoice_no">
-
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class=" col-sm-4" style="margin-top:10px;">
-                                                <label for="exampleFormControlInput2">Invoice Date</label>
-                                            </div>
-                                            <div class=" col-sm-8" style="margin-top:2px;">
-
-                                                <input type="date" class="form-seteing date-picker" id="date" placeholder="" name="invoice_date" value="<?php echo date('d-m-Y'); ?>">
-
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class=" col-sm-4" style="margin-top:10px;">
-                                                <label for="exampleFormControlInput2">Value<span class="text-danger">*</span></label>
-                                            </div>
-                                            <div class=" col-sm-8" style="margin-top:2px;">
-
-                                                <input type="text" class="form-seteing" id="invoice_amount"
-                                                    placeholder="Enter Value in INR" value="" name="invoice_amount">
-
-                                            </div>
-                                        </div>
+                                <div class="row con1 form-group" style="background: white; ">
+                                    <div class=" col-sm-12" style="margin-top:10px;">
+                     
                                         <div class="row">
                                             <div class=" col-sm-4" style="margin-top:10px;">
                                                 <label for="exampleFormControlInput2">Vehicle No.</label>
@@ -333,7 +284,16 @@ label.error{
                                             </div>
                                             <?php } ?>
                                         </div>
-
+                                        <div class="row">
+                                        <div class=" col-sm-4" style="margin-top:10px;">
+                                                <label for="exampleFormControlInput2">EDD</label>
+                                            </div>
+                                            <div class=" col-sm-8" style="margin-top:2px;">
+                                                <input type="date" class="form-seteing" id="edd" name="edd" value="" placeholder=""
+                                                    style="border:none;" >
+                                                    <p class="edd_error text-danger" style="display: none; color: #ff0000; font-weight: 500;">Please enter edd </p>
+                                            </div>
+                                            </div>    
 
                                     </div>
                                 </div>
