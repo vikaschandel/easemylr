@@ -294,7 +294,6 @@ class ConsignmentController extends Controller
                 'consigner_id' => 'required',
                 'consignee_id' => 'required',
                 'ship_to_id' => 'required',
-                'invoice_no' => 'required',
             );
             $validator = Validator::make($request->all(), $rules);
 
@@ -340,9 +339,6 @@ class ConsignmentController extends Controller
             $consignmentsave['consignment_date'] = $request->consignment_date;
             $consignmentsave['consignment_no'] = $consignmentno;
             $consignmentsave['dispatch'] = $request->dispatch;
-            $consignmentsave['invoice_no'] = $request->invoice_no;
-            $consignmentsave['invoice_date'] = $request->invoice_date;
-            $consignmentsave['invoice_amount'] = $request->invoice_amount;
             $consignmentsave['total_quantity'] = $request->total_quantity;
             $consignmentsave['total_weight'] = $request->total_weight;
             $consignmentsave['total_gross_weight'] = $request->total_gross_weight;
@@ -354,10 +350,7 @@ class ConsignmentController extends Controller
             $consignmentsave['vehicle_id']        = $request->vehicle_id;
             $consignmentsave['driver_id'] = $request->driver_id;
             $consignmentsave['branch_id'] = $authuser->branch_id;
-            $consignmentsave['order_id'] = $request->order_id;
             $consignmentsave['edd'] = $request->edd;
-            $consignmentsave['e_way_bill'] = $request->e_way_bill;
-            $consignmentsave['e_way_bill_date'] = $request->e_way_bill_date;
             $consignmentsave['status'] = $status;
             if (!empty($request->vehicle_id)) {    
                 $consignmentsave['delivery_status'] = "Assigned";

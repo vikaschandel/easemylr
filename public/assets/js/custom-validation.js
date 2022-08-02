@@ -624,7 +624,15 @@ jQuery(document).ready(function(){
             tds += '<td> <input type="number" class="seteing net" name="data['+item_no+'][weight]"></td>';
             tds += '<td> <input type="number" class="seteing gross" name="data['+item_no+'][gross_weight]"></td>';
             tds += '<td> <input type="text" class="seteing frei" name="data['+item_no+'][freight]"></td>';
-            tds += '<td><select class="seteing term" name="data['+item_no+'][payment_type]"><option value=""></option><option value="To be Billed">To be Billed</option><option value="To Pay">To Pay</option><option value="Paid">Paid</option></select></td>'
+            tds += '<td><select class="seteing term" name="data['+item_no+'][payment_type]"><option value=""></option><option value="To be Billed">To be Billed</option><option value="To Pay">To Pay</option><option value="Paid">Paid</option></select></td>';
+
+            tds += '<td> <input type="text" class="seteing orderid" name="data['+item_no+'][order_id]"></td>';
+            tds += '<td> <input type="text" class="seteing invc_no" name="data['+item_no+'][invoice_no]"></td>';
+            tds += '<td> <input type="date" class="seteing invc_date" name="data['+item_no+'][invoice_date]"></td>';
+            tds += '<td> <input type="number" class="seteing invc_amt" name="data['+item_no+'][invoice_amount]"></td>';
+            tds += '<td> <input type="number" class="seteing ew_bill" name="data['+item_no+'][e_way_bill]"></td>';
+            tds += '<td> <input type="date" class="seteing ewb_date" name="data['+item_no+'][e_way_bill_date]"></td>';
+
             tds += '<td><button type="button" class="btn btn-default btn-rounded insert-more"> + </button><button type="button" class="btn btn-default btn-rounded remove-row"> - </button></td>';
             tds += '</tr>';
             if ($('tbody', this).length > 0) {
@@ -661,6 +669,14 @@ jQuery(document).ready(function(){
                 $(t.rows[i]).closest('tr').find('.gross').attr('name', 'data['+i+'][gross_weight]');
                 $(t.rows[i]).closest('tr').find('.frei').attr('name', 'data['+i+'][freight]');
                 $(t.rows[i]).closest('tr').find('.term').attr('name', 'data['+i+'][payment_type]');
+
+                $(t.rows[i]).closest('tr').find('.orderid').attr('name', 'data['+i+'][order_id]');
+                $(t.rows[i]).closest('tr').find('.invc_no').attr('name', 'data['+i+'][invoice_no]');
+                $(t.rows[i]).closest('tr').find('.invc_date').attr('name', 'data['+i+'][invoice_date]');
+                $(t.rows[i]).closest('tr').find('.invc_amt').attr('name', 'data['+i+'][invoice_amount]');
+                $(t.rows[i]).closest('tr').find('.ew_bill').attr('name', 'data['+i+'][e_way_bill]');
+                $(t.rows[i]).closest('tr').find('.ewb_date').attr('name', 'data['+i+'][e_way_bill_date]');
+
                 i++;
             }
         });
