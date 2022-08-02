@@ -73,7 +73,8 @@ div.relat {
                         </div>
                         <thead>
                             <tr>
-                                <th>Id</th>
+                                <th>Cnr ID</th>
+                                <!-- <th>Client Name</th> -->
                                 <th>Consigner Nick Name</th>
                                 <th>Contact Person Name</th>
                                 <th>Mobile No.</th>
@@ -120,6 +121,7 @@ var table = $('#consignerstable').DataTable({
 
     columns: [
         {data: 'id', name: 'id', defaultContent: '-'},
+        // {data: 'regionalclient_id', name: 'regionalclient_id', defaultContent: '-'},
         {data: 'nick_name', name: 'nick_name', defaultContent: '-'},
         {data: 'contact_name', name: 'contact_name', defaultContent: '-'},
         {data: 'phone', name: 'phone', defaultContent: '-'},

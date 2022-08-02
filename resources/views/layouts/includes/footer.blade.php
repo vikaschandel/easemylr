@@ -338,7 +338,7 @@
                 $(':checkbox[name="checked_consign[]"]:checked').each (function () {
                     consignmentID.push(this.value);
                 });
-                //alert(consignmentID);
+                // alert(consignmentID); return false;
 
                 $.ajax({
                     url: "create-drs",

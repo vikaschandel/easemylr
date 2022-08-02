@@ -109,10 +109,8 @@ label.error{
                 style="margin: auto; ">
                 <div class="row cuss">
                     <div class="col-sm-4">
-
                         <div class="panel info-box panel-white">
                             <div class="panel-body" style="padding: 10px;">
-
                                 <div class="row con1" style="background: white; padding: 0px;">
                                     <div class=" col-sm-3" style="margin-top:3px;" >
                                         <label class=" control-label" style="font-weight: bold;">Select
@@ -127,8 +125,6 @@ label.error{
                                             </option>
                                             @endforeach
                                         </select>
-                                        
-
                                     </div>
                                     <div class="container" style="padding-top:10px"> 
                                         <div id="consigner_address">
@@ -154,15 +150,11 @@ label.error{
                                             <option value="">Select Consignee</option>
                                             
                                         </select>
-
                                     </div>
-                                    <!-- <input type="hidden" name="consignee_id" id="consignee_id" /> -->
                                     <div class="container" style="padding-top:10px">
                                         <div id="consignee_address">
 
                                         </div>
-
-
                                     </div>
                                 </div>
                             </div>
@@ -180,20 +172,13 @@ label.error{
                                         <select class="my-select2 form-seteing" type="text" name="ship_to_id"
                                             id="select_ship_to">
                                             <option value="">Select Ship To</option>
-                                            <!-- @foreach($consignees as $consignee)
-                                            <option value="{{$consignee->id}}">{{$consignee->nick_name}}
-                                            </option>
-                                            @endforeach -->
+                                            
                                         </select>
-
                                     </div>
-                                    <!-- <input type="hidden" name="consignee_id" id="consignee_id" /> -->
                                     <div class="container" style="padding-top:11px">
                                         <div id="ship_to_address">
 
                                         </div>
-
-
                                     </div>
                                 </div>
                             </div>
@@ -204,23 +189,11 @@ label.error{
                 <!-- Row -->
                 <div class="row mb-4 cuss" >
                     <div class=" col-sm-6">
-
                         <div class="panel info-box panel-white">
                             <div class="panel-body">
-
-                                <div class="row con1 form-group" style="background: white; ">
+                                <div class="row con1 form-group" style="background: white; height: 188px; ">
                                     <div class=" col-sm-12" style="margin-top: 7px;">
-                                        
                                         <div class="row">
-                                            <!-- <div class=" col-sm-4" style="margin-top:10px;">
-                                                <label for="exampleFormControlInput2">Consignment No.</label>
-                                            </div>
-                                            <div class=" col-sm-8" style="margin-top:2px;">
-
-                                                <input type="text" class="form-seteing" id="consignment_no"
-                                                    name="consignment_no" value="{{$consignmentno ?? ''}}" placeholder="C-94MHRG" readonly style="border:none;">
-
-                                            </div> -->
                                         </div>
                                         <div class="row">
                                             <div class=" col-sm-4" style="margin-top:10px;">
@@ -229,7 +202,6 @@ label.error{
                                             <div class=" col-sm-8" style="margin-top:2px;">
 
                                                 <input type="date" class="form-seteing date-picker" id="consignDate" name="consignment_date" placeholder="" value="<?php echo date('d-m-Y'); ?>">
-
                                             </div>
                                         </div>
                                         <div class="row">
@@ -242,7 +214,6 @@ label.error{
                                                     style="border:none;">
                                             </div>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
@@ -255,24 +226,40 @@ label.error{
                         <div class="panel info-box panel-white">
                             <div class="panel-body">
 
-                                <div class="row con1 form-group" style="background: white; ">
-                                    <div class=" col-sm-12" style="margin-top:10px;">
-                     
+                                <div class="row con1 form-group" style="background: white; height: 188px;">
+                                    <div class=" col-sm-12" style="margin-top:2px;">
+                                        <div class="row">
+                                            <div class=" col-sm-4" style="margin-top:15px;">
+                                                <label for="exampleFormControlInput2">Consignor's Invoice
+                                                    No.<span class="text-danger">*</span></label>
+                                            </div>
+                                            <div class=" col-sm-8" style="margin-top:2px;">
+                                                <input type="text" class="form-seteing" id="consignerinvoice"
+                                                    placeholder="Enter Consignor's Invoice No." value=""
+                                                    name="invoice_no">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class=" col-sm-4" style="margin-top:10px;">
+                                                <label for="exampleFormControlInput2">Invoice Date</label>
+                                            </div>
+                                            <div class=" col-sm-8" style="margin-top:2px;">
+                                                <input type="date" class="form-seteing date-picker" id="date" placeholder="" name="invoice_date" value="<?php echo date('d-m-Y'); ?>">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class=" col-sm-4" style="margin-top:10px;">
+                                                <label for="exampleFormControlInput2">Value<span class="text-danger">*</span></label>
+                                            </div>
+                                            <div class=" col-sm-8" style="margin-top:2px;">
+                                                <input type="text" class="form-seteing" id="invoice_amount"
+                                                    placeholder="Enter Value in INR" value="" name="invoice_amount">
+                                            </div>
+                                        </div>
                                         <div class="row">
                                             <div class=" col-sm-4" style="margin-top:10px;">
                                                 <label for="exampleFormControlInput2">Vehicle No.</label>
                                             </div>
-                                            <?php if($with_vehicle_no == '1'){ ?>
-                                            <div class=" col-sm-8" style="margin-top:2px;">
-                                                <select class="my-select2 js-states vehicle form-seteing" id="vehicle_no" name="req_vehicle_id" tabindex="-1">
-                                                    <option value="">Select vehicle no</option>
-                                                    @foreach($vehicles as $vehicle)
-                                                    <option value="{{$vehicle->id}}">{{$vehicle->regn_no}}
-                                                    </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                            <?php }else{ ?>
                                             <div class=" col-sm-8" style="margin-top:10px;">
                                                 <select class="my-select2 js-states vehicle form-seteing" id="vehicle_no" name="vehicle_id" tabindex="-1">
                                                     <option value="">Select vehicle no</option>
@@ -282,7 +269,6 @@ label.error{
                                                     @endforeach
                                                 </select>
                                             </div>
-                                            <?php } ?>
                                         </div>
                                         <div class="row">
                                         <div class=" col-sm-4" style="margin-top:10px;">
@@ -294,12 +280,10 @@ label.error{
                                                     <p class="edd_error text-danger" style="display: none; color: #ff0000; font-weight: 500;">Please enter edd </p>
                                             </div>
                                             </div>    
-
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                     </div>
 
                 </div><!-- Row -->
@@ -325,19 +309,10 @@ label.error{
                                         <td>
                                             <div class="srno">1</div>
                                         </td>
-                                        <td>
-                                            
-                                                <input type="text" class="seteing sel1" id="description-1"
-                                                    value="Pesticide" name="data[1][description]" list="json-datalist"
-                                                    onkeyup="showResult(this.value)">
-                                                <datalist id="json-datalist"></datalist>
-                                        
+                                        <td> <input type="text" class="seteing sel1" id="description-1" value="Pesticide" name="data[1][description]" list="json-datalist" onkeyup="showResult(this.value)">
+                                            <datalist id="json-datalist"></datalist>
                                         </td>
-                                        <td>
-                                            
-                                                <input type="text" class="seteing mode" id="mode-1" value="Case/s"
-                                                    name="data[1][packing_type]">
-                                            
+                                        <td> <input type="text" class="seteing mode" id="mode-1" value="Case/s" name="data[1][packing_type]">
                                         </td>
                                         <td> <input type="number" class="seteing qnt" value=""
                                                 name="data[1][quantity]"></td>
@@ -349,7 +324,6 @@ label.error{
                                                 name="data[1][freight]"></td>
                                         <td>
                                             <select class="seteing term" name="data[1][payment_type]">
-                                                <!-- <option value=""></option> -->
                                                 <option value="To be Billed">To be Billed
                                                 </option>
                                                 <option value="To Pay">To Pay</option>
@@ -409,37 +383,12 @@ label.error{
                 </div>
 
                 <div class="row cuss fuss" style="margin-top: 15px;">
-                    <?php if($with_vehicle_no == '1'){ ?>
-                    <div class=" col-sm-1">
-                        <label for="exampleFormControlInput2">Vendor <br>Name</label>
-                    </div>
-                    <div class=" col-sm-2">
-                        <input type="text" class="sete" id="Transporter" name="req_transporter_name" value="">
-                    </div>
-                    <?php }else{ ?>
                     <div class=" col-sm-1">
                         <label for="exampleFormControlInput2">Vendor <br>Name<span class="text-danger">*</span></label>
                     </div>
                     <div class=" col-sm-2">
                         <input type="text" class="sete" id="Transporter" name="transporter_name" value="">
                     </div>
-                    <?php } ?>
-                    <?php if($with_vehicle_no == '1'){ ?>
-                    <div class=" col-sm-1">
-                        <label for="exampleFormControlInput2">Vehicle Type</label>
-                    </div>
-                    <div class=" col-sm-2">
-                        
-                        <select class="my-select2 sete" id="vehicle_type" name="req_vehicle_type"
-                            tabindex="-1">
-                            <option value="">Select vehicle type</option>
-                            @foreach($vehicletypes as $vehicle)
-                            <option value="{{$vehicle->id}}">{{$vehicle->name}}
-                            </option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <?php }else{ ?>
                         <div class=" col-sm-1">
                         <label for="exampleFormControlInput2">Vehicle Type<span class="text-danger">*</span></label>
                     </div>
@@ -453,7 +402,6 @@ label.error{
                             @endforeach
                         </select>
                     </div>
-                    <?php } ?>
                     <div class=" col-sm-1">
                         <label for="exampleFormControlInput2">Driver Name</label>
                     </div>

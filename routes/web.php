@@ -13,6 +13,7 @@ use App\Http\Controllers\DriverController;
 use App\Http\Controllers\BrokerController;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\ConsignmentController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\ImportCsvController;
 use App\Http\Controllers\SettingController;
@@ -137,6 +138,7 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth','PermissionCheck']], func
     Route::any('get-delivery-dateLR', [ConsignmentController::class, 'getDeleveryDateLr']);
     Route::any('update-lrstatus', [ConsignmentController::class, 'updateLrStatus']);
 
+    Route::resource('orders', OrderController::class);
 
     Route::resource('locations', LocationController::class);
     Route::post('/locations/update', [LocationController::class, 'updateLocation']);
@@ -156,7 +158,9 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth','PermissionCheck']], func
     Route::get('/sample-zone',[ImportCsvController::class, 'zoneSampleDownload']);
 
     Route::resource('clients', ClientController::class);
+    Route::post('/clients/update-client', [ClientController::class, 'UpdateClient']);
     Route::get('reginal-clients', [ClientController::class, 'regionalClients']);
+    Route::post('/clients/delete-client', [ClientController::class, 'deleteClient']);
     
 });
 
@@ -206,7 +210,7 @@ Route::group(['prefix'=>'branch-manager', 'middleware'=>['auth','PermissionCheck
     Route::any('view-transactionSheet/{id}', [ConsignmentController::class, 'getTransactionDetails']);
     Route::any('print-transaction/{id}', [ConsignmentController::class, 'printTransactionsheet']);
     Route::any('print-sticker/{id}', [ConsignmentController::class, 'printSticker']);
-    Route::any('update-edd', [ConsignmentController::class, 'updateEDD']);
+    Route::any('update-edd', [ConsignmentController::class, 'updateEDD']); 
     Route::any('create-drs', [ConsignmentController::class, 'CreateEdd']);
     Route::any('update-suffle', [ConsignmentController::class, 'updateSuffle']);
     Route::any('view-draftSheet/{id}', [ConsignmentController::class, 'view_saveDraft']);
@@ -216,9 +220,13 @@ Route::group(['prefix'=>'branch-manager', 'middleware'=>['auth','PermissionCheck
     Route::any('update-delivery-date', [ConsignmentController::class, 'updateDeliveryDateOneBy']);
     Route::any('remove-lr', [ConsignmentController::class, 'removeLR']);
     Route::any('get-delivery-datamodel', [ConsignmentController::class, 'getdeliverydatamodel']);
+    Route::any('bulklr-view', [ConsignmentController::class, 'BulkLrView']);
+    Route::any('download-bulklr', [ConsignmentController::class, 'DownloadBulkLr']);
+
     Route::any('get-delivery-dateLR', [ConsignmentController::class, 'getDeleveryDateLr']);
     Route::any('update-lrstatus', [ConsignmentController::class, 'updateLrStatus']);
 
+    Route::resource('orders', OrderController::class);
 
     Route::resource('locations', LocationController::class);
     Route::post('/locations/update', [LocationController::class, 'updateLocation']);
@@ -293,6 +301,7 @@ Route::group(['prefix'=>'regional-manager', 'middleware'=>['auth','PermissionChe
     Route::any('get-delivery-dateLR', [ConsignmentController::class, 'getDeleveryDateLr']);
     Route::any('update-lrstatus', [ConsignmentController::class, 'updateLrStatus']);
 
+    Route::resource('orders', OrderController::class);
 
     Route::resource('locations', LocationController::class);
     Route::post('/locations/update', [LocationController::class, 'updateLocation']);
@@ -380,6 +389,7 @@ Route::group(['prefix'=>'branch-user', 'middleware'=>['auth','PermissionCheck']]
     Route::any('update-lrstatus', [ConsignmentController::class, 'updateLrStatus']);
 
 
+    Route::resource('orders', OrderController::class);
 
     Route::resource('locations', LocationController::class);
     Route::post('/locations/update', [LocationController::class, 'updateLocation']);

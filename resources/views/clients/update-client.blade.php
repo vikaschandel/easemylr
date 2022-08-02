@@ -14,8 +14,8 @@
             <div class="page-header">
                 <nav class="breadcrumb-one" aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="javascript:void(0);">Clients</a></li>
-                        <li class="breadcrumb-item active" aria-current="page"><a href="javascript:void(0);">Create Client</a></li>
+                        <li class="breadcrumb-item"><a href="{{url($prefix.'/clients')}}">Client</a></li>
+                        <li class="breadcrumb-item active" aria-current="page"><a href="javascript:void(0);">Update Client</a></li>
                     </ol>
                 </nav>
             </div>
@@ -24,11 +24,8 @@
                 </div>
                 <div class="col-lg-12 col-12 layout-spacing">
                     <div class="statbox widget box box-shadow">
-                        <form class="general_form" method="POST" action="{{url($prefix.'/clients')}}" id="createclient">
-                            <!-- <div class="form-group mb-4">
-                                <label for="exampleFormControlInput2">Client Name<span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" name="client_name" id="client_name" placeholder="">
-                            </div> -->
+                        <form class="general_form" method="POST" action="{{url($prefix.'/clients/update-client')}}" id="updateclient">
+                            <input type="hidden" name="baseclient_id" value="{{$getClient->id}}">
                             <div class="form-row mb-0">
                                 <div class="form-group col-md-6">
                                     <label for="exampleFormControlInput2">Client Name<span
@@ -45,9 +42,13 @@
                                         <th><label for="exampleFormControlInput2">Regional Client Name<span class="text-danger">*</span></label></th>
                                         <th><label for="exampleFormControlInput2">Location<span class="text-danger">*</span></label></th>
                                     </tr>
-                                    <?php $i=0;
+                                    
+                                    <?php
+                                    $i=0;
                                     foreach($getClient->RegClients as $key=>$regclientdata){ 
                                         ?>
+                                    <input type="hidden" name="data[{{$i}}][isRegionalClientNull]" value="0">
+                                    <input type="hidden" name="data[{{$i}}][hidden_id]" value="{!! $regclientdata->id !!}">
                                     <tr class="rowcls">
                                         <td>
                                             <input type="text" class="form-control name" name="data[{{$i}}][name]" value="{{old('name',isset($regclientdata->name)?$regclientdata->name:'')}}">
@@ -56,11 +57,10 @@
                                             <select class="form-control location_id" name="data[{{$i}}][location_id]">
                                                 <option value="">Select</option>
                                                 <?php 
-                                                // print_r($locations); die;
                                                 if(count($locations)>0) {
                                                     foreach ($locations as $key => $location) {
                                                 ?>
-                                                    <option value="{{ $key }}" {{$getClient->RegClients->location_id == $key ? 'selected' : ''}}>{{ucwords($location)}}</option>
+                                                    <option value="{{ $key }}" {{$regclientdata->location_id == $key ? 'selected' : ''}}>{{ucwords($location)}}</option>
                                                 <?php
                                                     }
                                                 }
@@ -69,11 +69,14 @@
                                         </td>
                                         <td>
                                             <button type="button" class="btn btn-primary" id="addRow" onclick="addrow()"><i class="fa fa-plus-circle"></i></button>
-                                            <!-- <a onclick="addrow()" class="fa fa-plus-circle" href="#"></a> -->
-                                            
+                                            @if($i>0)
+                                            <!-- <button type="button" class="btn btn-danger removeRow delete_client"><i class="fa fa-minus-circle"></i></button> -->
+
+                                            <button type="button" class="btn btn-danger delete_client" data-id="{{ $regclientdata->id }}" data-action="<?php echo URL::to($prefix.'/clients/delete-client'); ?>"><i class="fa fa-minus-circle"></i></button>
+                                            @endif
                                         </td>
                                     </tr>
-                                    <?php } ?> 
+                                    <?php $i++; } ?> 
                                 </tbody>
                             </table>
                             
@@ -86,7 +89,7 @@
         </div>
     </div>
 </div>
-
+@include('models.delete-client')
 @endsection
 @section('js')
 <script>
@@ -95,15 +98,13 @@
         var i = $('.rowcls').length;
         i  = i + 1;
 
-        $('#myTable tbody').append('<tr class="rowcls"><td><input class="form-control name" type="text" name="data['+i+'][name]"></td><td> <select class="form-control location_id" name="data['+i+'][location_id]"> <option value="">Select</option> @if(count($locations)>0)@foreach ($locations as $key => $location)<option value="{{ $key }}">{{ucwords($location)}}</option> @endforeach @endif</select></td><td><button type="button" class="btn btn-primary removeRow" onclick="removerow()"><i class="fa fa-minus-circle"></i></button></td></tr>');   
+        $('#myTable tbody').append('<tr class="rowcls"><td><input class="form-control name" type="text" name="data['+i+'][name]"></td><td> <select class="form-control location_id" name="data['+i+'][location_id]"> <option value="">Select</option> @if(count($locations)>0)@foreach ($locations as $key => $location)<option value="{{ $key }}">{{ucwords($location)}}</option> @endforeach @endif</select></td><td><button type="button" class="btn btn-primary" id="addRow" onclick="addrow()"><i class="fa fa-plus-circle"></i></button> <button type="button" class="btn btn-danger removeRow" data-id="{{ $regclientdata->id }}" data-action="<?php echo URL::to($prefix.'/clients/delete-client'); ?>"><i class="fa fa-minus-circle"></i></button></td></tr>');   
     }
-    
-    function removerow(){
-        $('#myTable tr:last').remove();
-    }
-    // $('.removeRow').click(function(){
-    //     $(this).parent().parent().remove();
-    // });
+
+    //Remove the current row
+    $(document).on('click', '.removeRow', function(){
+        $(this).closest('tr').remove();
+    });
 
 </script>
 @endsection
