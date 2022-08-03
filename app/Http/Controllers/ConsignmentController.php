@@ -1287,7 +1287,6 @@ class ConsignmentController extends Controller
 
         if ($request->ajax()) {
             if (isset($request->updatestatus)) {
-
                 if($request->drs_status == 'Started'){
                     TransactionSheet::where('drs_no', $request->drs_no)->update(['delivery_status' => $request->drs_status]);
                 }elseif($request->drs_status == 'Successful'){
