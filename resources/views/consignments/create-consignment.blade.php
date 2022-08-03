@@ -201,7 +201,6 @@ label.error{
                                                 <label for="exampleFormControlInput2">Consignment Date</label>
                                             </div>
                                             <div class=" col-sm-8" style="margin-top:2px;">
-
                                                 <input type="date" class="form-seteing date-picker" id="consignDate" name="consignment_date" placeholder="" value="<?php echo date('d-m-Y'); ?>">
                                             </div>
                                         </div>
@@ -210,9 +209,7 @@ label.error{
                                                 <label for="exampleFormControlInput2">Dispatch From</label>
                                             </div>
                                             <div class=" col-sm-8" style="margin-top:2px;">
-
-                                                <input type="text" class="form-seteing" id="dispatch" name="dispatch_form" value="" placeholder="" readonly
-                                                    style="border:none;">
+                                                <input type="text" class="form-seteing" id="dispatch" name="dispatch" value="" placeholder="" readonly style="border:none;">
                                             </div>
                                             <!-- <div class=" col-sm-4" style="margin-top:10px;">
                                                 <label for="exampleFormControlInput2">Order ID</label>
@@ -266,7 +263,7 @@ label.error{
                                             </div>
                                             <div class="col-sm-8" style="margin-top:2px;">
                                                 <input type="date" class="form-seteing" id="edd" name="edd" value="" placeholder="" style="border:none;">
-                                                    <p class="edd_error text-danger" style="display: none; color: #ff0000; font-weight: 500;">Please enter edd </p>
+                                                    <!-- <p class="edd_error text-danger" style="display: none; color: #ff0000; font-weight: 500;">Please enter edd </p> -->
                                             </div>
                                         </div>
                                         <!-- <div class="row">
@@ -297,64 +294,92 @@ label.error{
                     <div class="col-sm-12" >
                         <div style="overflow-x:auto; background-color: white;">
                             <table id="items_table" class="table table-striped primary-items">
-                                <thead>
-                                    <tr>
-                                        <th width="5%">#</th>
-                                        <th width="20%">Description</th>
-                                        <th width="10%">Mode of Packing</th>
-                                        <th width="10%">Quantity</th>
-                                        <th width="10%">Net Weight</th>
-                                        <th width="10%">Gross Weight</th>
-                                        <th width="10%">Freight</th>
-                                        <th width="15%">Payment Terms</th>
-                                        <th width="10%">Order Id</th>
-                                        <th width="10%">Cnr Inv No.</th>
-                                        <th width="10%">Inv Date</th>
-                                        <th width="10%">Inv Value</th>
-                                        <th width="10%">E-way Bill</th>
-                                        <th width="10%">E-way Bill Date</th>
-                                        <th width="10%"></th>
-                                    </tr>
-                                </thead>
+
                                 <tbody>
                                     <tr>
                                         <td>
                                             <div class="srno">1</div>
                                         </td>
-                                        <td> <input type="text" class="seteing sel1" id="description-1" value="Pesticide" name="data[1][description]" list="json-datalist" onkeyup="showResult(this.value)">
-                                            <datalist id="json-datalist"></datalist>
+                                        <td> 
+                                            <div class="form-group">
+                                                <label>Description</label>
+                                                <input type="text" class="form-control seteing sel1" id="description-1" value="Pesticide" name="data[1][description]" list="json-datalist" onkeyup="showResult(this.value)">
+                                                <datalist id="json-datalist"></datalist>
+                                            </div>
+                                            <div class="form-group mt-2">
+                                                <label>Order Id</label>
+                                                <input type="text" class="form-control seteing orderid" value=""
+                                                name="data[1][order_id]">
+                                            </div>    
                                         </td>
-                                        <td> <input type="text" class="seteing mode" id="mode-1" value="Case/s" name="data[1][packing_type]">
+                                        <td> 
+                                            <div class="form-group">  
+                                                <label>Mode of packing</label>  
+                                                <input type="text" class="form-control seteing mode" id="mode-1" value="Case/s" name="data[1][packing_type]">
+                                            </div>
+                                            <div class="form-group mt-2"> 
+                                                <label>Invoice no</label> 
+                                                <input type="text" class="form-control seteing invc_no" value="" name="data[1][invoice_no]">
+                                            </div>
                                         </td>
-                                        <td> <input type="number" class="seteing qnt" value=""
-                                                name="data[1][quantity]"></td>
-                                        <td> <input type="number" class="seteing net" value=""
-                                                name="data[1][weight]"></td>
-                                        <td> <input type="number" class="seteing gross" value=""
-                                                name="data[1][gross_weight]"></td>
-                                        <td> <input type="text" class="seteing frei" value=""
-                                                name="data[1][freight]"></td>
                                         <td>
-                                            <select class="seteing term" name="data[1][payment_type]">
-                                                <option value="To be Billed">To be Billed
-                                                </option>
-                                                <option value="To Pay">To Pay</option>
-                                                <option value="Paid">Paid</option>
-                                            </select>
+                                            <div class="form-group">  
+                                                <label>Quantity</label>
+                                                <input type="number" class="form-control seteing qnt" value=""
+                                                name="data[1][quantity]">
+                                            </div>
+                                            <div class="form-group mt-2">
+                                                <label>Invoice Date</label> 
+                                                <input type="date" class="form-control seteing invc_date" value=""
+                                                name="data[1][invoice_date]">
+                                            </div>
                                         </td>
+
+                                        <td> 
+                                            <div class="form-group">  
+                                                <label>Net Weight</label>
+                                                <input type="number" class="form-control seteing net" value=""
+                                                name="data[1][weight]">
+                                            </div>
+                                            <div class="form-group mt-2">
+                                                <label>Invoice Amount</label>
+                                                <input type="number" class="form-control seteing invc_amt" value="" name="data[1][invoice_amount]">
+                                            </div>
+                                        </td>
+
+                                        <td>
+                                            <div class="form-group">  
+                                                <label>Gross Weight</label>
+                                                <input type="number" class="form-control seteing gross" value=""
+                                                name="data[1][gross_weight]">
+                                            </div>
+                                            <div class="form-group mt-2">
+                                                <label>E Way Bill</label>
+                                                <input type="number" class="form-control seteing ew_bill" value=""
+                                                name="data[1][e_way_bill]">
+                                            </div>
+                                        </td>
+
+                                        <td>
+                                            <div class="form-group">  
+                                                <label>Payment Terms</label>
+                                                <select class="form-control seteing term" name="data[1][payment_type]">
+                                                    <option value="To be Billed">To be Billed</option>
+                                                    <option value="To Pay">To Pay</option>
+                                                    <option value="Paid">Paid</option>
+                                                </select>
+                                                <!-- <label>Freight</label>
+                                                <input type="text" class="form-control seteing frei" value=""
+                                                name="data[1][freight]"> -->
+                                            </div>
+                                            <div class="form-group mt-2">
+                                                <label>E Way Bill Date</label>
+                                                <input type="date" class="form-control seteing ewb_date" value=""
+                                                name="data[1][e_way_bill_date]">    
+                                            </div>
+                                        </td>
+                                        
                                         <!-- /additional fields/ -->
-                                        <td><input type="text" class="seteing orderid" value=""
-                                                name="data[1][order_id]"></td>
-                                        <td><input type="text" class="seteing invc_no" value=""
-                                                name="data[1][invoice_no]"></td>
-                                        <td><input type="date" class="seteing invc_date" value=""
-                                                name="data[1][invoice_date]"></td>
-                                        <td><input type="number" class="seteing invc_amt" value=""
-                                                name="data[1][invoice_amount]"></td>
-                                        <td><input type="number" class="seteing ew_bill" value=""
-                                                name="data[1][e_way_bill]"></td>
-                                        <td><input type="date" class="seteing ewb_date" value=""
-                                                name="data[1][e_way_bill_date]"></td>
                                         <!-- // -->
                                         <td> <button type="button" class="btn btn-default btn-rounded insert-more">
                                                 + </button>
@@ -445,22 +470,7 @@ label.error{
                         <label for="exampleFormControlInput2">Purchase Price</label>
                     </div>
                     <div class=" col-sm-2">
-                        
                         <input type="text" class="sete" id="purchase_price" name="purchase_price" value="" maxlength="9">
-                    </div>
-                    <div class=" col-sm-1">
-                        <label for="exampleFormControlInput2">E way Bill<span class="text-danger">*</span></label>
-                    </div>
-                    <div class=" col-sm-2">
-                        
-                        <input type="text" class="sete" id="e_way_bill" name="e_way_bill" value="">
-                    </div>
-                    <div class=" col-sm-1">
-                        <label for="exampleFormControlInput2">E way Bill Date<span class="text-danger">*</span></label>
-                    </div>
-                    <div class=" col-sm-2">
-                        
-                        <input type="date" class="sete" id="e_way_bill_date" name="e_way_bill_date" value="">
                     </div>
                     <div class=" col-sm-3">
                          <button type="submit" class="mt-2 btn btn-primary disableme">Submit</button>

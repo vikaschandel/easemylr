@@ -618,20 +618,29 @@ jQuery(document).ready(function(){
             var tds = '<tr>';
             var item_no = $('tr', this).length;
             tds += '<td><div class="srno">'+item_no+'</div></td>';
-            tds += '<td><input type="text" class="seteing sel1" id="description'+item_no+'" value="Pesticides" name="data['+item_no+'][description]" list="json-datalist" onkeyup="showResult(this.value)"><datalist id="json-datalist"></datalist></td>';
-            tds += '<td><input type="text" class="seteing mode" id="mode'+item_no+'" value="Case/s" name="data['+item_no+'][packing_type]"></td>'
-            tds += '<td> <input type="number" class="seteing qnt" name="data['+item_no+'][quantity]"></td>';
-            tds += '<td> <input type="number" class="seteing net" name="data['+item_no+'][weight]"></td>';
-            tds += '<td> <input type="number" class="seteing gross" name="data['+item_no+'][gross_weight]"></td>';
-            tds += '<td> <input type="text" class="seteing frei" name="data['+item_no+'][freight]"></td>';
-            tds += '<td><select class="seteing term" name="data['+item_no+'][payment_type]"><option value=""></option><option value="To be Billed">To be Billed</option><option value="To Pay">To Pay</option><option value="Paid">Paid</option></select></td>';
+            tds += '<td><div class="form-group"><label>Description</label><input type="text" class="form-control seteing sel1" id="description'+item_no+'" value="Pesticides" name="data['+item_no+'][description]" list="json-datalist" onkeyup="showResult(this.value)"><datalist id="json-datalist"></datalist></div>';
+            tds += '<div class="form-group mt-2"><label>Order Id</label>';
+            tds += '<input type="text" class="form-control seteing orderid" name="data['+item_no+'][order_id]"></div></td>';
 
-            tds += '<td> <input type="text" class="seteing orderid" name="data['+item_no+'][order_id]"></td>';
-            tds += '<td> <input type="text" class="seteing invc_no" name="data['+item_no+'][invoice_no]"></td>';
-            tds += '<td> <input type="date" class="seteing invc_date" name="data['+item_no+'][invoice_date]"></td>';
-            tds += '<td> <input type="number" class="seteing invc_amt" name="data['+item_no+'][invoice_amount]"></td>';
-            tds += '<td> <input type="number" class="seteing ew_bill" name="data['+item_no+'][e_way_bill]"></td>';
-            tds += '<td> <input type="date" class="seteing ewb_date" name="data['+item_no+'][e_way_bill_date]"></td>';
+            tds += '<td><div class="form-group"><label>Mode of packing</label><input type="text" class="form-control seteing mode" id="mode'+item_no+'" value="Case/s" name="data['+item_no+'][packing_type]"></div>';
+            tds += '<div class="form-group mt-2"><label>Invoice no</label>';
+            tds += '<input type="text" class="form-control seteing invc_no" name="data['+item_no+'][invoice_no]"></div></td>';
+
+            tds += '<td><div><label>Quantity</label><input type="number" class="form-control seteing qnt" name="data['+item_no+'][quantity]"></div>';
+            tds += '<div class="form-group mt-2"><label>Invoice Date</label>';
+            tds += '<input type="date" class="form-control seteing invc_date" name="data['+item_no+'][invoice_date]"></div></td>';
+
+            tds += '<td><div><label>Net Weight</label> <input type="number" class="form-control seteing net" name="data['+item_no+'][weight]"></div>';
+            tds += '<div class="form-group mt-2"><label>Invoice Amount</label>';
+            tds += '<input type="number" class="form-control seteing invc_amt" name="data['+item_no+'][invoice_amount]"></div></td>';
+
+            tds += '<td><div><label>Gross Weight</label> <input type="number" class="form-control seteing gross" name="data['+item_no+'][gross_weight]"></div>';
+            tds += '<div class="form-group mt-2"><label>E Way Bill</label>';
+            tds += '<input type="number" class="form-control seteing ew_bill" name="data['+item_no+'][e_way_bill]"></div></td>';
+
+            tds += '<td><div><label>Payment Terms</label> <select class="form-control seteing term" name="data['+item_no+'][payment_type]"><option value="To be Billed">To be Billed</option><option value="To Pay">To Pay</option><option value="Paid">Paid</option></select></div>';
+            tds += '<div class="form-group mt-2"><label>E Way Bill Date</label>';
+            tds += ' <input type="date" class="form-control seteing ewb_date" name="data['+item_no+'][e_way_bill_date]"></div></td>';
 
             tds += '<td><button type="button" class="btn btn-default btn-rounded insert-more"> + </button><button type="button" class="btn btn-default btn-rounded remove-row"> - </button></td>';
             tds += '</tr>';

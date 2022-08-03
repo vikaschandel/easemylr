@@ -1456,7 +1456,7 @@ function formSubmitRedirect(form)
             }
             if($('.edd_error').css('display') == 'block'){
                 //alert('Please select a valid alert message');
-                return false;
+                // return false;
            }
            $('.disableme').prop('disabled', true);
             // if ($('#vehicle_no').val() != '' && $("#edd").val() == null) {
